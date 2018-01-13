@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import renderansweroptions from './renderansweroptions';
+import rendersearchresult from './rendersearchresult';
 
-const AnswerOptionsInput = (props) => {
-  const {source,label,record} = props;
+const SearchResult = ({source,label,record}) => {
   return(
       <span>
       <Field
           name={source}
-          component={renderansweroptions}
+          component={rendersearchresult}
           label={label}
           record={record}
       />
@@ -17,8 +16,8 @@ const AnswerOptionsInput = (props) => {
   )
 }
 
-AnswerOptionsInput.defaultProps = {
+SearchResult.defaultProps = {
     addLabel: true,
 };
 
-export {AnswerOptionsInput};
+export {SearchResult};

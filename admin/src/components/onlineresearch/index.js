@@ -6,7 +6,7 @@ import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import { required,NumberInput,NumberField,Create, Edit, SimpleForm, DisabledInput, TextInput,  Show,SimpleShowLayout,ShowButton,
    DateInput, LongTextInput, ReferenceManyField, Datagrid, TextField, DateField, EditButton,BooleanInput,ReferenceField,
  Filter,Filters,TabbedForm,FormTab } from 'admin-on-rest/lib/mui';
-
+import {SearchResult} from './searchresult';
 
 import { Field,FieldArray } from 'redux-form';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
@@ -35,7 +35,7 @@ const OnlineResearchEdit = (props) => {
         <AnswerOptionsInput label="调查选项" source="answeroptions" validate={required} />
       </FormTab>
       <FormTab label="调查结果">
-
+        <SearchResult label="调查结果图表" source="researchresult" />
       </FormTab>
       <FormTab label="投票记录">
       </FormTab>
