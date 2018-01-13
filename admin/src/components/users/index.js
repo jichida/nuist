@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import { required,NumberInput,Create, Edit, SimpleForm, DisabledInput, TextInput,  Show,SimpleShowLayout,ShowButton,
    DateInput, LongTextInput, ReferenceManyField, Datagrid, TextField, DateField, EditButton,BooleanInput,ReferenceField,
- Filter,Filters, ReferenceInput,SelectInput } from 'admin-on-rest/lib/mui';
+ Filter,Filters, ReferenceInput,SelectInput,ReferenceArrayField,SingleFieldList,ChipField} from 'admin-on-rest/lib/mui';
 
 
 import { Field,FieldArray } from 'redux-form';
@@ -78,12 +78,16 @@ const UserList = (props) => (
   <List title="用户管理" filters={<UserFilter />} {...props} sort={{ field: 'created_at', order: 'DESC'}} >
     <Datagrid  bodyOptions={{ showRowHover: true }} rowStyle={rowStyle}>
         <TextField label="用户名" source="username" />
-        <TextField label="真实姓名" source="truename" />
         <DateField label="注册时间" source="created_at" showTime />
         <DateField label="上次登录时间" source="updated_at" showTime />
         <ReferenceField label="用户角色" source="roleid" reference="role" allowEmpty>
           <TextField source="name" />
         </ReferenceField>
+        <ReferenceArrayField label="节点组" reference="devicegroup" source="devicegroups" >
+                <SingleFieldList>
+                    <ChipField source="name" />
+                </SingleFieldList>
+        </ReferenceArrayField>
         <ResestPassword />
         <EditButtonWrap />
     </Datagrid>

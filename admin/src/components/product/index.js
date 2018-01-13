@@ -94,8 +94,8 @@ const ProductlistList = (props) => (//
         <ImageField source="picurl" label="封面图片"/>
         <TextField label="名字" source="name" />
         <TextField label="摘要" source="brief" />
-        <BooleanField label="是否启用" source="isenabled" />
         <TextField label="数据更新时间" source="lastupdatetime"  />
+        <BooleanField label="是否启用" source="isenabled" />
         <EditButton />
         </Datagrid>
     </List>
