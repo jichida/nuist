@@ -18,27 +18,27 @@ import {CfSelectArrayInput} from '../controls/selectarrayinput.js';
 
 
 const DeviceGroupTitle = ({record}) => {
-  return <span>设备分组管理</span>
+  return <span>节点分组管理</span>
 };
 
 const DeviceGroupCreate = (props) => (
-  <Create title="创建设备组" {...props}  actions={<CreateActions />} >
+  <Create title="创建节点组" {...props}  actions={<CreateActions />} >
     <SimpleForm>
       <TextInput label="分组名称" source="name" validate={required} />
       <TextInput label="备注" source="memo" />
       <TextInput label="联系人" source="contact" />
-      <CfSelectArrayInput label="选择设备列表" source="deviceids" loadOptions={getOptions('device','DeviceId','_id')}/>
+      <CfSelectArrayInput label="选择节点列表" source="deviceids" loadOptions={getOptions('device','DeviceId','_id')}/>
     </SimpleForm>
   </Create>
 );
 
 const DeviceGroupEdit = (props) => {
-  return (<Edit title="编辑设备组" actions={<EditActions />} {...props}>
+  return (<Edit title="编辑节点组" actions={<EditActions />} {...props}>
     <SimpleForm>
       <TextInput label="分组名称" source="name" validate={required} />
       <TextInput label="备注" source="memo" />
       <TextInput label="联系人" source="contact" />
-      <CfSelectArrayInput label="选择设备列表" source="deviceids" loadOptions={getOptions('device','DeviceId','_id')}/>
+      <CfSelectArrayInput label="选择节点列表" source="deviceids" loadOptions={getOptions('device','DeviceId','_id')}/>
     </SimpleForm>
   </Edit>
   );

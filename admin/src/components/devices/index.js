@@ -40,9 +40,9 @@ import {CreateActions,EditActions} from '../controls/createeditactions';
 const deviceDefaultValue = {created_at:new Date(),updated_at:new Date()};
 
 const DeviceCreate = (props) => (
-  <Create title="创建设备"  {...props} actions={<CreateActions />}>
+  <Create title="创建节点"  {...props} actions={<CreateActions />}>
     <SimpleForm defaultValue={deviceDefaultValue}>
-      <TextInput label="设备" source="DeviceId" validate={required} />
+      <TextInput label="节点" source="DeviceId" validate={required} />
     </SimpleForm>
   </Create>
 );
@@ -53,10 +53,10 @@ const choices = [
 ];
 
 const DeviceEdit = (props) => {
-  return (<Edit title="设备信息" {...props}  actions={<EditActions />}>
+  return (<Edit title="节点信息" {...props}  actions={<EditActions />}>
       <TabbedForm>
-        <FormTab label="设备基本信息">
-          <TextField label="设备ID" source="DeviceId"  validate={required} />
+        <FormTab label="节点基本信息">
+          <TextField label="节点ID" source="DeviceId"  validate={required} />
           <DateField label="创建时间" source="created_at" showTime />
           <DateField label="插入数据库时间" source="updated_at" showTime />
         </FormTab>
@@ -71,7 +71,7 @@ const DeviceEdit = (props) => {
           <TextField label="辅助诊断代码" source="LastRealtimeAlarm.Diagnostic_Text" />
           <TextField label="生命信号" source="LastRealtimeAlarm.ALIV_ST_SW_HVS" />
         </FormTab>
-        <FormTab label="最近实时报警-设备信息">
+        <FormTab label="最近实时报警-节点信息">
           <TextField label="KeyOn信号电压" source="LastRealtimeAlarm.KeyOnVoltage" />
           <TextField label="BMU供电电压" source="LastRealtimeAlarm.PowerVoltage" />
           <TextField label="交流充电供电电压" source="LastRealtimeAlarm.ChargeACVoltage" />
@@ -91,7 +91,7 @@ const DeviceEdit = (props) => {
           <TextField label="正极绝缘阻抗" source="LastRealtimeAlarm.BAT_ISO_R_Pos" />
           <TextField label="负极绝缘阻抗" source="LastRealtimeAlarm.BAT_ISO_R_Neg" />
         </FormTab>
-        <FormTab label="最近实时报警-设备状态">
+        <FormTab label="最近实时报警-节点状态">
           <TextField label="箱体测量电压（外侧）（正值为正向电压，负值为反向电压）" source="LastRealtimeAlarm.BAT_U_Out_HVS" />
           <TextField label="箱体累计电压" source="LastRealtimeAlarm.BAT_U_TOT_HVS" />
           <TextField label="箱体电流" source="LastRealtimeAlarm.BAT_I_HVS" />
@@ -125,7 +125,7 @@ const DeviceEdit = (props) => {
           <TextField label="集电网充电继电器" source="LastRealtimeAlarm.ST_PowerGridChg_SW" />
         </FormTab>
         <FormTab label="最近历史轨迹">
-          <TextField label="设备状态" source="LastHistoryTrack.DeviceStatus" />
+          <TextField label="节点状态" source="LastHistoryTrack.DeviceStatus" />
           <TextField label="主板温度，单位：摄氏度" source="LastHistoryTrack.ADC1" />
           <DateField label="接受数据时间" source="LastHistoryTrack.MessageTime" showTime />
           <TextField label="Position数据包序号" source="LastHistoryTrack.SN" />
@@ -157,16 +157,16 @@ const DeviceShowActions = ({basePath,data,refresh}) => (
 
 const DeviceFilter = (props) => (
   <Filter {...props}>
-    <TextInput label="搜索设备" source="DeviceId_q" />
+    <TextInput label="搜索节点" source="DeviceId_q" />
   </Filter>
 )
 
 const DeviceList = (props) => (
-  <List title="设备管理" filters={<DeviceFilter />} sort={{field:'LastRealtimeAlarm.DataTime',order:'DESC'}} {...props}>
+  <List title="节点管理" filters={<DeviceFilter />} sort={{field:'LastRealtimeAlarm.DataTime',order:'DESC'}} {...props}>
   {permissions =>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
-      <TextField label="设备ID" source="DeviceId" />
-      <TextField label="设备类型" source="DeviceType"/>
+      <TextField label="节点ID" source="DeviceId" />
+      <TextField label="节点类型" source="DeviceType"/>
       <TextField label="SN64" source="SN64"/>
 
       <DateField label="更新时间" source="LastRealtimeAlarm.DataTime" showTime />

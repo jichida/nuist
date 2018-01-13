@@ -33,7 +33,7 @@ const UserCreate = (props) => (
       <ReferenceInput label="用户角色" source="roleid" reference="role" allowEmpty>
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <CfSelectArrayInput label="设备组" source="devicegroups" loadOptions={getOptions('devicegroup','name','_id')}/>
+      <CfSelectArrayInput label="节点组" source="devicegroups" loadOptions={getOptions('devicegroup','name','_id')}/>
     </SimpleForm>
   </Create>
 );
@@ -50,7 +50,7 @@ const UserEdit = (props) => {
         <ReferenceInput label="用户角色" source="roleid" reference="role" allowEmpty>
           <SelectInput optionText="name" />
         </ReferenceInput>
-        <CfSelectArrayInput label="设备组" source="devicegroups" loadOptions={getOptions('devicegroup','name','_id')}/>
+        <CfSelectArrayInput label="节点组" source="devicegroups" loadOptions={getOptions('devicegroup','name','_id')}/>
       </SimpleForm>
     </Edit>
   );

@@ -36,7 +36,7 @@ import {ShowActions} from '../controls/createeditactions';
 import ShowButton from '../controls/ShowButton';
 
 const RealtimeAlamTitle = ({record}) => {
-   return <span>实时报警明细</span>
+   return <span>报警管理</span>
 };
 
 
@@ -94,7 +94,7 @@ const AlarmField = ({ record = {} }) => {
 const RealtimeAlarmRawShow = (props) => {
   return (<Show title={<RealtimeAlamTitle />} {...props} actions={<ShowActions />}>
     <SimpleShowLayout>
-     <TextField label="设备ID" source="DeviceId" />
+     <TextField label="节点ID" source="DeviceId" />
      <TextField label="报警等级" source="warninglevel" />
      <DateField label="报警时间" source="DataTime" showTime />
      <AlarmField label="报警信息" addLabel={true}/>
@@ -105,7 +105,7 @@ const RealtimeAlarmRawShow = (props) => {
 
 const DeviceFilter = (props) => (
   <Filter {...props}>
-    <TextInput label="搜索设备" source="DeviceId_q" />
+    <TextInput label="搜索节点" source="DeviceId_q" />
     <SelectInput  label="报警等级"  source="warninglevel" choices={[
         { id: '高', name: '高' },
         { id: '中', name: '中' },
@@ -117,7 +117,7 @@ const DeviceFilter = (props) => (
 const RealtimeAlarmRawList = (props) => (
   <List title={<RealtimeAlamTitle />} filters={<DeviceFilter />} {...props} sort={{field:'MessageTime',order:'DESC'}}>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
-      <TextField label="设备" source="DeviceId" />
+      <TextField label="节点" source="DeviceId" />
       <TextField label="报警等级" source="warninglevel" />
       <DateField label="报警时间" source="DataTime" showTime />
       <AlarmField label="报警信息" />

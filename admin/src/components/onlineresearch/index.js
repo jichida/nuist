@@ -35,7 +35,7 @@ const OnlineResearchEdit = (props) => {
 };
 
 const OnlineResearchList = (props) => (
-  <List title="调查管理" {...props} >
+  <List title="在线调查管理" {...props} >
     <Datagrid  bodyOptions={{ showRowHover: true }}>
       <TextField label="调查名称" source="name" />
       <EditButton />

@@ -23,12 +23,12 @@ export default {
       name: '在线调查管理 |||| 在线调查管理',
     },
     device:{
-      name: '设备管理 |||| 设备管理',
+      name: '节点管理 |||| 节点管理',
     },
     devicegroup:{
-      name: '设备分组管理 |||| 设备分组管理',
+      name: '节点分组管理 |||| 节点分组管理',
       fields:{
-        deviceids:'设备列表',
+        deviceids:'节点列表',
       }
     },
     user:{
@@ -52,7 +52,7 @@ export default {
       name:'报警管理 |||| 报警管理',
     },
     historydevice:{
-      name: '设备历史数据管理 |||| 设备历史数据管理',
+      name: '节点历史数据管理 |||| 节点历史数据管理',
     },
   }
 };
