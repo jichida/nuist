@@ -42,7 +42,7 @@ import moment from 'moment';
 import {ImageInputUpload} from '../controls/imageupload.js';
 import {ImageInputUploadArray} from '../controls/imageuploadarray.js';
 import RichTextInput from '../controls/richtoolbar.js';
-import EnableButton from './setenablebtn';
+
 
 export const ProductFilter = props => (
     <Filter {...props}>
@@ -94,7 +94,6 @@ const ProductlistList = (props) => (//
         <Datagrid>
         <ImageField source="picurl" label="封面图片"/>
         <TextField label="名字" source="name" />
-        <EnableButton />
         <EditButton />
         </Datagrid>
     </List>
