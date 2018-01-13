@@ -42,105 +42,42 @@ const deviceDefaultValue = {created_at:new Date(),updated_at:new Date()};
 const DeviceCreate = (props) => (
   <Create title="创建节点"  {...props} actions={<CreateActions />}>
     <SimpleForm defaultValue={deviceDefaultValue}>
-      <TextInput label="节点" source="DeviceId" validate={required} />
+      <TextInput label="节点ID" source="DeviceId" validate={required} />
+      <TextInput label="节点名字" source="name" validate={required} />
     </SimpleForm>
   </Create>
 );
 
-const choices = [
-  {_id:'A',status:'定位'},
-  {_id:'V',status:'不定位'},
-];
 
 const DeviceEdit = (props) => {
   return (<Edit title="节点信息" {...props}  actions={<EditActions />}>
       <TabbedForm>
         <FormTab label="节点基本信息">
-          <TextField label="节点ID" source="DeviceId"  validate={required} />
-          <DateField label="创建时间" source="created_at" showTime />
-          <DateField label="插入数据库时间" source="updated_at" showTime />
+          <TextField label="节点ID" source="DeviceId"  />
+          <TextInput label="节点名字" source="name"  validate={required} />
+          <TextField label="地理位置" source="locationname"  />
+          <TextField label="详细地址" source="addressname"  />
+          <TextField label="创建时间" source="created_at"  />
+          <TextField label="更新时间" source="updated_at"  />
         </FormTab>
-        <FormTab label="最近实时报警-基本信息">
-          <TextField label="数据包序号" source="LastRealtimeAlarm.SN" />
-          <DateField label="采集时间" source="LastRealtimeAlarm.DataTime" />
-          <DateField label="Gateway接受到数据时间" source="LastRealtimeAlarm.MessageTime" />
-          <TextField label="ALARM" source="LastRealtimeAlarm.ALARM" />
-          <TextField label="ALARM_H" source="LastRealtimeAlarm.ALARM_H" />
-          <TextField label="ALARM_L" source="LastRealtimeAlarm.ALARM_L" />
-          <TextField label="报警信息" source="LastRealtimeAlarm.ALARM_Text" />
-          <TextField label="辅助诊断代码" source="LastRealtimeAlarm.Diagnostic_Text" />
-          <TextField label="生命信号" source="LastRealtimeAlarm.ALIV_ST_SW_HVS" />
+        <FormTab label="实时数据">
+          <TextField label="温度" source="realtimedata.temperature"  />
+          <TextField label="降雨量" source="realtimedata.rainfall"  />
+          <TextField label="湿度" source="realtimedata.humidity" />
+          <TextField label="风力" source="realtimedata.windspeed" />
+          <TextField label="风向" source="realtimedata.winddirection" />
+          <TextField label="大气压" source="realtimedata.pressure" />
+          <TextField label="最后更新时间" source="realtimedata.updatetime" />
         </FormTab>
-        <FormTab label="最近实时报警-节点信息">
-          <TextField label="KeyOn信号电压" source="LastRealtimeAlarm.KeyOnVoltage" />
-          <TextField label="BMU供电电压" source="LastRealtimeAlarm.PowerVoltage" />
-          <TextField label="交流充电供电电压" source="LastRealtimeAlarm.ChargeACVoltage" />
-          <TextField label="直流充电供电电压" source="LastRealtimeAlarm.ChargeDCVoltage" />
-          <TextField label="CC2检测电压" source="LastRealtimeAlarm.CC2Voltage" />
-          <TextField label="本次充电容量" source="LastRealtimeAlarm.ChargedCapacity" />
-          <TextField label="总充放电循环次数" source="LastRealtimeAlarm.TotalWorkCycle" />
-          <TextField label="BMU采的CSC功耗电流" source="LastRealtimeAlarm.CSC_Power_Current" />
-          <TextField label="单体最大SOC" source="LastRealtimeAlarm.BAT_MAX_SOC_HVS" />
-          <TextField label="单体最小SOC" source="LastRealtimeAlarm.BAT_MIN_SOC_HVS" />
-          <TextField label="系统权重SOC" source="LastRealtimeAlarm.BAT_WEI_SOC_HVS" />
-          <TextField label="充电需求电流" source="LastRealtimeAlarm.BAT_Chg_AmperReq" />
-          <TextField label="BPM24V,Uout电压采样" source="LastRealtimeAlarm.BPM_24V_Uout" />
-          <TextField label="CC2检测电压2" source="LastRealtimeAlarm.CC2Voltage_2" />
-          <TextField label="允许放电电流" source="LastRealtimeAlarm.BAT_Allow_Discharge_I" />
-          <TextField label="允许充电电流" source="LastRealtimeAlarm.BAT_Allow_charge_I" />
-          <TextField label="正极绝缘阻抗" source="LastRealtimeAlarm.BAT_ISO_R_Pos" />
-          <TextField label="负极绝缘阻抗" source="LastRealtimeAlarm.BAT_ISO_R_Neg" />
+        <FormTab label="实时数据">
+          <TextField label="这里显示图表" />
         </FormTab>
-        <FormTab label="最近实时报警-节点状态">
-          <TextField label="箱体测量电压（外侧）（正值为正向电压，负值为反向电压）" source="LastRealtimeAlarm.BAT_U_Out_HVS" />
-          <TextField label="箱体累计电压" source="LastRealtimeAlarm.BAT_U_TOT_HVS" />
-          <TextField label="箱体电流" source="LastRealtimeAlarm.BAT_I_HVS" />
-          <TextField label="真实SOC" source="LastRealtimeAlarm.BAT_SOC_HVS" />
-          <TextField label="SOH" source="LastRealtimeAlarm.BAT_SOH_HVS" />
-          <TextField label="最高单体电压" source="LastRealtimeAlarm.BAT_Ucell_Max" />
-          <TextField label="最低单体电压" source="LastRealtimeAlarm.BAT_Ucell_Min" />
-          <TextField label="平均单体电压" source="LastRealtimeAlarm.BAT_Ucell_Avg" />
-          <TextField label="最高单体电压所在CSC号" source="LastRealtimeAlarm.BAT_Ucell_Max_CSC" />
-          <TextField label="最高单体电压所在电芯位置" source="LastRealtimeAlarm.BAT_Ucell_Max_CELL" />
-          <TextField label="最低单体电压所在CSC号" source="LastRealtimeAlarm.BAT_Ucell_Min_CSC" />
-          <TextField label="最低单体电压所在电芯位置" source="LastRealtimeAlarm.BAT_Ucell_Min_CELL" />
-          <TextField label="最高单体温度" source="LastRealtimeAlarm.BAT_T_Max" />
-          <TextField label="最低单体温度" source="LastRealtimeAlarm.BAT_T_Min" />
-          <TextField label="平均单体温度" source="LastRealtimeAlarm.BAT_T_Avg" />
-          <TextField label="最高单体温度所在CSC号" source="LastRealtimeAlarm.BAT_T_Max_CSC" />
-          <TextField label="最低单体温度所在CSC号" source="LastRealtimeAlarm.BAT_T_Min_CSC" />
-          <TextField label="显示用SOC" source="LastRealtimeAlarm.BAT_User_SOC_HVS" />
-          <TextField label="继电器内侧电压（正值为正向电压，负值为反向电压）" source="LastRealtimeAlarm.BAT_U_HVS" />
-          <SelectField label="空调继电器状态" source="LastRealtimeAlarm.ST_AC_SW_HVS" choices={choices} optionText="status" optionValue="_id" />
-          <SelectField label="附件继电器状态" source="LastRealtimeAlarm.ST_Aux_SW_HVS" choices={choices} optionText="status" optionValue="_id" />
-          <SelectField label="主负继电器状态" source="LastRealtimeAlarm.ST_Main_Neg_SW_HVS" choices={choices} optionText="status" optionValue="_id" />
-          <SelectField label="预充电继电器状态" source="LastRealtimeAlarm.ST_Pre_SW_HVS" choices={choices} optionText="status" optionValue="_id" />
-          <SelectField label="主正继电器状态" source="LastRealtimeAlarm.ST_Main_Pos_SW_HVS" choices={choices} optionText="status" optionValue="_id" />
-          <SelectField label="充电继电器状态" source="LastRealtimeAlarm.ST_Chg_SW_HVS" choices={choices} optionText="status" optionValue="_id" />
-          <SelectField label="风扇继电器状态" source="LastRealtimeAlarm.ST_Fan_SW_HVS" choices={choices} optionText="status" optionValue="_id" />
-          <SelectField label="加热继电器状态" source="LastRealtimeAlarm.ST_Heater_SW_HVS" choices={choices} optionText="status" optionValue="_id" />
-          <TextField label="加热2继电器状态" source="LastRealtimeAlarm.ST_NegHeater_SW_HVS" />
-          <TextField label="无线充电继电器状态" source="LastRealtimeAlarm.ST_WirelessChg_SW" />
-          <TextField label="双枪充电继电器2" source="LastRealtimeAlarm.ST_SpearChg_SW_2" />
-          <TextField label="集电网充电继电器" source="LastRealtimeAlarm.ST_PowerGridChg_SW" />
-        </FormTab>
-        <FormTab label="最近历史轨迹">
-          <TextField label="节点状态" source="LastHistoryTrack.DeviceStatus" />
-          <TextField label="主板温度，单位：摄氏度" source="LastHistoryTrack.ADC1" />
-          <DateField label="接受数据时间" source="LastHistoryTrack.MessageTime" showTime />
-          <TextField label="Position数据包序号" source="LastHistoryTrack.SN" />
-          <SelectField label="GPS定位" source="LastHistoryTrack.GPSStatus" choices={choices} optionValue="_id" optionText="status" />
-          <DateField label="定位的UTC时间" source="LastHistoryTrack.GPSTime" showTime />
-          <TextField label="经度" source="LastHistoryTrack.Longitude" />
-          <TextField label="纬度" source="LastHistoryTrack.Latitude" />
-          <TextField label="速度" source="LastHistoryTrack.Speed" />
-          <TextField label="航向" source="LastHistoryTrack.Course" />
-          <TextField label="蜂窝Location Area Code" source="LastHistoryTrack.LAC" />
-          <TextField label="蜂窝Cell Id" source="LastHistoryTrack.CellId" />
-          <TextField label="海拔,单位：米" source="LastHistoryTrack.Altitude" />
-          <TextField label="所在省" source="LastHistoryTrack.Province" />
-          <TextField label="所在市" source="LastHistoryTrack.City" />
-          <TextField label="所在区县" source="LastHistoryTrack.County" />
+        <FormTab label="最近报警">
+          <TextField label="报警时间" source="realtimealarm.updatetime" />
+          <TextField label="报警类型" source="realtimealarm.type" />
+          <TextField label="当前值" source="realtimealarm.value" />
+          <TextField label="报警等级" source="realtimealarm.level" />
+          <TextField label="报警内容" source="realtimealarm.content" />
         </FormTab>
       </TabbedForm>
     </Edit>
@@ -166,11 +103,11 @@ const DeviceList = (props) => (
   {permissions =>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
       <TextField label="节点ID" source="DeviceId" />
-      <TextField label="节点类型" source="DeviceType"/>
-      <TextField label="SN64" source="SN64"/>
+      <TextField label="节点名字" source="name"/>
+      <TextField label="所在区域" source="locationname"/>
 
-      <DateField label="更新时间" source="LastRealtimeAlarm.DataTime" showTime />
-      {permissions==='admin'?<EditButton />:null}
+      <TextField label="最后更新时间" source="updated_at"/>
+      <EditButton />
     </Datagrid>
   }
   </List>

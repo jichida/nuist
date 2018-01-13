@@ -40,64 +40,16 @@ const RealtimeAlamTitle = ({record}) => {
 };
 
 
-const bridge_alarmrawinfo = (alarmrawinfo)=>{
-  let mapdict = {};
-  console.log(`alarminfo===>${JSON.stringify(alarmrawinfo)}`);
-  let alarmtxt = '';
-  let alarminfonew = {};
-  // alarminfonew[`key`] = alarmrawinfo._id;
-  // alarminfonew[`车辆ID`] = alarmrawinfo[`DeviceId`];
-  // alarminfonew[`报警时间`] = alarmrawinfo[`DataTime`];
-  // alarminfonew[`报警等级`] = alarmrawinfo[`warninglevel`];
-
-  let alarminforawtmp = _.clone(alarmrawinfo);
-  let rest = _.omit(alarminforawtmp,['_id','CurDay','DeviceId','__v','DataTime','warninglevel','Longitude','Latitude']);
-  // console.log(`rest===>${JSON.stringify(rest)}`);
-  let warninglevelmap = [
-    '无','低','中','高'
-  ];
-  _.map(rest,(v,alarmfield)=>{
-    if(alarmfield === 'AL_Trouble_Code'){
-      alarmtxt += `F[${v}]`;
-    }
-    if(_.startsWith(alarmfield, 'AL_')){
-      if(!!mapdict[alarmfield]){
-         if(v>= 0 && v<= 3){
-           alarmtxt += `${mapdict[alarmfield].showname}[${warninglevelmap[v]}]`;
-         }
-      }
-    }
-  });
-
-  alarminfonew[`报警信息`] = alarmtxt;
-  console.log(`alarminfonew===>${JSON.stringify(alarminfonew)}`);
-  return alarminfonew;
-}
-
-const AlarmField = ({ record = {} }) => {
-  let alarminfonew = bridge_alarmrawinfo(record);
-  let alarmtxt = _.get(alarminfonew,'报警信息','');
-  return (<span>{alarmtxt}</span>);
-}
-
-// const AlarmFieldShow = (props) => {
-//   let {source,label} = props;
-//   return(
-//     <span>
-//       <Field name={source} component={renderDatePicker} label={label}/>
-//     </span>
-//   )
-// }
-
-
 
 const RealtimeAlarmRawShow = (props) => {
   return (<Show title={<RealtimeAlamTitle />} {...props} actions={<ShowActions />}>
     <SimpleShowLayout>
      <TextField label="节点ID" source="DeviceId" />
-     <TextField label="报警等级" source="warninglevel" />
-     <DateField label="报警时间" source="DataTime" showTime />
-     <AlarmField label="报警信息" addLabel={true}/>
+     <TextField label="报警时间" source="updatetime"  />
+     <TextField label="报警类型" source="type"  />
+     <TextField label="报警等级" source="level" />
+     <TextField label="当前值" source="value" />
+     <TextField label="报警信息" source="content" />
     </SimpleShowLayout>
   </Show>
   );
@@ -117,10 +69,12 @@ const DeviceFilter = (props) => (
 const RealtimeAlarmRawList = (props) => (
   <List title={<RealtimeAlamTitle />} filters={<DeviceFilter />} {...props} sort={{field:'MessageTime',order:'DESC'}}>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
-      <TextField label="节点" source="DeviceId" />
-      <TextField label="报警等级" source="warninglevel" />
-      <DateField label="报警时间" source="DataTime" showTime />
-      <AlarmField label="报警信息" />
+      <TextField label="节点ID" source="DeviceId" />
+      <TextField label="报警时间" source="updatetime"  />
+      <TextField label="报警类型" source="type"  />
+      <TextField label="报警等级" source="level" />
+      <TextField label="当前值" source="value" />
+      <TextField label="报警信息" source="content" />
       <ShowButton />
     </Datagrid>
   </List>
