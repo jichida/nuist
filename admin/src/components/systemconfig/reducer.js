@@ -1,9 +1,8 @@
 export default (previousState = {
-  warningrulelevel0:'',
-  warningrulelevel1:'',
-  warningrulelevel2:'',
-  mappopfields:[],
-  mapdetailfields:[]
+  warningrulelevel0:[],
+  warningrulelevel1:[],
+  warningrulelevel2:[],
+  permissiondatasettings:[]
 }, { type, payload }) => {
     if (type === 'SYSTEM_SAVE_SUCCESS') {
         return {...previousState,...payload};

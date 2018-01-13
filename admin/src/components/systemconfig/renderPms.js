@@ -6,8 +6,8 @@ import { Fields } from 'redux-form';
 import Divider from 'material-ui/Divider';
 import _ from 'lodash';
 
-const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...inputProps }, ...props }) =>{
-  console.log(`renderAlaramRuleEdit form ==>inputProps:${JSON.stringify(inputProps)},props:${JSON.stringify(props)}`);
+const renderPms = ({ meta: { touched, error } = {}, input: { ...inputProps }, ...props }) =>{
+  console.log(`renderGroupEdit form ==>inputProps:${JSON.stringify(inputProps)},props:${JSON.stringify(props)}`);
   let vsz = inputProps.value;
   if(typeof vsz === 'string'){
     vsz = [];
@@ -35,22 +35,17 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
   };
   let onChange = (values)=>{
     console.log(`onChange :${JSON.stringify(values)}`);
-    console.log(`onChange :${typeof vsz}`);
     let newv = _.clone(vsz);
     let index = _.get(values,'id',-1);
     if(index != -1 && index < vsz.length ){
-      let name = values["columns"][0].value;
-      let op = values["columns"][1].value;
-      let value = values["columns"][2].value;
-      let content = values["columns"][3].value;
-      newv[index] = {name,op,value,content};
+      let permissionid = values["columns"][0].value;
+      let visiablefields = values["columns"][1].value;
+      newv[index] = {permissionid,visiablefields};
     }
     else if(index >= vsz.length){
-      let name = values["columns"][0].value;
-      let op = values["columns"][1].value;
-      let value = values["columns"][2].value;
-      let content = values["columns"][3].value;
-      newv.push( {name,op,value,content});
+      let permissionid = values["columns"][0].value;
+      let visiablefields = values["columns"][1].value;
+      newv.push({permissionid,visiablefields});
     }
     else{
       return;
@@ -61,7 +56,33 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
   }
   let rows = [];
   let headers = [
-     {value: '字段名', type: 'Select', width: 400,multi:false,options:[
+     {value: '权限名', type: 'TextFieldOnly', width: 200,options:[
+       {
+         value:'5a5a1113da6e595af4eb515e',
+         label:'气象'
+       },
+       {
+         value:'5a5a1198da6e595af4eb515f',
+         label:'水文'
+       },
+       {
+         value:'5a5a1846da6e595af4eb516c',
+         label:'农林'
+       },
+       {
+         value:'5a5a1850da6e595af4eb516d',
+         label:'航空'
+       },
+       {
+         value:'5a5a185eda6e595af4eb516e',
+         label:'海洋'
+       },
+       {
+         value:'5a5a186bda6e595af4eb516f',
+         label:'科考'
+       },
+     ]},
+     {value: '字段列表', type: 'Select', multi:true,width: 'auto',options:[
        { value: 'temperature', label: '温度' },
        { value: 'rainfall', label: '降雨量' },
        { value: 'humidity', label: '湿度' },
@@ -69,34 +90,25 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
        { value: 'winddirection', label: '风向' },
        { value: 'pressure', label: '大气压' },
      ]},
-     {value: '操作符', type: 'Select', width: 200,multi:false,options:[
-       { value: '>', label: '大于' },
-       { value: '=', label: '等于' },
-       { value: '<', label: '小于' },
-     ]},
-     {value: '值', type: 'TextField', width: 200},
-     {value: '报警信息', type: 'TextField', width: 'auto'},
   ];
 
   _.map(vsz,(v)=>{
     rows.push(
       {columns: [
-        {value: v.name},
-        {value: v.op},
-        {value: v.value},
-        {value: v.content},
+      {value: v.permissionid},
+      {value: v.visiablefields},
       ]}
     );
   });
 
   return (<EditTable
-    enableNew={true}
     onDelete={onDelete}
     onChange={onChange}
     rows={rows}
-    enableDelete={true}
+    enableDelete={false}
+    enableNew={false}
     headerColumns={headers}
   />);
 };
 
-export default renderAlaramRuleEdit;
+export default renderPms;

@@ -24,11 +24,11 @@ import {
 } from 'admin-on-rest/lib/mui';
 import Chip from 'material-ui/Chip';
 import ShowPageOne from '../singledocumentpage/index.js';
-import {CfSelectArrayInputDetail,CfAlaramRuleInput} from './cf.js';
-import {CfSelectArrayInput} from '../controls/selectarrayinput.js';
+import {CfAlaramRuleInput} from './cf.js';
+import {PmsSelectArrayInputDetail} from './pms.js';
 import "./style.css";
 
-import {getOptions} from '../controls/getselect.js';
+
 const SystemconfigTitle = ({ record }) => <span>系统设置</span>;
 
 
@@ -42,7 +42,7 @@ const SystemconfigCreateTitle = ({ record }) => {
        <CfAlaramRuleInput label="报警规则设置(高)" source="warningrulelevel0" />
        <CfAlaramRuleInput label="报警规则设置(中)" source="warningrulelevel1" />
        <CfAlaramRuleInput label="报警规则设置(低)" source="warningrulelevel2" />
-         </FormTab>
+       </FormTab>
        </TabbedForm>
        </Create>
 );
@@ -55,7 +55,10 @@ const SystemconfigCreateTitle = ({ record }) => {
           <CfAlaramRuleInput label="报警规则设置(中)" source="warningrulelevel1" />
           <CfAlaramRuleInput label="报警规则设置(低)" source="warningrulelevel2" />
         </FormTab>
-          </TabbedForm>
+        <FormTab label="数据权限设置">
+          <PmsSelectArrayInputDetail label="数据权限设置列表" source="permissiondatasettings" />
+        </FormTab>
+        </TabbedForm>
     </EditPage>
 );
 
