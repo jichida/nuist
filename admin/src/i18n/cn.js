@@ -16,8 +16,11 @@ export default {
         'save_error':'保存失败'
       }
     },
-    organization:{
-      name: '组织 |||| 组织',
+    product:{
+      name: '产品管理 |||| 产品管理',
+    },
+    onlineresearch:{
+      name: '在线调查管理 |||| 在线调查管理',
     },
     device:{
       name: '设备管理 |||| 设备管理',
@@ -42,36 +45,14 @@ export default {
         organizationid:'所在组织',
       }
     },
-    usergroup:{
-      name: '用户分组管理 |||| 用户分组管理',
-      fields:{
-        organizationid:'所在组织',
-      }
-    },
     permission:{
       name: '权限管理 |||| 权限管理',
     },
-    realtimealarm:{
-      name:'每日报警统计 |||| 每日报警统计',
-    },
     realtimealarmraw:{
-      name:'实时报警明细 |||| 实时报警明细',
-    },
-    historytrack:{
-      name: '历史轨迹管理 |||| 历史轨迹管理',
+      name:'报警管理 |||| 报警管理',
     },
     historydevice:{
       name: '设备历史数据管理 |||| 设备历史数据管理',
     },
-    canrowdata:{
-      name: '原始数据管理 |||| 原始数据管理',
-    },
-    userlog:{
-      name: '用户日志管理 |||| 用户日志管理',
-    },
-    datadict:{
-      name: '数据字典维护 |||| 数据字典维护',
-    }
   }
-
 };

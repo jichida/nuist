@@ -3,7 +3,6 @@ const userlogin = require('../common/userlogin');
 const device = require('../common/device.js');
 const realtimealarm = require('../common/realtimealarm.js');
 const moment = require('moment');
-const historytrack = require('../common/historytrack');
 const userrelate = require('../common/userrelate');
 //司机端
 const actiondatahandler = {

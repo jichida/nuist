@@ -14,40 +14,34 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import TimePicker from 'material-ui/TimePicker';
 import moment from 'moment';
 
-const OrganizationCreate = (props) => {
+const OnlineResearchCreate = (props) => {
   return (
-    <Create title="创建组织" {...props} >
+    <Create title="发起调查" {...props} >
       <SimpleForm>
-        <TextInput label="组织名称" source="name" validate={required} />
-        <TextInput label="备注" source="memo" />
-        <TextInput label="联系人" source="contact" />
+        <TextInput label="调查名称" source="name" validate={required} />
       </SimpleForm>
     </Create>
   );
 };
 
-const OrganizationEdit = (props) => {
+const OnlineResearchEdit = (props) => {
   return (
-    <Edit title="编辑组织" {...props} >
+    <Edit title="编辑调查" {...props} >
       <SimpleForm>
-        <TextInput label="组织名称" source="name" validate={required} />
-        <TextInput label="备注" source="memo" />
-        <TextInput label="联系人" source="contact" />
+        <TextInput label="调查名称" source="name" validate={required} />
       </SimpleForm>
     </Edit>
   );
 };
 
-const OrganizationList = (props) => (
-  <List title="组织列表" {...props} >
+const OnlineResearchList = (props) => (
+  <List title="调查管理" {...props} >
     <Datagrid  bodyOptions={{ showRowHover: true }}>
-      <TextField label="组织名称" source="name" />
-      <TextField label="备注" source="memo" />
-      <TextField label="联系人" source="contact" />
+      <TextField label="调查名称" source="name" />
       <EditButton />
     </Datagrid>
   </List>
 );
 
 
-export {OrganizationCreate,OrganizationEdit,OrganizationList};
+export {OnlineResearchCreate,OnlineResearchEdit,OnlineResearchList};

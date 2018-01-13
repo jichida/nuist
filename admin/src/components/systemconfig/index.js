@@ -38,11 +38,6 @@ const SystemconfigCreateTitle = ({ record }) => {
  const SystemconfigCreate = (props) => (
        <Create {...props} title={<SystemconfigCreateTitle />} >
        <TabbedForm>
-         <FormTab label="弹框信息">
-          <CfSelectArrayInput label="选择弹框的字段列表" source="mappopfields" loadOptions={getOptions('datadict','showname','name')}/>
-          <CfSelectArrayInput label="选择聚合点弹框的字段列表" source="mappopclusterfields" loadOptions={getOptions('datadict','showname','name')}/>
-          <CfSelectArrayInputDetail label="编辑车辆详情显示字段列表" source="mapdetailfields"/>
-       </FormTab>
        <FormTab label="报警规则">
        <CfAlaramRuleInput label="报警规则设置(高)" source="warningrulelevel0" />
        <CfAlaramRuleInput label="报警规则设置(中)" source="warningrulelevel1" />
@@ -55,11 +50,6 @@ const SystemconfigCreateTitle = ({ record }) => {
  const SystemconfigEdit = (props) => (
     <EditPage {...props} title={<SystemconfigTitle />}>
         <TabbedForm>
-        <FormTab label="弹框信息">
-          <CfSelectArrayInput label="选择弹框的字段列表" source="mappopfields" loadOptions={getOptions('datadict','showname','name')}/>
-          <CfSelectArrayInput label="选择聚合点弹框的字段列表" source="mappopclusterfields" loadOptions={getOptions('datadict','showname','name')}/>
-          <CfSelectArrayInputDetail label="编辑车辆详情显示字段列表" source="mapdetailfields"/>
-          </FormTab>
           <FormTab label="报警规则">
           <CfAlaramRuleInput label="报警规则设置(高)" source="warningrulelevel0" />
           <CfAlaramRuleInput label="报警规则设置(中)" source="warningrulelevel1" />
