@@ -61,7 +61,6 @@ const ProductlistCreate = (props) => (
               <ImageInputUpload label="图片"  source="picurl" />
               <ImageInputUploadArray label="产品图片列表"  source="picurls" />
               <ImageInputUpload label="详情"  source="picurldetail" />
-              <DateInput label="发布时间"  source="publishdate" />
               <BooleanInput label="是否启用" source="isenabled" defaultValue={true} />
            </SimpleForm>
        </Create>
@@ -75,13 +74,13 @@ const ProductlistTitle = ({ record }) => {
 const ProductlistEdit = (props) => {
       return (<Edit title={<ProductlistTitle />} {...props}>
           <SimpleForm>
-              <DisabledInput label="Id" source="id" />
               <TextInput label="名字" source="name" />
+              <TextInput label="摘要" source="brief" />
               <ImageInputUpload label="图片"  source="picurl" />
               <ImageInputUploadArray label="产品图片列表"  source="picurls" />
               <ImageInputUpload label="详情"  source="picurldetail" />
-              <DateInput label="发布时间"  source="publishdate" />
               <BooleanInput label="是否启用" source="isenabled" defaultValue={true} />
+              <TextField label="数据更新时间" source="lastupdatetime"  />
           </SimpleForm>
       </Edit>);
 
@@ -94,6 +93,9 @@ const ProductlistList = (props) => (//
         <Datagrid>
         <ImageField source="picurl" label="封面图片"/>
         <TextField label="名字" source="name" />
+        <TextField label="摘要" source="brief" />
+        <BooleanField label="是否启用" source="isenabled" />
+        <TextField label="数据更新时间" source="lastupdatetime"  />
         <EditButton />
         </Datagrid>
     </List>

@@ -17,7 +17,7 @@ const DELETE = 'DELETE';
 const curd = (schmodel)=>{
   return (req,res)=>{
     let queryparam =   req.body;
-    //console.log("queryparam=>" + JSON.stringify(queryparam));
+    console.log("queryparam=>" + JSON.stringify(queryparam));
     //console.log(`organizationid=>${organizationid}`);
     let query = {};
     let sort = {};
