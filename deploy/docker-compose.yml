@@ -1,0 +1,47 @@
+version: '2'
+services:
+  nginx:
+      image: nginx
+      restart: always
+      expose:
+         - "80"
+      ports:
+          - "80:80"
+      volumes:
+          - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+          - ./dist:/usr/share/nginx/html
+      network_mode: "host"
+      depends_on:
+        - dabaappserver
+  dabaappserver:
+    image: node:6.11.2
+    restart: always
+    command: /usr/bin/node ./index.js
+    working_dir: /app
+    volumes:
+      - ./srv:/app
+      - ./dist/log:/dist/log
+      - ./dist/public:/dist/public
+      - ./dist/uploader:/dist/uploader
+    network_mode: "host"
+    environment:
+      - MONGO_URL=mongodb://dabauser:daba159@127.0.0.1/daba
+      - rooturl=http://daba.czjcd.com
+      - listenport=30050
+    ports:
+       - "30050:30050"
+    expose:
+       - "30050"
+  mongodb:
+    image:  mongo:3.4
+    restart: always
+    expose:
+       - "27017"
+    volumes:
+       - "/var/db100/dbdata:/data/db -d"
+    ports:
+       - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=15961125167
+    command: mongod --auth
