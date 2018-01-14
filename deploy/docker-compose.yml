@@ -20,9 +20,7 @@ services:
     working_dir: /app
     volumes:
       - ./srv:/app
-      - ./dist/log:/dist/log
-      - ./dist/public:/dist/public
-      - ./dist/uploader:/dist/uploader
+      - ./dist:/dist
     network_mode: "host"
     environment:
       - MONGO_URL=mongodb://dabauser:daba159@127.0.0.1/daba
