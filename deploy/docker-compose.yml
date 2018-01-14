@@ -16,7 +16,7 @@ services:
   dabaappserver:
     image: node:6.11.2
     restart: always
-    command: /usr/bin/node ./index.js
+    command: node ./index.js
     working_dir: /app
     volumes:
       - ./srv:/app
