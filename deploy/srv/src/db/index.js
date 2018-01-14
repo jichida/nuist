@@ -1,0 +1,55 @@
+const db = require('./models.js');
+const dbs ={
+  'product':{
+    urlname:'/product',
+    schema:db.ProductSchema,
+    collectionname:'product',
+  },
+  'onlineresearch':{
+    urlname:'/onlineresearch',
+    schema:db.OnlineResearchSchema,
+    collectionname:'onlineresearch',
+  },
+  'systemconfig':{
+    urlname:'/systemconfig',
+    schema:db.SystemConfigSchema,
+    collectionname:'systemconfig',
+  },
+  'device':{
+    urlname:'/device',
+    schema:db.DeviceSchema,
+    collectionname:'device',
+  },
+  'devicegroup':{
+    urlname:'/devicegroup',
+    schema:db.DeviceGroupSchema,
+    collectionname:'devicegroup',
+  },
+  'user':{
+    urlname:'/user',
+    schema:db.UserSchema,
+    collectionname:'user',
+  },
+  'role':{
+    urlname:'/role',
+    schema:db.RoleSchema,
+    collectionname:'role',
+  },
+  'permission':{
+    urlname:'/permission',
+    schema:db.PermissionSchema,
+    collectionname:'permission',
+  },
+  'realtimealarmraw':{
+    urlname:'/realtimealarmraw',
+    schema:db.RealtimeAlarmRawSchema,
+    collectionname:'realtimealarmraw',
+  },
+  'historydevice':{
+    urlname:'/historydevice',
+    schema:db.HistoryDeviceSchema,
+    collectionname:'historydevice',
+  },
+};
+
+module.exports= dbs;
