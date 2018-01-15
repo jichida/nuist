@@ -14,9 +14,9 @@ const SystemConfigModel =mongoose.model('systemconfig',  SystemConfigSchema);
 const ProductSchema = new Schema({
   name:String,
   brief:String,
-  picurl:[],
+  picurl:String,
   picurls:[],
-  picurldetail:[],
+  picurldetail:String,
   isenabled:{ type: Boolean, default: false },
   lastupdatetime:{ type: String, default:moment().format('YYYY-MM-DD HH:mm:ss')},
 }, { strict: false });
