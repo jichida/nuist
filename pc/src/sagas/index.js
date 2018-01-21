@@ -1,6 +1,6 @@
 import { fork } from 'redux-saga/effects';
-import {apiflow} from './api';
-import {createsagacallbackflow} from './pagination';
+// import {apiflow} from './api';
+// import {createsagacallbackflow} from './pagination';
 
 import {wsrecvsagaflow} from './wsrecvsaga';
 import {jpushflow} from './jpushflow';
@@ -19,8 +19,8 @@ export default function* rootSaga() {
 
     yield fork(uiflow);
     yield fork(wsrecvsagaflow);
-    yield fork(createsagacallbackflow);
-    yield fork(apiflow);
+    // yield fork(createsagacallbackflow);
+    // yield fork(apiflow);
   }
   catch(e){
 

@@ -17,36 +17,15 @@ import {
   md_querydeviceinfo_result,
   querydeviceinfo_result,
 
-  serverpush_devicegeo_sz_request,
-  serverpush_devicegeo_sz_result,
-  serverpush_devicegeo_sz,
 
-  start_serverpush_devicegeo_sz,
-  stop_serverpush_devicegeo_sz,
-
-  getcurallalarm_request,
-  getallworkorder_request,
-
-  setworkorderdone_request,
-  setworkorderdone_result,
-
-  getworkusers_request,
-
-  changepwd_result,
 
   gettipcount_request,
 
-  start_serverpush_alarm_sz,
-  stop_serverpush_alarm_sz,
-  serverpush_alarm_sz_request,
-  serverpush_alarm_sz_result,
 
 } from '../actions';
 import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 import map from 'lodash.map';
-import coordtransform from 'coordtransform';
-import {getgeodata} from '../sagas/mapmain_getgeodata';
-import {g_devicesdb} from './mapmain';
+
 import config from '../env/config.js';
 // import  {
 //   getrandom
