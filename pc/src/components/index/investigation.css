@@ -1,0 +1,70 @@
+.investigation_indexPage {
+	margin-bottom: 19px;
+}
+.investigation_indexPage .tit{
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 40px;
+	border-bottom: 4px solid #0164b5;
+	padding-left: 20px;
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+	-moz-justify-content: space-between;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+	margin-bottom: 30px;
+}
+.investigation_indexPage .investigationli .t{
+	margin-bottom: 15px;
+	text-align: center;
+}
+.investigation_indexPage .investigationli .li .i{
+	text-align: center;
+	margin-bottom: 10px;
+}
+.investigation_indexPage .investigationli .li .i label{
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+}
+.investigation_indexPage .investigationli .li .i input{
+	margin-right: 10px;
+}
+.investigation_indexPage .investigationli p{
+	line-height: 30px;
+	color: #666;
+}
+.investigation_indexPage .investigationli .btn{
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+	padding-top: 20px;
+}
+.investigation_indexPage .investigationli .btn button{
+	background: #0164b5;
+	color: #FFF;
+	border: none;
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+}
+.investigation_indexPage .investigationli .btn button:first-child{
+	margin-right: 10px;
+}
+

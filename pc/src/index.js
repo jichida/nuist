@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import Root from './env/root';
 import {sagaMiddleware} from './env/store';
 import rootSaga from './sagas';
+import Approot from './approot';
+import registerServiceWorker from './registerServiceWorker';
 
-sagaMiddleware.run(rootSaga);
-ReactDOM.render(
-    <Root />,
-    document.getElementById('root')
-);
+ReactDOM.render(<Approot />, document.getElementById('root'));
+registerServiceWorker();

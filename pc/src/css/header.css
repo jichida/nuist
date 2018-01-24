@@ -1,0 +1,57 @@
+.head{
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+   	-webkit-box-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+}
+.header .headnav{
+	height: 40px;
+	background: #0164b5;
+}
+.header .headnav .nav{
+	width: 1200px;
+	margin: auto;
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+   	-webkit-box-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-justify-content: flex-start;
+	-webkit-justify-content: flex-start;
+	justify-content: flex-start;
+}
+.header .headnav span{
+	display: inline-block;
+	width: 150px;
+	line-height: 40px;
+	text-align: center;
+	color: #FFF;
+	position: relative;
+}
+.header .headnav span:after{
+	content: "";
+	position: absolute;
+	height: 16px;
+	width: 1px;
+	background: #FFF;
+	right: 0;
+	top: 12px;
+}
+.header .headnav span.sel{
+	background: #00457e;
+	font-weight: 600;
+}
+.header .headnav span.sel:after{
+	content: none;
+}
+
+
+

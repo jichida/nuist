@@ -1,0 +1,26 @@
+.swiper_indexPage {
+	width: 550px;
+	height: 280px;
+	background: #EEE;
+	margin-bottom: 20px;
+}
+.swiper_indexPage .tit{
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 40px;
+	border-bottom: 4px solid #0164b5;
+	padding-left: 20px;
+}
+.swiper_indexPage .swiper-pagination-bullet{
+	width: 25px;
+    border-radius: 0px;
+    opacity: 0.4;
+}
+.swiper_indexPage .swiper-pagination-bullet.swiper-pagination-bullet-active{
+	width: 30px;
+	background: #FFF;
+	opacity: 0.8;
+}
+.swiper_indexPage .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet{
+	margin: 0 2px;
+}

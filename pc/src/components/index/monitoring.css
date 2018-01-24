@@ -1,0 +1,25 @@
+.monitoring_indexPage {
+	margin-bottom: 40px;
+}
+.monitoring_indexPage .tit{
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 40px;
+	border-bottom: 4px solid #0164b5;
+	padding-left: 20px;
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+	-moz-justify-content: space-between;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+.monitoring_indexPage .monitoringli{
+	padding-left: 30px;
+}
+.monitoring_indexPage .monitoringli p{
+	line-height: 30px;
+	color: #666;
+}

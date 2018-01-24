@@ -1,0 +1,46 @@
+.loginPage {
+	margin-bottom: 30px;
+}
+.loginPage .tit{
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 40px;
+	border-bottom: 4px solid #0164b5;
+	padding-left: 20px;
+}
+.loginForm .li{
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+}
+.loginForm .li input{
+	flex-grow: 1;
+	margin-left: 20px;
+	margin-right: 20px;
+	border: none;
+	border-bottom: 1px solid #EEE;
+	height: 40px;
+	margin-top: 10px;
+	line-height: 40px;
+	font-size: 16px;
+	outline: none;
+}
+.loginForm .submitBtn{
+	padding-top: 30px;
+}
+.loginForm button {
+	background: #0164b5;
+	color: #FFF;
+	flex-grow: 1;
+	margin: 0 20px;
+	border: none;
+	height: 40px;
+	line-height: 40px;
+}
