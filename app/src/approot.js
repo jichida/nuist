@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Switch, Router, Route } from 'react-router-dom';
-import Index from './components/index';
+import Index from './components/index/';
 import Login from './components/login';
 import createBrowserHistory from 'history/createBrowserHistory'
 const customHistory = createBrowserHistory()

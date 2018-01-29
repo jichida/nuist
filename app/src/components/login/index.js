@@ -29,6 +29,7 @@ class App extends React.Component {
         resizetimecontent = window.setTimeout(()=>{
             this.setState({
                 innerHeight: window.innerHeight,
+                innerWidth : window.innerWidth
             });
         },10)
     }
