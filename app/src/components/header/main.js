@@ -6,7 +6,7 @@ import "./main.css";
 class App extends React.Component {
   	render() {
     	return (
-      		<div className="header">
+      		<div className="mainheader">
       	 		<img src={Title} className="maintitle" />
       	 		<img src={Userlnk} className="userlnk" />
       		</div>

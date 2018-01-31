@@ -1,0 +1,168 @@
+.swiperchartlist .swiperli img{
+	width: 100%;
+}
+.swiperchartlist .swiper-pagination-bullet{
+	width: 15px;
+	border-radius: 5px;
+	opacity: 0.4;
+	background: #FFF;
+	height: 4px;
+}
+.swiperchartlist .swiper-pagination-bullet-active{
+	background: #007aff;
+	width: 25px;
+	opacity: 0.8;
+}
+.investigationlist ul{
+	padding: 10px;
+}
+.investigationlist ul li{
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+   	-webkit-box-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+	border-left: 10px solid #0164b5;
+	border-radius: 4px;
+	padding-left: 10px;
+	position: relative;
+	overflow: hidden;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+	background: #FFF;
+}
+.investigationlist ul li .t{
+	font-size: 24px;
+	margin-right: 10px;
+}
+.investigationlist ul li .c{
+	margin-right: 70px;
+}
+.investigationlist ul li .c .c1{
+	font-size: 14px;
+}
+.investigationlist ul li .c .c2 span{
+	color: #999;
+	font-size: 12px;
+	margin-right: 10px;
+}
+.investigationlist ul li .c .c2 span:last-child{
+	margin-right: 0;
+}
+.investigationlist ul li .e{
+	background: #0164b5;
+	height: 60px;
+	width: 60px;
+	border-radius: 100px 0 0 100px;
+	position: absolute;
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	right: 0;
+}
+.investigationlist ul li .e img{
+	width: 24px;
+}
+.addinvestigationPage .tt{
+	text-align: center;
+	line-height: 40px;
+}
+.addinvestigationPage ul{
+	padding: 10px;
+	padding-top: 0;
+}
+.addinvestigationPage .addbtn{
+	background: linear-gradient(180deg, #017cb6, #1297d1);
+	height: 60px;
+	font-size: 16px;
+	color: #FFF;
+	border-right: 4px;
+	width: 80%;
+	margin: auto;
+	text-align: center;
+	line-height: 60px;
+}
+.addinvestigationPage ul li{
+	border-top: 6px solid #0380b9;
+	border-radius: 4px;
+	background: #FFF;
+	margin-bottom: 15px;
+}
+.addinvestigationPage ul li .tit{
+	padding: 10px;
+}
+.addinvestigationPage ul li .aslist{
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+   	flex-wrap: wrap;
+   	padding: 10px;
+   	padding-right: 0;
+}
+.addinvestigationPage ul li .btnlist{
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+   	-moz-justify-content: space-between;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+	border-top: 1px solid #EEE;
+}
+.addinvestigationPage ul li .btnlist >div{
+	display: block;
+	text-align: center;
+	height: 60px;
+	font-size: 18px;
+	line-height: 60px;
+	flex-grow: 1;
+	border-right: 1px solid #EEE;
+	position: relative;
+}
+.addinvestigationPage ul li .btnlist >div span{
+	position: relative;
+	z-index: 2;
+}
+.addinvestigationPage ul li .btnlist div.sel:after{
+	content:  "";
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	right: 0;
+	border: 1px solid #24a9db;
+	background: #e8f6ff;
+	z-index: 1;
+	top: 0;
+}
+.addinvestigationPage ul li .btnlist >div.sel span{
+	color: #24a9db;
+}
+.addinvestigationPage ul li .btnlist span:last-child{
+	border: none;
+}
+.addinvestigationPage ul li .aslist .dd{
+	width: 50%;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+.addinvestigationPage ul li .aslist .dd span{
+	margin-right: 10px;
+}
+
+
+
+
+

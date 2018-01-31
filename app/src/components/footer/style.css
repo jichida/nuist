@@ -1,5 +1,11 @@
 .footerPage {
-
+	background: #FFF;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 64px;
+	overflow: hidden;
+	z-index: 1000;
 }
 .footerPage ul{
 	position: relative;

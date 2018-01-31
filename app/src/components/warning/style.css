@@ -1,0 +1,105 @@
+.warningPage{
+	padding-bottom: 70px;
+}
+.warningPage .head{
+	padding-top: 30px;
+	position: relative;
+	background: #0b8cc6;
+	height: 150px;
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	color: #FFF;
+	-moz-box-direction:normal;
+	flex-direction:column;
+	-webkit-flex-direction:column;
+}
+.warningPage .head .lnk{
+	height: 36px;
+	width: 90px;
+	right: 0;
+	top: 20px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: #0164b5;
+	color: #FFF;
+	text-align: center;
+	line-height: 36px;
+	border-radius: 36px 0  0 36px;
+}
+.warningPage .head .n span:first-child{
+	font-size: 50px;
+	line-height: 50px;
+}
+.warningPage .head .c{
+	font-size: 16px;
+}
+.warningPage .head .allshow{
+	top: 50px;
+}
+.warningPage .head .guanzhu{
+	top: 92px;
+}
+.warningPage .warninglist{
+	position: relative;
+}
+.warningPage .warninglist:before{
+	position: absolute;
+	content: "";
+	width: 100%;
+	top: 0;
+	left: 0;
+	height: 50px;
+	background: #0b8cc6;
+	z-index: 10;
+}
+.warningPage .warninglist ul{
+	position: relative;
+	z-index: 100;
+}
+.warningPage .warninglist ul li{
+	margin-left: 15px;
+	background: #FFF;
+	border-radius: 100px 0 0 100px;
+	padding: 10px 0;
+	padding-left: 60px;
+	position: relative;
+	margin-bottom: 10px;
+}
+.warningPage .warninglist ul li .tit{
+	font-size: 18px;
+	color: #0164b5;
+}
+.warningPage .warninglist ul li div{
+	position: relative;
+}
+.warningPage .warninglist ul li .num{
+	position: absolute;
+	height: 100%;
+	left: 0;
+	top: 0;
+	width: 60px;
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	font-size: 30px;
+	color: #0164b5;
+}
+
+
+

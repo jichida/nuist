@@ -1,6 +1,7 @@
 import React from 'react';
 import Footer from "../footer";
 import Header from "../header/main";
+import Header2 from "../header/page";
 import Mainmap from "../../img/mapbg.png";
 import Data1 from "../../img/14.png";
 import Data2 from "../../img/15.png";
@@ -11,6 +12,7 @@ import Data6 from "../../img/19.png";
 import City from "../../img/20.png";
 import Point from "../../img/21.png";
 import "./index.css";
+import { connect } from 'react-redux';
 let resizetimecontent;
 
 class App extends React.Component {
@@ -45,7 +47,7 @@ class App extends React.Component {
 	    return (
 	      	<div 
 	      		className="indexPage"
-	      		style={{height: `${this.state.innerHeight}px`}}
+	      		style={{height: `${this.state.innerHeight-64}px`}}
 	      		>
 	        	<Header />
 	        	<div className="mainmap">
@@ -63,7 +65,7 @@ class App extends React.Component {
 						</ul>
 	        		</div>
 	        	</div>
-	        	<Footer />
+	        	<Footer sel={"index"} />
 	      	</div>
 	    );
   	}

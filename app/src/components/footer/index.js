@@ -12,19 +12,19 @@ import F4_1 from "../../img/11.png";
 import F5_1 from "../../img/12.png";
 
 class App extends React.Component {
-  render() {
-    return (
-      	<div className="footerPage">
-        	<ul>
-            <li><img src={F1} /><span href="#" className="sel">首页</span></li>
-            <li><img src={F2_1} /><span href="#">监控</span></li>
-            <li><img src={F3_1} /><span href="#">预警</span></li>
-            <li><img src={F4_1} /><span href="#">调查</span></li>
-        		<li><img src={F5_1} /><span href="#">产品</span></li>
-        	</ul>
-      	</div>
-    );
-  }
+    render() {
+        return (
+          	<div className="footerPage">
+            	<ul>
+                    <li><img src={F1} /><span href="#" className="sel">首页</span></li>
+                    <li><img src={F2_1} /><span href="#">监控</span></li>
+                    <li><img src={F3_1} /><span href="#">预警</span></li>
+                    <li><img src={F4_1} /><span href="#">调查</span></li>
+                	<li><img src={F5_1} /><span href="#">产品</span></li>
+            	</ul>
+          	</div>
+        );
+    }
 }
 
 export default App;

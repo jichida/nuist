@@ -1,4 +1,4 @@
-.header {
+.mainheader {
 	background: linear-gradient(180deg, #017cb6, #1297d1);
 	display: -webkit-box;
     display: -ms-flexbox;
@@ -11,15 +11,16 @@
 	-webkit-justify-content: center;
 	justify-content: center;
 	position: relative;
-	height: 50px;
+	height: 80px;
 	padding-top: 30px;
+	flex-shrink: 0;
 }
-.header img.maintitle{
+.mainheader img.maintitle{
 	width: 200px;
 }
-.header img.userlnk{
+.mainheader img.userlnk{
 	position: absolute;
 	right: 10px;
-	top: 27px;
-	width: 40px;
+	top: 34px;
+	width: 30px;
 }
