@@ -3,13 +3,12 @@ import Header from "../header/page.js";
 import "./style.css";
 import List from "./list.js";
 
-
 class App extends React.Component {
 
   	render() {
 	    return (
 	      	<div className="addinvestigationPage">
-	        	<Header />
+	        	<Header history={this.props.history} />
 	        	<div className="tt"><span>2018-01-17</span><span>共15题</span><span>参与人数963258人</span></div>
 	        	<div className="ll">
 					<ul>

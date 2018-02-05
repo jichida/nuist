@@ -15,7 +15,7 @@ class App extends React.Component {
                     <div className="lnk guanzhu">我的关注</div>
                 </div>
                 <List />
-                <Footer />
+                <Footer history={this.props.history} sel={"warning"}  />
             </div>
         );
     }

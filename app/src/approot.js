@@ -5,6 +5,7 @@ import Index from './components/index/';
 import Login from './components/login';
 import Investigation from './components/investigation';
 import AddInvestigation from './components/investigation/add';
+import ResultInvestigation from './components/investigation/result';
 import Proindex from './components/pro';
 import Monitor from './components/monitor';
 import Datameter from './components/datameter';
@@ -24,8 +25,9 @@ const AppRoot = (props) => {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/investigation" component={Investigation} />
                 <Route exact path="/investigation/add" component={AddInvestigation} />
+                <Route exact path="/investigation/result" component={ResultInvestigation} />
                 <Route exact path="/pro" component={Proindex} />
-                <Route exact path="/monitor" component={Monitor} />
+                <Route exact path="/datameter/:id" component={Monitor} />
                 <Route exact path="/datameter" component={Datameter} />
                 <Route exact path="/warning" component={Warning} />
             </div>

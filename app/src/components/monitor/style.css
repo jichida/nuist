@@ -1,3 +1,7 @@
+.monitorPage{
+	padding-top: 80px;
+	padding-bottom: 75px;
+}
 .meterchart{
 	position: relative;
 	height: 220px;

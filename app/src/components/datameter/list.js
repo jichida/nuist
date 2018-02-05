@@ -4,11 +4,15 @@ import Meter from "./meter";
 
 class App extends React.Component {
 
+	pushurl=(name)=>{
+        this.props.history.push(`/${name}`);
+    }
+
   	render() {
 	    return (
 	      	<div className="datamonitordata">
 	        	<ul>
-	        		<li className="tt">
+	        		<li className="tt" onClick={this.pushurl.bind(this, "datameter/01")}>
 	        			<div>
 	        				<span>01</span>
 	        				<span>南京 - 金润广场</span>
@@ -37,7 +41,7 @@ class App extends React.Component {
 	        		</li>
 	        	</ul>
 	        	<ul>
-	        		<li className="tt">
+	        		<li className="tt" onClick={this.pushurl.bind(this, "datameter/01")}>
 	        			<div>
 	        				<span>01</span>
 	        				<span>南京 - 金润广场</span>

@@ -8,7 +8,7 @@ class App extends React.Component {
   		const newtitle = title || "这里是标题";
     	return (
       		<div className="pageheader">
-      	 		<span className="leftlnk"><img src={Leftlnk} /></span>
+      	 		<span className="leftlnk" onClick={()=>{this.props.history.goBack()}}><img src={Leftlnk} /></span>
       	 		<span className="title">{newtitle}</span>
       		</div>
     	);

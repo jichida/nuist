@@ -12,9 +12,9 @@
 	background: #0164b5;
 	color: #FFF;
 	height: 60px;
-	width: 88%;
 	margin: auto;
-	margin: 10px auto;
+	margin: 5px;
+	margin-bottom: 0;
 	border-radius: 4px;
 }
 .investigationlnk img{
@@ -26,6 +26,9 @@
 	font-size: 18px;
 	margin-left: 50px;
 	text-align: center;
+}
+.proPage{
+	padding-bottom: 75px;
 }
 .prolist ul{
 	margin: 5px;
@@ -66,15 +69,15 @@
 }
 .proinfo{
 	position: fixed;
-	width: 80%;
-	height: 60%;
-	left: 10%;
+	width: 100%;
+	height: 100%;
+	left: 0;
 	border-radius: 6px;
-	background: #FFF;
 	z-index: 1000;
-	top: 20%;
-	background: #FFF;
+	top: 0;
 	padding-bottom: 10px;
+	overflow-y: hidden;
+	z-index: 100000;
 }
 .proinfo .info{
 	color: #999;
@@ -95,10 +98,10 @@
 	background: #FFF;
 	border-radius: 6px;
 	padding-top: 10px;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	top: 15%;
+	bottom: 15%;
+	left: 10%;
+	right: 10%;
 }
 .proinfo .infocontent .tit{
 	text-align: center;

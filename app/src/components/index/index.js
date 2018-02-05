@@ -49,7 +49,7 @@ class App extends React.Component {
 	      		className="indexPage"
 	      		style={{height: `${this.state.innerHeight-64}px`}}
 	      		>
-	        	<Header />
+	        	<Header history={this.props.history} />
 	        	<div className="mainmap">
 	        		<img src={Mainmap} />
 	        		<div className="mapcanver city"><img src={City} /><span>南京</span></div>
@@ -65,7 +65,7 @@ class App extends React.Component {
 						</ul>
 	        		</div>
 	        	</div>
-	        	<Footer sel={"index"} />
+	        	<Footer history={this.props.history} sel={"index"} />
 	      	</div>
 	    );
   	}

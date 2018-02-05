@@ -43,10 +43,10 @@
 .footerPage ul li img{
 	width: 30px;
 }
-.footerPage ul li span{
+.footerPage ul li a{
 	color: #b0b1c8;
 	font-size: 12px;
 }
-.footerPage ul li span.sel{
+.footerPage ul li a.sel{
 	color: #036ab0;
 }
