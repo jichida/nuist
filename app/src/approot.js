@@ -9,6 +9,7 @@ import ResultInvestigation from './components/investigation/result';
 import Proindex from './components/pro';
 import Monitor from './components/monitor';
 import Datameter from './components/datameter';
+import Video from './components/video';
 import Warning from './components/warning';
 import createBrowserHistory from 'history/createBrowserHistory'
 const customHistory = createBrowserHistory();
@@ -30,6 +31,7 @@ const AppRoot = (props) => {
                 <Route exact path="/datameter/:id" component={Monitor} />
                 <Route exact path="/datameter" component={Datameter} />
                 <Route exact path="/warning" component={Warning} />
+                <Route exact path="/video" component={Video} />
             </div>
         </Router>
     );

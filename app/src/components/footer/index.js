@@ -3,12 +3,12 @@ import "./style.css";
 import F1 from "../../img/3.png";
 import F2 from "../../img/4.png";
 import F3 from "../../img/5.png";
-import F4 from "../../img/6.png";
+import F4 from "../../img/27.png";
 import F5 from "../../img/7.png";
 import F1_1 from "../../img/8.png";
 import F2_1 from "../../img/9.png";
 import F3_1 from "../../img/10.png";
-import F4_1 from "../../img/11.png";
+import F4_1 from "../../img/28.png";
 import F5_1 from "../../img/12.png";
 
 class App extends React.Component {
@@ -33,9 +33,9 @@ class App extends React.Component {
                         <img src={this.props.sel==="warning"?F3:F3_1} />
                         <a className={this.props.sel==="warning"?"sel":""}>预警</a>
                     </li>
-                    <li onClick={this.pushurl.bind(this, "investigation")}>
-                        <img src={this.props.sel==="investigation"?F4:F4_1} />
-                        <a className={this.props.sel==="investigation"?"sel":""}>调查</a>
+                    <li onClick={this.pushurl.bind(this, "video")}>
+                        <img src={this.props.sel==="video"?F4:F4_1} />
+                        <a className={this.props.sel==="video"?"sel":""}>视频</a>
                     </li>
                     <li onClick={this.pushurl.bind(this, "pro")}>
                         <img src={this.props.sel==="pro"?F5:F5_1} />
