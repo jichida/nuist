@@ -7,6 +7,9 @@ import Swiper from "./swiper";
 import Mapindex from "./map";
 import Monitoring from "./monitoring";
 import Investigation from "./investigation";
+import Chartdemo from "../../img/z3.png";
+import Pro1 from "../../img/z4.png";
+import Footer from "../footer";
 
 class App extends React.Component {
   render() {
@@ -29,8 +32,69 @@ class App extends React.Component {
 					<Investigation />
 				</div>
 			</div>
+			<div className="datachart">
+				<ul>
+					<li>
+						<div className="tt">温度曲线分析</div>
+						<div className="chart"><img src={Chartdemo} /></div>
+					</li>
+					<li>
+						<div className="tt">温度曲线分析</div>
+						<div className="chart"><img src={Chartdemo} /></div>
+					</li>
+					<li>
+						<div className="tt">温度曲线分析</div>
+						<div className="chart"><img src={Chartdemo} /></div>
+					</li>
+					<li>
+						<div className="tt">温度曲线分析</div>
+						<div className="chart"><img src={Chartdemo} /></div>
+					</li>
+				</ul>
+			</div>
+			<div className="prolist">
+				<ul>
+					<li>
+						<div className="l">
+							<div className="pro"><img src={Pro1} /></div>
+							<div className="tt">温度曲线分析</div>
+						</div>
+					</li>
+					<li>
+						<div className="l">
+							<div className="pro"><img src={Pro1} /></div>
+							<div className="tt">温度曲线分析</div>
+						</div>
+					</li>
+					<li>
+						<div className="l">
+							<div className="pro"><img src={Pro1} /></div>
+							<div className="tt">温度曲线分析</div>
+						</div>
+					</li>
+					<li>
+						<div className="l">
+							<div className="pro"><img src={Pro1} /></div>
+							<div className="tt">温度曲线分析</div>
+						</div>
+					</li>
+					<li>
+						<div className="l">
+							<div className="pro"><img src={Pro1} /></div>
+							<div className="tt">温度曲线分析</div>
+						</div>
+					</li>
+					<li>
+						<div className="l">
+							<div className="pro"><img src={Pro1} /></div>
+							<div className="tt">温度曲线分析</div>
+						</div>
+					</li>
+				</ul>
+			</div>
         </div>
-      </div>
+        <Footer />
+    </div>
     );
   }
 }
