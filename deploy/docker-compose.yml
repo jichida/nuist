@@ -14,7 +14,7 @@ services:
       depends_on:
         - dabaappserver
   dabaappserver:
-    image: node:6.11.2
+    image: node:6.13.0
     restart: always
     command: node ./index.js
     working_dir: /app
@@ -24,7 +24,7 @@ services:
     network_mode: "host"
     environment:
       - MONGO_URL=mongodb://dabauser:daba159@127.0.0.1/daba
-      - rooturl=http://daba.czjcd.com
+      - rooturl=http://api.nuistiot.com
       - listenport=30050
     ports:
        - "30050:30050"

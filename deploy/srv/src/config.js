@@ -1,7 +1,7 @@
 const config =  {
   secretkey:'dabakey',
   listenport:process.env.listenport ||6011,
-  rooturl:process.env.rooturl || 'http://daba.czjcd.com',
+  rooturl:process.env.rooturl || 'http://api.nuistiot.com',
   issmsdebug:process.env.issmsdebug || false,
   publishdirtest:'../../../bms/test/build',
   publishdirapp:'../../../bms/app/build',

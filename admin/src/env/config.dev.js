@@ -1,5 +1,5 @@
 let islocalhost = true;
-let serverurl = islocalhost?'http://localhost:6011':'http://daba.czjcd.com';
+let serverurl = islocalhost?'http://localhost:6011':'http://api.nuistiot.com';
 
 export default {
     restserverurl:`${serverurl}/adminapi/v1`,

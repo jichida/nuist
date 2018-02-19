@@ -1,5 +1,5 @@
 let islocalhost = false;
-const serverurl = islocalhost?'http://localhost:5011':'http://daba.czjcd.con';
+const serverurl = islocalhost?'http://localhost:5011':'http://api.nuistiot.com';
 const serverurlrestful = islocalhost?`${serverurl}/api`:`${serverurl}/apisrv/api`;
 const wspath = islocalhost?'/socket.io':'/apisrv/socket.io';
 
