@@ -13,7 +13,7 @@ export function* socketflow(){//仅执行一次
       let {payload:issocketconnected} = action;
       if(issocketconnected){
         yield put(getsystemconfig_request({}));
-        const token = localStorage.getItem(`bms_${config.softmode}_token`);
+        const token = localStorage.getItem(`nuist_${config.softmode}_token`);
         if (!!token) {
           yield put(loginwithtoken_request({token}));
         }

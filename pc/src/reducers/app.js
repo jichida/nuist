@@ -11,7 +11,9 @@ const initial = {
         socketconnected:false,
         ispopuserinfo:false,
         ispoppwd:false,
-        ispopcare:false
+        ispopcare:false,
+        uialarmshowall:true,
+        bannerproducturls:[]
     },
 };
 

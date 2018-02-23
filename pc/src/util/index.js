@@ -43,3 +43,11 @@ export const getCoureName = (course)=> {
     }
     return name;
 }
+
+export const getindexstring = (index,length)=>{
+  index = ''+index;
+  while(index.length < length){
+    index = '0'+index;
+  }
+  return index;
+}
