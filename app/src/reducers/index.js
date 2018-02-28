@@ -5,10 +5,12 @@ import { routerReducer } from 'react-router-redux';
 import app from './app';
 import userlogin from './userlogin';
 import routers from './routers';
+import product from './product';
 
 export default combineReducers({
   	app,
   	userlogin,
+    product,
   	form: formReducer,
   	router: routerReducer,
   	routers,

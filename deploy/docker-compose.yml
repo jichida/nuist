@@ -23,6 +23,7 @@ services:
       - ./dist:/dist
     network_mode: "host"
     environment:
+      - DEBUG=appsrv:*
       - MONGO_URL=mongodb://dabauser:daba159@127.0.0.1/daba
       - rooturl=http://api.nuistiot.com
       - listenport=30050

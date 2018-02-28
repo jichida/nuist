@@ -18,10 +18,6 @@ import {
   querydeviceinfo_result,
 
 
-
-  gettipcount_request,
-
-
 } from '../actions';
 import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 import map from 'lodash.map';
@@ -42,9 +38,9 @@ export function* wsrecvsagaflow() {
             yield put(login_result(result));
             if(result.loginsuccess){
               localStorage.setItem(`bms_${config.softmode}_token`,result.token);
-              if(config.softmode === 'pc'){
-                yield put(gettipcount_request({}));//获取个数
-              }
+              // if(config.softmode === 'pc'){
+              //   yield put(gettipcount_request({}));//获取个数
+              // }
               yield put(querydevicegroup_request({}));
 
               // if(config.ispopalarm){

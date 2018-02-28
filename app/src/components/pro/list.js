@@ -1,52 +1,35 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Pro1 from "../../img/pro1.png";
+import lodashmap from 'lodash.map';
 
 class App extends React.Component {
 
   	render() {
+      const {productlist,products} = this.props;
 	    return (
 	      	<div className="prolist">
 	        	<ul>
-	        		<li>
-	        			<div>
-	        				<img src={Pro1} />
-	        				<div className="name">温湿度传感器</div>
-	        			</div>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<img src={Pro1} />
-	        				<div className="name">温湿度传感器</div>
-	        			</div>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<img src={Pro1} />
-	        				<div className="name">温湿度传感器</div>
-	        			</div>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<img src={Pro1} />
-	        				<div className="name">温湿度传感器</div>
-	        			</div>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<img src={Pro1} />
-	        				<div className="name">温湿度传感器</div>
-	        			</div>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<img src={Pro1} />
-	        				<div className="name">温湿度传感器</div>
-	        			</div>
-	        		</li>
+              {
+                lodashmap((productlist),(pid)=>{
+                  const product = products[pid];
+                  if(!!product){
+                    return (<li key={pid}>
+      	        			<div>
+      	        				<img src={product.picurl} />
+      	        				<div className="name">{product.name}</div>
+      	        			</div>
+      	        		</li>);
+                  }
+                })
+              }
 	        	</ul>
 	      	</div>
 	    );
   	}
 }
 
-export default App;
+const mapStateToProps = ({product:{productlist,products}}) => {
+    return {productlist,products};
+}
+export default connect(mapStateToProps)(App);

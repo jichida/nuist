@@ -33,11 +33,15 @@ import {
     savealarmsettings_request,
     savealarmsettings_result,
 
-    serverpush_alarm
+    serverpush_alarm,
+
+    getproductlist_request,
+    getproductlist_result
   } from '../actions';
 
 //接收的对应关系
 let recvmessagetoresultpair = {
+  'getproductlist_result':getproductlist_result,
   'savealarmsettings_result':savealarmsettings_result,
   'serverpush_alarm':serverpush_alarm,
 
@@ -58,6 +62,7 @@ let recvmessagetoresultpair = {
 
 //非验证发送接口
 let sendmessagefnsz = {
+  'getproductlist':`${getproductlist_request}`,
   'logout':`${logout_request}`,
   'loginwithtoken':`${loginwithtoken_request}`,
   'login':`${login_request}`,

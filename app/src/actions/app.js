@@ -8,3 +8,5 @@ export const getsystemconfig_request = createAction('getsystemconfig_request');
 export const getsystemconfig_result = createAction('getsystemconfig_result');
 
 export const set_routers = createAction('set_routers');
+
+export const set_weui = createAction('set_weui');

@@ -1,18 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Switch, Router, Route } from 'react-router-dom';
-import Index from './components/index/';
-import Login from './components/login';
-import Investigation from './components/investigation';
-import AddInvestigation from './components/investigation/add';
-import ResultInvestigation from './components/investigation/result';
-import Proindex from './components/pro';
-import Monitor from './components/monitor';
-import Datameter from './components/datameter';
-import Video from './components/video';
-import Warning from './components/warning';
-import createBrowserHistory from 'history/createBrowserHistory'
-const customHistory = createBrowserHistory();
+import Index from './index/';
+import Login from './login';
+import Investigation from './investigation';
+import AddInvestigation from './investigation/add';
+import ResultInvestigation from './investigation/result';
+import Proindex from './pro';
+import Monitor from './monitor';
+import Datameter from './datameter';
+import Video from './video';
+import Warning from './warning';
+
 /*
   /           首页          ／网站首页，展示相册列表，每一个相册的首张图片
   /album/:day/:id   展示相册图片，  并且展示图片数量，和上一张下一张操作
@@ -20,7 +19,6 @@ const customHistory = createBrowserHistory();
 */
 const AppRoot = (props) => {
     return (
-        <Router history={customHistory}>
             <div className="container">
                 <Route exact path="/" component={Index} />
                 <Route exact path="/login" component={Login} />
@@ -33,7 +31,6 @@ const AppRoot = (props) => {
                 <Route exact path="/warning" component={Warning} />
                 <Route exact path="/video" component={Video} />
             </div>
-        </Router>
     );
 }
 export default AppRoot;
