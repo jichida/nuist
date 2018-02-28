@@ -29,6 +29,7 @@ const OnlineResearchSchema = new Schema({
   answeroptions:[],
   researchresult:[],
   researchrecords:[],
+  publishdate:{ type: String, default:moment().format('YYYY-MM-DD')},
 }, { strict: false });
 OnlineResearchSchema.plugin(mongoosePaginate);
 const OnlineResearchModel =mongoose.model('onlineresearch',  OnlineResearchSchema);

@@ -13,7 +13,7 @@ class App extends React.Component {
 	    return (
 	      	<div className="addinvestigationPage">
 	        	<Header history={this.props.history} />
-	        	<div className="tt"><span>2018-01-17</span><span>参与人数{lodashget(curvote,'researchrecords',[]).length}人</span></div>
+	        	<div className="tt"><span>{lodashget(curvote,'publishdate')}</span><span>参与人数{lodashget(curvote,'researchrecords',[]).length}人</span></div>
 	        	<div className="ll">
 					<ul>
 						<li>

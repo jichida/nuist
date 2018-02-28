@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Exit from "../../img/22.png";
 import "./style.css";
 import lodashmap from 'lodash.map';
+import lodashget from 'lodash.get';
 
 class App extends React.Component {
 
@@ -25,7 +26,7 @@ class App extends React.Component {
 						        			<div className="t">{index}</div>
 						        			<div className="c">
 												<div className="c1">{vote.name}</div>
-												<div className="c2"><span>2018-01-17</span><span>已有{vote.researchrecords.length}人参与</span></div>
+												<div className="c2"><span>{lodashget(vote,'publishdate')}</span><span>已有{vote.researchrecords.length}人参与</span></div>
 						        			</div>
 						        			<div className="e">
 														{isfilled ? '已填':<img src={Exit} />}
