@@ -26,7 +26,7 @@ const product = createReducer({
   },
   [getproductdetail_result]:(state,payload)=>{
       const products = {...state.products};
-      products[payload._id] = products;
+      products[payload._id] = payload;
       return {...state, products};
   },
 

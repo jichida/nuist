@@ -1,24 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Header from "../header/page.js";
 import "./style.css";
 import List from "./list.js";
+import lodashget from 'lodash.get';
+import lodashmap from 'lodash.map';
 
 class App extends React.Component {
 
   	render() {
+      const {curvote} = this.props;
 	    return (
 	      	<div className="addinvestigationPage">
 	        	<Header history={this.props.history} />
-	        	<div className="tt"><span>2018-01-17</span><span>共15题</span><span>参与人数963258人</span></div>
+	        	<div className="tt"><span>2018-01-17</span><span>参与人数{lodashget(curvote,'researchrecords',[]).length}人</span></div>
 	        	<div className="ll">
 					<ul>
 						<li>
-							<div className="tit">01.新农田水利设施建设以后，以前的水利设施使用情况是？</div>
+							<div className="tit">{lodashget(curvote,'name','')}</div>
 							<div className="aslist">
-								<div className="dd"><span>A.和新水利设施共同使用</span></div>
-								<div className="dd"><span>B.和新水利设施共同使用</span></div>
-								<div className="dd"><span>C.和新水利设施共同使用</span></div>
-								<div className="dd"><span>D.和新水利设施共同使用</span></div>
+                {
+                  lodashmap(lodashget(curvote,'answeroptions',[]),(option,index)=>{
+                    return (<div className="dd" key={index}><span>{option.optionname}.{option.answername}</span></div>)
+                  })
+                }
 							</div>
 							<div className="btnlist">
 								<div><span>A</span></div>
@@ -35,4 +40,8 @@ class App extends React.Component {
   	}
 }
 
-export default App;
+const mapStateToProps = ({vote:{votelist,votes}},props) => {
+    const curvote = votes[props.match.params.id];
+    return {curvote};
+}
+export default connect(mapStateToProps)(App);

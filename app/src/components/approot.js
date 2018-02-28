@@ -23,7 +23,7 @@ const AppRoot = (props) => {
                 <Route exact path="/" component={Index} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/investigation" component={Investigation} />
-                <Route exact path="/investigation/add" component={AddInvestigation} />
+                <Route exact path="/investigation/add/:id" component={AddInvestigation} />
                 <Route exact path="/investigation/result" component={ResultInvestigation} />
                 <Route exact path="/pro" component={Proindex} />
                 <Route exact path="/datameter/:id" component={Monitor} />

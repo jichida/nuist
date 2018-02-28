@@ -1,51 +1,46 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Exit from "../../img/22.png";
 import "./style.css";
+import lodashmap from 'lodash.map';
 
 class App extends React.Component {
 
-	pushurl=(name)=>{
+	 pushurl=(name)=>{
         this.props.history.push(`/${name}`);
     }
 
   	render() {
+			const {votelist,votes} = this.props;
 	    return (
 	      	<div className="investigationlist">
 	        	<ul>
-	        		<li onClick={this.pushurl.bind(this, "investigation/add")}>
-	        			<div className="t">01</div>
-	        			<div className="c">
-							<div className="c1">关于新建水利工程对环境的影响</div>
-							<div className="c2"><span>2018-01-17</span><span>共15题</span><span>已有3人参与</span></div>
-	        			</div>
-	        			<div className="e">
-							<img src={Exit} />
-	        			</div>
-	        		</li>
-	        		<li onClick={this.pushurl.bind(this, "investigation/add")}>
-	        			<div className="t">02</div>
-	        			<div className="c">
-							<div className="c1">关于新建水利工程对环境的影响</div>
-							<div className="c2"><span>2018-01-17</span><span>共15题</span><span>已有3人参与</span></div>
-	        			</div>
-	        			<div className="e">
-							<img src={Exit} />
-	        			</div>
-	        		</li>
-	        		<li onClick={this.pushurl.bind(this, "investigation/result")} className="del">
-	        			<div className="t">03</div>
-	        			<div className="c">
-							<div className="c1">关于新建水利工程对环境的影响</div>
-							<div className="c2"><span>2018-01-17</span><span>共15题</span><span>已有3人参与</span></div>
-	        			</div>
-	        			<div className="e">
-							已填
-	        			</div>
-	        		</li>
+							{
+									lodashmap((votelist),(vid,index)=>{
+										const vote = votes[vid];
+										if(!!vote){
+											let isfilled = index%2 == 0;
+											return (
+												<li key={vid} onClick={this.pushurl.bind(this, `investigation/add/${vid}`)} className={isfilled?"del":""}>
+						        			<div className="t">{index}</div>
+						        			<div className="c">
+												<div className="c1">{vote.name}</div>
+												<div className="c2"><span>2018-01-17</span><span>已有{vote.researchrecords.length}人参与</span></div>
+						        			</div>
+						        			<div className="e">
+														{isfilled ? '已填':<img src={Exit} />}
+						        			</div>
+						        		</li>);
+										}
+									})
+							}
 	        	</ul>
 	      	</div>
 	    );
   	}
 }
 
-export default App;
+const mapStateToProps = ({vote:{votelist,votes}}) => {
+    return {votelist,votes};
+}
+export default connect(mapStateToProps)(App);

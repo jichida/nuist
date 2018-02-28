@@ -5,9 +5,12 @@ const realtimealarm = require('../common/realtimealarm.js');
 const moment = require('moment');
 const userrelate = require('../common/userrelate');
 const product = require('../common/product.js');
+const vote = require('../common/vote.js');
 const debugapp = require('debug')('appsrv:app:index');
 //司机端
 const actiondatahandler = {
+  'getvotelist':vote.getvotelist,
+  'setvote':vote.setvote,
   'getproductlist':product.getproductlist,
   'getproductdetail':product.getproductdetail,
   'getsystemconfig':systemconfig.getsystemconfig,

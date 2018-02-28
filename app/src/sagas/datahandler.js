@@ -36,12 +36,17 @@ import {
     serverpush_alarm,
 
     getproductlist_request,
-    getproductlist_result
+    getproductlist_result,
+
+    getvotelist_request,
+    getvotelist_result,
   } from '../actions';
 
 //接收的对应关系
 let recvmessagetoresultpair = {
   'getproductlist_result':getproductlist_result,
+  'getvotelist_result':getvotelist_result,
+
   'savealarmsettings_result':savealarmsettings_result,
   'serverpush_alarm':serverpush_alarm,
 
@@ -62,6 +67,7 @@ let recvmessagetoresultpair = {
 
 //非验证发送接口
 let sendmessagefnsz = {
+  'getvotelist':`${getvotelist_request}`,
   'getproductlist':`${getproductlist_request}`,
   'logout':`${logout_request}`,
   'loginwithtoken':`${loginwithtoken_request}`,
