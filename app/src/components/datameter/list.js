@@ -22,7 +22,7 @@ class App extends React.Component {
 									if(!!curdevice){
 										return (
 											<ul key={did}>
-												<li className="tt" onClick={this.pushurl.bind(this, `datameter/${did}/${index}`)}>
+												<li className="tt" onClick={this.pushurl.bind(this, `datameter/${did}/${index+1}`)}>
 						        			<div>
 						        				<span>{index}</span>
 						        				<span>{lodashget(curdevice,'name')} - {lodashget(curdevice,'locationname')}</span>

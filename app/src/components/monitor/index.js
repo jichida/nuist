@@ -13,15 +13,19 @@ class App extends React.Component {
 
     render() {
         const {curdevice,index} = this.props;
-        return (
-            <div className="monitorPage">
-                <Header history={this.props.history} title="01-南京-金润广场" />
-                <Meter />
-                { !!curdevice && <Filler curdevice={curdevice}/> }
-                <List />
-                <Report />
-            </div>
-        );
+        if(!!curdevice){
+          return (
+              <div className="monitorPage">
+                  <Header history={this.props.history} title={`${index}-${lodashget(curdevice,'name','')}-${lodashget(curdevice,'locationname','')}`}/>
+                  <Meter curdevice={curdevice}/>
+                  <Filler curdevice={curdevice}/>
+                  <List curdevice={curdevice}/>
+                  <Report curdevice={curdevice}/>
+              </div>
+          );
+        }
+        return <div />
+
     }
 }
 
