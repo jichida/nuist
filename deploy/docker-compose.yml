@@ -32,16 +32,3 @@ services:
        - "30050:30050"
     expose:
        - "30050"
-  mongodb:
-    image:  mongo:3.4
-    restart: always
-    expose:
-       - "27017"
-    volumes:
-       - "/var/db100/dbdata:/data/db -d"
-    ports:
-       - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=15961125167
-    command: mongod --auth
