@@ -21,6 +21,7 @@ services:
     volumes:
       - ./srv:/app
       - ./dist:/dist
+      - ./log:/log
     network_mode: "host"
     environment:
       - DEBUG=appsrv:*

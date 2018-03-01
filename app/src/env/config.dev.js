@@ -1,7 +1,7 @@
-let islocalhost = 6011;
+let islocalhost = false;
 const serverurl = islocalhost?'http://localhost:6011':'http://api.nuistiot.com';
-const serverurlrestful = islocalhost?`${serverurl}/api`:`${serverurl}/apisrv/api`;
-const wspath = islocalhost?'/socket.io':'/apisrv/socket.io';
+const serverurlrestful = islocalhost?`${serverurl}/api`:`${serverurl}/api`;
+const wspath = islocalhost?'/socket.io':'/socket.io';
 
 let config = {
     ispopalarm:false,
