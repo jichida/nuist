@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Swiperimg from "./swiperimg";
 import "./style.css";
+import Header from "../header/page.js";
 import List from "./list.js";
 import Footer from "../footer";
 import {getvotelist_request} from '../../actions';
@@ -15,7 +16,7 @@ class App extends React.Component {
   	render() {
 	    return (
 	      	<div className="investigationPage">
-	        	<Swiperimg />
+	        	<Header history={this.props.history} />
 	        	<List history={this.props.history} />
 	        	<Footer history={this.props.history} sel={"investigation"}  />
 	      	</div>

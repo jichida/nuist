@@ -18,6 +18,7 @@ body.body .investigationlist ul{
 }
 .investigationPage{
 	padding-bottom: 75px;
+	padding-top: 80px;
 }
 .investigationlist ul li{
 	display: -webkit-box;
@@ -201,8 +202,3 @@ body.body .addinvestigationPage ul{
 .addinvestigationPage ul li .aslist .dd span{
 	margin-right: 10px;
 }
-
-
-
-
-

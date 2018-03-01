@@ -50,7 +50,7 @@ class App extends React.Component {
 
   	render() {
 	    return (
-	      	<div 
+	      	<div
 	      		className="indexPage"
 	      		style={{height: `${this.state.innerHeight-64}px`}}
 	      		>
@@ -70,7 +70,7 @@ class App extends React.Component {
 						</ul>
 	        		</div>
 	        	</div>
-	        	<Usercenter />
+	        	{/* <Usercenter /> */}
 	        	<Footer history={this.props.history} sel={"index"} />
 	      	</div>
 	    );
