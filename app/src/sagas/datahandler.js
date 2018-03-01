@@ -12,17 +12,8 @@ import {
     getsystemconfig_result,
 
 
-    querydevicegroup_request,
-    querydevicegroup_result,
-
-    querydevice_request,
-    querydevice_result,
-
-    querydeviceinfo_request,
-    querydeviceinfo_result,
-
-    querydeviceinfo_list_request,
-    querydeviceinfo_list_result,
+    getdevicelist_request,
+    getdevicelist_result,
 
     queryrealtimealarm_request,
     queryrealtimealarm_result,
@@ -30,8 +21,8 @@ import {
     changepwd_request,
     changepwd_result,
 
-    savealarmsettings_request,
-    savealarmsettings_result,
+    saveusersettings_request,
+    saveusersettings_result,
 
     serverpush_alarm,
 
@@ -47,7 +38,7 @@ let recvmessagetoresultpair = {
   'getproductlist_result':getproductlist_result,
   'getvotelist_result':getvotelist_result,
 
-  'savealarmsettings_result':savealarmsettings_result,
+  'saveusersettings_result':saveusersettings_result,
   'serverpush_alarm':serverpush_alarm,
 
   'getsystemconfig_result':getsystemconfig_result,
@@ -56,10 +47,8 @@ let recvmessagetoresultpair = {
 
   'login_result':md_login_result,
   'logout_result':logout_result,
-  'querydevicegroup_result':querydevicegroup_result,
-  'querydevice_result':querydevice_result,
-  'querydeviceinfo_result':querydeviceinfo_result,
-  'querydeviceinfo_list_result':querydeviceinfo_list_result,
+  'getdevicelist_result':getdevicelist_result,
+
   'queryrealtimealarm_result':queryrealtimealarm_result,
 
   'changepwd_result':changepwd_result
@@ -79,13 +68,10 @@ let sendmessagefnsz = {
 
 //验证发送接口
 let sendmessageauthfnsz = {
-  'savealarmsettings':`${savealarmsettings_request}`,
+  'saveusersettings':`${saveusersettings_request}`,
   'changepwd':`${changepwd_request}`,
-  'querydevicegroup':`${querydevicegroup_request}`,
+  'getdevicelist':`${getdevicelist_request}`,
 
-  'querydevice':`${querydevice_request}`,
-  'querydeviceinfo':`${querydeviceinfo_request}`,
-  'querydeviceinfo_list':`${querydeviceinfo_list_request}`,
   'queryrealtimealarm':`${queryrealtimealarm_request}`,
 };
 

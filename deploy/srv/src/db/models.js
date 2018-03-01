@@ -63,8 +63,8 @@ const UserSchema = new Schema({
   roleid:{ type: Schema.Types.ObjectId, ref: 'role' },
   adminflag:{ type: Schema.Types.Number,default: 0 },
   devicegroups:[{ type: Schema.Types.ObjectId, ref: 'devicegroup', default: [] }],
-  devicecollections:[],
-  alarmsettings:{
+  usersettings:{
+    indexdeviceid:String,
     warninglevel:String,//报警等级
     subscriberdeviceids:[],//订阅的设备
   }

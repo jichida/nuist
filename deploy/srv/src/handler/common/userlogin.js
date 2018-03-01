@@ -36,8 +36,8 @@ let getdatafromuser =(user)=>{
   return {
     username: user.username,
     userid:user._id,
-    devicecollections:user.devicecollections || [],
-    alarmsettings:{
+    usersettings:{
+      indexdeviceid:_.get(user,'alarmsettings.indexdeviceid',''),
       warninglevel:_.get(user,'alarmsettings.warninglevel',''),
       subscriberdeviceids:_.get(user,'alarmsettings.subscriberdeviceids',[]),
     }
@@ -74,21 +74,21 @@ let setloginsuccess = (ctx,user,callback)=>{
 };
 
 
-exports.savealarmsettings = (socket,actiondata,ctx)=>{
-  const alarmsettings = actiondata;
+exports.saveusersettings = (socket,actiondata,ctx)=>{
+  const usersettings = actiondata;
   const userModel = DBModels.UserModel;
-  userModel.findByIdAndUpdate(ctx.userid,{$set:{alarmsettings}},{new: true},(err,usernew)=>{
+  userModel.findByIdAndUpdate(ctx.userid,{$set:{usersettings}},{new: true},(err,usernew)=>{
     if(!err && !!usernew){
         callback({
-          cmd:'savealarmsettings_result',
-          payload:{alarmsettings:usernew.alarmsettings}
+          cmd:'saveusersettings_result',
+          payload:{usersettings:usernew.usersettings}
         });
         subscriberuser(usernew,ctx);
     }
     else{
       callback({
         cmd:'common_err',
-        payload:{errmsg:`保存报警设置失败`,type:'savealarmsettings'}
+        payload:{errmsg:`保存设置失败`,type:'saveusersettings'}
       });
     }
   });

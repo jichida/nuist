@@ -3,7 +3,7 @@ import {
   //登录
     login_result,
     logout_result,
-    savealarmsettings_result,
+    saveusersettings_result,
 } from '../actions';
 import config from '../env/config';
 
@@ -13,7 +13,8 @@ const initial = {
     username: '',
     token: '',
     avatar : "",
-    alarmsettings : {
+    usersettings : {
+      indexdeviceid:'',
       warninglevel:'',
       subscriberdeviceids : []
     },
@@ -22,7 +23,7 @@ const initial = {
 };
 
 const userlogin = createReducer({
-  [savealarmsettings_result]:(state,payload)=>{
+  [saveusersettings_result]:(state,payload)=>{
     return { ...state, ...payload};
   },
   [logout_result]: (state, payload) => {
