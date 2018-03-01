@@ -23,6 +23,7 @@ const authhandler = {
   'saveusersettings':userlogin.saveusersettings,
   'changepwd':userlogin.changepwd,
   'getdevicelist':device.getdevicelist,
+  'getrealtimealarmlist':realtimealarm.getrealtimealarmlist,
 };
 
 module.exports = (socket,actiondata,ctx)=>{

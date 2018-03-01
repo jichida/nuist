@@ -15,8 +15,8 @@ import {
     getdevicelist_request,
     getdevicelist_result,
 
-    queryrealtimealarm_request,
-    queryrealtimealarm_result,
+    getrealtimealarmlist_request,
+    getrealtimealarmlist_result,
 
     changepwd_request,
     changepwd_result,
@@ -49,7 +49,7 @@ let recvmessagetoresultpair = {
   'logout_result':logout_result,
   'getdevicelist_result':getdevicelist_result,
 
-  'queryrealtimealarm_result':queryrealtimealarm_result,
+  'getrealtimealarmlist_result':getrealtimealarmlist_result,
 
   'changepwd_result':changepwd_result
 };
@@ -72,7 +72,7 @@ let sendmessageauthfnsz = {
   'changepwd':`${changepwd_request}`,
   'getdevicelist':`${getdevicelist_request}`,
 
-  'queryrealtimealarm':`${queryrealtimealarm_request}`,
+  'getrealtimealarmlist':`${getrealtimealarmlist_request}`,
 };
 
 export default {recvmessagetoresultpair,sendmessagefnsz,sendmessageauthfnsz};

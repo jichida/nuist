@@ -1,105 +1,47 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import lodashmap from 'lodash.map';
+import lodashget from 'lodash.get';
 
 class App extends React.Component {
 
   	render() {
+      const {realtimealarmlist,realtimealarms,devices} = this.props;
 	    return (
 	      	<div className="warninglist">
 	        	<ul>
-	        		<li>
-	        			<div>
-	        				<div className="tit">温度过高：120℃</div>
-	        				<div className="cont">
-								<p><span>南京 - 金润广场</span><span>2018-01-17 15:05</span></p>
-								<p>地址：楠溪江东街以南，恒山路以...</p>
-	        				</div>
-	        			</div>
-	        			<span className="num">01</span>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<div className="tit">温度过高：120℃</div>
-	        				<div className="cont">
-								<p><span>南京 - 金润广场</span><span>2018-01-17 15:05</span></p>
-								<p>地址：楠溪江东街以南，恒山路以...</p>
-	        				</div>
-	        			</div>
-	        			<span className="num">02</span>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<div className="tit">温度过高：120℃</div>
-	        				<div className="cont">
-								<p><span>南京 - 金润广场</span><span>2018-01-17 15:05</span></p>
-								<p>地址：楠溪江东街以南，恒山路以...</p>
-	        				</div>
-	        			</div>
-	        			<span className="num">03</span>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<div className="tit">温度过高：120℃</div>
-	        				<div className="cont">
-								<p><span>南京 - 金润广场</span><span>2018-01-17 15:05</span></p>
-								<p>地址：楠溪江东街以南，恒山路以...</p>
-	        				</div>
-	        			</div>
-	        			<span className="num">03</span>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<div className="tit">温度过高：120℃</div>
-	        				<div className="cont">
-								<p><span>南京 - 金润广场</span><span>2018-01-17 15:05</span></p>
-								<p>地址：楠溪江东街以南，恒山路以...</p>
-	        				</div>
-	        			</div>
-	        			<span className="num">03</span>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<div className="tit">温度过高：120℃</div>
-	        				<div className="cont">
-								<p><span>南京 - 金润广场</span><span>2018-01-17 15:05</span></p>
-								<p>地址：楠溪江东街以南，恒山路以...</p>
-	        				</div>
-	        			</div>
-	        			<span className="num">03</span>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<div className="tit">温度过高：120℃</div>
-	        				<div className="cont">
-								<p><span>南京 - 金润广场</span><span>2018-01-17 15:05</span></p>
-								<p>地址：楠溪江东街以南，恒山路以...</p>
-	        				</div>
-	        			</div>
-	        			<span className="num">03</span>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<div className="tit">温度过高：120℃</div>
-	        				<div className="cont">
-								<p><span>南京 - 金润广场</span><span>2018-01-17 15:05</span></p>
-								<p>地址：楠溪江东街以南，恒山路以...</p>
-	        				</div>
-	        			</div>
-	        			<span className="num">03</span>
-	        		</li>
-	        		<li>
-	        			<div>
-	        				<div className="tit">温度过高：120℃</div>
-	        				<div className="cont">
-								<p><span>南京 - 金润广场</span><span>2018-01-17 15:05</span></p>
-								<p>地址：楠溪江东街以南，恒山路以...</p>
-	        				</div>
-	        			</div>
-	        			<span className="num">03</span>
-	        		</li>
+              {
+								lodashmap((realtimealarmlist),(rid,index)=>{
+										const realtimealarm = realtimealarms[rid];
+										if(!!realtimealarm){
+                      const curdevice = lodashget(devices,`${realtimealarm.did}`);
+                      const content = lodashget(realtimealarm,'content','');
+                      const type = lodashget(realtimealarm,'type','');
+                      const value = lodashget(realtimealarm,'value','');
+                      const devicename = lodashget(curdevice,'name','');
+                      const devicelocationname = lodashget(curdevice,'locationname','');
+                      const updatetime = lodashget(realtimealarm,'updatetime','');
+                      const addressname = lodashget(curdevice,'addressname','');
+                      return ( <li key={rid}>
+                      	        			<div>
+                      	        				<div className="tit">{`${content}-${type}(${value})`}</div>
+                      	        				<div className="cont">
+                      								<p><span>{`${devicename}`} - {`${devicelocationname}`}</span><span> {`${updatetime}`}</span></p>
+                      								<p>地址：{`${addressname}`}</p>
+                      	        				</div>
+                      	        			</div>
+                      	        			<span className="num">{index}</span>
+                      	        		</li>);
+                    }
+                  })
+              }
 	        	</ul>
 	      	</div>
 	    );
   	}
 }
 
-export default App;
+const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},device:{devices}}) => {
+    return {realtimealarmlist,realtimealarms,devices};
+}
+export default connect(mapStateToProps)(App);

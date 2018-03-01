@@ -21,6 +21,7 @@ const authhandler = {
   'saveusersettings':userlogin.saveusersettings,
   'gettipcount':tip.gettipcount,
   'getdevicelist':device.getdevicelist,
+  'getrealtimealarmlist':realtimealarm.getrealtimealarmlist,
 };
 
 module.exports = (socket,actiondata,ctx)=>{

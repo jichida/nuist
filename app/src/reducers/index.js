@@ -8,10 +8,12 @@ import routers from './routers';
 import product from './product';
 import device from './devices';
 import vote from './vote';
+import realtimealarm from './realtimealarm';
 
 export default combineReducers({
   	app,
     device,
+    realtimealarm,
   	userlogin,
     vote,
     product,
