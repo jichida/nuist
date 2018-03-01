@@ -53,7 +53,7 @@ class App extends React.Component {
 			this.props.dispatch(set_uiapp({ispopuserinfo:true}));
 		}
   	render() {
-			const {ispopuserinfo} = this.props;
+			const {ispopuserinfo,ispoppwd,ispopcare} = this.props;
 	    return (
 	      	<div
 	      		className="indexPage"
@@ -76,13 +76,15 @@ class App extends React.Component {
 	        		</div>
 	        	</div>
 	        	{ispopuserinfo  && <Usercenter /> }
+						{ispoppwd && <Changepwd />}
+						{ispopcare && <Collection />}
 	        	<Footer history={this.props.history} sel={"index"} />
 	      	</div>
 	    );
   	}
 }
 
-const mapStateToProps = ({app:{ispopuserinfo,}}) => {
-    return {ispopuserinfo};
+const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare}}) => {
+    return {ispopuserinfo,ispoppwd,ispopcare};
 }
 export default connect(mapStateToProps)(App);

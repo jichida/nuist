@@ -1,16 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Pro1 from "../../img/pro1.png";
 import Close from "../../img/close.png";
 import Point1 from "../../img/25.png";
 import "./style.css";
+import {set_uiapp} from '../../actions';
 
 class App extends React.Component {
 
-	constructor(props) {  
+	  constructor(props) {  
         super(props);  
         this.state = {};
     }
-
+		onClickClosePwd = ()=>{
+			this.props.dispatch(set_uiapp({ispoppwd:false}));
+		}
   	render() {
 	    return (
 	      	<div className="changepwd">
@@ -23,11 +27,11 @@ class App extends React.Component {
 						<div><span>再次确认：</span><input name="confirmpwd"/></div>
 		        	</div>
 		        	<div className="btn"><span>确认修改</span></div>
-		        	<div className="closediv"><img className="close" src={Close} /></div>
+		        	<div onClick={this.onClickClosePwd} className="closediv"><img className="close" src={Close} /></div>
 	        	</div>
 	      	</div>
 	    );
   	}
 }
 
-export default App;
+export default connect()(App);

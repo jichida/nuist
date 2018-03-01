@@ -15,6 +15,15 @@ class App extends React.Component {
 		onClickCloseUser = ()=>{
 			this.props.dispatch(set_uiapp({ispopuserinfo:false}));
 		}
+		onClickPwd = ()=>{
+			this.props.dispatch(set_uiapp({ispopuserinfo:false,ispoppwd:true}));
+		}
+		onClickCare = ()=>{
+			this.props.dispatch(set_uiapp({ispopuserinfo:false,ispopcare:true}));
+		}
+		onClickLogout = ()=>{
+
+		}
   	render() {
 	    return (
 	      	<div className="usercenter">
@@ -22,11 +31,13 @@ class App extends React.Component {
 	      		<div className="infocontent">
 		        	<div className="tit">用户中心</div>
 		        	<div className="list">
-						<div>修改密码</div>
-						<div>关注设置</div>
-						<div>退出登录</div>
-		        	</div>
-		        	<div onClick={this.onClickCloseUser} className="closediv"><img className="close" src={Close} /></div>
+							<div onClick={this.onClickPwd}>修改密码</div>
+							<div onClick={this.onClickCare}>关注设置</div>
+							<div onClick={this.onClickLogout}>退出登录</div>
+			       </div>
+		        	<div onClick={this.onClickCloseUser} className="closediv">
+								<img className="close" src={Close} />
+							</div>
 	        	</div>
 	      	</div>
 	    );

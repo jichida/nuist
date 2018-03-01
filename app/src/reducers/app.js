@@ -10,6 +10,8 @@ const initial = {
     app: {
         socketconnected:false,
         ispopuserinfo:false,
+        ispoppwd:false,
+        ispopcare:false
     },
 };
 
