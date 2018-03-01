@@ -1,6 +1,9 @@
 import React from 'react';
 import Exit from "../../img/22.png";
 import Meter from "./meter";
+import lodashget from 'lodash.get';
+import lodashmap from 'lodash.map';
+import {getCoureName} from '../../util';
 
 class App extends React.Component {
 
@@ -9,71 +12,56 @@ class App extends React.Component {
     }
 
   	render() {
+			const {devicelist,devices} = this.props;
 	    return (
 	      	<div className="datamonitordata">
-	        	<ul>
-	        		<li className="tt" onClick={this.pushurl.bind(this, "datameter/01")}>
-	        			<div>
-	        				<span>01</span>
-	        				<span>南京 - 金润广场</span>
-	        			</div>
-	        			<div>
-	        				<span>查看详细数据</span>
-	        			</div>
-	        		</li>
-	        		<li className="dd">
-	        			<div className="t1">
-		        			<span>风向</span>
-			      			<span>风力</span>
-			      			<span>湿度</span>
-			      			<span>气压</span>
-			      			<span>雨量</span>
-			      			<span>时间</span>
-		      			</div>
-		      			<div>
-		        			<span>偏东风</span>
-			      			<span>3级</span>
-			      			<span>26℃</span>
-			      			<span>36%</span>
-			      			<span>1003Pa</span>
-			      			<span>25mm</span>
-		      			</div>
-	        		</li>
-	        	</ul>
-	        	<ul>
-	        		<li className="tt" onClick={this.pushurl.bind(this, "datameter/01")}>
-	        			<div>
-	        				<span>01</span>
-	        				<span>南京 - 金润广场</span>
-	        			</div>
-	        			<div>
-	        				<span>查看详细数据</span>
-	        			</div>
-	        		</li>
-	        		<li className="dd">
-	        			<div className="t1">
-		        			<span>风向</span>
-			      			<span>风力</span>
-			      			<span>湿度</span>
-			      			<span>气压</span>
-			      			<span>雨量</span>
-			      			<span>时间</span>
-		      			</div>
-		      			<div>
-		        			<span>偏东风</span>
-			      			<span>3级</span>
-			      			<span>26℃</span>
-			      			<span>36%</span>
-			      			<span>1003Pa</span>
-			      			<span>25mm</span>
-		      			</div>
-	        		</li>
-	        	</ul>
-	        	<ul>
+
+							{
+								lodashmap(devicelist,(did,index)=>{
+									const curdevice = devices[did];
+									if(!!curdevice){
+										return (
+											<ul key={did}>
+												<li className="tt" onClick={this.pushurl.bind(this, `datameter/${did}/${index}`)}>
+						        			<div>
+						        				<span>{index}</span>
+						        				<span>{lodashget(curdevice,'name')} - {lodashget(curdevice,'locationname')}</span>
+						        			</div>
+						        			<div>
+						        				<span>查看详细数据</span>
+						        			</div>
+						        		</li>
+						        		<li className="dd">
+						        			<div className="t1">
+							        			<span>风向</span>
+								      			<span>风力</span>
+								      			<span>湿度</span>
+								      			<span>气压</span>
+								      			<span>雨量</span>
+								      			<span>时间</span>
+							      			</div>
+													{
+														!!curdevice.realtimedata ? (	<div>
+									        			<span>{getCoureName(lodashget(curdevice,'realtimedata.winddirection'))}风</span>
+										      			<span>{lodashget(curdevice,'realtimedata.windspeed')}级</span>
+										      			<span>{lodashget(curdevice,'realtimedata.temperature')}℃</span>
+										      			<span>{lodashget(curdevice,'realtimedata.humidity')}%</span>
+										      			<span>{lodashget(curdevice,'realtimedata.pressure')}Pa</span>
+										      			<span>{lodashget(curdevice,'realtimedata.rainfall')}mm</span>
+									      			</div>):(<div>暂无数据</div>)
+													}
+
+						        		</li>
+											</ul>
+										)
+									}
+								})
+							}
+	        	{/* <ul>
 	        		<li>
 	        			<Meter />
 	        		</li>
-	        	</ul>
+	        	</ul> */}
 	      	</div>
 	    );
   	}

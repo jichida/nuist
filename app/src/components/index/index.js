@@ -20,51 +20,10 @@ import lodashget from 'lodash.get';
 
 import "./index.css";
 import {set_uiapp} from '../../actions';
+import {getCoureName} from '../../util';
 
 let resizetimecontent;
-const getCoureName = (course)=> {
-    var name = "";
-    if(typeof course === 'string'){
-      course = parseFloat(course);
-    }
 
-    if ((course >= 0 && course < 22.5) || (course >= 337.5 && course < 360)) // 0
-    {
-        name = "正北";
-    }
-    else if (course >= 22.5 && course < 67.5) // 45
-    {
-        name = "东北";
-    }
-    else if (course >= 67.5 && course < 112.5) // 90
-    {
-        name = "正东";
-    }
-    else if (course >= 112.5 && course < 157.5) //135
-    {
-        name = "东南";
-    }
-    else if (course >= 157.5 && course < 202.5) //180
-    {
-        name = "正南";
-    }
-    else if (course >= 202.5 && course < 247.5) //225
-    {
-        name = "西南";
-    }
-    else if (course >= 247.5 && course < 292.5) //270
-    {
-        name = "正西";
-    }
-    else if (course >= 292.5 && course < 337.5) //315
-    {
-        name = "西北";
-    }
-    else {
-        name = "未知.";
-    }
-    return name;
-}
 
 class App extends React.Component {
 
@@ -112,7 +71,9 @@ class App extends React.Component {
 			        		<div className="mapcanver point"><img src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
 			        		<div className="maindata">
 								<ul>
-									<li><img src={Data1} /><span>风向</span><span>{getCoureName(lodashget(curdevice,'realtimedata.winddirection'))}风</span></li>
+									<li><img src={Data1} /><span>风向</span>
+									<span>{getCoureName(lodashget(curdevice,'realtimedata.winddirection'))}风</span>
+									</li>
 									<li><img src={Data2} /><span>风力</span><span>{lodashget(curdevice,'realtimedata.windspeed')}级</span></li>
 									<li><img src={Data3} /><span>温度</span><span>{lodashget(curdevice,'realtimedata.temperature')}℃</span></li>
 									<li><img src={Data4} /><span>湿度</span><span>{lodashget(curdevice,'realtimedata.humidity')}%</span></li>

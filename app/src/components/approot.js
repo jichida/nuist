@@ -26,7 +26,7 @@ const AppRoot = (props) => {
                 <Route exact path="/investigation/add/:id" component={requireAuthentication(AddInvestigation)} />
                 <Route exact path="/investigation/result" component={requireAuthentication(ResultInvestigation)} />
                 <Route exact path="/pro" component={Proindex} />
-                <Route exact path="/datameter/:id" component={requireAuthentication(Monitor)} />
+                <Route exact path="/datameter/:id/:index" component={requireAuthentication(Monitor)} />
                 <Route exact path="/datameter" component={requireAuthentication(Datameter)} />
                 <Route exact path="/warning" component={requireAuthentication(Warning)} />
                 <Route exact path="/video" component={requireAuthentication(Video)} />

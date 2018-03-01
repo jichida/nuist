@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Pro1 from "../../img/pro1.png";
 import Close from "../../img/close.png";
 
@@ -29,4 +30,4 @@ class App extends React.Component {
   	}
 }
 
-export default App;
+export default connect()(App);
