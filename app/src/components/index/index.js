@@ -11,6 +11,11 @@ import Data5 from "../../img/18.png";
 import Data6 from "../../img/19.png";
 import City from "../../img/20.png";
 import Point from "../../img/21.png";
+
+import Collection from "../user/collection.js";
+import Changepwd from "../user/pwd.js";
+import Usercenter from "../user/center.js";
+
 import "./index.css";
 import { connect } from 'react-redux';
 let resizetimecontent;
@@ -65,6 +70,7 @@ class App extends React.Component {
 						</ul>
 	        		</div>
 	        	</div>
+	        	<Usercenter />
 	        	<Footer history={this.props.history} sel={"index"} />
 	      	</div>
 	    );
