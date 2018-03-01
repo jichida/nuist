@@ -44,7 +44,7 @@ const adminauth = (req,res)=>{
         }
         else{
           //普通后台用户
-          const permissions = _.get(user,'roleid.permissions',[]);
+          const permissions = _.get(user,'roleid.permissions_opt',[]);
           const findresult = false;
           if(!findresult){
             res.status(200).json({

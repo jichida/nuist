@@ -105,10 +105,10 @@ exports.loginuser = (actiondata,ctx,callback)=>{
         model: 'role',
         populate:[
         {
-          path:'permissions', select:'_id name', model: 'permission'
+          path:'permissions_opt', select:'_id name', model: 'permission'
         },
       ]
-    }]).exec((err, user)=> {
+    }]).lean().exec((err, user)=> {
     if (!!err) {
       callback({
         cmd:'common_err',
@@ -123,11 +123,11 @@ exports.loginuser = (actiondata,ctx,callback)=>{
       });
       return;
     }
-    //console.log(user);
+    // console.log(user);
     pwd.hashPassword(oneUser.password, user.passwordsalt, (err, passwordHash)=> {
       if(!err && !!passwordHash){
         if (passwordHash === user.passwordhash) {
-          const permissions = _.get(user,'roleid.permissions',[]);
+          const permissions = _.get(user,'roleid.permissions_opt',[]);
           const findresult = _.find(permissions,(p)=>{
             if(ctx.usertype === 'pc' && p._id.toString() === '5a03b66013e7410cd0ef3093'){
               return true;

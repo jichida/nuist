@@ -37,7 +37,7 @@ const authhandler = {
 };
 
 module.exports = (socket,actiondata,ctx)=>{
-  debugapp(`${actiondata.cmd},actiondata:${actiondata.payload},ctx==>${JSON.stringify(ctx)}`);
+  debugapp(`${actiondata.cmd},actiondata:${actiondata.data},ctx==>${JSON.stringify(ctx)}`);
   try{
       if(ctx.usertype !== 'app'){
         debugapp("不是正确的客户端--->" + actiondata.cmd);

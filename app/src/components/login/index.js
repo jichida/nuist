@@ -1,12 +1,22 @@
-
 import React from 'react';
+import { Field, reduxForm, Form, formValueSelector  } from 'redux-form';
+import { connect } from 'react-redux';
+import {login_request} from '../../actions';
 import "./style.css";
 import LoginBg from "../../img/loginbg.png";
 import Img1 from "../../img/1.png";
 import Img2 from "../../img/2.png";
+import {
+    required,
+    phone,
+    InputValidation,
+    length4
+} from "../tools/formvalidation-material-ui"
+
+
 let resizetimecontent;
 
-class App extends React.Component {
+class PageForm extends React.Component {
 
 	constructor(props) {
         super(props);
@@ -15,7 +25,7 @@ class App extends React.Component {
           innerWidth : window.innerWidth
         };
     }
-	
+
 	componentDidMount() {
         window.addEventListener('resize', this.onWindowResize);
     }
@@ -35,9 +45,14 @@ class App extends React.Component {
     }
 
   	render() {
+      const { handleSubmit,onClickLogin,pristine,submitting } = this.props;
     	return (
-      		<div 
-      			className="loginPage" 
+				<Form
+						className="loginForm"
+						onSubmit={handleSubmit(onClickLogin)}
+						>
+      		<div
+      			className="loginPage"
       			style={{
       				width: "100%",
       				height: `${this.state.innerHeight}px`,
@@ -52,20 +67,87 @@ class App extends React.Component {
         			</div>
 					<div className="li">
 						<img src={Img1} />
-						<input type="text" name="username" placeholder="请输入您的账号" />
+						<Field
+								name="username"
+								id="username"
+								placeholder="请输入您的账号"
+								type="text"
+								component={ InputValidation }
+								validate={[ required ]}
+						/>
 					</div>
 					<div className="li">
 						<img src={Img2} />
-						<input type="text" name="username" placeholder="请输入您的密码" />
+						<Field
+								name="password"
+								id="password"
+								placeholder="请输入您的密码"
+								type="password"
+								component={ InputValidation }
+								validate={[ required ]}
+						/>
 					</div>
 					<div className="butn">
-						<button>登录</button>
+						<button disabled={pristine || submitting}
+            onClick={handleSubmit(onClickLogin)}>登录</button>
 					</div>
         		</div>
-        		<div className="esclnk"><a href="#">退出</a></div>
       		</div>
+					</Form>
     	);
   	}
 }
 
-export default App;
+PageForm = reduxForm({
+    form: 'LoginPageForm'
+})(PageForm);
+
+
+
+export class Page extends React.Component {
+    componentWillReceiveProps (nextProps) {
+        console.log(nextProps);
+        if(nextProps.loginsuccess && !this.props.loginsuccess){
+            console.log("------->" + JSON.stringify(this.props.location));
+            //search:?next=/devicelist
+            var fdStart = this.props.location.search.indexOf("?next=");
+            if(fdStart === 0){
+                const redirectRoute = this.props.location.search.substring(6);
+                this.props.history.replace(redirectRoute);
+            }
+            else{
+                this.props.history.replace('/');
+            }
+            return;
+        }
+    }
+    onClickReturn =()=>{
+        this.props.history.goBack();
+    }
+
+    componentWillUnmount(){
+        // this.props.dispatch(set_weui({
+        //     loading : {
+        //         show : false
+        //     },
+        // }));
+    }
+
+    onClickLogin = (values)=>{
+        let payload = {
+            username:values.username,
+            password:values.password,
+        };
+        console.log(payload);
+        this.props.dispatch(login_request(payload));
+        // this.props.history.push("./");
+    }
+    render(){
+        return (<PageForm onClickLogin={this.onClickLogin}/>);
+    }
+}
+
+const data = ({userlogin}) => { return userlogin; }
+Page = connect(data)(Page);
+
+export default Page;
