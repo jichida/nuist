@@ -18,7 +18,6 @@ class App extends React.Component {
 	      	<div className="investigationPage">
 	        	<Header history={this.props.history} />
 	        	<List history={this.props.history} />
-	        	<Footer history={this.props.history} sel={"investigation"}  />
 	      	</div>
 	    );
   	}

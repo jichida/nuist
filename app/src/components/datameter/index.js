@@ -10,7 +10,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="datameterPage">
-                <Header title="数据监控" history={this.props.history} />
+                <Header title="数据监控" history={this.props.history} ishidereturn/>
                 <Filler />
                 <List history={this.props.history} />
                 <Footer history={this.props.history} sel={"datameter"} />
