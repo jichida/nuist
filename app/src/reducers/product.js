@@ -1,7 +1,6 @@
 import { createReducer } from 'redux-act';
 import {
   getproductlist_result,
-  getproductdetail_result
  } from '../actions';
 import lodashmap from 'lodash.map';
 
@@ -24,11 +23,11 @@ const product = createReducer({
       });
       return {...state, productlist,products};
   },
-  [getproductdetail_result]:(state,payload)=>{
-      const products = {...state.products};
-      products[payload._id] = payload;
-      return {...state, products};
-  },
+  // [getproductdetail_result]:(state,payload)=>{
+  //     const products = {...state.products};
+  //     products[payload._id] = payload;
+  //     return {...state, products};
+  // },
 
 }, initial.product);
 

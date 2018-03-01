@@ -4,7 +4,6 @@ const device = require('../common/device.js');
 const realtimealarm = require('../common/realtimealarm.js');
 const moment = require('moment');
 const tip = require('../common/tip');
-const userrelate = require('../common/userrelate');
 const product = require('../common/product.js');
 const debugpc = require('debug')('appsrv:pc:index');
 //司机端
@@ -21,17 +20,7 @@ const actiondatahandler = {
 const authhandler = {
   'saveusersettings':userlogin.saveusersettings,
   'gettipcount':tip.gettipcount,
-  'querydevice':device.querydevice,
-  'querydevicegroup':device.querydevicegroup,
-  // 'queryrealtimealarm':realtimealarm.queryrealtimealarm,
-  'querydeviceinfo':device.querydeviceinfo,
-  'querydeviceinfo_list':device.querydeviceinfo_list,
-  'collectdevice':userrelate.collectdevice,
-  // 'searchbattery':device.searchbattery,
-  'serverpush_devicegeo_sz':device.serverpush_devicegeo_sz,
-  // 'searchbatteryalarm':realtimealarm.searchbatteryalarm,
-  // 'searchbatteryalarmsingle':realtimealarm.searchbatteryalarmsingle,
-  'uireport_searchalarmdetail':realtimealarm.uireport_searchalarmdetail,
+  'getdevicelist':device.getdevicelist,
 };
 
 module.exports = (socket,actiondata,ctx)=>{

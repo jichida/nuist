@@ -16,11 +16,55 @@ import Point from "../../img/21.png";
 import Collection from "../user/collection.js";
 import Changepwd from "../user/pwd.js";
 import Usercenter from "../user/center.js";
+import lodashget from 'lodash.get';
 
 import "./index.css";
 import {set_uiapp} from '../../actions';
 
 let resizetimecontent;
+const getCoureName = (course)=> {
+    var name = "";
+    if(typeof course === 'string'){
+      course = parseFloat(course);
+    }
+
+    if ((course >= 0 && course < 22.5) || (course >= 337.5 && course < 360)) // 0
+    {
+        name = "正北";
+    }
+    else if (course >= 22.5 && course < 67.5) // 45
+    {
+        name = "东北";
+    }
+    else if (course >= 67.5 && course < 112.5) // 90
+    {
+        name = "正东";
+    }
+    else if (course >= 112.5 && course < 157.5) //135
+    {
+        name = "东南";
+    }
+    else if (course >= 157.5 && course < 202.5) //180
+    {
+        name = "正南";
+    }
+    else if (course >= 202.5 && course < 247.5) //225
+    {
+        name = "西南";
+    }
+    else if (course >= 247.5 && course < 292.5) //270
+    {
+        name = "正西";
+    }
+    else if (course >= 292.5 && course < 337.5) //315
+    {
+        name = "西北";
+    }
+    else {
+        name = "未知.";
+    }
+    return name;
+}
 
 class App extends React.Component {
 
@@ -53,28 +97,33 @@ class App extends React.Component {
 			this.props.dispatch(set_uiapp({ispopuserinfo:true}));
 		}
   	render() {
-			const {ispopuserinfo,ispoppwd,ispopcare} = this.props;
+			const {ispopuserinfo,ispoppwd,ispopcare,curdevice} = this.props;
 	    return (
 	      	<div
 	      		className="indexPage"
 	      		style={{height: `${this.state.innerHeight-64}px`}}
 	      		>
 	        	<Header history={this.props.history} onClickUserlnk={this.onClickUserlnk}/>
-	        	<div className="mainmap">
-	        		<img src={Mainmap} />
-	        		<div className="mapcanver city"><img src={City} /><span>南京</span></div>
-	        		<div className="mapcanver point"><img src={Point} /><span>金润广场</span></div>
-	        		<div className="maindata">
-						<ul>
-							<li><img src={Data1} /><span>风向</span><span>偏东风</span></li>
-							<li><img src={Data2} /><span>风力</span><span>3级</span></li>
-							<li><img src={Data3} /><span>温度</span><span>28℃</span></li>
-							<li><img src={Data4} /><span>湿度</span><span>32%</span></li>
-							<li><img src={Data5} /><span>大气压</span><span>1002Pa</span></li>
-							<li><img src={Data6} /><span>雨量</span><span>28mm</span></li>
-						</ul>
-	        		</div>
-	        	</div>
+						{
+							!!curdevice && (
+								<div className="mainmap">
+			        		<img src={Mainmap} />
+			        		<div className="mapcanver city"><img src={City} /><span>{lodashget(curdevice,'name')}</span></div>
+			        		<div className="mapcanver point"><img src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
+			        		<div className="maindata">
+								<ul>
+									<li><img src={Data1} /><span>风向</span><span>{getCoureName(lodashget(curdevice,'realtimedata.winddirection'))}风</span></li>
+									<li><img src={Data2} /><span>风力</span><span>{lodashget(curdevice,'realtimedata.windspeed')}级</span></li>
+									<li><img src={Data3} /><span>温度</span><span>{lodashget(curdevice,'realtimedata.temperature')}℃</span></li>
+									<li><img src={Data4} /><span>湿度</span><span>{lodashget(curdevice,'realtimedata.humidity')}%</span></li>
+									<li><img src={Data5} /><span>大气压</span><span>{lodashget(curdevice,'realtimedata.pressure')}Pa</span></li>
+									<li><img src={Data6} /><span>雨量</span><span>{lodashget(curdevice,'realtimedata.rainfall')}mm</span></li>
+								</ul>
+			        		</div>
+			        	</div>
+							)
+						}
+
 	        	{ispopuserinfo  && <Usercenter /> }
 						{ispoppwd && <Changepwd />}
 						{ispopcare && <Collection />}
@@ -84,7 +133,17 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare}}) => {
-    return {ispopuserinfo,ispoppwd,ispopcare};
+const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare},device:{devicelist,devices},userlogin:{usersettings}}) => {
+		let curdevice;
+		let curdeviceid = lodashget(usersettings,'indexdeviceid');
+		if(!!curdeviceid){
+			curdevice = devices[curdeviceid];
+		}
+		if(!curdevice){
+			if(devicelist.length > 0){
+				curdevice = devices[devicelist[0]];
+			}
+		}
+    return {ispopuserinfo,ispoppwd,ispopcare,curdevice};
 }
 export default connect(mapStateToProps)(App);
