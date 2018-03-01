@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Footer from "../footer";
 import Header from "../header/main";
 import Header2 from "../header/page";
@@ -17,7 +18,8 @@ import Changepwd from "../user/pwd.js";
 import Usercenter from "../user/center.js";
 
 import "./index.css";
-import { connect } from 'react-redux';
+import {set_uiapp} from '../../actions';
+
 let resizetimecontent;
 
 class App extends React.Component {
@@ -47,14 +49,17 @@ class App extends React.Component {
             });
         },10)
     }
-
+		onClickUserlnk = ()=>{
+			this.props.dispatch(set_uiapp({ispopuserinfo:true}));
+		}
   	render() {
+			const {ispopuserinfo} = this.props;
 	    return (
 	      	<div
 	      		className="indexPage"
 	      		style={{height: `${this.state.innerHeight-64}px`}}
 	      		>
-	        	<Header history={this.props.history} />
+	        	<Header history={this.props.history} onClickUserlnk={this.onClickUserlnk}/>
 	        	<div className="mainmap">
 	        		<img src={Mainmap} />
 	        		<div className="mapcanver city"><img src={City} /><span>南京</span></div>
@@ -70,11 +75,14 @@ class App extends React.Component {
 						</ul>
 	        		</div>
 	        	</div>
-	        	{/* <Usercenter /> */}
+	        	{ispopuserinfo  && <Usercenter /> }
 	        	<Footer history={this.props.history} sel={"index"} />
 	      	</div>
 	    );
   	}
 }
 
-export default App;
+const mapStateToProps = ({app:{ispopuserinfo,}}) => {
+    return {ispopuserinfo};
+}
+export default connect(mapStateToProps)(App);

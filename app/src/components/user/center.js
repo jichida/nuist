@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Pro1 from "../../img/pro1.png";
 import Close from "../../img/close.png";
 import Point1 from "../../img/25.png";
+import {set_uiapp} from '../../actions';
 import "./style.css";
 
 class App extends React.Component {
@@ -10,7 +12,9 @@ class App extends React.Component {
         super(props);  
         this.state = {};
     }
-
+		onClickCloseUser = ()=>{
+			this.props.dispatch(set_uiapp({ispopuserinfo:false}));
+		}
   	render() {
 	    return (
 	      	<div className="usercenter">
@@ -22,11 +26,11 @@ class App extends React.Component {
 						<div>关注设置</div>
 						<div>退出登录</div>
 		        	</div>
-		        	<div className="closediv"><img className="close" src={Close} /></div>
+		        	<div onClick={this.onClickCloseUser} className="closediv"><img className="close" src={Close} /></div>
 	        	</div>
 	      	</div>
 	    );
   	}
 }
 
-export default App;
+export default connect()(App);
