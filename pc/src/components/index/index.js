@@ -1,7 +1,7 @@
 import React from 'react';
 import "./index.css";
 import Header from "../header";
-import Login from "../login";
+import Login from "./login.js";
 import Weather from "./weather";
 import Swiper from "./swiper";
 import Mapindex from "./map";

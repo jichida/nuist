@@ -12,33 +12,33 @@ import {
     getsystemconfig_result,
 
 
-    querydevicegroup_request,
-    querydevicegroup_result,
+    getdevicelist_request,
+    getdevicelist_result,
 
-    querydevice_request,
-    querydevice_result,
-
-    querydeviceinfo_request,
-    querydeviceinfo_result,
-
-    querydeviceinfo_list_request,
-    querydeviceinfo_list_result,
-
-    queryrealtimealarm_request,
-    queryrealtimealarm_result,
+    getrealtimealarmlist_request,
+    getrealtimealarmlist_result,
 
     changepwd_request,
     changepwd_result,
 
-    savealarmsettings_request,
-    savealarmsettings_result,
+    saveusersettings_request,
+    saveusersettings_result,
 
-    serverpush_alarm
+    serverpush_alarm,
+
+    getproductlist_request,
+    getproductlist_result,
+
+    getvotelist_request,
+    getvotelist_result,
   } from '../actions';
 
 //接收的对应关系
 let recvmessagetoresultpair = {
-  'savealarmsettings_result':savealarmsettings_result,
+  'getproductlist_result':getproductlist_result,
+  'getvotelist_result':getvotelist_result,
+
+  'saveusersettings_result':saveusersettings_result,
   'serverpush_alarm':serverpush_alarm,
 
   'getsystemconfig_result':getsystemconfig_result,
@@ -47,17 +47,17 @@ let recvmessagetoresultpair = {
 
   'login_result':md_login_result,
   'logout_result':logout_result,
-  'querydevicegroup_result':querydevicegroup_result,
-  'querydevice_result':querydevice_result,
-  'querydeviceinfo_result':querydeviceinfo_result,
-  'querydeviceinfo_list_result':querydeviceinfo_list_result,
-  'queryrealtimealarm_result':queryrealtimealarm_result,
+  'getdevicelist_result':getdevicelist_result,
+
+  'getrealtimealarmlist_result':getrealtimealarmlist_result,
 
   'changepwd_result':changepwd_result
 };
 
 //非验证发送接口
 let sendmessagefnsz = {
+  'getvotelist':`${getvotelist_request}`,
+  'getproductlist':`${getproductlist_request}`,
   'logout':`${logout_request}`,
   'loginwithtoken':`${loginwithtoken_request}`,
   'login':`${login_request}`,
@@ -68,14 +68,11 @@ let sendmessagefnsz = {
 
 //验证发送接口
 let sendmessageauthfnsz = {
-  'savealarmsettings':`${savealarmsettings_request}`,
+  'saveusersettings':`${saveusersettings_request}`,
   'changepwd':`${changepwd_request}`,
-  'querydevicegroup':`${querydevicegroup_request}`,
+  'getdevicelist':`${getdevicelist_request}`,
 
-  'querydevice':`${querydevice_request}`,
-  'querydeviceinfo':`${querydeviceinfo_request}`,
-  'querydeviceinfo_list':`${querydeviceinfo_list_request}`,
-  'queryrealtimealarm':`${queryrealtimealarm_request}`,
+  'getrealtimealarmlist':`${getrealtimealarmlist_request}`,
 };
 
 export default {recvmessagetoresultpair,sendmessagefnsz,sendmessageauthfnsz};

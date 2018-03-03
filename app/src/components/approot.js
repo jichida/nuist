@@ -15,7 +15,7 @@ import {requireAuthentication} from './requireauthentication';
 /*
   /           首页          ／网站首页，展示相册列表，每一个相册的首张图片
   /album/:day/:id   展示相册图片，  并且展示图片数量，和上一张下一张操作
-
+ 
 */
 const AppRoot = (props) => {
     return (

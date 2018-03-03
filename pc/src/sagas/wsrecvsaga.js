@@ -8,19 +8,8 @@ import {
 
   set_weui,
 
-  querydevicegroup_request,
-  querydevicegroup_result,
-
-  querydevice_request,
-  querydevice_result,
-
-  md_querydeviceinfo_result,
-  querydeviceinfo_result,
-
-
-
-  gettipcount_request,
-
+  getdevicelist_request,
+  getdevicelist_result,
 
 } from '../actions';
 import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
@@ -42,10 +31,10 @@ export function* wsrecvsagaflow() {
             yield put(login_result(result));
             if(result.loginsuccess){
               localStorage.setItem(`bms_${config.softmode}_token`,result.token);
-              if(config.softmode === 'pc'){
-                yield put(gettipcount_request({}));//获取个数
-              }
-              yield put(querydevicegroup_request({}));
+              // if(config.softmode === 'pc'){
+              //   yield put(gettipcount_request({}));//获取个数
+              // }
+              yield put(getdevicelist_request({}));
 
               // if(config.ispopalarm){
               //   yield put(start_serverpush_alarm_sz({}));
@@ -78,23 +67,6 @@ export function* wsrecvsagaflow() {
           type:'warning'
         }}));
   });
-
-  yield takeLatest(`${querydevicegroup_result}`, function*(action) {
-    try{
-      const {payload:{list}} = action;
-      //获取到分组列表
-      let groupids = [];
-      map(list,(group)=>{
-        groupids.push(group._id);
-      });
-      yield put(querydevice_request({query:{}}));
-    }
-    catch(e){
-      console.log(e);
-    }
-
-  });
-
 
 
 }

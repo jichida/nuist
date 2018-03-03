@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm, Form, formValueSelector  } from 'redux-form';
-import "../css/login.css";
+import "./login.css";
 
 export class PageForm extends React.Component {
     render(){
@@ -10,7 +10,7 @@ export class PageForm extends React.Component {
                 <div className="li"><input type="text" placeholder="请输入您的帐号" /></div>
                 <div className="li"><input type="text" placeholder="请输入您的密码" /></div>
                 <div className="li submitBtn"><button>登录</button></div>
-            </div>                                            
+            </div>
         )
     }
 }

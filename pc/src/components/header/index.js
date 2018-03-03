@@ -1,6 +1,6 @@
 import React from 'react';
-import "../css/header.css";
-import Headimg from "../img/1.jpg";
+import "./style.css";
+import Headimg from "../../img/1.jpg";
 let resizetimecontent = null;
 
 class App extends React.Component {
