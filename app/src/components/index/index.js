@@ -16,7 +16,10 @@ import Point from "../../img/21.png";
 import Collection from "../user/collection.js";
 import Changepwd from "../user/pwd.js";
 import Usercenter from "../user/center.js";
+import PopcareSel from "../popcaresel";
+
 import lodashget from 'lodash.get';
+
 
 import "./index.css";
 import {set_uiapp} from '../../actions';
@@ -55,8 +58,11 @@ class App extends React.Component {
 		onClickUserlnk = ()=>{
 			this.props.dispatch(set_uiapp({ispopuserinfo:true}));
 		}
+		onClickPopCareSel = ()=>{
+			this.props.dispatch(set_uiapp({ispopcaresel:true}));
+		}
   	render() {
-			const {ispopuserinfo,ispoppwd,ispopcare,curdevice} = this.props;
+			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel,curdevice} = this.props;
 	    return (
 	      	<div
 	      		className="indexPage"
@@ -67,8 +73,8 @@ class App extends React.Component {
 							!!curdevice && (
 								<div className="mainmap">
 			        		<img src={Mainmap} />
-			        		<div className="mapcanver city"><img src={City} /><span>{lodashget(curdevice,'name')}</span></div>
-			        		<div className="mapcanver point"><img src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
+			        		<div onClick={this.onClickPopCareSel} className="mapcanver city"><img src={City} /><span>{lodashget(curdevice,'name')}</span></div>
+			        		<div onClick={this.onClickPopCareSel} className="mapcanver point"><img src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
 			        		<div className="maindata">
 								<ul>
 									<li><img src={Data1} /><span>风向</span>
@@ -88,13 +94,15 @@ class App extends React.Component {
 	        	{ispopuserinfo  && <Usercenter /> }
 						{ispoppwd && <Changepwd />}
 						{ispopcare && <Collection />}
+						{ispopcaresel && <PopcareSel />}
+
 	        	<Footer history={this.props.history} sel={"index"} />
 	      	</div>
 	    );
   	}
 }
 
-const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare},device:{devicelist,devices},userlogin:{usersettings}}) => {
+const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel},device:{devicelist,devices},userlogin:{usersettings}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
@@ -105,6 +113,6 @@ const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare},device:{devicel
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {ispopuserinfo,ispoppwd,ispopcare,curdevice};
+    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel,curdevice};
 }
 export default connect(mapStateToProps)(App);

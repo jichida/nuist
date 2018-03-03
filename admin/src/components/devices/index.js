@@ -44,6 +44,8 @@ const DeviceCreate = (props) => (
     <SimpleForm defaultValue={deviceDefaultValue}>
       <TextInput label="节点ID" source="DeviceId" validate={required} />
       <TextInput label="节点名字" source="name" validate={required} />
+      <TextInput label="所属城市" source="city"  validate={required} />
+      <TextInput label="所属城市首字母" source="cityindex"  validate={required} />
     </SimpleForm>
   </Create>
 );
@@ -55,6 +57,8 @@ const DeviceEdit = (props) => {
         <FormTab label="节点基本信息">
           <TextField label="节点ID" source="DeviceId"  />
           <TextInput label="节点名字" source="name"  validate={required} />
+          <TextInput label="所属城市" source="city"  validate={required} />
+          <TextInput label="所属城市首字母" source="cityindex"  validate={required} />
           <TextField label="地理位置" source="locationname"  />
           <TextField label="详细地址" source="addressname"  />
           <TextField label="创建时间" source="created_at"  />

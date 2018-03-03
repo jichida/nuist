@@ -31,6 +31,7 @@
     "jest": "20.0.4",
     "lodash.get": "^4.4.2",
     "lodash.map": "^4.6.0",
+    "lodash.uniq": "^4.5.0",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
