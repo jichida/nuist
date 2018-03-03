@@ -42,7 +42,7 @@ class App extends React.Component {
 				<span>实时数据</span>
 				<span>数据预警</span>
 				<span>预警参数管理</span>
-				<span>后台管理</span>
+				<span><Link to='/adminlogin'>后台管理</Link></span>
 			</div>
       	 </div>
       </div>
