@@ -74,7 +74,7 @@ let setloginsuccess = (ctx,user,callback)=>{
 };
 
 
-exports.saveusersettings = (socket,actiondata,ctx)=>{
+exports.saveusersettings = (actiondata,ctx,callback)=>{
   const usersettings = actiondata;
   const userModel = DBModels.UserModel;
   userModel.findByIdAndUpdate(ctx.userid,{$set:{usersettings}},{new: true},(err,usernew)=>{

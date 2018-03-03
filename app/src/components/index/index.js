@@ -22,7 +22,10 @@ import lodashget from 'lodash.get';
 
 
 import "./index.css";
-import {set_uiapp} from '../../actions';
+import {
+	set_uiapp,
+	saveusersettings_request
+} from '../../actions';
 import {getCoureName} from '../../util';
 
 let resizetimecontent;
@@ -59,10 +62,16 @@ class App extends React.Component {
 			this.props.dispatch(set_uiapp({ispopuserinfo:true}));
 		}
 		onClickPopCareSel = ()=>{
-			this.props.dispatch(set_uiapp({ispopcaresel:true}));
+			this.props.dispatch(set_uiapp({ispopcaresel_single:true}));
+		}
+		onChangeCaresel = (value)=>{
+			let usersettings = this.props.usersettings;
+			usersettings.indexdeviceid = value;
+			this.props.dispatch(saveusersettings_request(usersettings));
 		}
   	render() {
-			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel,curdevice} = this.props;
+			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single,curdevice,usersettings} = this.props;
+			const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
 	    return (
 	      	<div
 	      		className="indexPage"
@@ -94,7 +103,7 @@ class App extends React.Component {
 	        	{ispopuserinfo  && <Usercenter /> }
 						{ispoppwd && <Changepwd />}
 						{ispopcare && <Collection />}
-						{ispopcaresel && <PopcareSel />}
+						{ispopcaresel_single && <PopcareSel value={indexdeviceid} onChange={this.onChangeCaresel}/>}
 
 	        	<Footer history={this.props.history} sel={"index"} />
 	      	</div>
@@ -102,7 +111,7 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel},device:{devicelist,devices},userlogin:{usersettings}}) => {
+const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single},device:{devicelist,devices},userlogin:{usersettings}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
@@ -113,6 +122,6 @@ const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel},de
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel,curdevice};
+    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single,curdevice};
 }
 export default connect(mapStateToProps)(App);

@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
-import loashuniq from 'lodash.uniq';
+import lodashuniq from 'lodash.uniq';
+import lodashfind from 'lodash.find';
+import lodashpull from 'lodash.pull';
+
 import Point1 from "../../img/25.png";
 import {set_uiapp} from '../../actions';
 
@@ -10,23 +13,53 @@ class App extends React.Component {
 
 	  constructor(props) {  
         super(props);  
+				const initvalue = !props.ismulti?[props.value]:props.value;
 				this.state = {
-					ismulti:true,
-					cursel:props.cursel || []
+					cursel:initvalue || []
 				};
     } 
 		onClickClose =()=>{
-			this.props.dispatch(set_uiapp({ispopcaresel:false}));
+			this.props.dispatch(set_uiapp({ispopcaresel_multi:false,ispopcaresel_single:false}));
 		}
 		onClickOK = ()=>{
-			this.props.dispatch(set_uiapp({ispopcaresel:false}));
+			this.props.dispatch(set_uiapp({ispopcaresel_multi:false,ispopcaresel_single:false}));
+			if(!!this.props.onChange){
+				  if(!this.props.ismulti)
+					{
+						this.props.onChange(this.state.cursel.length>0?this.state.cursel[0]:'');
+					}
+					else
+					{
+						this.props.onChange(this.state.cursel);
+					}
+			}
 		}
-		onClickSel = (deviceid)=>{
-
+		onClickSel = (deviceid,isadd)=>{
+			let curselarray = this.state.cursel;
+			if(!this.props.ismulti){//单选
+				if(curselarray.length === 0){
+					curselarray.push(deviceid);
+				}
+				else{
+					curselarray[0] = deviceid;
+				}
+			}
+			else{				//多选
+				if(isadd){
+					curselarray.push(deviceid);
+					curselarray = lodashuniq(curselarray);
+				}
+				else{
+					curselarray = lodashpull(curselarray,deviceid);
+				}
+			}
+			this.setState({
+				cursel:curselarray
+			});
 		}
 		render() {
 			const {mapc,mapcity,devices} = this.props;
-
+			const {cursel} = this.state;
 	    return (
 	      	<div className="collectionlist">
 	         	<div className="editcollectionlist">
@@ -46,16 +79,16 @@ class App extends React.Component {
 															<div className="t p2p">{cityname}</div>
 															{
 																lodashmap(didlist,(did)=>{
-																	let issel = false;
+																	let issel = !!lodashfind(cursel,(id)=>{return id === did;});
 																	const curdevice = devices[did];
 																	if(!!curdevice){
 																		if(issel){
-																			return (<div key={did} className="p2p issel"><img src={Point1} />
+																			return (<div key={did} onClick={()=>this.onClickSel(did,false)} className="p2p issel"><img src={Point1} />
 																			<span className="n">{lodashget(curdevice,'name')}</span>
 																			<span className="tip">已关注</span></div>)
 																		}
 																		else{
-																			return (<div key={did} className="p2p"><img src={Point1} />
+																			return (<div key={did} onClick={()=>this.onClickSel(did,true)} className="p2p"><img src={Point1} />
 																			<span className="n">{lodashget(curdevice,'name')}</span>
 																		 </div>);
 																		}
@@ -88,7 +121,7 @@ const mapStateToProps = ({device:{devicelist,devices}}) => {
 
 				let cityindexarray = lodashget(mapc,mapckey,[]);
 				cityindexarray.push(citykey);
-				cityindexarray = loashuniq(cityindexarray);
+				cityindexarray = lodashuniq(cityindexarray);
 				mapc[mapckey] = cityindexarray;
 
 				let cityarray = lodashget(mapcity,citykey,[]);
