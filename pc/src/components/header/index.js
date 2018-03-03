@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+
 import "./style.css";
 import Headimg from "../../img/1.jpg";
 let resizetimecontent = null;
@@ -35,8 +37,8 @@ class App extends React.Component {
       	 </div>
       	 <div className="headnav">
       	 	<div className="nav">
-				<span className="sel">大坝首页</span>
-				<span>部署展示</span>
+				<span className="sel"><Link to='/'>大坝首页</Link></span>
+				<span><Link to='/deployment'>部署展示</Link></span>
 				<span>实时数据</span>
 				<span>数据预警</span>
 				<span>预警参数管理</span>
