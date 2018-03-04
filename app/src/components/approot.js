@@ -5,7 +5,7 @@ import Index from './index/';
 import Login from './login';
 import Investigation from './investigation';
 import AddInvestigation from './investigation/add';
-import ResultInvestigation from './investigation/result';
+// import ResultInvestigation from './investigation/result';
 import Proindex from './pro';
 import Monitor from './monitor';
 import Datameter from './datameter';
@@ -24,7 +24,7 @@ const AppRoot = (props) => {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/investigation" component={Investigation} />
                 <Route exact path="/investigation/add/:id" component={requireAuthentication(AddInvestigation)} />
-                <Route exact path="/investigation/result" component={requireAuthentication(ResultInvestigation)} />
+                {/* <Route exact path="/investigation/result" component={requireAuthentication(ResultInvestigation)} /> */}
                 <Route exact path="/pro" component={Proindex} />
                 <Route exact path="/datameter/:id/:index" component={requireAuthentication(Monitor)} />
                 <Route exact path="/datameter" component={requireAuthentication(Datameter)} />
