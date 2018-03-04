@@ -8,6 +8,7 @@ import Filler from "./filler.js";
 import Report from "./report.js";
 import Footer from "../footer";
 import lodashget from 'lodash.get';
+import {getindexstring} from '../../util';
 
 class App extends React.Component {
 
@@ -16,7 +17,7 @@ class App extends React.Component {
         if(!!curdevice){
           return (
               <div className="monitorPage">
-                  <Header history={this.props.history} title={`${index}-${lodashget(curdevice,'name','')}-${lodashget(curdevice,'locationname','')}`}/>
+                  <Header history={this.props.history} title={`${getindexstring(index,2)}-${lodashget(curdevice,'name','')}-${lodashget(curdevice,'locationname','')}`}/>
                   <Meter curdevice={curdevice}/>
                   <Filler curdevice={curdevice}/>
                   <List curdevice={curdevice}/>

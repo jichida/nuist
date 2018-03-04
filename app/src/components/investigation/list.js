@@ -4,6 +4,7 @@ import Exit from "../../img/22.png";
 import "./style.css";
 import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
+import {getindexstring} from '../../util';
 
 class App extends React.Component {
 
@@ -23,7 +24,7 @@ class App extends React.Component {
 											let isfilled = index%2 == 0;
 											return (
 												<li key={vid} onClick={this.pushurl.bind(this, `investigation/add/${vid}`)} className={isfilled?"del":""}>
-						        			<div className="t">{index}</div>
+						        			<div className="t">{getindexstring(index,2)}</div>
 						        			<div className="c">
 												<div className="c1">{vote.name}</div>
 												<div className="c2"><span>{lodashget(vote,'publishdate')}</span><span>已有{vote.researchrecords.length}人参与</span></div>

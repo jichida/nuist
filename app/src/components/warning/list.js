@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
 import lodashfind from 'lodash.find';
+import {getindexstring} from '../../util';
 
 class App extends React.Component {
 
@@ -32,7 +33,7 @@ class App extends React.Component {
                       								<p>地址：{`${addressname}`}</p>
                       	        				</div>
                       	        			</div>
-                      	        			<span className="num">{index}</span>
+                      	        			<span className="num">{getindexstring(index+1,2)}</span>
                       	        		</li>);
                     }
                   })

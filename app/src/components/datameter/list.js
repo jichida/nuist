@@ -3,7 +3,7 @@ import Exit from "../../img/22.png";
 import Meter from "./meter";
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
-import {getCoureName} from '../../util';
+import {getCoureName,getindexstring} from '../../util';
 
 class App extends React.Component {
 
@@ -24,7 +24,7 @@ class App extends React.Component {
 											<ul key={did}>
 												<li className="tt" onClick={this.pushurl.bind(this, `datameter/${did}/${index+1}`)}>
 						        			<div>
-						        				<span>{index}</span>
+						        				<span>{getindexstring(index,2)}</span>
 						        				<span>{lodashget(curdevice,'name')} - {lodashget(curdevice,'locationname')}</span>
 						        			</div>
 						        			<div>
