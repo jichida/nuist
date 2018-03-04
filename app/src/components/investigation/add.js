@@ -5,17 +5,27 @@ import "./style.css";
 import List from "./list.js";
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
+import {setvote_request} from '../../actions';
 
 class App extends React.Component {
     constructor(props) {  
-          super(props);  
-          this.state = {selectedoption:lodashget(props,'curvote.selectedoption')};
+         super(props); 
+         this.state = {selectedoption:null};
     } 
+    componentDidMount(){
+      this.setState({
+        selectedoption:lodashget(this.props,'curvote.selectedoption')
+      });
+    }
     onClickOption = (selectedoption)=>{
       this.setState({selectedoption});
     }
     onClickAdd = ()=>{
-
+      const voteid = lodashget(this.props,'curvote._id');
+      const voteresult = lodashget(this.state,'selectedoption');
+      if(!!voteid && !!voteresult){
+        this.props.dispatch(setvote_request({voteid,voteresult}));
+      }
     }
     onClickView = ()=>{
 

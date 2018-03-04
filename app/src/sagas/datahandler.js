@@ -31,10 +31,14 @@ import {
 
     getvotelist_request,
     getvotelist_result,
+
+    setvote_request,
+    setvote_result
   } from '../actions';
 
 //接收的对应关系
 let recvmessagetoresultpair = {
+  'setvote_result':setvote_result,
   'getproductlist_result':getproductlist_result,
   'getvotelist_result':getvotelist_result,
 
@@ -56,6 +60,7 @@ let recvmessagetoresultpair = {
 
 //非验证发送接口
 let sendmessagefnsz = {
+
   'getvotelist':`${getvotelist_request}`,
   'getproductlist':`${getproductlist_request}`,
   'logout':`${logout_request}`,
@@ -68,6 +73,7 @@ let sendmessagefnsz = {
 
 //验证发送接口
 let sendmessageauthfnsz = {
+  'setvote':`${setvote_request}`,
   'saveusersettings':`${saveusersettings_request}`,
   'changepwd':`${changepwd_request}`,
   'getdevicelist':`${getdevicelist_request}`,
