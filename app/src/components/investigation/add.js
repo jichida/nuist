@@ -72,12 +72,13 @@ class App extends React.Component {
 							</div>
 						</li>
 					</ul>
-					{isfilled?<div onClick={this.onClickView} className="addbtn">查看结果</div>:<div onClick={this.onClickAdd} className="addbtn">提交调查问卷</div>}
+					{isfilled?<div />:<div onClick={this.onClickAdd} className="addbtn">提交调查问卷</div>}
 	        </div>
 	      	</div>
 	    );
   	}
 }
+//<div onClick={this.onClickView} className="addbtn">查看结果</div>
 
 const mapStateToProps = ({vote:{votelist,votes}},props) => {
     const curvote = votes[props.match.params.id];
