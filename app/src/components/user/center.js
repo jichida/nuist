@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import Pro1 from "../../img/pro1.png";
 import Close from "../../img/close.png";
 import Point1 from "../../img/25.png";
-import {set_uiapp} from '../../actions';
+import {
+	logout_request,
+	set_uiapp,
+} from '../../actions';
 import "./style.css";
 
 class App extends React.Component {
@@ -22,7 +25,8 @@ class App extends React.Component {
 			this.props.dispatch(set_uiapp({ispopuserinfo:false,ispopcare:true}));
 		}
 		onClickLogout = ()=>{
-
+			this.props.dispatch(set_uiapp({ispopuserinfo:false}));
+			this.props.dispatch(logout_request({}));
 		}
   	render() {
 	    return (
