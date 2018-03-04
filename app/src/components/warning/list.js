@@ -2,16 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
+import lodashfind from 'lodash.find';
 
 class App extends React.Component {
 
   	render() {
-      const {realtimealarmlist,realtimealarms,devices} = this.props;
+      const {ralist,realtimealarms,devices} = this.props;
+
 	    return (
 	      	<div className="warninglist">
 	        	<ul>
               {
-								lodashmap((realtimealarmlist),(rid,index)=>{
+								lodashmap(ralist,(rid,index)=>{
 										const realtimealarm = realtimealarms[rid];
 										if(!!realtimealarm){
                       const curdevice = lodashget(devices,`${realtimealarm.did}`);
@@ -41,7 +43,23 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},device:{devices}}) => {
-    return {realtimealarmlist,realtimealarms,devices};
+const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},device:{devices},app:{uialarmshowall},userlogin:{usersettings}}) => {
+    let alllist = [];
+    if(uialarmshowall){
+      alllist = realtimealarmlist;
+    }
+    else{
+      const subscriberdeviceids = lodashget(usersettings,'subscriberdeviceids',[])
+      lodashmap(realtimealarmlist,(rid)=>{
+        const curdeviceid = lodashget(realtimealarms[rid],'did');
+        if(!!lodashfind(subscriberdeviceids,(id)=>{
+          return id === curdeviceid;
+        })){
+          alllist.push(rid);
+        }
+      });
+    }
+    const ralist = alllist;
+    return {ralist,realtimealarms,devices,uialarmshowall};
 }
 export default connect(mapStateToProps)(App);
