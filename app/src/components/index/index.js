@@ -62,7 +62,7 @@ class App extends React.Component {
 			this.props.dispatch(set_uiapp({ispopuserinfo:true}));
 		}
 		onClickPopCareSel = ()=>{
-			this.props.dispatch(set_uiapp({ispopcaresel_single:true}));
+			this.props.dispatch(set_uiapp({ispopcaresel_single_index:true}));
 		}
 		onChangeCaresel = (value)=>{
 			let usersettings = this.props.usersettings;
@@ -70,7 +70,7 @@ class App extends React.Component {
 			this.props.dispatch(saveusersettings_request(usersettings));
 		}
   	render() {
-			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single,curdevice,usersettings} = this.props;
+			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,usersettings} = this.props;
 			const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
 	    return (
 	      	<div
@@ -103,7 +103,7 @@ class App extends React.Component {
 	        	{ispopuserinfo  && <Usercenter /> }
 						{ispoppwd && <Changepwd />}
 						{ispopcare && <Collection />}
-						{ispopcaresel_single && <PopcareSel value={indexdeviceid} onChange={this.onChangeCaresel}/>}
+						{ispopcaresel_single_index && <PopcareSel value={indexdeviceid} onChange={this.onChangeCaresel}/>}
 
 	        	<Footer history={this.props.history} sel={"index"} />
 	      	</div>
@@ -111,7 +111,7 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single},device:{devicelist,devices},userlogin:{usersettings}}) => {
+const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index},device:{devicelist,devices},userlogin:{usersettings}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
@@ -122,6 +122,6 @@ const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_sin
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single,curdevice};
+    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice};
 }
 export default connect(mapStateToProps)(App);

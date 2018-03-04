@@ -19,10 +19,10 @@ class App extends React.Component {
 				};
     } 
 		onClickClose =()=>{
-			this.props.dispatch(set_uiapp({ispopcaresel_multi:false,ispopcaresel_single:false}));
+			this.props.dispatch(set_uiapp({ispopcaresel_multi:false,ispopcaresel_single_index:false,ispopcaresel_single_datameter:false}));
 		}
 		onClickOK = ()=>{
-			this.props.dispatch(set_uiapp({ispopcaresel_multi:false,ispopcaresel_single:false}));
+			this.props.dispatch(set_uiapp({ispopcaresel_multi:false,ispopcaresel_single_index:false,ispopcaresel_single_datameter:false}));
 			if(!!this.props.onChange){
 				  if(!this.props.ismulti)
 					{
@@ -58,13 +58,14 @@ class App extends React.Component {
 			});
 		}
 		render() {
-			const {mapc,mapcity,devices} = this.props;
+			const {mapc,mapcity,devices,ismulti} = this.props;
 			const {cursel} = this.state;
+			const titleselected = !ismulti?'当前':'关注';
 	    return (
 	      	<div className="collectionlist">
 	         	<div className="editcollectionlist">
 						<div className="point"><span className="title">地点节点选择</span> <span className="close" onClick={this.onClickClose}></span></div>
-						<div onClick={this.onClickOK} className="btn">确定关注</div>
+						<div onClick={this.onClickOK} className="btn">确定</div>
 						<div className="pointlist">
 							{
 								lodashmap(mapc,(citynamearray,cityindex)=>{
@@ -85,7 +86,7 @@ class App extends React.Component {
 																		if(issel){
 																			return (<div key={did} onClick={()=>this.onClickSel(did,false)} className="p2p issel"><img src={Point1} />
 																			<span className="n">{lodashget(curdevice,'name')}</span>
-																			<span className="tip">已关注</span></div>)
+																			<span className="tip">{titleselected}</span></div>)
 																		}
 																		else{
 																			return (<div key={did} onClick={()=>this.onClickSel(did,true)} className="p2p"><img src={Point1} />

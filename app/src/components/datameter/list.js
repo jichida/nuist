@@ -7,7 +7,7 @@ import {getCoureName} from '../../util';
 
 class App extends React.Component {
 
-	pushurl=(name)=>{
+	 pushurl=(name)=>{
         this.props.history.push(`/${name}`);
     }
 

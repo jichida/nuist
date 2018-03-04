@@ -4,7 +4,7 @@
 }
 .meterchart{
 	position: relative;
-	height: 220px;
+	height: 260px;
 }
 .meterchart .chartli{
 	position: absolute;
@@ -199,7 +199,3 @@
 	color: #0164b5;
 	padding-left: 10px;
 }
-
-
-
-
