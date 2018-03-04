@@ -10,7 +10,7 @@ const client=net.connect({port:port,host:ip},()=>{
   const bufstr_cmd3='594700010000000553B832E100340103FF562000B4A2E64C304257809DB1C93615C142B820000676C8A727BD927456A512200002AB1176453A486765DE310AF31D840DFFFF';
   const buf_cmd3=Buffer.from(bufstr_cmd3,'hex');
 
-  const sendbuf = bufstr_cmd3;
+  const sendbuf = buf_cmd3;
   let bufstring=sendbuf.toString()//'aa3c2c9422b9e300130000360000009d00090006000600060006000600';//buf.toString('hex');
   console.log(`连接上服务器【${ip}:${port}】,发送数据${bufstring}`);
   client.write(sendbuf);

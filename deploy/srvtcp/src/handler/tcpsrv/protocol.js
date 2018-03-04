@@ -8,24 +8,30 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
     // const Servertime = bodybuf.readInt32BE();
     // debug(`getcmd1:Heartbeatinterval:${Heartbeatinterval},Servertime:${Servertime}`)
   }
-  else if(cmd === ox02){
+  else if(cmd === 0x02){
     const ZigbeeData = bodybuf.toString('hex');//
     debug(`getcmd2:${ZigbeeData}`);
   }
   else if(cmd === 0x03){
-    const GPSStatus = bodybuf[0];
-    const Servertime = bodybuf.readInt32BE();
+    const GPSStatus = bodybuf.toString('ascii',0,1);
     const UTCTime = bodybuf.toString('ascii',1,18);
     const Latitude = bodybuf.toString('ascii',19,13);
     const Longitude = bodybuf.toString('ascii',32,13);
-    const Temperature = (bodybuf[45] << 8) + buf[46];
-    const Humidity = (bodybuf[47] << 8) + buf[48];
-    const BatteryStatus = buf[49];
-    const Battery1Level = buf[50];
-    const Battery2Level = buf[51];
+
+    const Temperature_Int = (bodybuf[45] << 8) + bodybuf[46];
+    const Temperature_float = Temperature_Int & 0x01;
+    const Temperature_num = (Temperature_Int >> 1);
+    const Temperature = `${Temperature_num}.${Temperature_float}`;
+    const Humidity_Int = (bodybuf[47] << 8) + bodybuf[48];
+    const Humidity_float = Humidity_Int & 0x01;
+    const Humidity_num = (Humidity_Int >> 1);
+    const Humidity = `${Humidity_num}.${Humidity_float}`;
+
+    const BatteryStatus = bodybuf[49];
+    const Battery1Level = bodybuf[50];
+    const Battery2Level = bodybuf[51];
     const jsonData = {
       GPSStatus,
-      Servertime,
       UTCTime,
       Latitude,
       Longitude,

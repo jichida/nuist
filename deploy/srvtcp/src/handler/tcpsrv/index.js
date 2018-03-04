@@ -100,7 +100,7 @@ starttcpsrv = (settings)=> {
                        recvbuf.copy(bodybuf, 0, data_headlen, data_headlen+datalen);
                        debug(`获取到数据部分:${bodybuf.toString('hex')}`);
 
-                       if(bodybuf.length >= data_headlen+datalen){
+                       if(bodybuf.length >= datalen){
                          getbuf({cmd,recvbuf,bodybuf},(err,newsendbuf)=>{
                            if(!err && !!newsendbuf){
 
