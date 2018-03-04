@@ -24,7 +24,7 @@ class App extends React.Component {
 											<ul key={did}>
 												<li className="tt" onClick={this.pushurl.bind(this, `datameter/${did}/${index+1}`)}>
 						        			<div>
-						        				<span>{getindexstring(index,2)}</span>
+						        				<span>{getindexstring(index,2)} </span>
 						        				<span>{lodashget(curdevice,'name')} - {lodashget(curdevice,'locationname')}</span>
 						        			</div>
 						        			<div>
