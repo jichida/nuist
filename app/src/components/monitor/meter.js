@@ -25,25 +25,29 @@ class App extends React.Component {
         const windspeed = lodashget(curdevice,'realtimedata.windspeed',0);
         const degree_windspeed = 360-windspeed/12*360+degree_point;//风力 win1
 
+        const temperature = lodashget(curdevice,'realtimedata.temperature',0);
+        const rainfall = lodashget(curdevice,'realtimedata.rainfall',0);
+        const humidity = lodashget(curdevice,'realtimedata.humidity',0);
+        const pressure = lodashget(curdevice,'realtimedata.pressure',0);
         console.log(`windspeed:${windspeed},degree_windspeed:${degree_windspeed},degree_point:${degree_point}`)
         return (
   	      	<div className="meter">
   	        	<div className="title">实时数据</div>
   	        	<div className="meterchart">
   					<div className="chartli chart1">
-  						<Progress type="circle" percent={75} width={70} />
+  						<Progress type="circle" percent={100} width={70} format={percent => `${temperature}`} />
   						<span>温度(℃)</span>
   					</div>
   					<div className="chartli chart2">
-  						<Progress type="circle" percent={75} width={70} />
+  						<Progress type="circle" percent={humidity} width={70} format={percent => `${humidity}`} />
   						<span>湿度(%)</span>
   					</div>
   					<div className="chartli chart3">
-  						<Progress type="circle" percent={75} width={70} />
+  						<Progress type="circle" percent={100} width={70} format={percent => `${pressure}`} />
   						<span>大气压(Pa)</span>
   					</div>
   					<div className="chartli chart4">
-  						<Progress type="circle" percent={75} width={70} />
+  						<Progress type="circle" percent={100} width={70} format={percent => `${rainfall}`} />
   						<span>雨量(mm)</span>
   					</div>
   					<div className="windcontrol">
