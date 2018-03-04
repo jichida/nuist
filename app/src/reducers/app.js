@@ -12,7 +12,8 @@ const initial = {
         ispopuserinfo:false,
         ispoppwd:false,
         ispopcare:false,
-        uialarmshowall:true
+        uialarmshowall:true,
+        bannerproducturls:[]
     },
 };
 

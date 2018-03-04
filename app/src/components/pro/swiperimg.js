@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import lodashmap from 'lodash.map';
 import Swiper1 from "../../img/swiper1.png";
 import { Swiper, Slide } from 'react-dynamic-swiper';
 import 'react-dynamic-swiper/lib/styles.css';
@@ -10,6 +12,12 @@ let swiperOptions = {
 
 class App extends React.Component {
   	render() {
+      let {bannerproducturls} = this.props;
+      if(bannerproducturls.length === 0){
+        bannerproducturls.push(Swiper1);
+        bannerproducturls.push(Swiper1);
+        bannerproducturls.push(Swiper1);
+      }
 	    return (
 	      	<div className="swiperimgPage">
 	        	<Swiper
@@ -20,19 +28,20 @@ class App extends React.Component {
 	                {...swiperOptions}
 	                className="swiperchartlist"
 	                >
-	                <Slide className="Demo-swiper__slide swiperli">
-	                	<img src={Swiper1} />
-	                </Slide>
-	                <Slide className="Demo-swiper__slide swiperli">
-	                	<img src={Swiper1} />
-	                </Slide>
-	                <Slide className="Demo-swiper__slide swiperli">
-	                	<img src={Swiper1} />
-	                </Slide>
+                    {
+                      lodashmap(bannerproducturls,(url,index)=>{
+                        return (<Slide className="Demo-swiper__slide swiperli" key={index}>
+      	                	<img src={url} />
+      	                </Slide>);
+                      })
+                    }
 	            </Swiper>
 	      	</div>
 	    );
   	}
 }
 
-export default App;
+const mapStateToProps = ({app:{bannerproducturls}}) => {
+    return {bannerproducturls};
+}
+export default connect(mapStateToProps)(App);

@@ -5,11 +5,13 @@ const config = require('../../config.js');
 
 exports.getsystemconfig = (actiondata,ctx,callbackfn)=>{
     const dbModel = DBModels.SystemConfigModel;
-    dbModel.findOne({},(err,systemconfig)=>{
+    dbModel.findOne({}).lean().exec((err, systemconfig)=> {
         if(!err && !!systemconfig){
             callbackfn({
               cmd:'getsystemconfig_result',
-              systemconfig
+              payload:{
+                bannerproducturls:_.get(systemconfig,'bannerproducturls',[])
+              }
             });
         }
         else{

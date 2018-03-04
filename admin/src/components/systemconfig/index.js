@@ -26,6 +26,7 @@ import Chip from 'material-ui/Chip';
 import ShowPageOne from '../singledocumentpage/index.js';
 import {CfAlaramRuleInput} from './cf.js';
 import {PmsSelectArrayInputDetail} from './pms.js';
+import {ImageInputUploadArray} from '../controls/imageuploadarray.js';
 import "./style.css";
 
 
@@ -57,6 +58,9 @@ const SystemconfigCreateTitle = ({ record }) => {
         </FormTab>
         <FormTab label="数据权限设置">
           <PmsSelectArrayInputDetail label="数据权限设置列表" source="permissiondatasettings" />
+        </FormTab>
+        <FormTab label="系统设置">
+          <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
         </FormTab>
         </TabbedForm>
     </EditPage>

@@ -59,7 +59,7 @@ const ProductlistCreate = (props) => (
               <TextInput label="名字" source="name" />
               <TextInput label="摘要" source="brief" />
               <ImageInputUpload label="图片"  source="picurl" />
-              <ImageInputUploadArray label="产品图片列表"  source="picurls" />
+              {/* <ImageInputUploadArray label="产品图片列表"  source="picurls" /> */}
               <ImageInputUpload label="详情"  source="picurldetail" />
               <BooleanInput label="是否启用" source="isenabled" defaultValue={true} />
            </SimpleForm>
@@ -77,7 +77,7 @@ const ProductlistEdit = (props) => {
               <TextInput label="名字" source="name" />
               <TextInput label="摘要" source="brief" />
               <ImageInputUpload label="图片"  source="picurl" />
-              <ImageInputUploadArray label="产品图片列表"  source="picurls" />
+              {/* <ImageInputUploadArray label="产品图片列表"  source="picurls" /> */}
               <ImageInputUpload label="详情"  source="picurldetail" />
               <BooleanInput label="是否启用" source="isenabled" defaultValue={true} />
               <TextField label="数据更新时间" source="lastupdatetime"  />
