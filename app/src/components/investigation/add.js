@@ -7,17 +7,34 @@ import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
 
 class App extends React.Component {
+    constructor(props) {  
+          super(props);  
+          this.state = {selectedoption:lodashget(props,'curvote.selectedoption')};
+    } 
+    onClickOption = (selectedoption)=>{
+      this.setState({selectedoption});
+    }
+    onClickAdd = ()=>{
 
+    }
+    onClickView = ()=>{
+
+    }
   	render() {
       const {curvote} = this.props;
+      if(!curvote){
+        return <div />
+      }
+      const isfilled = lodashget(curvote,'isfilled',false);
+      const {selectedoption} = this.state;
 	    return (
 	      	<div className="addinvestigationPage">
-	        	<Header history={this.props.history} />
-	        	<div className="tt"><span>{lodashget(curvote,'publishdate')}</span><span>参与人数{lodashget(curvote,'researchrecords',[]).length}人</span></div>
+	        	<Header history={this.props.history} title={lodashget(curvote,'name','')}/>
+	        	<div className="tt"><span>{lodashget(curvote,'publishdate')}</span><span> 参与人数{lodashget(curvote,'researchrecords',[]).length}人</span></div>
 	        	<div className="ll">
 					<ul>
 						<li>
-							<div className="tit">{lodashget(curvote,'name','')}</div>
+							<div className="tit"></div>
 							<div className="aslist">
                 {
                   lodashmap(lodashget(curvote,'answeroptions',[]),(option,index)=>{
@@ -26,15 +43,27 @@ class App extends React.Component {
                 }
 							</div>
 							<div className="btnlist">
-								<div><span>A</span></div>
-								<div className="sel"><span>B</span></div>
-								<div><span>C</span></div>
-								<div><span>D</span></div>
+                {
+                  lodashmap(lodashget(curvote,'answeroptions',[]),(option,index)=>{
+                    if(selectedoption === option.optionname){
+                      return (<div key={index} onClick={()=>{
+                        if(!isfilled){
+                          this.onClickOption(option.optionname)
+                        }
+                      }} className="sel"><span>{option.optionname}</span></div>);
+                    }
+                    return (<div key={index} onClick={()=>{
+                      if(!isfilled){
+                        this.onClickOption(option.optionname)
+                      }
+                    }}><span>{option.optionname}</span></div>)
+                  })
+                }
 							</div>
 						</li>
 					</ul>
-					<div className="addbtn">提交调查问卷</div>
-	        	</div>
+					{isfilled?<div onClick={this.onClickView} className="addbtn">查看结果</div>:<div onClick={this.onClickAdd} className="addbtn">提交调查问卷</div>}
+	        </div>
 	      	</div>
 	    );
   	}

@@ -16,7 +16,7 @@ class App extends React.Component {
   	render() {
 	    return (
 	      	<div className="investigationPage">
-	        	<Header history={this.props.history} />
+	        	<Header history={this.props.history} title='问卷调查'/>
 	        	<List history={this.props.history} />
 	      	</div>
 	    );

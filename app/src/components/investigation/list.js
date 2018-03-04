@@ -21,7 +21,7 @@ class App extends React.Component {
 									lodashmap((votelist),(vid,index)=>{
 										const vote = votes[vid];
 										if(!!vote){
-											let isfilled = index%2 == 0;
+											let isfilled = lodashget(vote,'isfilled',false);
 											return (
 												<li key={vid} onClick={this.pushurl.bind(this, `investigation/add/${vid}`)} className={isfilled?"del":""}>
 						        			<div className="t">{getindexstring(index,2)}</div>
