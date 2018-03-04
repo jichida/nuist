@@ -126,4 +126,7 @@
 	width: 46px;
 }
 
-
+#root > div > div.container > div > div.prolist > div > div.infocontent > div.info > div{
+	width: 300px;
+	height: 200px;
+}
