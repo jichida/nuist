@@ -19,10 +19,20 @@ class App extends React.Component {
 				};
     } 
 		onClickClose =()=>{
-			this.props.dispatch(set_uiapp({ispopcaresel_multi:false,ispopcaresel_single_index:false,ispopcaresel_single_datameter:false}));
+			this.props.dispatch(set_uiapp({
+				ispopcaresel_multi:false,
+				ispopcaresel_single_index:false,
+				ispopcaresel_single_datameter:false,
+				ispopcaresel_single_video:false
+			}));
 		}
 		onClickOK = ()=>{
-			this.props.dispatch(set_uiapp({ispopcaresel_multi:false,ispopcaresel_single_index:false,ispopcaresel_single_datameter:false}));
+			this.props.dispatch(set_uiapp({
+				ispopcaresel_multi:false,
+				ispopcaresel_single_index:false,
+				ispopcaresel_single_datameter:false,
+				ispopcaresel_single_video:false
+			}));
 			if(!!this.props.onChange){
 				  if(!this.props.ismulti)
 					{

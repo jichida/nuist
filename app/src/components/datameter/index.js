@@ -19,7 +19,7 @@ class App extends React.Component {
 			this.props.dispatch(saveusersettings_request(usersettings));
 		}
     render() {
-       const {ispopcaresel_single_datameter,curdevice,devicelist,devices} = this.props;
+        const {ispopcaresel_single_datameter,curdevice,devicelist,devices} = this.props;
         return (
             <div className="datameterPage">
                 <Header title="数据监控" history={this.props.history} ishidereturn/>
