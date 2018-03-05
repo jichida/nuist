@@ -20,14 +20,16 @@ class App extends React.Component {
       this.props.dispatch(set_uiapp({uialarmshowall}));
     }
     render() {
-        const {realtimealarmcount} = this.props;
+        const {realtimealarmcount,selectedall} = this.props;
+        const classnameselected_all = selectedall?'lnkselected allshow':'lnk allshow';
+        const classnameselected_guanzhu = !selectedall?'lnkselected guanzhu':'lnk guanzhu';
         return (
             <div className="warningPage">
                 <div className="head">
                     <div className="n"><span>{realtimealarmcount>99?'99+':`${realtimealarmcount}`}</span><span>条</span></div>
                     <div className="c"><span>共有预警信息</span></div>
-                    <div onClick={()=>{this.onClickShowAll(true)}} className="lnk allshow">显示全部</div>
-                    <div onClick={()=>{this.onClickShowAll(false)}} className="lnk guanzhu">我的关注</div>
+                    <div onClick={()=>{this.onClickShowAll(true)}} className={`${classnameselected_all}`}>显示全部</div>
+                    <div onClick={()=>{this.onClickShowAll(false)}} className={`${classnameselected_guanzhu}`}>我的关注</div>
                 </div>
                 <List />
                 <Footer history={this.props.history} sel={"warning"}  />
@@ -53,6 +55,6 @@ const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},app:{
       });
     }
     const ralist = alllist;
-    return {realtimealarmcount:ralist.length};
+    return {realtimealarmcount:ralist.length,selectedall:uialarmshowall};
 }
 export default connect(mapStateToProps)(App);
