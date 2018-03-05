@@ -2,6 +2,8 @@ import React from 'react';
 import "./index.css";
 import Header from "../header";
 import Footer from "../footer";
+import Mapimg from "../../img/map_img.png";
+import Jtimg from "../../img/jt.png";
 
 class App extends React.Component {
     render() {
@@ -15,7 +17,7 @@ class App extends React.Component {
             <div className="tit">节点列表</div>
             <dl className="dl_bg">
             <dt>ID</dt>
-            <dd><span>位置</span><span>区域<img src="jt.png" /></span></dd>
+            <dd><span>位置</span><span>区域<img src={Jtimg} /></span></dd>
         </dl>
         <div className="h_625 scroll_bar">
             <dl>
@@ -112,7 +114,7 @@ class App extends React.Component {
         </ul>
         </div>
         <div className="map_img">
-            <img src="../../img/map_img.png" />
+            <img src={Mapimg} />
             </div>
             </div>
             </div>

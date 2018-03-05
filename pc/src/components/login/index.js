@@ -2,6 +2,8 @@ import React from 'react';
 import "./index.css";
 import Header from "../header";
 import Footer from "../footer";
+import Wdimg from "../../img/3.jpg";
+import Userimg from "../../img/2.jpg";
 
 class App extends React.Component {
     render() {
@@ -16,9 +18,9 @@ class App extends React.Component {
             <div className="login_a">管理员登录</div>
             <div className="login_dl">
             <form>
-            <div className="lab"><span><img src="img/2.png" /></span><input class="lab_input" placeholder="请输入您的账号"/>
+            <div className="lab"><span><img src={Userimg} /></span><input class="lab_input" placeholder="请输入您的账号"/>
             </div>
-            <div className="lab"><span><img src="img/3.png" /></span><input class="lab_input" placeholder="请输入您的 密码"/>
+            <div className="lab"><span><img src={Wdimg} /></span><input class="lab_input" placeholder="请输入您的 密码"/>
             </div>
             </form>
             <a className="login_btn">登录</a>

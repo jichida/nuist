@@ -47,8 +47,9 @@
 }
 .header .headnav span.sel{
 	background: #00457e;
-	font-weight: 600;
 }
+.header .headnav span a{color: #fff; text-decoration: none;}
+.header .headnav span.sel a{ color: #fff; text-decoration: none;}
 .header .headnav span.sel:after{
 	content: none;
 }

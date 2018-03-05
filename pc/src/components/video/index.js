@@ -2,6 +2,11 @@ import React from 'react';
 import "./index.css";
 import Header from "../header";
 import Footer from "../footer";
+import Upimg from "../../img/jta.png";
+import Downimg from "../../img/jtb.png";
+import Spimg from "../../img/spimg.jpg";
+import Spxqimg from "../../img/spimg1.jpg";
+import Jtimg from "../../img/jt.png";
 
 class App extends React.Component {
     render() {
@@ -15,7 +20,7 @@ class App extends React.Component {
             <div className="tit">节点列表</div>
             <dl className="dl_bg">
             <dt>ID</dt>
-            <dd><span>位置</span><span>区域<img src="jt.png" /></span></dd>
+            <dd><span>位置</span><span>区域<img src={Jtimg}/></span></dd>
         </dl>
         <div className="h_625 scroll_bar">
             <dl>
@@ -108,29 +113,29 @@ class App extends React.Component {
             <div className="tt">视频监控
             </div>
             <div className="w_182">
-            <div><img src="jta.png" /> </div>
+            <div><img src={Upimg} /> </div>
             <ul>
             <li className="active">
-            <img src="spimg.jpg" />
+            <img src={Spimg} />
             <div className="titile">南京宣武门广场</div>
             </li>
             <li>
-            <img src="spimg.jpg"/>
+            <img src={Spimg}/>
             <div className="titile">南京宣武门广场</div>
             </li>
             <li>
-            <img src="spimg.jpg"/>
+            <img src={Spimg}/>
             <div className="titile">南京宣武门广场</div>
             </li>
             <li>
-            <img src="spimg.jpg"/>
+            <img src={Spimg}/>
             <div className="titile">南京宣武门广场</div>
             </li>
             </ul>
-            <div><img src="jtb.png"/> </div>
+            <div><img src={Downimg}/> </div>
             </div>
             <div className="w_630">
-            <img src="spimg1.jpg"/>
+            <img src={Spxqimg}/>
             <p>正在监控</p>
             <p>南京宣武门广场</p>
             </div>

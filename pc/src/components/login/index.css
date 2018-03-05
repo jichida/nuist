@@ -69,5 +69,5 @@
     flex: 1;
     line-height: 30px;
     text-align: center;
-    border: 0;
+    border: 0; outline: none;
 }

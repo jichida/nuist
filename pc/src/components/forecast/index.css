@@ -32,7 +32,7 @@
 
 .tt_right {
     display: inline-block;
-    margin: 0px 8px;
+    margin: 0px 0px;
 }
 
 .indexPage .content .cont .left dl {
@@ -192,9 +192,9 @@
     text-align: center;
     display: inline-block;
     height: 34px;
-    line-height: 34px;
+    line-height: 34px; margin-right: 4px;
 }
-
+.tt_right li:last-child{ margin-right: 0px}
 .shuju_titright {
     float: right;
     font-size: 14px;
