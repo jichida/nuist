@@ -60,6 +60,8 @@ const DeviceEdit = (props) => {
           <TextInput label="所属城市" source="city"  validate={required} />
           <TextInput label="所属城市首字母" source="cityindex"  validate={required} />
           <TextField label="地理位置" source="locationname"  />
+          <NumberInput label="经度" source="Longitude"  />
+          <NumberInput label="纬度" source="Latitude"  />
           <TextField label="详细地址" source="addressname"  />
           <TextField label="创建时间" source="created_at"  />
           <TextField label="更新时间" source="updated_at"  />

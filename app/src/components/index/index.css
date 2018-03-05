@@ -16,9 +16,7 @@
     width: 100%;
     position: relative;
 }
-.mainmap img{
-    width: 100%;
-}
+
 .mainmap .maindata{
     position: absolute;
     bottom: 0;
@@ -103,4 +101,3 @@
     display: block;
     flex-grow: 1;
 }
-
