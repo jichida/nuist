@@ -44,22 +44,22 @@ export const postNotifyFromJPush = (dispatch)=>{
     //     }
         //window.alert(`listenInMessage==>\n${jsonstr}`);
 
-    }
+    // }
     //点击了推送消息
-    window.xviewReceiveJPush=(jsonstr)=>{
-        // let jsonobj = jsonstr;
-        // try{
-        //     if(typeof jsonobj === 'string'){
-        //         jsonobj = JSON.parse(jsonobj);
-        //     }
-        //     dispatch(jpushpostNotification(jsonobj));
-        // }
-        // catch(e){
-        //   window.alert(`推送消息失败(postNotification)
-        //   ${jsonstr}
-        //   ${JSON.stringify(e)}`);
-        // }
-        //window.alert(`postNotification==>\n${jsonstr}`);
-
-    }
+    // window.xviewReceiveJPush=(jsonstr)=>{
+    //     // let jsonobj = jsonstr;
+    //     // try{
+    //     //     if(typeof jsonobj === 'string'){
+    //     //         jsonobj = JSON.parse(jsonobj);
+    //     //     }
+    //     //     dispatch(jpushpostNotification(jsonobj));
+    //     // }
+    //     // catch(e){
+    //     //   window.alert(`推送消息失败(postNotification)
+    //     //   ${jsonstr}
+    //     //   ${JSON.stringify(e)}`);
+    //     // }
+    //     //window.alert(`postNotification==>\n${jsonstr}`);
+    //
+    // }
 }
