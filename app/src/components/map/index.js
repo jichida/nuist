@@ -38,7 +38,15 @@ class App extends React.Component {
       });
     	return (
       		<Map amapkey={mapkey} zoom={15} center={{longitude,latitude}}
-            plugins={['ToolBar']}
+            plugins={[
+								{
+					        name: 'ToolBar',
+									options:{
+										  locate:false,
+											position: 'RT',
+									}
+								}
+							]}
             status={{zoomEnable:true,touchZoom:true}}>
             {markers}
           </Map>
