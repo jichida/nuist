@@ -33,9 +33,9 @@ class App extends React.Component {
         return (
             <div className="proPage">
                 <Swiperimg />
+                <div className="investigationlnk" onClick={this.pushurl.bind(this, "investigation")}><span>参与问卷调查</span><img src={Exit} /></div>
                 <List />
                 { !!showproinfo && <Info /> }
-                <div className="investigationlnk" onClick={this.pushurl.bind(this, "investigation")}><span>参与问卷调查</span><img src={Exit} /></div>
                 <Footer history={this.props.history} sel={"pro"} />
             </div>
         );
