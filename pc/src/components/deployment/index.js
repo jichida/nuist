@@ -112,7 +112,7 @@ class App extends React.Component {
         </ul>
         </div>
         <div className="map_img">
-            <img src="map_img.png" />
+            <img src="../../img/map_img.png" />
             </div>
             </div>
             </div>

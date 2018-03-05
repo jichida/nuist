@@ -8,7 +8,7 @@ ul,li{
 	margin: auto;
 	border-left: 1px solid #d5d5d5;
 	border-right: 1px solid #d5d5d5;
-	background: #FFF;
+	background: #FFF; padding-bottom: 20px;
 }
 .indexPage .content .indextit{
 	line-height: 40px;
@@ -22,8 +22,7 @@ ul,li{
    	display: flex;
    	display: -webkit-flex;
 	-webkit-box-align: center;
-	align-items: center;
-	-webkit-align-items: center;
+
 	-moz-justify-content: space-between;
 	-webkit-justify-content: space-between;
 	justify-content: space-between;	

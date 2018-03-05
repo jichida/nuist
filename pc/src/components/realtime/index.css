@@ -55,6 +55,21 @@
     vertical-align: middle;
     margin-left: 5px
 }
+
+.center_right {
+    width: 875px;
+    float: right;
+    padding: 20px 0px 0px
+}
+
+.center_right .tt {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 40px;
+    padding-left: 20px;
+    border-bottom: 4px solid #0164b5;
+}
+
 .center_right .tt .tt_right {
     display: inline-block;
     float: right
@@ -73,7 +88,52 @@
     line-height: 34px;
 }
 
-.map_img {
-    border: 1px solid #e5e5e5;
-    margin-top: 2px
+.center_right dl {
+    font-size: 16px;
+    height: auto;
+    overflow: hidden;
+    padding: 10px 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.center_right dl:nth-child(even) {
+    background-color: #eaf5f9
+}
+
+.center_right dl.dl_bg {
+    background-color: #f2f2f2;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 5px;
+    border-bottom: none;
+    padding: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.center_right dl.dl_bg dt {
+    padding-left: 20px
+}
+
+.center_right dl dt {
+    width: 55px;
+    display: inline-block;
+    padding-left: 10px
+}
+
+.center_right dl dd {
+    display: inline-block;
+    width: 780px;
+}
+
+.center_right dl dd span {
+    width: 78px;
+    display: inline-block;
+    text-align: center;
+}
+
+.small {
+    font-size: 12px;
+    text-align: center
 }
