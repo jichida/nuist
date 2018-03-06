@@ -48,7 +48,7 @@ class App extends React.Component {
 										      			<span>{lodashget(curdevice,'realtimedata.humidity')}%</span>
 										      			<span>{lodashget(curdevice,'realtimedata.pressure')}Pa</span>
 										      			<span>{lodashget(curdevice,'realtimedata.rainfall')}mm</span>
-									      			</div>):(<div>暂无数据</div>)
+									      			</div>):(<div><p className = "text_center" >暂无数据</p></div>)
 													}
 
 						        		</li>
@@ -57,11 +57,6 @@ class App extends React.Component {
 									}
 								})
 							}
-	        	{/* <ul>
-	        		<li>
-	        			<Meter />
-	        		</li>
-	        	</ul> */}
 	      	</div>
 	    );
   	}

@@ -469,6 +469,10 @@
     padding: 4px 8px
 }
 
+.changepwdForm div .formvalidation.form_input input {
+    color: #333
+}
+
 .changepwdForm .submitBtn .btn {
     height: 50px;
     line-height: 50px;

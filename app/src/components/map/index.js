@@ -1,19 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Map } from 'react-amap';
+import {  Marker } from 'react-amap';
+import LayerDevice from './layerdevice';
+import lodashget from 'lodash.get';
+import lodashmap from 'lodash.map';
 import {
 	saveusersettings_request
 } from '../../actions';
-import { Map, Marker } from 'react-amap';
-import lodashget from 'lodash.get';
-import lodashmap from 'lodash.map';
-
 const mapkey = '788e08def03f95c670944fe2c78fa76f';
+
+const getMarker = ({curdevice,selectdevice})=>{
+  const longitude = lodashget(curdevice,'Longitude',110.335736);
+  const latitude = lodashget(curdevice,'Latitude',20.041613);
+  const did = lodashget(curdevice,'_id');
+  const pos = {longitude,latitude};
+  return (<Marker position={pos} key={did}
+    clickable
+    events={{
+      'click': (e) => {
+        selectdevice(did);
+      }}}
+  />)
+}
 
 class App extends React.Component {
     selectdevice = (did)=>{
       const usersettings = this.props.usersettings;
-			usersettings.indexdeviceid = did;
-			this.props.dispatch(saveusersettings_request(usersettings));
+      usersettings.indexdeviceid = did;
+      this.props.dispatch(saveusersettings_request(usersettings));
     }
   	render() {
       const {curdevice,devicelist,devices} = this.props;
@@ -23,17 +38,7 @@ class App extends React.Component {
       lodashmap(devicelist,(did)=>{
         const device = devices[did];
         if(!!device){
-          const dlongitude = lodashget(device,'Longitude',110.335736);
-          const dlatitude = lodashget(device,'Latitude',20.041613);
-          const pos = {longitude:dlongitude,latitude:dlatitude};
-          markers.push(<Marker position={pos} key={did}
-            clickable
-            events={{
-              'click': (e) => {
-								this.selectdevice(did);
-                // console.log(`click device:${did}`)
-              }}}
-          />);
+          markers.push(getMarker({curdevice:device,selectdevice:this.selectdevice}));
         }
       });
     	return (
