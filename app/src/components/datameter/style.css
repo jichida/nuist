@@ -151,3 +151,8 @@
 .datamonitordata ul li .meter {
     margin: 0;
 }
+
+.text_center {
+    text-align: center;
+    width: 100%;
+}

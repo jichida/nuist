@@ -31,7 +31,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    background: #40a9ff;
+    background: #24a9db;
     color: #FFF;
     text-align: center;
     line-height: 36px;
@@ -52,7 +52,6 @@
     line-height: 36px;
     border-radius: 36px 0 0 36px;
 }
-
 
 .warningPage .head .n span:first-child {
     font-size: 50px;

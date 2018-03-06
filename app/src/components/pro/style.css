@@ -141,7 +141,3 @@
 .proinfo .infocontent .closediv img {
     width: 46px;
 }
-
-#root>div>div.container>div>div.prolist>div>div.infocontent>div.info>div {
-    height: 200px;
-}
