@@ -6,6 +6,7 @@ import {  Marker } from 'react-amap';
 import getDeviceLayerHtml from './layerdevice';
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
+
 import {
 	saveusersettings_request
 } from '../../actions';
