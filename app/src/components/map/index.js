@@ -6,7 +6,7 @@ import {  Marker } from 'react-amap';
 import getDeviceLayerHtml from './layerdevice';
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
-
+// import "./index.css";
 import {
 	saveusersettings_request
 } from '../../actions';
@@ -19,8 +19,9 @@ const getMarker = ({curdevice,selectdevice})=>{
   const pos = {longitude,latitude};
 
 	const pointhtml = getDeviceLayerHtml(curdevice);
-	console.log(pointhtml);
+	console.log(pointhtml);//offset={{x:-65, y:-34}}
   return (<Marker
+		offset={[-110,-86]}
 		content={pointhtml}
 		position={pos}
 		key={did}
@@ -43,12 +44,12 @@ class App extends React.Component {
       const longitude = lodashget(curdevice,'Longitude',110.335736);
       const latitude = lodashget(curdevice,'Latitude',20.041613);
       const markers = [];
-      lodashmap(devicelist,(did)=>{
-        const device = devices[did];
-        if(!!device){
-          markers.push(getMarker({curdevice:device,selectdevice:this.selectdevice}));
-        }
-      });
+			lodashmap(devicelist,(did)=>{
+				const device = devices[did];
+				if(!!device){
+					markers.push(getMarker({curdevice:device,selectdevice:this.selectdevice}));
+				}
+			})
     	return (
       		<Map amapkey={mapkey} zoom={15} center={{longitude,latitude}}
             plugins={[

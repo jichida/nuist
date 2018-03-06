@@ -35,10 +35,10 @@ class App extends React.Component {
 						        			<div className="t1">
 							        			<span>风向</span>
 								      			<span>风力</span>
+														<span>温度</span>
 								      			<span>湿度</span>
 								      			<span>气压</span>
 								      			<span>雨量</span>
-								      			<span>时间</span>
 							      			</div>
 													{
 														!!curdevice.realtimedata ? (	<div>

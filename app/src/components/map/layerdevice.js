@@ -1,3 +1,6 @@
+import lodashget from 'lodash.get';
+import {getCoureName} from '../../util';
+
 import ImageArrow from '../../img/arrow-right.png';
 import ImageLocation from '../../img/location.png';
 
@@ -26,30 +29,36 @@ const style_icon_bottom_img = `
 	`;
 
 const getDeviceLayerHtml = (curdevice)=>{
-  // return (`<div style=${weui_dialog}><img src=${ImageLocation} /></div>`);
+  const devicename = lodashget(curdevice,'name','');
+  const winddirection = getCoureName(lodashget(curdevice,'realtimedata.winddirection',0));
+  const windspeed = lodashget(curdevice,'realtimedata.windspeed','');
+  const temperature = lodashget(curdevice,'realtimedata.temperature','');
+  const humidity = lodashget(curdevice,'realtimedata.humidity','');
+  const pressure = lodashget(curdevice,'realtimedata.pressure','');
+  const rainfall =lodashget(curdevice,'realtimedata.rainfall','');
   return (
         `<div style =${style_weui_dialog}>
           <div style = ${style_weui_dialog__bd}>
             <p style = ${style_weui_dialog__bd_p}>
-              ID:1522
+              ${devicename}
               <img style=${style_weui_dialog__bd_p_img} src=${ImageArrow} />
             </p>
             <p style = ${style_weui_dialog__bd_p}>
-              风力 3级
+              风向 ${winddirection}
               <span style=${style_weui_dialog__bd_p_span}>
-                气压 32%
+                风力 ${windspeed}级
               </span>
             </p>
             <p style = ${style_weui_dialog__bd_p}>
-              风力 3级
+              温度 ${temperature}℃
               <span style=${style_weui_dialog__bd_p_span}>
-                气压 32%
+                湿度 ${humidity}%
               </span>
             </p>
             <p style = ${style_weui_dialog__bd_p}>
-              风力 3级
+              气压 ${pressure}Pa
               <span style=${style_weui_dialog__bd_p_span}>
-                气压 32%
+                雨量 ${rainfall}mm
               </span>
             </p>
           </div>
