@@ -1,8 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Map } from 'react-amap';
 import {  Marker } from 'react-amap';
-import LayerDevice from './layerdevice';
+import getDeviceLayerHtml from './layerdevice';
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
 import {
@@ -15,7 +16,13 @@ const getMarker = ({curdevice,selectdevice})=>{
   const latitude = lodashget(curdevice,'Latitude',20.041613);
   const did = lodashget(curdevice,'_id');
   const pos = {longitude,latitude};
-  return (<Marker position={pos} key={did}
+
+	const pointhtml = getDeviceLayerHtml(curdevice);
+	console.log(pointhtml);
+  return (<Marker
+		content={pointhtml}
+		position={pos}
+		key={did}
     clickable
     events={{
       'click': (e) => {
