@@ -4,14 +4,25 @@ import DatePicker from 'react-mobile-datepicker';
 import Search from "../../img/search.png";
 import moment from 'moment';
 import {
-  ui_historydevicequeryselect
+  ui_historydevicequeryselect,
+  gethistorydevicelist_request
 } from '../../actions';
 import lodashmap from 'lodash.map';
 
 class App extends React.Component {
+    componentDidMount () {
+      this.onClickQuery();
+    }
 
     onClickQuery = ()=>{
-      const {periodquery} = this.props;
+      const {periodquery,curdevice} = this.props;
+      const {periodname,starttime,endtime} = periodquery;
+      this.props.dispatch(gethistorydevicelist_request({
+        _id:curdevice._id,
+        periodname,
+        starttime,
+        endtime
+      }));
     }
 
     onSelectPeriod = (periodname)=>{

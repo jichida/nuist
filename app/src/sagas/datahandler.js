@@ -33,11 +33,15 @@ import {
     getvotelist_result,
 
     setvote_request,
-    setvote_result
+    setvote_result,
+
+    gethistorydevicelist_request,
+    gethistorydevicelist_result
   } from '../actions';
 
 //接收的对应关系
 let recvmessagetoresultpair = {
+  'gethistorydevicelist_result':gethistorydevicelist_result,
   'serverpush_device':serverpush_device,
   'setvote_result':setvote_result,
   'getproductlist_result':getproductlist_result,
@@ -74,6 +78,7 @@ let sendmessagefnsz = {
 
 //验证发送接口
 let sendmessageauthfnsz = {
+  'gethistorydevicelist':`${gethistorydevicelist_request}`,
   'setvote':`${setvote_request}`,
   'saveusersettings':`${saveusersettings_request}`,
   'changepwd':`${changepwd_request}`,

@@ -1,12 +1,13 @@
 const systemconfig = require('../common/systemconfig');
 const userlogin = require('../common/userlogin');
 const device = require('../common/device.js');
+const historydevice = require('../common/historydevice.js');
 const realtimealarm = require('../common/realtimealarm.js');
 const moment = require('moment');
 const product = require('../common/product.js');
 const vote = require('../common/vote.js');
 const debugapp = require('debug')('appsrv:app:index');
-//司机端
+
 const actiondatahandler = {
   'getvotelist':vote.getvotelist,
   'setvote':vote.setvote,
@@ -20,6 +21,7 @@ const actiondatahandler = {
 };
 
 const authhandler = {
+  'gethistorydevicelist':historydevice.gethistorydevicelist,
   'saveusersettings':userlogin.saveusersettings,
   'changepwd':userlogin.changepwd,
   'getdevicelist':device.getdevicelist,

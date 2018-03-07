@@ -9,7 +9,7 @@ import moment from 'moment';
 const initial = {
     historydevice: {
         periodquery:{
-          periodname:'hourly',//yearly monthly daily hourly minutely
+          periodname:'hourly',// monthly weekly daily hourly minutely
           starttime:moment().format('YYYY-MM-DD HH:mm:ss'),
           endtime:moment().format('YYYY-MM-DD HH:mm:ss'),
           seltype:0,
@@ -46,9 +46,9 @@ const historydevice = createReducer({
     return {...state,periodquery};
   },
   [gethistorydevicelist_result]:(state,payload)=>{
-      const {deviceid,list} = payload;
+      const {_id,listret} = payload;
       const historydevices = {...state.historydevices};
-      historydevices[deviceid] = list;
+      historydevices[_id] = listret;
       return {...state,historydevices};
   },
 
