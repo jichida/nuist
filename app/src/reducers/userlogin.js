@@ -27,7 +27,7 @@ const userlogin = createReducer({
     return { ...state, ...payload};
   },
   [logout_result]: (state, payload) => {
-    localStorage.removeItem(`bms_${config.softmode}_token`);
+    localStorage.removeItem(`nuist_${config.softmode}_token`);
     return { ...initial.userlogin};
   },
   [login_result]: (state, payload) => {

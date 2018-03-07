@@ -9,3 +9,7 @@ export const getrealtimealarmlist_result = createAction('getrealtimealarmlist_re
 
 export const serverpush_alarm =  createAction('serverpush_alarm');
 export const serverpush_device =  createAction('serverpush_device');
+
+//定时查询报警信息
+export const ui_startalarm = createAction('ui_startalarm');
+export const ui_stopalarm = createAction('ui_stopalarm');

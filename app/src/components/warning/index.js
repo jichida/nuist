@@ -8,13 +8,20 @@ import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
 import {
   set_uiapp,
-  getrealtimealarmlist_request
+  ui_startalarm,
+  ui_stopalarm
+  // getrealtimealarmlist_request
 } from '../../actions';
 
 class App extends React.Component {
 
     componentDidMount () {
-      this.props.dispatch(getrealtimealarmlist_request({}));
+      this.props.dispatch(ui_startalarm());
+      // this.props.dispatch(getrealtimealarmlist_request({}));
+    }
+    componentWillUnmount () {
+      this.props.dispatch(ui_stopalarm());
+      // this.props.dispatch(getrealtimealarmlist_request({}));
     }
     onClickShowAll = (uialarmshowall)=>{
       this.props.dispatch(set_uiapp({uialarmshowall}));

@@ -11,6 +11,10 @@ import {
   getdevicelist_request,
   getdevicelist_result,
 
+  ui_startalarm,
+  ui_stopalarm,
+  getrealtimealarmlist_request,
+  getrealtimealarmlist_result
 } from '../actions';
 import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 import map from 'lodash.map';
@@ -30,7 +34,7 @@ export function* wsrecvsagaflow() {
         if(!!result){
             yield put(login_result(result));
             if(result.loginsuccess){
-              localStorage.setItem(`bms_${config.softmode}_token`,result.token);
+              localStorage.setItem(`nuist_${config.softmode}_token`,result.token);
               // if(config.softmode === 'pc'){
               //   yield put(gettipcount_request({}));//获取个数
               // }
@@ -58,15 +62,34 @@ export function* wsrecvsagaflow() {
 
 
   yield takeLatest(`${common_err}`, function*(action) {
-        let {payload:result} = action;
+      let {payload:result} = action;
 
-        yield put(set_weui({
-          toast:{
-          text:result.errmsg,
-          show: true,
-          type:'warning'
-        }}));
+      yield put(set_weui({
+        toast:{
+        text:result.errmsg,
+        show: true,
+        type:'warning'
+      }}));
   });
 
-
+  yield takeLatest(`${ui_startalarm}`,function*(action) {
+    let isstopped = false;
+    while(!isstopped){
+      yield put(getrealtimealarmlist_request({}));
+      const { stop,result,timeout } = yield race({
+          stop: take(`${ui_stopalarm}`),
+          result: take(`${getrealtimealarmlist_result}`),
+          timeout: call(delay, 10000)
+      });
+      isstopped = !!stop;
+      if(isstopped){
+        break;
+      }
+      const { stop2,timeout2 } = yield race({
+          stop2: take(`${ui_stopalarm}`),
+          timeout2: call(delay, 5000)
+      });
+      isstopped = !!stop2;
+    }
+  });
 }
