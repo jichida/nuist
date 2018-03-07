@@ -1,0 +1,13 @@
+version: '2'
+services:
+  redis:
+    image:  redis:4.0.8
+    container_name: redis
+    restart: always
+    expose:
+       - "6379"
+    volumes:
+       - /etc/localtime:/etc/localtime:ro
+       - /root/redis:/var/lib/redis
+    ports:
+       - "6379:6379"
