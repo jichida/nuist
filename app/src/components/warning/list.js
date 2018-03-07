@@ -4,7 +4,14 @@ import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
 import lodashfind from 'lodash.find';
 import {getindexstring} from '../../util';
-
+const mapkeystring = {
+  'temperature':'温度',
+  'rainfall':'降雨量',
+  'humidity':'湿度',
+  'windspeed':'风力',
+  'winddirection':'风向',
+  'pressure':'大气压'
+};
 class App extends React.Component {
 
   	render() {
@@ -23,13 +30,14 @@ class App extends React.Component {
                       const value = lodashget(realtimealarm,'value','');
                       const devicename = lodashget(curdevice,'name','');
                       const devicelocationname = lodashget(curdevice,'locationname','');
-                      const updatetime = lodashget(realtimealarm,'updatetime','');
+                      const updatetime = lodashget(realtimealarm,'UpdateTime','');
                       const addressname = lodashget(curdevice,'addressname','');
                       return ( <li key={rid}>
                       	        			<div>
-                      	        				<div className="tit">{`${content}-${type}(${value})`}</div>
+                      	        				<div className="tit">{`${content}-${mapkeystring[type]}(${value})`}</div>
                       	        				<div className="cont">
-                      								<p><span>{`${devicename}`} - {`${devicelocationname}`}</span><span> {`${updatetime}`}</span></p>
+                      								<p><span>{`${devicename}`} - {`${devicelocationname}`}</span></p>
+                                      <p><span> {`${updatetime}`}</span></p>
                       								<p>地址：{`${addressname}`}</p>
                       	        				</div>
                       	        			</div>

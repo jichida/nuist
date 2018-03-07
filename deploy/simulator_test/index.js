@@ -25,7 +25,7 @@ const startsrv = ()=>{
 
 setInterval(()=>{
   startsrv();
-},_.random(0, 10000));
+},10000);
 // let isstop = false;
 // while(!isstop){
 //   startsrv();

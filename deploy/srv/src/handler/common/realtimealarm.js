@@ -14,7 +14,7 @@ exports.getrealtimealarmlist =  (actiondata,ctx,callback)=>{
     if(!query.DeviceId){
       query.DeviceId = {'$in':deviceIds};
     }
-    const queryexec = realtimealarmrawModel.find(query).lean().sort({updatetime:-1}).limit(100);
+    const queryexec = realtimealarmrawModel.find(query).lean().sort({UpdateTime:-1}).limit(100);
     queryexec.exec((err,list)=>{
         if(!err && !!list){
             callback({

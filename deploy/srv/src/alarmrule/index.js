@@ -1,54 +1,56 @@
 const _ = require('lodash');
-const systemconfig =  {
-    "warningrulelevel0" : [
-          {
-              "content" : "温度过高",
-              "value" : "40",
-              "op" : ">",
-              "name" : "temperature"
-          },
-          {
-              "content" : "10级以上大风",
-              "value" : "10",
-              "op" : ">",
-              "name" : "windspeed"
-          }
-      ],
-      "warningrulelevel1" : [
-          {
-              "content" : "8级以上大风",
-              "value" : "8",
-              "op" : ">",
-              "name" : "windspeed"
-          },
-          {
-              "content" : "高温天气",
-              "value" : "38",
-              "op" : ">",
-              "name" : "temperature"
-          }
-      ],
-      "warningrulelevel2" : [
-          {
-              "content" : "降温,注意保暖",
-              "value" : "10",
-              "op" : "<",
-              "name" : "temperature"
-          },
-          {
-              "content" : "空气太干燥",
-              "value" : "10",
-              "op" : "<",
-              "name" : "humidity"
-          },
-          {
-              "content" : "无风",
-              "value" : "2",
-              "op" : "<",
-              "name" : "windspeed"
-          }
-      ]
-};
+const DBModels = require('../db/models.js');
+
+// const systemconfig =  {
+//     "warningrulelevel0" : [
+//           {
+//               "content" : "温度过高",
+//               "value" : "40",
+//               "op" : ">",
+//               "name" : "temperature"
+//           },
+//           {
+//               "content" : "10级以上大风",
+//               "value" : "10",
+//               "op" : ">",
+//               "name" : "windspeed"
+//           }
+//       ],
+//       "warningrulelevel1" : [
+//           {
+//               "content" : "8级以上大风",
+//               "value" : "8",
+//               "op" : ">",
+//               "name" : "windspeed"
+//           },
+//           {
+//               "content" : "高温天气",
+//               "value" : "38",
+//               "op" : ">",
+//               "name" : "temperature"
+//           }
+//       ],
+//       "warningrulelevel2" : [
+//           {
+//               "content" : "降温,注意保暖",
+//               "value" : "10",
+//               "op" : "<",
+//               "name" : "temperature"
+//           },
+//           {
+//               "content" : "空气太干燥",
+//               "value" : "10",
+//               "op" : "<",
+//               "name" : "humidity"
+//           },
+//           {
+//               "content" : "无风",
+//               "value" : "2",
+//               "op" : "<",
+//               "name" : "windspeed"
+//           }
+//       ]
+// };
 
 
 const getalarmrules = (systemconfig)=>{
@@ -159,25 +161,30 @@ const getresultalarmmatch = (alarmdata,alarmrules)=>{
 
 
 const matchalarm = (realtimedata,callbackfn)=>{
-  const alarmrules = getalarmrules(systemconfig);
-  let resultalarmmatch = getresultalarmmatch(realtimedata,alarmrules);
+  const systemconfigModel = DBModels.SystemConfigModel;
+  systemconfigModel.findOne({}).lean().exec((err, systemconfig)=> {
+    if(!err && !!systemconfig){
+      const alarmrules = getalarmrules(systemconfig);
+      let resultalarmmatch = getresultalarmmatch(realtimedata,alarmrules);
 
-  resultalarmmatch = _.sortBy(resultalarmmatch,(v)=>{
-    if(v.warninglevel === '高'){
-      return 0;
+      resultalarmmatch = _.sortBy(resultalarmmatch,(v)=>{
+        if(v.warninglevel === '高'){
+          return 0;
+        }
+        if(v.warninglevel === '中'){
+          return 1;
+        }
+        if(v.warninglevel === '低'){
+          return 2;
+        }
+        return 3;
+      });
+      resultalarmmatch = _.sortedUniqBy(resultalarmmatch,(v)=>{
+        return v.type;
+      });
+      callbackfn(resultalarmmatch);
     }
-    if(v.warninglevel === '中'){
-      return 1;
-    }
-    if(v.warninglevel === '低'){
-      return 2;
-    }
-    return 3;
   });
-  resultalarmmatch = _.sortedUniqBy(resultalarmmatch,(v)=>{
-    return v.type;
-  });
-  callbackfn(resultalarmmatch);
 }
 
 exports.matchalarm = matchalarm;
