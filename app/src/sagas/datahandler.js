@@ -25,7 +25,7 @@ import {
     saveusersettings_result,
 
     serverpush_alarm,
-
+    serverpush_device,
     getproductlist_request,
     getproductlist_result,
 
@@ -38,6 +38,7 @@ import {
 
 //接收的对应关系
 let recvmessagetoresultpair = {
+  'serverpush_device':serverpush_device,
   'setvote_result':setvote_result,
   'getproductlist_result':getproductlist_result,
   'getvotelist_result':getvotelist_result,

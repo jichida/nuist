@@ -1,6 +1,7 @@
 import { createReducer } from 'redux-act';
 import {
   getdevicelist_result,
+  serverpush_device
  } from '../actions';
 import lodashmap from 'lodash.map';
 
@@ -12,6 +13,12 @@ const initial = {
 };
 
 const device = createReducer({
+  [serverpush_device]:(state,payload)=>{
+    const {_id,realtimedata} = payload;
+    const devices = {...state.devices};
+    devices[_id] = {...devices[_id],realtimedata:{...realtimedata}};
+    return {...state,devices};
+  },
   [getdevicelist_result]:(state,payload)=>{
       const {list} = payload;
       const devicelist = [];

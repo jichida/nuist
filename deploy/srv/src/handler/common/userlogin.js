@@ -26,7 +26,7 @@ const subscriberuser = (user,ctx)=>{
   //设置订阅设备消息
   PubSub.unsubscribe( ctx.userDeviceSubscriber );
 
-  const subscriberdeviceids = _.get(user,'alarmsettings.subscriberdeviceids',[]);
+  const subscriberdeviceids = _.get(user,'usersettings.subscriberdeviceids',[]);
   _.map(subscriberdeviceids,(DeviceId)=>{
     PubSub.subscribe(`push.device.${DeviceId}`,ctx.userDeviceSubscriber);
   });
@@ -50,7 +50,7 @@ let setloginsuccess = (ctx,user,callback)=>{
    if(typeof ctx.userid === "string"){
       ctx.userid = mongoose.Types.ObjectId(ctx.userid);
    }
-  //  ctx.alarmsettings = _.get(user,'alarmsettings',{
+  //  ctx.usersettings = _.get(user,'usersettings',{
   //    warninglevel:'',
   //    subscriberdeviceids:[]
   //  });

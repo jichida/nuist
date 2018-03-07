@@ -19,7 +19,7 @@ const getMarker = ({curdevice,selectdevice})=>{
   const pos = {longitude,latitude};
 
 	const pointhtml = getDeviceLayerHtml(curdevice);
-	console.log(pointhtml);//offset={{x:-65, y:-34}}
+	// console.log(pointhtml);//offset={{x:-65, y:-34}}
   return (<Marker
 		offset={[-110,-86]}
 		content={pointhtml}

@@ -1,4 +1,4 @@
-const pubsub = require("pubsub-js");
+const PubSub = require("pubsub-js");
 const _ = require('lodash');
 const moment = require('moment');
 const DBModels = require('../db/models.js');
@@ -30,6 +30,9 @@ const handlermsg_alarmdata = (alarmdata)=>{
   entity.save((err,result)=>{
     debug(err);
     debug(`result->${JSON.stringify(result)}`);
+    if(!err && !!result){
+      PubSub.publish(`push.devicealarm.${result._id}`,result);
+    }
   });
 };
 
@@ -41,6 +44,8 @@ const handlermsg_realtimedata = (devicedata)=>{
       //<----------
       if(!err && !!newdevice){
         handlermsg_historydevice(newdevice);
+
+        PubSub.publish(`push.device.${newdevice._id}`,newdevice);
 
         alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
           _.map(resultalarmmatch,(al)=>{

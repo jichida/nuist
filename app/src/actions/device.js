@@ -8,3 +8,4 @@ export const getrealtimealarmlist_request = createAction('getrealtimealarmlist_r
 export const getrealtimealarmlist_result = createAction('getrealtimealarmlist_result');
 
 export const serverpush_alarm =  createAction('serverpush_alarm');
+export const serverpush_device =  createAction('serverpush_device');

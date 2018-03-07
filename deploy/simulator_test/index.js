@@ -21,12 +21,11 @@ const startsrv = ()=>{
   const devicedata = publishdata.getpublishdata_device(deviceids[i]);
   console.log(devicedata);
   redis.publish('nuistiotdata_realtimedata',devicedata);
-
 }
 
 setInterval(()=>{
   startsrv();
-},5000);
+},_.random(0, 10000));
 // let isstop = false;
 // while(!isstop){
 //   startsrv();
