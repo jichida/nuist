@@ -6,6 +6,7 @@ services:
       expose:
          - "27017"
       volumes:
+         - /etc/localtime:/etc/localtime:ro
          - "/var/db100/dbdata:/data/db -d"
       ports:
          - "27017:27017"

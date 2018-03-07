@@ -6,5 +6,6 @@ services:
       command: node ./index.js
       working_dir: /app
       volumes:
+        - /etc/localtime:/etc/localtime:ro
         - ./simulator_test:/app
       network_mode: "host"
