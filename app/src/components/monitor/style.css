@@ -172,6 +172,12 @@
     color: #0164b5
 }
 
+.monitorfiller>div.lselect {
+    text-align: center;
+    line-height: 40px;
+    color: #09d975
+}
+
 .monitorfiller>div.d {
     display: -webkit-box;
     display: -ms-flexbox;

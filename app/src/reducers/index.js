@@ -9,10 +9,12 @@ import product from './product';
 import device from './devices';
 import vote from './vote';
 import realtimealarm from './realtimealarm';
+import historydevice from './historydevice';
 
 export default combineReducers({
   	app,
     device,
+    historydevice,
     realtimealarm,
   	userlogin,
     vote,
