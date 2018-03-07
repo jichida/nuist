@@ -13,15 +13,20 @@ import {getindexstring} from '../../util';
 class App extends React.Component {
 
     render() {
-        const {curdevice,index} = this.props;
+        const {curdevice,index,retlist} = this.props;
         if(!!curdevice){
+          const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
           return (
               <div className="monitorPage">
                   <Header history={this.props.history} title={`${getindexstring(index,2)}-${lodashget(curdevice,'name','')}-${lodashget(curdevice,'locationname','')}`}/>
                   <Meter curdevice={curdevice}/>
                   <Filler curdevice={curdevice}/>
                   <List curdevice={curdevice}/>
-                  <Report curdevice={curdevice}/>
+                  {ticktimestringlist.length>0 && <Report title="历史温度曲线" ticktimestring={ticktimestringlist} vlist={retlist.temperature}/>}
+                  {ticktimestringlist.length>0 && <Report title="历史降雨量曲线" ticktimestring={ticktimestringlist} vlist={retlist.rainfall}/>}
+                  {ticktimestringlist.length>0 && <Report title="历史湿度曲线" ticktimestring={ticktimestringlist} vlist={retlist.humidity}/>}
+                  {ticktimestringlist.length>0 && <Report title="历史风力曲线" ticktimestring={ticktimestringlist} vlist={retlist.windspeed}/>}
+                  {ticktimestringlist.length>0 && <Report title="历史气压曲线" ticktimestring={ticktimestringlist} vlist={retlist.pressure}/>}
               </div>
           );
         }
@@ -30,9 +35,10 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{devices}},props) => {
+const mapStateToProps = ({device:{devices},historydevice:{historydevices}},props) => {
 		const curdevice = devices[props.match.params.id];
     const index = props.match.params.index;
-    return {curdevice,index};
+    const retlist = lodashget(historydevices,`${props.match.params.id}`,[]);
+    return {curdevice,index,retlist};
 }
 export default connect(mapStateToProps)(App);

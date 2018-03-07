@@ -1,9 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Exit from "../../img/22.png";
+import lodashmap from 'lodash.map';
+import lodashget from 'lodash.get';
+import {getCoureName} from '../../util';
 
 class App extends React.Component {
 
   	render() {
+      const {retlist} = this.props;
+      const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
 	    return (
 	      	<div className="monitordata">
 	      		<div className="tit">
@@ -16,28 +22,36 @@ class App extends React.Component {
 	      			<span>时间</span>
 	      		</div>
 	        	<ul>
-	        		<li>
-	        			<span>偏东风</span>
-	        			<span>3级</span>
-	        			<span>26℃</span>
-	        			<span>36%</span>
-	        			<span>1003Pa</span>
-	        			<span>25mm</span>
-	        			<span>01-18 11:22</span>
-	        		</li>
-	        		<li>
-	        			<span>偏东风</span>
-	        			<span>3级</span>
-	        			<span>26℃</span>
-	        			<span>36%</span>
-	        			<span>1003Pa</span>
-	        			<span>25mm</span>
-	        			<span>01-18 11:22</span>
-	        		</li>
+              {
+                lodashmap(ticktimestringlist,(vs,index)=>{
+                  const timetickstring = vs;
+                  const temperature = retlist.temperature[index];
+                  const rainfall = retlist.rainfall[index];
+                  const humidity = retlist.humidity[index];
+                  const windspeed = retlist.windspeed[index];
+                  const winddirection = retlist.winddirection[index];
+                  const pressure = retlist.pressure[index];
+                  return (
+                      <li key={index}>
+      	        			<span>{getCoureName(winddirection)}风</span>
+      	        			<span>{windspeed}级</span>
+      	        			<span>{temperature}℃</span>
+      	        			<span>{humidity}%</span>
+      	        			<span>{pressure}Pa</span>
+      	        			<span>{rainfall}mm</span>
+      	        			<span>{timetickstring}</span>
+                    </li>);
+                  })
+              }
 	        	</ul>
 	      	</div>
 	    );
   	}
 }
 
-export default App;
+const mapStateToProps = ({historydevice:{historydevices}},props) => {
+    const did = lodashget(props,'curdevice._id');
+    const retlist = lodashget(historydevices,`${did}`,[]);
+    return {retlist};
+}
+export default connect(mapStateToProps)(App);

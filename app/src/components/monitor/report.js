@@ -1,22 +1,33 @@
 import React from 'react';
+import lodashmap from 'lodash.map';
 import { Chart, Geom, Axis, Tooltip, Coord, Label, Legend, View, Guide, Shape } from "bizcharts";
 
 class App extends React.Component {
-        
+
     render() {
-        const data = [
-            { month: '01-01', acc: 84.0 },
-            { month: '02-01', acc: 14.9 },
-            { month: '03-01', acc: 17.0 },
-            { month: '04-01', acc: 20.2 },
-            { month: '05-01', acc: 55.6 },
-            { month: '06-01', acc: 56.7 },
-        ];
+        let {title,ticktimestring,vlist} = this.props;
+        ticktimestring = ticktimestring || [];
+        vlist = vlist || [];
+        const data = [];
+        for(let i=0 ;i < ticktimestring.length; i++){
+          data.push({
+            ticktimestring:ticktimestring[i],
+            value:vlist[i]
+          })
+        }
+        // const data = [
+        //     { month: '01-01', acc: 84.0 },
+        //     { month: '02-01', acc: 14.9 },
+        //     { month: '03-01', acc: 17.0 },
+        //     { month: '04-01', acc: 20.2 },
+        //     { month: '05-01', acc: 55.6 },
+        //     { month: '06-01', acc: 56.7 },
+        // ];
 
         const cols = {
-            month: { alias: '月份' },
-            acc: { alias: '积累量' },
-            
+            ticktimestring: { alias: '月份' },
+            value: { alias: '积累量' },
+
         };
 
         const grid = {
@@ -31,29 +42,29 @@ class App extends React.Component {
         return (
             <div className="monitorreport">
                 <div className="li">
-                    <div className="tit">温度历史数据曲线分析</div>
+                    <div className="tit">{title}</div>
                     <div className="chartcontent">
-                        <Chart 
-                            height={200} 
-                            data={data} 
-                            scale={cols} 
+                        <Chart
+                            height={200}
+                            data={data}
+                            scale={cols}
                             forceFit={true}
                             padding={[ 15, 10, 30, 40]}
                             >
-                            <Axis name="month" grid={grid} tickLine={true} line={{ stroke: '#EEEEEE'}} />
-                            <Axis 
-                                name="acc" 
-                                grid={grid} 
-                                line={{stroke: '#DDD'}} 
-                                tickLine={null} 
-                                title={null} 
+                            <Axis name="ticktimestring" grid={grid} tickLine={true} line={{ stroke: '#EEEEEE'}} />
+                            <Axis
+                                name="value"
+                                grid={grid}
+                                line={{stroke: '#DDD'}}
+                                tickLine={null}
+                                title={null}
                                 />
                             <Tooltip />
-                            <Geom 
-                                type="line" 
-                                position="month*acc" 
-                                size={1} 
-                                color="l (270) 0:rgba(255, 146, 255, 1) .5:rgba(100, 268, 255, 1) 1:rgba(215, 0, 255, 1)" 
+                            <Geom
+                                type="line"
+                                position="ticktimestring*value"
+                                size={1}
+                                color="l (270) 0:rgba(255, 146, 255, 1) .5:rgba(100, 268, 255, 1) 1:rgba(215, 0, 255, 1)"
                                 shape="smooth"
                                 style={{
                                     shadowColor: 'l (270) 0:rgba(21, 146, 255, 0)',

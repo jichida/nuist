@@ -85,7 +85,8 @@ exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
     const starttimeleast = getlimitstarttime(periodname,endtime,starttime);
     debug(`get--->${JSON.stringify({starttimeleast,starttimeleast})}`);
 
-    const maxcount = periodname === 'weekly'?70:10;
+    const MAX_NUMBER = 8;
+    const maxcount = periodname === 'weekly'?MAX_NUMBER*7:MAX_NUMBER;
 
     const historydeviceModel = DBModels.HistoryDeviceModel;
     historydeviceModel.aggregate([
@@ -160,12 +161,12 @@ exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
             const v = result[i];
             listret.ticktime.push(v._id.ticktime);
             listret.ticktimestring.push(getticktimestring(periodname,v._id.ticktime));
-            listret.temperature.push(v.temperature);
-            listret.rainfall.push(v.rainfall);
-            listret.humidity.push(v.humidity);
-            listret.windspeed.push(v.windspeed);
-            listret.winddirection.push(v.winddirection);
-            listret.pressure.push(v.pressure);
+            listret.temperature.push(_.toNumber(v.temperature.toFixed(1)));
+            listret.rainfall.push(_.toNumber(v.rainfall.toFixed(0)));
+            listret.humidity.push(_.toNumber(v.humidity.toFixed(1)));
+            listret.windspeed.push(_.toNumber(v.windspeed.toFixed(0)));
+            listret.winddirection.push(_.toNumber(v.winddirection.toFixed(0)));
+            listret.pressure.push(_.toNumber(v.pressure.toFixed(1)));
           }
 
           const payload = {

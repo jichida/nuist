@@ -9,9 +9,9 @@ import moment from 'moment';
 const initial = {
     historydevice: {
         periodquery:{
-          periodname:'hourly',// monthly weekly daily hourly minutely
-          starttime:moment().format('YYYY-MM-DD HH:mm:ss'),
-          endtime:moment().format('YYYY-MM-DD HH:mm:ss'),
+          periodname:'minutely',// monthly weekly daily hourly minutely
+          starttime:moment().subtract(10, 'minutes').format('YYYY-MM-DD HH:mm:00'),//moment().format('YYYY-MM-DD HH:mm:ss'),
+          endtime:moment().format('YYYY-MM-DD HH:mm:00'),
           seltype:0,
           isdateopen:false,
           showFormat:'YYYY/MM/DD hh',
@@ -30,11 +30,11 @@ const historydevice = createReducer({
         periodquery.dateFormat = ['YY年', 'MM月'];
       }
       else if(payload.periodname === 'minutely'){
-        periodquery.showFormat = 'YYYY/MM/DD HH:mm';
+        periodquery.showFormat = 'YYYY/MM/DD hh:mm';
         periodquery.dateFormat = ['YY年', 'MM月', 'DD日', 'hh时', 'mm分'];
       }
       else if(payload.periodname === 'hourly'){
-        periodquery.showFormat = 'YYYY/MM/DD HH';
+        periodquery.showFormat = 'YYYY/MM/DD hh';
         periodquery.dateFormat = ['YY年', 'MM月', 'DD日', 'hh时'];
       }
       else{

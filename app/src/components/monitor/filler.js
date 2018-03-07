@@ -86,9 +86,9 @@ class App extends React.Component {
         {
           name:'月',value:'monthly'
         },
-        {
-          name:'周',value:'weekly'
-        },
+        // {
+        //   name:'周',value:'weekly'
+        // },
         {
           name:'日',value:'daily'
         },
