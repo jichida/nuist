@@ -1,7 +1,7 @@
-// const redis = require('./src/redis/index.js');
+const redis = require('./src/redis/index.js');
 const _ = require('lodash');
 const config = require('./src/config');
-const alarm = require('./src/alarm');
+
 const publishdata = require('./src/publishdata');
 
 const deviceids = [
@@ -20,11 +20,8 @@ const startsrv = ()=>{
   i = i%deviceids.length;
   const devicedata = publishdata.getpublishdata_device(deviceids[i]);
   console.log(devicedata);
-  alarm.matchalarm(devicedata.realtimedata,(resultalarmmatch)=>{
-    _.map(resultalarmmatch,(al)=>{
-      console.log(al);
-    });
-  });
+  redis.publish('nuistiotdata_realtimedata',devicedata);
+
 }
 
 setInterval(()=>{

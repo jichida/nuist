@@ -6,10 +6,10 @@ const getpublishdata_device = (DeviceId)=>{
      realtimedata:{
       "pressure" : _.random(0, 100),
       "winddirection" : _.random(0, 360),
-      "windspeed" : 11,//_.random(0, 12),
+      "windspeed" : _.random(0, 12),
       "humidity" : _.random(0, 100),
       "rainfall" : _.random(0, 1000),
-      "temperature" : 50,//_.random(0, 43),
+      "temperature" : _.random(0, 43),
     }
   };
 }
