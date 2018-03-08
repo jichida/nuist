@@ -464,9 +464,9 @@
     width: 80px;
 }
 
-.changepwdForm div .formvalidation.form_input {
+.changepwdForm div input {
     border: 1px solid #e5e5e5;
-    padding: 4px 8px
+    padding: 8px 8px
 }
 
 .changepwdForm div .formvalidation.form_input input {
