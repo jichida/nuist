@@ -16,6 +16,7 @@ import {
   getrealtimealarmlist_request,
   getrealtimealarmlist_result,
 
+  setvote_result,
   changepwd_result,
   set_uiapp
 } from '../actions';
@@ -37,6 +38,16 @@ export function* wsrecvsagaflow() {
         type:'success'
     }}));
   });
+
+  yield takeLatest(`${setvote_result}`, function*(action) {
+    yield put(set_weui({
+      toast:{
+        text:'问卷递交成功,感谢参与!',
+        show: true,
+        type:'success'
+    }}));
+  });
+
 
   yield takeLatest(`${md_login_result}`, function*(action) {
       try{
