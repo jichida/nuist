@@ -1,17 +1,14 @@
 import React from 'react';
-import { Field, reduxForm, Form, formValueSelector  } from 'redux-form';
+import { Field, reduxForm, Form  } from 'redux-form';
 import { connect } from 'react-redux';
-import {login_request} from '../../actions';
+import {
+  login_request,
+  set_weui
+} from '../../actions';
 import "./style.css";
 import LoginBg from "../../img/loginbg.png";
 import Img1 from "../../img/1.png";
 import Img2 from "../../img/2.png";
-import {
-    required,
-    phone,
-    InputValidation,
-    length4
-} from "../tools/formvalidation-material-ui"
 
 
 let resizetimecontent;
@@ -70,10 +67,9 @@ class PageForm extends React.Component {
 						<Field
 								name="username"
 								id="username"
+                component="input"
 								placeholder="请输入您的账号"
 								type="text"
-								component={ InputValidation }
-								validate={[ required ]}
 						/>
 					</div>
 					<div className="li">
@@ -81,10 +77,9 @@ class PageForm extends React.Component {
 						<Field
 								name="password"
 								id="password"
+                component="input"
 								placeholder="请输入您的密码"
 								type="password"
-								component={ InputValidation }
-								validate={[ required ]}
 						/>
 					</div>
 					<div className="butn">
@@ -138,6 +133,26 @@ export class Page extends React.Component {
             username:values.username,
             password:values.password,
         };
+        //<----验证-----
+        let texterr;
+        if(!payload.username){
+          texterr = '用户名不能为空';
+        }
+        if(!texterr){
+          if(!payload.password){
+            texterr = '密码不能为空';
+          }
+        }
+        if(!!texterr){
+          this.props.dispatch(set_weui({
+            toast:{
+              text:texterr,
+              type:'warning'
+          }
+          }));
+          return;
+        }
+        //<----验证结束-----
         console.log(payload);
         this.props.dispatch(login_request(payload));
         // this.props.history.push("./");

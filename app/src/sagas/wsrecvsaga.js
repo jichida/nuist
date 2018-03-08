@@ -14,7 +14,10 @@ import {
   ui_startalarm,
   ui_stopalarm,
   getrealtimealarmlist_request,
-  getrealtimealarmlist_result
+  getrealtimealarmlist_result,
+
+  changepwd_result,
+  set_uiapp
 } from '../actions';
 import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 import map from 'lodash.map';
@@ -25,7 +28,15 @@ import config from '../env/config.js';
 // } from '../test/bmsdata.js';
 
 export function* wsrecvsagaflow() {
-
+  yield takeLatest(`${changepwd_result}`, function*(action) {
+    yield put(set_uiapp({ ispoppwd: false }));
+    yield put(set_weui({
+      toast:{
+        text:'修改新密码成功',
+        show: true,
+        type:'success'
+    }}));
+  });
 
   yield takeLatest(`${md_login_result}`, function*(action) {
       try{
@@ -66,9 +77,9 @@ export function* wsrecvsagaflow() {
 
       yield put(set_weui({
         toast:{
-        text:result.errmsg,
-        show: true,
-        type:'warning'
+          text:result.errmsg,
+          show: true,
+          type:'warning'
       }}));
   });
 

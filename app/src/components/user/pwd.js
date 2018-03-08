@@ -3,17 +3,11 @@ import { connect } from 'react-redux';
 import { Field, reduxForm, Form } from 'redux-form';
 // import { withRouter } from 'react-router-dom';
 import Close from "../../img/close.png";
-import {
-    required,
-    InputValidation,
-    passwordA,
-    passwordB,
-    minLength6
-} from "../tools/formvalidation-material-ui";
 
 import "./style.css";
 import {
     changepwd_request,
+    set_weui,
     set_uiapp
 } from '../../actions';
 
@@ -33,10 +27,7 @@ export class PageForm extends React.Component {
             id = "password"
             placeholder = "请输入原始密码"
             type = "password"
-            component = { InputValidation }
-            validate = {
-                [required]
-            }
+            component = "input"
             /> < /
             div > <
             div >
@@ -46,10 +37,7 @@ export class PageForm extends React.Component {
             id = "passwordA"
             placeholder = "请输入您的新密码"
             type = "password"
-            component = { InputValidation }
-            validate = {
-                [required, passwordA, minLength6]
-            }
+            component = "input"
             /> < /
             div > <
             div >
@@ -59,10 +47,7 @@ export class PageForm extends React.Component {
             id = "passwordB"
             placeholder = "请重复输入您的新密码"
             type = "password"
-            component = { InputValidation }
-            validate = {
-                [required, passwordB, minLength6]
-            }
+            component = "input"
             /> < /
             div >
 
@@ -99,11 +84,41 @@ class App extends React.Component {
         this.props.dispatch(set_uiapp({ ispoppwd: false }));
     }
     onClickchange = (values) => {
-        this.props.dispatch(set_uiapp({ ispoppwd: false }));
         let payload = {
             password: values.password,
             passwordA: values.passwordA,
         };
+        //<----验证-----
+        let texterr;
+        if(!payload.password){
+          texterr = '旧密码不能为空';
+        }
+        if(!texterr){
+          if(!payload.passwordA){
+            texterr = '新密码不能为空';
+          }
+        }
+        if(!texterr){
+          if(!values.passwordB){
+            texterr = '请再输入新密码';
+          }
+        }
+        if(!texterr){
+          if(payload.passwordA !== values.passwordB){
+            texterr = '两次密码输入不一致';
+          }
+        }
+        if(!!texterr){
+          this.props.dispatch(set_weui({
+            toast:{
+              text:texterr,
+              type:'warning'
+          }
+          }));
+          return;
+        }
+        //<----验证结束-----
+        // this.props.dispatch(set_uiapp({ ispoppwd: false }));
         this.props.dispatch(changepwd_request(payload));
     }
     render() {
