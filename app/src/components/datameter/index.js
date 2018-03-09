@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import "./style.css";
 import Meter from "../monitor/meter";
 import Header from "../header/page.js";
@@ -9,10 +10,21 @@ import Footer from "../footer";
 import lodashget from 'lodash.get';
 import PopcareSel from "../popcaresel";
 import {
-	saveusersettings_request
+	saveusersettings_request,
+	ui_historydevicequeryselect
 } from '../../actions';
 
 class App extends React.Component {
+	componentDidMount() {
+				this.props.dispatch(ui_historydevicequeryselect({
+						periodname:'minutely',
+						starttime:moment().subtract(10, 'minutes').format('YYYY-MM-DD HH:mm:00'),//moment().format('YYYY-MM-DD HH:mm:ss'),
+						endtime:moment().format('YYYY-MM-DD HH:mm:00'),
+						seltype:0,
+						isdateopen:false,
+				}));
+		}
+
 		onChangeCaresel = (value)=>{
 			let usersettings = this.props.usersettings;
 			usersettings.indexdeviceid = value;

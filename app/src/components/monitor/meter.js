@@ -1,5 +1,5 @@
 import React from 'react';
-import { Progress } from 'antd';
+import Progress  from 'antd/lib/progress';
 import 'antd/dist/antd.css';
 import Wind1 from "../../img/wind1.png";
 import Wind2 from "../../img/wind2.png";
