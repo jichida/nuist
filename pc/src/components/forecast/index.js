@@ -13,7 +13,7 @@ class App extends React.Component {
             <Header />
             <div className="content">
             <div className="indextit">欢迎访问大坝智能监控系统</div>
-            <div className="tita"><div className="tit_left">切换到：贵阳<img src={Jtimg}/></div><h2>综合警报</h2><div className="tit_right"><img src={Wximg} /></div></div>
+            <div className="tita"><div className="tit_left">切换到：贵阳<img alt="" src={Jtimg}/></div><h2>综合警报</h2><div className="tit_right"><img alt="" src={Wximg} /></div></div>
             <div className="cont">
 
         <div className="left pt0">
@@ -114,15 +114,15 @@ class App extends React.Component {
             </div>
             <div className="center">
             <ul className="zhyj_box">
-            <li className="zhyj"><img src={Tdimg} /><p>降雨量</p></li>
-        <li className="zhyj"><img src={Tdimg} /><p>水位</p></li>
-        <li className="zhyj"><img src={Tdimg} /><p>温度</p></li>
-        <li className="zhyj"><img src={Tdimg} /><p>应力0</p></li>
-        <li className="zhyj"><img src={Tdimg} /><p>湿度</p></li>
-        <li className="zhyj"><img src={Tdimg} /><p>应力1</p></li>
-        <li className="zhyj"><img src={Tdimg} /><p>电压</p></li>
-        <li className="zhyj"><img src={Tdimg} /><p>变形</p></li>
-        <li className="zhyj"><img src={Tdimg} /><p>电压</p></li></ul>
+            <li className="zhyj"><img alt="" src={Tdimg} /><p>降雨量</p></li>
+        <li className="zhyj"><img alt="" src={Tdimg} /><p>水位</p></li>
+        <li className="zhyj"><img alt="" src={Tdimg} /><p>温度</p></li>
+        <li className="zhyj"><img alt="" src={Tdimg} /><p>应力0</p></li>
+        <li className="zhyj"><img alt="" src={Tdimg} /><p>湿度</p></li>
+        <li className="zhyj"><img alt="" src={Tdimg} /><p>应力1</p></li>
+        <li className="zhyj"><img alt="" src={Tdimg} /><p>电压</p></li>
+        <li className="zhyj"><img alt="" src={Tdimg} /><p>变形</p></li>
+        <li className="zhyj"><img alt="" src={Tdimg} /><p>电压</p></li></ul>
         </div>
         <div className="left pt0">
             <dl className="dl_bg">
@@ -223,7 +223,7 @@ class App extends React.Component {
 
             </div>
             <div className="shuju_centet">
-            <div className="shuju_tit"><div className="shuju_titleft"><span className="active">48小时数据</span><span>历史数据</span><span>温度<img src={Jtimg} /></span></div><div className="shuju_titright">从<span>2018-12-12 14:50</span>到<span>2018-12-12 14:50</span></div></div>
+            <div className="shuju_tit"><div className="shuju_titleft"><span className="active">48小时数据</span><span>历史数据</span><span>温度<img alt="" src={Jtimg} /></span></div><div className="shuju_titright">从<span>2018-12-12 14:50</span>到<span>2018-12-12 14:50</span></div></div>
         <ul className="shuju scroll_bar">
             <li className="bge5">
             <em>ID</em>

@@ -21,14 +21,14 @@ class App extends React.Component {
   };
 
   render() {
-    const styles = {
-      slide: {
-        width: 550,
-        minHeight: 280,
-        overflow : "hidden"
-      },
-    };
-    const { index } = this.state;
+    // const styles = {
+    //   slide: {
+    //     width: 550,
+    //     minHeight: 280,
+    //     overflow : "hidden"
+    //   },
+    // };
+    // const { index } = this.state;
     return (
       <div className="swiper_indexPage">
         <Swiper
@@ -39,13 +39,13 @@ class App extends React.Component {
           {...swiperOptions}
           >
           <Slide className="Demo-swiper__slide">
-              <img src={Img1} />
+              <img alt="" src={Img1} />
           </Slide>
           <Slide className="Demo-swiper__slide">
-              <img src={Img1} />
+              <img alt="" src={Img1} />
           </Slide>
           <Slide className="Demo-swiper__slide">
-              <img src={Img1} />
+              <img alt="" src={Img1} />
           </Slide>
         </Swiper>
       </div>

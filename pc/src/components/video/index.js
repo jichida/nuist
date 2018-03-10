@@ -20,7 +20,7 @@ class App extends React.Component {
             <div className="tit">节点列表</div>
             <dl className="dl_bg">
             <dt>ID</dt>
-            <dd><span>位置</span><span>区域<img src={Jtimg}/></span></dd>
+            <dd><span>位置</span><span>区域<img alt="" src={Jtimg}/></span></dd>
         </dl>
         <div className="h_625 scroll_bar">
             <dl>
@@ -113,29 +113,29 @@ class App extends React.Component {
             <div className="tt">视频监控
             </div>
             <div className="w_182">
-            <div><img src={Upimg} /> </div>
+            <div><img alt="" src={Upimg} /> </div>
             <ul>
             <li className="active">
-            <img src={Spimg} />
+            <img alt="" src={Spimg} />
             <div className="titile">南京宣武门广场</div>
             </li>
             <li>
-            <img src={Spimg}/>
+            <img alt="" src={Spimg}/>
             <div className="titile">南京宣武门广场</div>
             </li>
             <li>
-            <img src={Spimg}/>
+            <img alt="" src={Spimg}/>
             <div className="titile">南京宣武门广场</div>
             </li>
             <li>
-            <img src={Spimg}/>
+            <img alt="" src={Spimg}/>
             <div className="titile">南京宣武门广场</div>
             </li>
             </ul>
-            <div><img src={Downimg}/> </div>
+            <div><img alt="" src={Downimg}/> </div>
             </div>
             <div className="w_630">
-            <img src={Spxqimg}/>
+            <img alt="" src={Spxqimg}/>
             <p>正在监控</p>
             <p>南京宣武门广场</p>
             </div>

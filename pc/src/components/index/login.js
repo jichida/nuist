@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, reduxForm, Form, formValueSelector  } from 'redux-form';
+// import { Field, reduxForm, Form, formValueSelector  } from 'redux-form';
 import "./login.css";
 
 export class PageForm extends React.Component {
@@ -17,10 +17,10 @@ export class PageForm extends React.Component {
 
 class App extends React.Component {
   onClickLogin = (values)=>{
-      let payload = {
-          username:values.phonenumber,
-          password:values.password,
-      };
+      // let payload = {
+      //     username:values.phonenumber,
+      //     password:values.password,
+      // };
   }
   render() {
     return (

@@ -1,6 +1,6 @@
 import React from 'react';
-import Weather1 from "../../img/4.jpg";
-import Weather2 from "../../img/5.jpg";
+// import Weather1 from "../../img/4.jpg";
+// import Weather2 from "../../img/5.jpg";
 import "./monitoring.css";
 
 class App extends React.Component {

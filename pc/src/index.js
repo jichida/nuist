@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Approot from './env/root';
-import store,{sagaMiddleware} from './env/store';
+import {sagaMiddleware} from './env/store';
 import rootSaga from './sagas';
 // import registerServiceWorker from './registerServiceWorker';
 

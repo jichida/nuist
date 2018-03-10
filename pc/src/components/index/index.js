@@ -36,19 +36,19 @@ class App extends React.Component {
 				<ul>
 					<li>
 						<div className="tt">温度曲线分析</div>
-						<div className="chart"><img src={Chartdemo} /></div>
+						<div className="chart"><img alt="" src={Chartdemo} /></div>
 					</li>
 					<li>
 						<div className="tt">温度曲线分析</div>
-						<div className="chart"><img src={Chartdemo} /></div>
+						<div className="chart"><img alt="" src={Chartdemo} /></div>
 					</li>
 					<li>
 						<div className="tt">温度曲线分析</div>
-						<div className="chart"><img src={Chartdemo} /></div>
+						<div className="chart"><img alt="" src={Chartdemo} /></div>
 					</li>
 					<li>
 						<div className="tt">温度曲线分析</div>
-						<div className="chart"><img src={Chartdemo} /></div>
+						<div className="chart"><img alt="" src={Chartdemo} /></div>
 					</li>
 				</ul>
 			</div>
@@ -56,37 +56,37 @@ class App extends React.Component {
 				<ul>
 					<li>
 						<div className="l">
-							<div className="pro"><img src={Pro1} /></div>
+							<div className="pro"><img alt="" src={Pro1} /></div>
 							<div className="tt">温度曲线分析</div>
 						</div>
 					</li>
 					<li>
 						<div className="l">
-							<div className="pro"><img src={Pro1} /></div>
+							<div className="pro"><img alt="" src={Pro1} /></div>
 							<div className="tt">温度曲线分析</div>
 						</div>
 					</li>
 					<li>
 						<div className="l">
-							<div className="pro"><img src={Pro1} /></div>
+							<div className="pro"><img alt="" src={Pro1} /></div>
 							<div className="tt">温度曲线分析</div>
 						</div>
 					</li>
 					<li>
 						<div className="l">
-							<div className="pro"><img src={Pro1} /></div>
+							<div className="pro"><img alt="" src={Pro1} /></div>
 							<div className="tt">温度曲线分析</div>
 						</div>
 					</li>
 					<li>
 						<div className="l">
-							<div className="pro"><img src={Pro1} /></div>
+							<div className="pro"><img alt="" src={Pro1} /></div>
 							<div className="tt">温度曲线分析</div>
 						</div>
 					</li>
 					<li>
 						<div className="l">
-							<div className="pro"><img src={Pro1} /></div>
+							<div className="pro"><img alt="" src={Pro1} /></div>
 							<div className="tt">温度曲线分析</div>
 						</div>
 					</li>

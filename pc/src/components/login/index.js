@@ -18,9 +18,9 @@ class App extends React.Component {
             <div className="login_a">管理员登录</div>
             <div className="login_dl">
             <form>
-            <div className="lab"><span><img src={Userimg} /></span><input class="lab_input" placeholder="请输入您的账号"/>
+            <div className="lab"><span><img alt="" src={Userimg} /></span><input class="lab_input" placeholder="请输入您的账号"/>
             </div>
-            <div className="lab"><span><img src={Wdimg} /></span><input class="lab_input" placeholder="请输入您的 密码"/>
+            <div className="lab"><span><img alt="" src={Wdimg} /></span><input class="lab_input" placeholder="请输入您的 密码"/>
             </div>
             </form>
             <a className="login_btn">登录</a>

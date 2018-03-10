@@ -13,7 +13,7 @@ class App extends React.Component {
         </div>
         <div className="weatherli">
            <div className="li">
-              <div className="t"><img src={Weather1} /></div>
+              <div className="t"><img alt="" src={Weather1} /></div>
               <div className="i">
                 <p>晴天</p>
                 <p>2℃～8℃</p>
@@ -21,7 +21,7 @@ class App extends React.Component {
               </div>
            </div>
 			     <div className="li">
-              <div className="t"><img src={Weather2} /></div>
+              <div className="t"><img alt="" src={Weather2} /></div>
               <div className="i">
                 <p>晴天</p>
                 <p>2℃～8℃</p>

@@ -33,7 +33,7 @@ class App extends React.Component {
     return (
       <div className="header">
       	 <div className="head" style={{width:"100%", overflow : "hidden"}}>
-			     <img src={Headimg} />
+			     <img alt="" src={Headimg} />
       	 </div>
       	 <div className="headnav">
       	 	<div className="nav">
