@@ -12,7 +12,7 @@ exports.getdevicelist = (actiondata,ctx,callback)=>{
   const deviceModel = DBModels.DeviceModel;
   const query = actiondata.query || {};
   const fields = actiondata.fields || {};
-  getdevicesids(ctx.userid,({devicegroupIds,deviceIds})=>{
+  getdevicesids(ctx.userid,({deviceIds})=>{
     if(!query.DeviceId){
       query.DeviceId = {'$in':deviceIds};
     }

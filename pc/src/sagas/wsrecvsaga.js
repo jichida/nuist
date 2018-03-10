@@ -1,4 +1,4 @@
-import { put,call,takeLatest,fork,take,race} from 'redux-saga/effects';
+import { put,call,takeLatest,take,race} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
   common_err,
@@ -9,7 +9,7 @@ import {
   set_weui,
 
   getdevicelist_request,
-  getdevicelist_result,
+  // getdevicelist_result,
 
   ui_startalarm,
   ui_stopalarm,
@@ -20,8 +20,8 @@ import {
   changepwd_result,
   set_uiapp
 } from '../actions';
-import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
-import map from 'lodash.map';
+// import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
+// import map from 'lodash.map';
 
 import config from '../env/config.js';
 // import  {
@@ -98,7 +98,7 @@ export function* wsrecvsagaflow() {
     let isstopped = false;
     while(!isstopped){
       yield put(getrealtimealarmlist_request({}));
-      const { stop,result,timeout } = yield race({
+      const { stop } = yield race({
           stop: take(`${ui_stopalarm}`),
           result: take(`${getrealtimealarmlist_result}`),
           timeout: call(delay, 10000)
@@ -107,7 +107,7 @@ export function* wsrecvsagaflow() {
       if(isstopped){
         break;
       }
-      const { stop2,timeout2 } = yield race({
+      const { stop2 } = yield race({
           stop2: take(`${ui_stopalarm}`),
           timeout2: call(delay, 5000)
       });
