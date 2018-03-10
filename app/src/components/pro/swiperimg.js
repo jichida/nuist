@@ -31,7 +31,7 @@ class App extends React.Component {
                     {
                       lodashmap(bannerproducturls,(url,index)=>{
                         return (<Slide className="Demo-swiper__slide swiperli" key={index}>
-      	                	<img src={url} />
+      	                	<img alt="" src={url} />
       	                </Slide>);
                       })
                     }

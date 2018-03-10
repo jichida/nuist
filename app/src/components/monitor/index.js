@@ -6,7 +6,7 @@ import Header from "../header/page.js";
 import List from "./list.js";
 import Filler from "./filler.js";
 import Report from "./report.js";
-import Footer from "../footer";
+// import Footer from "../footer";
 import lodashget from 'lodash.get';
 import {getindexstring} from '../../util';
 

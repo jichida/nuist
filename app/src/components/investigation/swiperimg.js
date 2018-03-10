@@ -21,13 +21,13 @@ class App extends React.Component {
 	                className="swiperchartlist"
 	                >
 	                <Slide className="Demo-swiper__slide swiperli">
-	                	<img src={Swiper1} />
+	                	<img alt="" src={Swiper1} />
 	                </Slide>
 	                <Slide className="Demo-swiper__slide swiperli">
-	                	<img src={Swiper1} />
+	                	<img alt="" src={Swiper1} />
 	                </Slide>
 	                <Slide className="Demo-swiper__slide swiperli">
-	                	<img src={Swiper1} />
+	                	<img alt="" src={Swiper1} />
 	                </Slide>
 	            </Swiper>
 	      	</div>

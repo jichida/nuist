@@ -133,7 +133,7 @@ class App extends React.Component {
             /> <
             div onClick = { this.onClickClosePwd }
             className = "closediv" > < img className = "close"
-            src = { Close }
+            src = { Close } alt=""
             /></div >
             <
             /div> < /

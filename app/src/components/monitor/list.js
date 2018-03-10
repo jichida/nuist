@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Exit from "../../img/22.png";
+// import Exit from "../../img/22.png";
 import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
 import {getCoureName} from '../../util';

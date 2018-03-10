@@ -51,9 +51,9 @@ class App extends React.Component {
   						<span>雨量(mm)</span>
   					</div>
   					<div className="windcontrol">
-  						<img style={getstyleimage1(degree_windspeed)} src={Wind1} className="wind1" />
-  						<img style={getstyleimage1(degree_winddirection)}  src={Wind3} className="wind3" />
-  						<img style={getstyleimage1(degree_point)}  src={Wind2} className="wind2" />
+  						<img alt="" style={getstyleimage1(degree_windspeed)} src={Wind1} className="wind1" />
+  						<img alt="" style={getstyleimage1(degree_winddirection)}  src={Wind3} className="wind3" />
+  						<img alt="" style={getstyleimage1(degree_point)}  src={Wind2} className="wind2" />
   						<div className="windcontroltxt">
   							<p>
   								<span>{getCoureName(lodashget(curdevice,'realtimedata.winddirection'))}风</span>

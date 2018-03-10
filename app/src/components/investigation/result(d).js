@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from "../header/page.js";
 import "./style.css";
-import List from "./list.js";
+// import List from "./list.js";
 
 class App extends React.Component {
 

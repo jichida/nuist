@@ -125,7 +125,7 @@ class App extends React.Component {
                   this.onClickOpen({isdateopen:true,seltype:1})
                 }
               }>{endtime_s}</span>
-	      			<span className="search" onClick={this.onClickQuery}><img src={Search} /></span>
+	      			<span className="search" onClick={this.onClickQuery}><img alt="" src={Search} /></span>
 	      		</div>
             <DatePicker
                 value={curtime}

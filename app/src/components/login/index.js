@@ -56,14 +56,14 @@ class PageForm extends React.Component {
       				overflow: "hidden"
       			}}
       			>
-        		<img src={LoginBg} className="loginbg" />
+        		<img alt="" src={LoginBg} className="loginbg" />
         		<div className="loginForm">
         			<div className="tit">
         				<p className="t">大坝智能监控系统</p>
         				<p className="i">Intelligent monitoring system for dam</p>
         			</div>
 					<div className="li">
-						<img src={Img1} />
+						<img alt="" src={Img1} />
 						<Field
 								name="username"
 								id="username"
@@ -73,7 +73,7 @@ class PageForm extends React.Component {
 						/>
 					</div>
 					<div className="li">
-						<img src={Img2} />
+						<img alt="" src={Img2} />
 						<Field
 								name="password"
 								id="password"

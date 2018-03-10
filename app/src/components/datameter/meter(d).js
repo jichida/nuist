@@ -36,9 +36,9 @@ class App extends React.Component {
 						<span>雨量(mm)</span>
 					</div>
 					<div className="windcontrol">
-						<img src={Wind1} className="wind1" />
-						<img src={Wind3} className="wind3" />
-						<img src={Wind2} className="wind2" />
+						<img alt="" src={Wind1} className="wind1" />
+						<img alt="" src={Wind3} className="wind3" />
+						<img alt="" src={Wind2} className="wind2" />
 						<div className="windcontroltxt">
 							<p>
 								<span>偏东风</span>

@@ -22,23 +22,23 @@ class App extends React.Component {
           	<div className="footerPage">
             	<ul>
                     <li onClick={this.pushurl.bind(this, "")}>
-                        <img src={this.props.sel==="index"?F1:F1_1} />
+                        <img alt="" src={this.props.sel==="index"?F1:F1_1} />
                         <a className={this.props.sel==="index"?"sel":""}>首页</a>
                     </li>
                     <li onClick={this.pushurl.bind(this, "datameter")}>
-                        <img src={this.props.sel==="datameter"?F2:F2_1} />
+                        <img alt="" src={this.props.sel==="datameter"?F2:F2_1} />
                         <a className={this.props.sel==="datameter"?"sel":""}>监控</a>
                     </li>
                     <li onClick={this.pushurl.bind(this, "warning")}>
-                        <img src={this.props.sel==="warning"?F3:F3_1} />
+                        <img alt="" src={this.props.sel==="warning"?F3:F3_1} />
                         <a className={this.props.sel==="warning"?"sel":""}>预警</a>
                     </li>
                     <li onClick={this.pushurl.bind(this, "video")}>
-                        <img src={this.props.sel==="video"?F4:F4_1} />
+                        <img alt="" src={this.props.sel==="video"?F4:F4_1} />
                         <a className={this.props.sel==="video"?"sel":""}>视频</a>
                     </li>
                     <li onClick={this.pushurl.bind(this, "pro")}>
-                        <img src={this.props.sel==="pro"?F5:F5_1} />
+                        <img alt="" src={this.props.sel==="pro"?F5:F5_1} />
                         <a className={this.props.sel==="pro"?"sel":""}>产品</a>
                     </li>
             	</ul>

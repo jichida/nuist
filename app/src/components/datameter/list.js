@@ -1,5 +1,5 @@
 import React from 'react';
-import Exit from "../../img/22.png";
+// import Exit from "../../img/22.png";
 // import Meter from "./meter";
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';

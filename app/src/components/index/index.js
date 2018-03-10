@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Footer from "../footer";
 import Header from "../header/main";
-import Header2 from "../header/page";
-import Mainmap from "../../img/mapbg.png";
+// import Header2 from "../header/page";
+// import Mainmap from "../../img/mapbg.png";
 import Data1 from "../../img/14.png";
 import Data2 from "../../img/15.png";
 import Data3 from "../../img/16.png";
@@ -83,18 +83,18 @@ class App extends React.Component {
 							!!curdevice && (
 								<div className="mainmap">
 			        		<div style={{width: '100%',height:`${mapheight}px`}} ><Map curdevice={curdevice}/></div>
-			        		<div onClick={this.onClickPopCareSel} className="mapcanver city"><img src={City} /><span>{lodashget(curdevice,'name')}</span></div>
-			        		<div onClick={this.onClickPopCareSel} className="mapcanver point"><img src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
+			        		<div onClick={this.onClickPopCareSel} className="mapcanver city"><img alt="" src={City} /><span>{lodashget(curdevice,'name')}</span></div>
+			        		<div onClick={this.onClickPopCareSel} className="mapcanver point"><img alt="" src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
 			        		<div className="maindata">
 								<ul>
-									<li><img src={Data1} /><span>风向</span>
+									<li><img alt="" src={Data1} /><span>风向</span>
 									<span>{getCoureName(lodashget(curdevice,'realtimedata.winddirection'))}风</span>
 									</li>
-									<li><img src={Data2} /><span>风力</span><span>{lodashget(curdevice,'realtimedata.windspeed')}级</span></li>
-									<li><img src={Data3} /><span>温度</span><span>{lodashget(curdevice,'realtimedata.temperature')}℃</span></li>
-									<li><img src={Data4} /><span>湿度</span><span>{lodashget(curdevice,'realtimedata.humidity')}%</span></li>
-									<li><img src={Data5} /><span>大气压</span><span>{lodashget(curdevice,'realtimedata.pressure')}Pa</span></li>
-									<li><img src={Data6} /><span>雨量</span><span>{lodashget(curdevice,'realtimedata.rainfall')}mm</span></li>
+									<li><img alt="" src={Data2} /><span>风力</span><span>{lodashget(curdevice,'realtimedata.windspeed')}级</span></li>
+									<li><img alt="" src={Data3} /><span>温度</span><span>{lodashget(curdevice,'realtimedata.temperature')}℃</span></li>
+									<li><img alt="" src={Data4} /><span>湿度</span><span>{lodashget(curdevice,'realtimedata.humidity')}%</span></li>
+									<li><img alt="" src={Data5} /><span>大气压</span><span>{lodashget(curdevice,'realtimedata.pressure')}Pa</span></li>
+									<li><img alt="" src={Data6} /><span>雨量</span><span>{lodashget(curdevice,'realtimedata.rainfall')}mm</span></li>
 								</ul>
 			        		</div>
 			        	</div>

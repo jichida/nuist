@@ -41,7 +41,7 @@ const getDeviceLayerHtml = (curdevice)=>{
           <div style = ${style_weui_dialog__bd}>
             <p style = ${style_weui_dialog__bd_p}>
               ${devicename}
-              <img style=${style_weui_dialog__bd_p_img} src=${ImageArrow} />
+              <img alt="" style=${style_weui_dialog__bd_p_img} src=${ImageArrow} />
             </p>
             <p style = ${style_weui_dialog__bd_p}>
               风向 ${winddirection}
@@ -63,7 +63,7 @@ const getDeviceLayerHtml = (curdevice)=>{
             </p>
           </div>
           <div>
-            <img style=${style_icon_bottom_img} src=${ImageLocation} />
+            <img alt="" style=${style_icon_bottom_img} src=${ImageLocation} />
           </div>
         </div>`
       );

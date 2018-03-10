@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Pro1 from "../../img/pro1.png";
+// import Pro1 from "../../img/pro1.png";
 import lodashmap from 'lodash.map';
 import Info from './info';
 import {
@@ -27,7 +27,7 @@ class App extends React.Component {
                   if(!!product){
                     return (<li key={pid} onClick={()=>{this.onClickPopProductInfo(product)}}>
       	        			<div>
-      	        				<img src={product.picurl} />
+      	        				<img alt="" src={product.picurl} />
       	        				<div className="name">{product.name}</div>
       	        			</div>
       	        		</li>);

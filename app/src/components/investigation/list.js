@@ -30,7 +30,7 @@ class App extends React.Component {
 												<div className="c2"><span>{lodashget(vote,'publishdate')}</span><span>已有{vote.researchrecords.length}人参与</span></div>
 						        			</div>
 						        			<div className="e">
-														{isfilled ? '已填':<img src={Exit} />}
+														{isfilled ? '已填':<img alt="" src={Exit} />}
 						        			</div>
 						        		</li>);
 										}

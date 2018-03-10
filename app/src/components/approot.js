@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Switch, Router, Route } from 'react-router-dom';
+// import ReactDOM from 'react-dom';
+import { Route } from 'react-router-dom';
 import Index from './index/';
 import Login from './login';
 import Investigation from './investigation';

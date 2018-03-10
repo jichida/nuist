@@ -94,12 +94,12 @@ class App extends React.Component {
 																	const curdevice = devices[did];
 																	if(!!curdevice){
 																		if(issel){
-																			return (<div key={did} onClick={()=>this.onClickSel(did,false)} className="p2p issel"><img src={Point1} />
+																			return (<div key={did} onClick={()=>this.onClickSel(did,false)} className="p2p issel"><img alt="" src={Point1} />
 																			<span className="n">{lodashget(curdevice,'name')}</span>
 																			<span className="tip">{titleselected}</span></div>)
 																		}
 																		else{
-																			return (<div key={did} onClick={()=>this.onClickSel(did,true)} className="p2p"><img src={Point1} />
+																			return (<div key={did} onClick={()=>this.onClickSel(did,true)} className="p2p"><img alt="" src={Point1} />
 																			<span className="n">{lodashget(curdevice,'name')}</span>
 																		 </div>);
 																		}

@@ -12,9 +12,9 @@ import {
 
 class App extends React.Component {
 
-	  constructor(props) {  
-        super(props);  
-    } 
+// 	  constructor(props) {  
+//         super(props);  
+//     } 
 		onClickPopCareSel = ()=>{
 			this.props.dispatch(set_uiapp({ispopcaresel_multi:true}));
 		}
@@ -45,7 +45,7 @@ class App extends React.Component {
 							}
 		        	</div>
 		        	<div className="edit" onClick={this.onClickPopCareSel}>编辑</div>
-		        	<div onClick={this.onClickCloseCare} className="closediv"><img className="close" src={Close} /></div>
+		        	<div onClick={this.onClickCloseCare} className="closediv"><img alt="" className="close" src={Close} /></div>
 	        	</div>
 				{ ispopcaresel_multi && <PopcareSel ismulti={true} value={subscriberdeviceids} onChange={this.onChangeCaresel}/>}
 	      	</div>

@@ -23,9 +23,9 @@ class App extends React.Component {
       }
 	    return (
 	      	<div className="datamonitorfiller">
-	      		<div  onClick={this.pushurl.bind(this, `datameter/${curdevice._id}/0`)} className="fillerhead city"><img src={City} /><span>{lodashget(curdevice,'name')}</span></div>
-	        	<div  onClick={this.pushurl.bind(this, `datameter/${curdevice._id}/0`)} className="fillerhead point"><img src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
-	      		<div onClick={this.onClickPopCareSel} className="fillerhead collect"><img src={Collect} /><span>当前设备</span></div>
+	      		<div  onClick={this.pushurl.bind(this, `datameter/${curdevice._id}/0`)} className="fillerhead city"><img alt="" src={City} /><span>{lodashget(curdevice,'name')}</span></div>
+	        	<div  onClick={this.pushurl.bind(this, `datameter/${curdevice._id}/0`)} className="fillerhead point"><img alt="" src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
+	      		<div onClick={this.onClickPopCareSel} className="fillerhead collect"><img alt="" src={Collect} /><span>当前设备</span></div>
 
 	      	</div>
 	    );

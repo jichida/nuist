@@ -29,7 +29,7 @@ class App extends React.Component {
                     <div className="videodata">
                     <ul>
                       <li className="tt">
-                        <div className="img"><img src={Demo} /></div>
+                        <div className="img"><img alt="" src={Demo} /></div>
                         <div className="li"><span className="name">{lodashget(curdevice,'addressname','')}</span><span className="runing">正在播放</span></div>
                       </li>
                     </ul>

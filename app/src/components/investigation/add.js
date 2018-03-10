@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Header from "../header/page.js";
 import "./style.css";
-import List from "./list.js";
+// import List from "./list.js";
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
 import {setvote_request} from '../../actions';

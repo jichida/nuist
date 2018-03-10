@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Swiperimg from "./swiperimg";
+// import Swiperimg from "./swiperimg";
 import "./style.css";
 import Header from "../header/page.js";
 import List from "./list.js";
-import Footer from "../footer";
+// import Footer from "../footer";
 import {getvotelist_request} from '../../actions';
 
 class App extends React.Component {

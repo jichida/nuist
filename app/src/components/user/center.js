@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Pro1 from "../../img/pro1.png";
+// import Pro1 from "../../img/pro1.png";
 import Close from "../../img/close.png";
-import Point1 from "../../img/25.png";
+// import Point1 from "../../img/25.png";
 import {
 	logout_request,
 	set_uiapp,
@@ -40,7 +40,7 @@ class App extends React.Component {
 							<div onClick={this.onClickLogout}>退出登录</div>
 			       </div>
 		        	<div onClick={this.onClickCloseUser} className="closediv">
-								<img className="close" src={Close} />
+								<img alt="" className="close" src={Close} />
 							</div>
 	        	</div>
 	      	</div>

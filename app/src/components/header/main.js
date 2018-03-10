@@ -7,8 +7,8 @@ class App extends React.Component {
   	render() {
     	return (
       		<div className="mainheader">
-      	 		<img src={Title} className="maintitle" />
-      	 		<img src={Userlnk} className="userlnk" onClick={this.props.onClickUserlnk}/>
+      	 		<img alt="" src={Title} className="maintitle" />
+      	 		<img alt="" src={Userlnk} className="userlnk" onClick={this.props.onClickUserlnk}/>
       		</div>
     	);
   	}

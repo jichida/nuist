@@ -1,6 +1,6 @@
 import React from 'react';
-import lodashmap from 'lodash.map';
-import { Chart, Geom, Axis, Tooltip, Coord, Label, Legend, View, Guide, Shape } from "bizcharts";
+// import lodashmap from 'lodash.map';
+import { Chart, Geom, Axis, Tooltip, } from "bizcharts";
 
 class App extends React.Component {
 

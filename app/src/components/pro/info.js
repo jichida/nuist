@@ -19,12 +19,12 @@ class App extends React.Component {
 	      		<div className="wamp"></div>
 	      		<div className="infocontent">
 		        	<div className="tit">{lodashget(curproduct,'name','')}</div>
-		        	<div className="img"><img src={lodashget(curproduct,'picurl',Pro1)} /></div>
+		        	<div className="img"><img alt="" src={lodashget(curproduct,'picurl',Pro1)} /></div>
 		        	<div className="info">
 								<p className="t">{lodashget(curproduct,'brief','')}</p>
-								<div className="imgpicurldetail"><img src={lodashget(curproduct,'picurldetail',Pro1)} /></div>
+								<div className="imgpicurldetail"><img alt="" src={lodashget(curproduct,'picurldetail',Pro1)} /></div>
 							</div>
-		        	<div onClick={this.onClickPopProductInfo} className="closediv"><img className="close" src={Close} /></div>
+		        	<div onClick={this.onClickPopProductInfo} className="closediv"><img alt="" className="close" src={Close} /></div>
 	        	</div>
 	      	</div>
 	    );
