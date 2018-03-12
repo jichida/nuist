@@ -24,7 +24,9 @@ class App extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-      if(lodashget(this.props,'curdevice._id') !== lodashget(nextProps.props,'curdevice._id')){
+      const oldcurdeviceid = lodashget(this.props,'curdevice._id');
+      const newcurdeviceid = lodashget(nextProps,'curdevice._id');
+      if(oldcurdeviceid !== newcurdeviceid){
         //chang curdevice
         this.onClickQuery(nextProps);
       }
