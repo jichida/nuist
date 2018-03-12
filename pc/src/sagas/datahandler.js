@@ -74,17 +74,17 @@ let sendmessagefnsz = {
 
   'getsystemconfig':`${getsystemconfig_request}`,
 
+  'gethistorydevicelist':`${gethistorydevicelist_request}`,
+  'getdevicelist':`${getdevicelist_request}`,
+
+  'getrealtimealarmlist':`${getrealtimealarmlist_request}`,
 };
 
 //验证发送接口
 let sendmessageauthfnsz = {
-  'gethistorydevicelist':`${gethistorydevicelist_request}`,
   'setvote':`${setvote_request}`,
   'saveusersettings':`${saveusersettings_request}`,
   'changepwd':`${changepwd_request}`,
-  'getdevicelist':`${getdevicelist_request}`,
-
-  'getrealtimealarmlist':`${getrealtimealarmlist_request}`,
 };
 
 export default {recvmessagetoresultpair,sendmessagefnsz,sendmessageauthfnsz};

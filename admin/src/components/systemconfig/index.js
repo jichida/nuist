@@ -61,6 +61,9 @@ const SystemconfigCreateTitle = ({ record }) => {
         </FormTab>
         <FormTab label="系统设置">
           <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
+          <ReferenceInput label="演示节点分组" source="demodevicegroupid" reference="devicegroup" allowEmpty>
+            <SelectInput optionText="name" />
+          </ReferenceInput>
         </FormTab>
         </TabbedForm>
     </EditPage>

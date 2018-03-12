@@ -6,7 +6,7 @@ const winston = require('../../log/log.js');
 const _ = require('lodash');
 const moment = require('moment');
 const getdevicesids = require('../getdevicesids');
-
+const debug = require('debug')('appsrv:device');
 
 exports.getdevicelist = (actiondata,ctx,callback)=>{
   const deviceModel = DBModels.DeviceModel;
@@ -16,12 +16,11 @@ exports.getdevicelist = (actiondata,ctx,callback)=>{
     if(!query.DeviceId){
       query.DeviceId = {'$in':deviceIds};
     }
-    let queryexec = deviceModel.find(query).select(fields);
+
+    let queryexec = deviceModel.find(query).select(fields).lean();
     queryexec.exec((err,list)=>{
+
       if(!err){
-        if(list.length > 0){
-          //console.log(`-->${JSON.stringify(list[0])}`);
-        }
         callback({
           cmd:'getdevicelist_result',
           payload:{list}

@@ -10,7 +10,6 @@ const debugapp = require('debug')('appsrv:app:index');
 
 const actiondatahandler = {
   'getvotelist':vote.getvotelist,
-  'setvote':vote.setvote,
   'getproductlist':product.getproductlist,
   'getproductdetail':product.getproductdetail,
   'getsystemconfig':systemconfig.getsystemconfig,
@@ -18,14 +17,15 @@ const actiondatahandler = {
   'logout':userlogin.logout,
   'login':userlogin.loginuser,
   //正式版本中下面的删除
+  'gethistorydevicelist':historydevice.gethistorydevicelist,
+  'getdevicelist':device.getdevicelist,
+  'getrealtimealarmlist':realtimealarm.getrealtimealarmlist,
 };
 
 const authhandler = {
-  'gethistorydevicelist':historydevice.gethistorydevicelist,
+  'setvote':vote.setvote,
   'saveusersettings':userlogin.saveusersettings,
   'changepwd':userlogin.changepwd,
-  'getdevicelist':device.getdevicelist,
-  'getrealtimealarmlist':realtimealarm.getrealtimealarmlist,
 };
 
 module.exports = (socket,actiondata,ctx)=>{
@@ -46,7 +46,7 @@ module.exports = (socket,actiondata,ctx)=>{
         if(!!authhandler[actiondata.cmd]){
           if(!ctx['userid']){
             debugapp("需要登录--->" + actiondata.cmd);
-            socket.emit('common_err',{errmsg:'请先重新登录'});
+            socket.emit('common_err',{errmsg:'请先登录'});
           }
           else{
             authhandler[actiondata.cmd](actiondata.data,ctx,(result)=>{

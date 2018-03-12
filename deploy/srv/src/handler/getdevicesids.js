@@ -3,6 +3,41 @@ const DBModels = require('../db/models');
 const mongoose = require('mongoose');
 
 const getdevicesids = (userid,callbackfn)=>{
+  if(!userid){
+    const dbModel = DBModels.SystemConfigModel;
+    dbModel.findOne({}).populate([
+      {
+        path:'demodevicegroupid',
+        model: 'devicegroup',
+        populate:[
+        {
+          path:'deviceids', select:'_id DeviceId', model: 'device'
+        },
+      ]
+    }]).lean().exec((err, systemconfig)=> {
+        let deviceIds = [];
+        let devicegroupIds = [];
+        if(!err && !!systemconfig){
+          // devicegroupIds
+          if(!!systemconfig.demodevicegroupid){
+            devicegroupIds.push(systemconfig.demodevicegroupid._id);
+            const devicelist = _.get(systemconfig.demodevicegroupid,'deviceids',[]);
+            // //console.log(`devicelist=>${JSON.stringify(devicelist)}`)
+            _.map(devicelist,(deviceinfo)=>{
+              // //console.log(`deviceinfo=>${JSON.stringify(deviceinfo)}`)
+              // //console.log(`DeviceId=>${deviceinfo.DeviceId}`)
+              deviceIds.push(deviceinfo.DeviceId);
+            });
+          }
+        }
+        callbackfn({
+          adminflag:0,
+          devicegroupIds,
+          deviceIds
+        });
+      });
+      return;
+  }
   if(typeof userid === 'string'){
     userid = mongoose.Types.ObjectId(userid);
   }
@@ -27,7 +62,7 @@ const getdevicesids = (userid,callbackfn)=>{
         const devicegrouplist = _.get(user,'devicegroups',[]);
         _.map(devicegrouplist,(groupinfo)=>{
           devicegroupIds.push(mongoose.Types.ObjectId(groupinfo._id));
-          let devicelist = _.get(groupinfo,'deviceids',[]);
+          const devicelist = _.get(groupinfo,'deviceids',[]);
           // //console.log(`devicelist=>${JSON.stringify(devicelist)}`)
           _.map(devicelist,(deviceinfo)=>{
             // //console.log(`deviceinfo=>${JSON.stringify(deviceinfo)}`)

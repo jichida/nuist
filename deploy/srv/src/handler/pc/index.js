@@ -1,6 +1,7 @@
 const systemconfig = require('../common/systemconfig');
 const userlogin = require('../common/userlogin');
 const device = require('../common/device.js');
+const historydevice = require('../common/historydevice.js');
 const realtimealarm = require('../common/realtimealarm.js');
 const moment = require('moment');
 const tip = require('../common/tip');
@@ -14,14 +15,15 @@ const actiondatahandler = {
   'loginwithtoken':userlogin.loginwithtoken,
   'logout':userlogin.logout,
   'login':userlogin.loginuser,
-  //正式版本中下面的删除
+
+  'gethistorydevicelist':historydevice.gethistorydevicelist,
+  'getdevicelist':device.getdevicelist,
+  'getrealtimealarmlist':realtimealarm.getrealtimealarmlist,
 };
 
 const authhandler = {
   'saveusersettings':userlogin.saveusersettings,
   'gettipcount':tip.gettipcount,
-  'getdevicelist':device.getdevicelist,
-  'getrealtimealarmlist':realtimealarm.getrealtimealarmlist,
 };
 
 module.exports = (socket,actiondata,ctx)=>{
@@ -31,7 +33,7 @@ module.exports = (socket,actiondata,ctx)=>{
   try{
       if(ctx.usertype !== 'pc'){
         debugpc(`不是正确的客户端--->${actiondata.cmd}`);
-        socket.emit('common_err',{errmsg:'无效的app客户端'});
+        socket.emit('common_err',{errmsg:'无效的pc客户端'});
         return;
       }
       if(!!actiondatahandler[actiondata.cmd]){
@@ -44,7 +46,7 @@ module.exports = (socket,actiondata,ctx)=>{
         if(!!authhandler[actiondata.cmd]){
           if(!ctx['userid']){
             debugpc("需要登录--->" + actiondata.cmd);
-            socket.emit('common_err',{errmsg:'请先重新登录'});
+            socket.emit('common_err',{errmsg:'请先登录'});
           }
           else{
             authhandler[actiondata.cmd](actiondata.data,ctx,(result)=>{
