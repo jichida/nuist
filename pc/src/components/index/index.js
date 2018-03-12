@@ -8,7 +8,7 @@ import Mapindex from "./map";
 import Monitoring from "./monitoring";
 import Investigation from "./investigation";
 import Chartdemo from "../../img/z3.png";
-import Pro1 from "../../img/z4.png";
+import ProductList from './prolist';
 import Footer from "../footer";
 
 class App extends React.Component {
@@ -52,46 +52,7 @@ class App extends React.Component {
 					</li>
 				</ul>
 			</div>
-			<div className="prolist">
-				<ul>
-					<li>
-						<div className="l">
-							<div className="pro"><img alt="" src={Pro1} /></div>
-							<div className="tt">温度曲线分析</div>
-						</div>
-					</li>
-					<li>
-						<div className="l">
-							<div className="pro"><img alt="" src={Pro1} /></div>
-							<div className="tt">温度曲线分析</div>
-						</div>
-					</li>
-					<li>
-						<div className="l">
-							<div className="pro"><img alt="" src={Pro1} /></div>
-							<div className="tt">温度曲线分析</div>
-						</div>
-					</li>
-					<li>
-						<div className="l">
-							<div className="pro"><img alt="" src={Pro1} /></div>
-							<div className="tt">温度曲线分析</div>
-						</div>
-					</li>
-					<li>
-						<div className="l">
-							<div className="pro"><img alt="" src={Pro1} /></div>
-							<div className="tt">温度曲线分析</div>
-						</div>
-					</li>
-					<li>
-						<div className="l">
-							<div className="pro"><img alt="" src={Pro1} /></div>
-							<div className="tt">温度曲线分析</div>
-						</div>
-					</li>
-				</ul>
-			</div>
+			<ProductList />
         </div>
         <Footer />
     </div>
