@@ -6,9 +6,11 @@ const realtimealarm = require('../common/realtimealarm.js');
 const moment = require('moment');
 const tip = require('../common/tip');
 const product = require('../common/product.js');
+const vote = require('../common/vote.js');
 const debugpc = require('debug')('appsrv:pc:index');
 //司机端
 const actiondatahandler = {
+  'getvotelist':vote.getvotelist,
   'getproductlist':product.getproductlist,
   'getproductdetail':product.getproductdetail,
   'getsystemconfig':systemconfig.getsystemconfig,
@@ -22,6 +24,7 @@ const actiondatahandler = {
 };
 
 const authhandler = {
+  'setvote':vote.setvote,
   'saveusersettings':userlogin.saveusersettings,
   'gettipcount':tip.gettipcount,
 };

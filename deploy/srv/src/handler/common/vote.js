@@ -16,9 +16,11 @@ exports.getvotelist = (actiondata,ctx,callback)=>{
          let isfilled = false;
          let selectedoption = null;
          _.map(researchrecords,(rc)=>{
-           if(rc.creator.toString() === ctx.userid.toString()){
-             isfilled = true;
-             selectedoption = rc.voteresult;
+           if(!!ctx.userid){
+             if(rc.creator.toString() === ctx.userid.toString()){
+               isfilled = true;
+               selectedoption = rc.voteresult;
+             }
            }
          })
          if(isfilled){

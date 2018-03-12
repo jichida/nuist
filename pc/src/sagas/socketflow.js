@@ -4,6 +4,8 @@ import {
   getsystemconfig_request,
   loginwithtoken_request,
   getdevicelist_request,
+  getproductlist_request,
+  getvotelist_request
 } from '../actions';
 import config from '../env/config';
 
@@ -21,6 +23,8 @@ export function* socketflow(){//仅执行一次
         }
         else{
           yield put(getdevicelist_request({}));
+          yield put(getproductlist_request({}));
+          yield put(getvotelist_request({}));
         }
       }
     });

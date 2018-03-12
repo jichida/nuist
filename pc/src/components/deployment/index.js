@@ -2,7 +2,7 @@ import React from 'react';
 import "./index.css";
 import Header from "../header";
 import Footer from "../footer";
-import Mapimg from "../../img/map_img.png";
+import Map from "../map/index.js";
 import Jtimg from "../../img/jt.png";
 
 class App extends React.Component {
@@ -114,7 +114,7 @@ class App extends React.Component {
         </ul>
         </div>
         <div className="map_img">
-            <img alt="" src={Mapimg} />
+            <Map />
             </div>
             </div>
             </div>
