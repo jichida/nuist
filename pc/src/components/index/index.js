@@ -7,7 +7,7 @@ import Swiper from "./swiper";
 import Mapindex from "./map";
 import Monitoring from "./monitoring";
 import Investigation from "./investigation";
-import Chartdemo from "../../img/z3.png";
+import DataChart from './datachart';
 import ProductList from './prolist';
 import Footer from "../footer";
 
@@ -32,26 +32,7 @@ class App extends React.Component {
 					<Investigation />
 				</div>
 			</div>
-			<div className="datachart">
-				<ul>
-					<li>
-						<div className="tt">温度曲线分析</div>
-						<div className="chart"><img alt="" src={Chartdemo} /></div>
-					</li>
-					<li>
-						<div className="tt">温度曲线分析</div>
-						<div className="chart"><img alt="" src={Chartdemo} /></div>
-					</li>
-					<li>
-						<div className="tt">温度曲线分析</div>
-						<div className="chart"><img alt="" src={Chartdemo} /></div>
-					</li>
-					<li>
-						<div className="tt">温度曲线分析</div>
-						<div className="chart"><img alt="" src={Chartdemo} /></div>
-					</li>
-				</ul>
-			</div>
+			<DataChart />
 			<ProductList />
         </div>
         <Footer />
