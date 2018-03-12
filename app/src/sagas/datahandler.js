@@ -73,14 +73,14 @@ let sendmessagefnsz = {
   'login':`${login_request}`,
 
   'getsystemconfig':`${getsystemconfig_request}`,
-
+  'saveusersettings':`${saveusersettings_request}`,
 };
 
 //验证发送接口
 let sendmessageauthfnsz = {
   'gethistorydevicelist':`${gethistorydevicelist_request}`,
   'setvote':`${setvote_request}`,
-  'saveusersettings':`${saveusersettings_request}`,
+
   'changepwd':`${changepwd_request}`,
   'getdevicelist':`${getdevicelist_request}`,
 

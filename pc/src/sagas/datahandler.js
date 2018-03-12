@@ -78,12 +78,12 @@ let sendmessagefnsz = {
   'getdevicelist':`${getdevicelist_request}`,
 
   'getrealtimealarmlist':`${getrealtimealarmlist_request}`,
+  'saveusersettings':`${saveusersettings_request}`,
 };
 
 //验证发送接口
 let sendmessageauthfnsz = {
   'setvote':`${setvote_request}`,
-  'saveusersettings':`${saveusersettings_request}`,
   'changepwd':`${changepwd_request}`,
 };
 

@@ -21,18 +21,19 @@ const actiondatahandler = {
   'gethistorydevicelist':historydevice.gethistorydevicelist,
   'getdevicelist':device.getdevicelist,
   'getrealtimealarmlist':realtimealarm.getrealtimealarmlist,
+
+  'saveusersettings':userlogin.saveusersettings,
 };
 
 const authhandler = {
   'setvote':vote.setvote,
-  'saveusersettings':userlogin.saveusersettings,
   'gettipcount':tip.gettipcount,
 };
 
 module.exports = (socket,actiondata,ctx)=>{
   //console.log("PC端获取数据--->" + JSON.stringify(actiondata));
   //console.log("PC端获取上下文--->" + JSON.stringify(ctx));
-  debugpc(`${actiondata.cmd},actiondata:${actiondata.payload},ctx==>${JSON.stringify(ctx)}`);
+  debugpc(`actiondata=>${JSON.stringify(actiondata)},ctx==>${JSON.stringify(ctx)}`);
   try{
       if(ctx.usertype !== 'pc'){
         debugpc(`不是正确的客户端--->${actiondata.cmd}`);

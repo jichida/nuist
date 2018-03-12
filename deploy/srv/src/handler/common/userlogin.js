@@ -76,22 +76,30 @@ let setloginsuccess = (ctx,user,callback)=>{
 
 exports.saveusersettings = (actiondata,ctx,callback)=>{
   const usersettings = actiondata;
-  const userModel = DBModels.UserModel;
-  userModel.findByIdAndUpdate(ctx.userid,{$set:{usersettings}},{new: true},(err,usernew)=>{
-    if(!err && !!usernew){
+  if(!!ctx.userid){
+    const userModel = DBModels.UserModel;
+    userModel.findByIdAndUpdate(ctx.userid,{$set:{usersettings}},{new: true},(err,usernew)=>{
+      if(!err && !!usernew){
+          callback({
+            cmd:'saveusersettings_result',
+            payload:{usersettings:usernew.usersettings}
+          });
+          subscriberuser(usernew,ctx);
+      }
+      else{
         callback({
-          cmd:'saveusersettings_result',
-          payload:{usersettings:usernew.usersettings}
+          cmd:'common_err',
+          payload:{errmsg:`保存设置失败`,type:'saveusersettings'}
         });
-        subscriberuser(usernew,ctx);
-    }
-    else{
-      callback({
-        cmd:'common_err',
-        payload:{errmsg:`保存设置失败`,type:'saveusersettings'}
-      });
-    }
-  });
+      }
+    });
+  }
+  else{
+    callback({
+      cmd:'saveusersettings_result',
+      payload:{usersettings}
+    });
+  }
 };
 
 
