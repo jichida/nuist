@@ -1,10 +1,12 @@
 import React from 'react';
 import "./index.css";
+import Jtimg from "../../img/jt.png";
 import Header from "../header";
 import Footer from "../footer";
-import Jtimg from "../../img/jt.png";
+import NodeSel from '../nodesel';
 import Wximg from "../../img/wx_icon.jpg";
 import Tdimg from "../../img/tp_d.jpg";
+
 
 class App extends React.Component {
     render() {
@@ -16,114 +18,27 @@ class App extends React.Component {
             <div className="tita"><div className="tit_left">切换到：贵阳<img alt="" src={Jtimg}/></div><h2>综合警报</h2><div className="tit_right"><img alt="" src={Wximg} /></div></div>
             <div className="cont">
 
-        <div className="left pt0">
-            <dl className="dl_bg">
-            <dt>ID</dt>
-            <dd><span>城市</span><span>状态</span></dd>
-        </dl>
-        <div className="h_625 scroll_bar h_520">
-            <dl>
-            <dt>01</dt>
-            <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        </div>
+              <div className="left pt0">
+                
+                  <NodeSel />
+
         <ul className="tt_right">
             <li>异常节点</li>
             <li>全部节点</li>
             </ul>
             </div>
             <div className="center">
-            <ul className="zhyj_box">
-            <li className="zhyj"><img alt="" src={Tdimg} /><p>降雨量</p></li>
-        <li className="zhyj"><img alt="" src={Tdimg} /><p>水位</p></li>
-        <li className="zhyj"><img alt="" src={Tdimg} /><p>温度</p></li>
-        <li className="zhyj"><img alt="" src={Tdimg} /><p>应力0</p></li>
-        <li className="zhyj"><img alt="" src={Tdimg} /><p>湿度</p></li>
-        <li className="zhyj"><img alt="" src={Tdimg} /><p>应力1</p></li>
-        <li className="zhyj"><img alt="" src={Tdimg} /><p>电压</p></li>
-        <li className="zhyj"><img alt="" src={Tdimg} /><p>变形</p></li>
-        <li className="zhyj"><img alt="" src={Tdimg} /><p>电压</p></li></ul>
-        </div>
+                <ul className="zhyj_box">
+                <li className="zhyj"><img alt="" src={Tdimg} /><p>降雨量</p></li>
+            <li className="zhyj"><img alt="" src={Tdimg} /><p>水位</p></li>
+            <li className="zhyj"><img alt="" src={Tdimg} /><p>温度</p></li>
+            <li className="zhyj"><img alt="" src={Tdimg} /><p>应力0</p></li>
+            <li className="zhyj"><img alt="" src={Tdimg} /><p>湿度</p></li>
+            <li className="zhyj"><img alt="" src={Tdimg} /><p>应力1</p></li>
+            <li className="zhyj"><img alt="" src={Tdimg} /><p>电压</p></li>
+            <li className="zhyj"><img alt="" src={Tdimg} /><p>变形</p></li>
+            <li className="zhyj"><img alt="" src={Tdimg} /><p>电压</p></li></ul>
+            </div>
         <div className="left pt0">
             <dl className="dl_bg">
             <dt>ID</dt>

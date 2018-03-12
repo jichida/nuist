@@ -2,7 +2,8 @@ import React from 'react';
 import "./index.css";
 import Header from "../header";
 import Footer from "../footer";
-import Jtimg from "../../img/jt.png";
+import NodeSel from '../nodesel';
+
 
 class App extends React.Component {
     render() {
@@ -14,96 +15,7 @@ class App extends React.Component {
             <div className="cont">
             <div className="left">
             <div className="tit">节点列表</div>
-            <dl className="dl_bg">
-            <dt>ID</dt>
-            <dd><span>位置</span><span>区域<img alt="" src={Jtimg} /></span></dd>
-        </dl>
-        <div className="h_625 scroll_bar">
-            <dl>
-            <dt>01</dt>
-            <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        <dl>
-        <dt>01</dt>
-        <dd><span>基站</span><span>桂阳</span></dd>
-        </dl>
-        </div>
+            <NodeSel />
         </div>
         <div className="center_right">
             <div className="tt">节点拓扑
