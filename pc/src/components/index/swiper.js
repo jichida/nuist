@@ -30,7 +30,7 @@ class App extends React.Component {
       bannerproducturls.push(Img1);
     }
     return (
-      <div className="swiper_indexPage">
+      <div className="swiper_indexPage" >
         <Swiper
           swiperOptions={{
               slidesPerView: 'auto',
