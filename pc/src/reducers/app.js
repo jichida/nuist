@@ -13,7 +13,8 @@ const initial = {
         ispoppwd:false,
         ispopcare:false,
         uialarmshowall:true,
-        bannerproducturls:[]
+        bannerproducturls:[],
+        selectedindex:0
     },
 };
 

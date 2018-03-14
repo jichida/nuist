@@ -1,4 +1,4 @@
-import { put,call,takeLatest,take,race} from 'redux-saga/effects';
+import { put,call,takeLatest,take,race,select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
   common_err,
@@ -9,7 +9,7 @@ import {
   set_weui,
 
   getdevicelist_request,
-  // getdevicelist_result,
+  getdevicelist_result,
 
   ui_startalarm,
   ui_stopalarm,
@@ -18,17 +18,38 @@ import {
 
   setvote_result,
   changepwd_result,
-  set_uiapp
+  set_uiapp,
+  saveusersettings_result
 } from '../actions';
 // import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 // import map from 'lodash.map';
-
+import lodashget from 'lodash.get';
 import config from '../env/config.js';
 // import  {
 //   getrandom
 // } from '../test/bmsdata.js';
 
 export function* wsrecvsagaflow() {
+  yield takeLatest(`${getdevicelist_result}`,function*(action){
+    //若第一次usersettings里面字段为空，则设置
+    const {list} = action.payload;
+    if(list.length > 0){
+      let usersettings = yield select((state)=>{
+        const usersettings = lodashget(state,'userlogin.usersettings',{
+          indexdeviceid:'',
+          warninglevel:'',
+          subscriberdeviceids : []
+        });
+        return usersettings;
+      });
+
+      if(usersettings.indexdeviceid === ''){
+        usersettings.indexdeviceid = list[0]._id;
+        yield put(saveusersettings_result(usersettings));
+      }
+    }
+  });
+
   yield takeLatest(`${changepwd_result}`, function*(action) {
     yield put(set_uiapp({ ispoppwd: false }));
     yield put(set_weui({

@@ -3,7 +3,9 @@ import {
   notify_socket_connected,
   getsystemconfig_request,
   loginwithtoken_request,
-
+  getdevicelist_request,
+  getproductlist_request,
+  getvotelist_request
 } from '../actions';
 import config from '../env/config';
 
@@ -13,9 +15,16 @@ export function* socketflow(){//仅执行一次
       let {payload:issocketconnected} = action;
       if(issocketconnected){
         yield put(getsystemconfig_request({}));
+        if(config.softmode === 'app'){
         const token = localStorage.getItem(`nuist_${config.softmode}_token`);
         if (!!token) {
           yield put(loginwithtoken_request({token}));
+        }
+      }
+        else{
+          yield put(getdevicelist_request({}));
+          yield put(getproductlist_request({}));
+          yield put(getvotelist_request({}));
         }
       }
     });
