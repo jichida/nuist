@@ -11,9 +11,7 @@
     border-bottom: 1px solid #e5e5e5;
     height: auto;
     overflow: hidden;
-    padding: 10px 0px;
-    margin-left: 10px;
-    margin-right: 10px;
+    padding: 10px 10px;
 }
 
 .indexPage .content .cont .left dl.dl_bg {
@@ -25,6 +23,10 @@
     padding: 0px;
     margin-left: 0px;
     margin-right: 0px;
+}
+
+.indexPage .content .cont .left dl.dl_bg dt {
+    padding-left: 20px
 }
 
 .indexPage .content .cont .left dl dt {
@@ -39,7 +41,7 @@
 }
 
 .indexPage .content .cont .left dl dd span:first-child {
-    width: 134px;
+    width: 140px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -104,7 +106,4 @@
     font-size: 16px;
     color: #666
 }
-
-.w_630 img {
-    border-radius: 8px
-}
+.w_630 img{ border-radius: 8px}

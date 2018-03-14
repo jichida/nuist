@@ -29,7 +29,7 @@ class App extends React.Component {
                 const curdevice = devices[did];
                 if(did === indexdeviceid){
                   return (
-                    <dl key={index}>
+                    <dl key={index} className="sel">
                         <dt>{lodashget(curdevice,'DeviceId','')}</dt>
                         <dd><span>{lodashget(curdevice,'name','')}</span><span>{lodashget(curdevice,'city','')}</span></dd>
                     </dl>

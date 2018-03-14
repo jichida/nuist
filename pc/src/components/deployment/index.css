@@ -1,11 +1,9 @@
-.indexPage .content .cont .left dl {
+ .indexPage .content .cont .left dl {
     font-size: 16px;
     border-bottom: 1px solid #e5e5e5;
     height: auto;
     overflow: hidden;
-    padding: 10px 0px;
-    margin-left: 10px;
-    margin-right: 10px;
+    padding: 10px 10px;
 }
 
 .indexPage .content .cont .left dl.dl_bg {
@@ -17,6 +15,10 @@
     padding: 0px;
     margin-left: 0px;
     margin-right: 0px;
+}
+
+.indexPage .content .cont .left dl.dl_bg dt {
+    padding-left: 20px
 }
 
 .indexPage .content .cont .left dl dt {
@@ -31,7 +33,7 @@
 }
 
 .indexPage .content .cont .left dl dd span:first-child {
-    width: 134px;
+    width: 140px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -51,7 +53,6 @@
     vertical-align: middle;
     margin-left: 5px
 }
-
 .center_right .tt .tt_right {
     display: inline-block;
     float: right
@@ -72,6 +73,7 @@
 
 .map_img {
     border: 1px solid #e5e5e5;
-    margin-top: 2px;
-    height: 680px;
+    margin-top: 2px; height: 680px;
 }
+
+
