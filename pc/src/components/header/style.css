@@ -34,7 +34,7 @@
 	line-height: 40px;
 	text-align: center;
 	color: #FFF;
-	position: relative;
+	position: relative; cursor: pointer;
 }
 .header .headnav span:after{
 	content: "";

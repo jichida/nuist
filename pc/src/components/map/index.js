@@ -51,17 +51,17 @@ class App extends React.Component {
 				}
 			})
     	return (
-      		<Map amapkey={mapkey} zoom={15} center={{longitude,latitude}}
+      		<Map amapkey={mapkey} center={{longitude,latitude}}
             plugins={[
 								{
-					        name: 'ToolBar',
+					        name: 'ControlBar',
 									options:{
 										  locate:false,
 											position: 'RT',
 									}
 								}
 							]}
-            status={{zoomEnable:true,touchZoom:true}}>
+            status={{zoomEnable:true,touchZoom:false}}>
             {markers}
           </Map>
     	);

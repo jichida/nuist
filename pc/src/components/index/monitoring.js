@@ -14,11 +14,11 @@ import {
 
 我如何才能找到缺失的css，而不引入无关的css?
 */
-// import 'antd/dist/antd.css';
-import 'antd/lib/menu/style';
-import 'antd/lib/dropdown/style';
-import 'antd/lib/button/style';
-import 'antd/lib/icon/style';
+import 'antd/dist/antd.css';
+// import 'antd/lib/menu/style';
+// import 'antd/lib/dropdown/style';
+// import 'antd/lib/button/style';
+// import 'antd/lib/icon/style';
 
 import getMenu from './dropdownselmenu';
 import "./monitoring.css";

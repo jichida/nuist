@@ -1,14 +1,17 @@
-.indexPage .content  .tita {
+.indexPage .content .tita {
     font-size: 16px;
     font-weight: 600;
     line-height: 40px;
-    border-bottom: 4px solid #0164b5; margin: 20px 20px 0px;display: flex;
+    border-bottom: 4px solid #0164b5;
+    margin: 20px 20px 0px;
+    display: flex;
     display: -webkit-flex;
     -webkit-box-align: center;
     -moz-justify-content: space-between;
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
+
 .tit_left {
     display: inline-block;
     width: 340px;
@@ -17,7 +20,8 @@
     font-weight: normal
 }
 
-.tit_left img, .tit_right img {
+.tit_left img,
+.tit_right img {
     display: inline-block;
     vertical-align: middle;
     margin-left: 10px
@@ -56,10 +60,6 @@
     margin-right: 0px;
 }
 
-.indexPage .content .cont .left dl.dl_bg dt {
-    padding-left: 20px
-}
-
 .indexPage .content .cont .left dl dt {
     width: 60px;
     float: left;
@@ -72,7 +72,7 @@
 }
 
 .indexPage .content .cont .left dl dd span:first-child {
-    width: 140px;
+    width: 134px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -92,8 +92,15 @@
     vertical-align: middle;
     margin-left: 5px
 }
-.pt0{ padding-top: 0px !important;}
-.h_520{ height: 520px !important;}
+
+.pt0 {
+    padding-top: 0px !important;
+}
+
+.h_520 {
+    height: 520px !important;
+}
+
 .h_625 {
     height: 625px;
     overflow-y: scroll
@@ -138,7 +145,8 @@
     background: #fff;
 }
 
-.shuju li em, .shuju li span {
+.shuju li em,
+.shuju li span {
     font-size: 14px;
     text-align: center;
     line-height: 38px;
@@ -192,9 +200,14 @@
     text-align: center;
     display: inline-block;
     height: 34px;
-    line-height: 34px; margin-right: 4px;
+    line-height: 34px;
+    margin-right: 4px;
 }
-.tt_right li:last-child{ margin-right: 0px}
+
+.tt_right li:last-child {
+    margin-right: 0px
+}
+
 .shuju_titright {
     float: right;
     font-size: 14px;

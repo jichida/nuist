@@ -19,10 +19,6 @@
     margin-right: 0px;
 }
 
-.indexPage .content .cont .left dl.dl_bg dt {
-    padding-left: 20px
-}
-
 .indexPage .content .cont .left dl dt {
     width: 60px;
     float: left;
@@ -35,7 +31,7 @@
 }
 
 .indexPage .content .cont .left dl dd span:first-child {
-    width: 140px;
+    width: 134px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -55,6 +51,7 @@
     vertical-align: middle;
     margin-left: 5px
 }
+
 .center_right .tt .tt_right {
     display: inline-block;
     float: right
@@ -75,5 +72,6 @@
 
 .map_img {
     border: 1px solid #e5e5e5;
-    margin-top: 2px
+    margin-top: 2px;
+    height: 680px;
 }

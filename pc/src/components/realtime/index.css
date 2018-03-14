@@ -19,10 +19,6 @@
     margin-right: 0px;
 }
 
-.indexPage .content .cont .left dl.dl_bg dt {
-    padding-left: 20px
-}
-
 .indexPage .content .cont .left dl dt {
     width: 60px;
     float: left;
@@ -35,7 +31,7 @@
 }
 
 .indexPage .content .cont .left dl dd span:first-child {
-    width: 140px;
+    width: 134px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -110,10 +106,6 @@
     padding: 0px;
     margin-left: 0px;
     margin-right: 0px;
-}
-
-.center_right dl.dl_bg dt {
-    padding-left: 20px
 }
 
 .center_right dl dt {

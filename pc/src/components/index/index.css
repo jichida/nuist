@@ -1,8 +1,55 @@
-ul,
-li {
-    list-style: none;
-    padding: 0;
+body {
+    color: #333;
+    font-size: 14px !important;
+    font-family: microsoft yahei, Arial, 'microsoft yahei';
+    line-height: inherit !important;
+    position: relative;
+    overflow: auto;
+}
+
+label,
+input,
+select,
+textarea {
+    line-height: normal;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+* {
     margin: 0;
+    padding: 0 ;
+    box-sizing: border-box
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+em,p {
+    margin: 0px !important;
+    padding: 0px;
+    line-height: 1.4;
+    font-weight: normal;
+    font-style: normal
+}
+
+ul,
+li,dl,dd,dt {
+    list-style: none;
+    padding: 0px;
+    margin: 0px  !important;
+}
+
+input {
+    border: none;
+    outline: none
+}
+
+a img {
+    border: 0;
 }
 
 .indexPage .content {

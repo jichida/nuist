@@ -57,7 +57,7 @@ class App extends React.Component {
                      if(!isfilled){
                        this.onClickOption(option.optionname)
                      }
-                   }} className="sel"><span>{option.optionname}</span><span>{option.answername}</span></div>);
+                   }} className="i sel"><span>{option.optionname}</span><span>{option.answername}</span></div>);
                  }
                  return (<div  className="i" key={index} onClick={()=>{
                    if(!isfilled){
