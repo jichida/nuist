@@ -4,11 +4,12 @@ import "./index.css";
 import Header from "../header";
 import Footer from "../footer";
 import NodeSel from '../nodesel';
-import ListData from './listdata';
+import Meter from "./meter";
+// import ListData from './listdata';
 
 class App extends React.Component {
     render() {
-        const {devicelist,devices,usersettings} = this.props;
+        const {devices,usersettings} = this.props;
         const indexdeviceid = usersettings.indexdeviceid;
         const curdevice = devices[indexdeviceid];
         return (
@@ -24,13 +25,13 @@ class App extends React.Component {
         <div className="center_right">
             <div className="tt">节点拓扑
         </div>
-          <ListData curdevice={curdevice} devicelist={devicelist} devices={devices}/>
+          { !!curdevice && <Meter curdevice={curdevice}/> }
         </div>
             </div>
             </div>
             <Footer />
             </div>
-    );
+          );
     }
 }
 

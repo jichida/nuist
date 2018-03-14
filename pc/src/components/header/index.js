@@ -60,10 +60,10 @@ class App extends React.Component {
         url:'/forecast',
         name:'数据预警'
       },
-      {
-        url:'/forecast',
-        name:'预警参数管理'
-      },
+      // {
+      //   url:'/forecast',
+      //   name:'预警参数管理'
+      // },
       {
         url:'/adminlogin',
         name:'后台管理'
