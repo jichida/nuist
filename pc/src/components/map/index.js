@@ -50,8 +50,10 @@ class App extends React.Component {
 					markers.push(getMarker({curdevice:device,selectdevice:this.selectdevice}));
 				}
 			})
+
+			console.log(`map center---->${JSON.stringify({longitude,latitude})}`)
     	return (
-      		<Map amapkey={mapkey} center={{longitude,latitude}}
+      		<Map  zoom={15}  amapkey={mapkey} center={{longitude,latitude}}
             plugins={[
 								{
 					        name: 'ControlBar',
@@ -68,7 +70,20 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({device:{devicelist,devices},userlogin:{usersettings}}) => {
-    return {devicelist,devices,usersettings};
+const mapStateToProps = ({device:{devicelist,devices},userlogin:{usersettings}},props) => {
+		let curdevice = props.curdevice;
+		if(!curdevice){
+			let curdeviceid = lodashget(usersettings,'indexdeviceid');
+			if(!!curdeviceid){
+				curdevice = devices[curdeviceid];
+			}
+		}
+
+		if(!curdevice){
+			if(devicelist.length > 0){
+				curdevice = devices[devicelist[0]];
+			}
+		}
+    return {devicelist,devices,usersettings,curdevice};
 }
 export default connect(mapStateToProps)(App);

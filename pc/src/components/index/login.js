@@ -25,7 +25,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="loginPage">
-        <div className="tit">管理员登录</div>
+        <div className="tit">用户登录</div>
         <div className="loginform">
 			     <PageForm onClickLogin={this.onClickLogin}/>
         </div>
