@@ -1,0 +1,41 @@
+.style_weui_dialog {
+  min-width: 220px;
+  text-align: center;
+}
+
+
+.style_weui_dialog__bd {
+  padding: 12px;
+  background-color: rgba(0,0,0,0.42);
+  border-radius: 8px;
+  margin-bottom: 10px;
+};
+
+.style_weui_dialog__bd_p {
+  font-size: 13px;
+  line-height: 20px;
+  color: #fff;
+  text-align: left;
+  margin:0px
+};
+
+
+.style_weui_dialog__bd_p_img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  display: inline-flex;
+  float: right
+};
+
+
+.style_weui_dialog__bd_p_span {
+  float: right
+};
+
+.style_icon_bottom_img  {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  display: inline-flex
+};
