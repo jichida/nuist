@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"DEBUG=srvtcp:* node --inspect index",
+    "start": "DEBUG=srvtcp:* node --inspect index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,6 +14,7 @@
     "debug": "^3.1.0",
     "mongoose": "^5.0.8",
     "mongoose-paginate": "^5.0.3",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "winston": "^2.4.1"
   }
 }
