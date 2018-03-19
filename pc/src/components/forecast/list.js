@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
 // import lodashfind from 'lodash.find';
+import './list.css';
 import {getindexstring} from '../../util';
 const mapkeystring = {
   'temperature':'温度',
@@ -54,7 +55,18 @@ class App extends React.Component {
 
 const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},device:{devices},app:{uialarmshowall},userlogin:{usersettings}}) => {
     let alllist = [];
-    alllist = realtimealarmlist;
+    const curid = lodashget(usersettings,'indexdeviceid');
+    if(!!devices[curid]){
+        lodashmap(realtimealarmlist,(rid)=>{
+          const curdeviceid = lodashget(realtimealarms[rid],'did');
+          if(curid === curdeviceid){
+            alllist.push(rid);
+          }
+        });
+    }
+    else{
+      alllist = realtimealarmlist;
+    }
     // if(uialarmshowall){
     //   alllist = realtimealarmlist;
     // }
