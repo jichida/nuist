@@ -50,7 +50,7 @@ class App extends React.Component {
       },
       {
         url:'/realtime',
-        name:'实时数据'
+        name:'数据检测'
       },
       {
         url:'/video',
@@ -64,10 +64,10 @@ class App extends React.Component {
       //   url:'/forecast',
       //   name:'预警参数管理'
       // },
-      {
-        url:'/adminlogin',
-        name:'后台管理'
-      },
+      // {
+      //   url:'/adminlogin',
+      //   name:'后台管理'
+      // },
     ];
     const selectedindex = this.props.selectedindex;
     let lnkscompents = [];
@@ -94,6 +94,7 @@ class App extends React.Component {
       	 <div className="headnav">
       	 	<div className="nav">
 				        {lnkscompents}
+                <span><a href='http://admin.nuistiot.com/index.html#/login' target="blank">后台管理</a></span>
 			     </div>
       	 </div>
       </div>
