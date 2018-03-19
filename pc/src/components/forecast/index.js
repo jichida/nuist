@@ -30,7 +30,7 @@ class App extends React.Component {
             <Header />
             <div className="content">
             <div className="indextit">欢迎访问大坝智能监控系统</div>
-            <div className="tita"><div className="tit_left">切换到：贵阳<img alt="" src={Jtimg}/></div><h2>综合警报</h2><div className="tit_right"><img alt="" src={Wximg} /></div></div>
+            <div className="tita"><div className="tit_left">切换到：贵阳<img alt="" src={Jtimg}/></div><h2>综合警报</h2><div className="tit_right"></div></div>
             <div className="cont">
               <div className="left pt0">
                   <NodeSel />
