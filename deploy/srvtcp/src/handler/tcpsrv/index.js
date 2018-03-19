@@ -2,7 +2,7 @@ const net = require('net');
 const config = require('../../config.js');
 const debug = require('debug')('srvtcp:data')
 const getbuf = require('./protocol');
-const winston = require('../log/log.js');
+const winston = require('../../log/log.js');
 // const mongoose = require('mongoose');
 
 const magiclen=2;

@@ -2,6 +2,7 @@ const config = require('./src/config');
 const tcpsrv = require('./src/handler/tcpsrv');
 const mongoose     = require('mongoose');
 const debug = require('debug')('srvtcp:app');
+const winston = require('./src/log/log.js');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongodburl,{
@@ -14,6 +15,7 @@ mongoose.connect(config.mongodburl,{
 
 
 debug(`mongodburl:${config.mongodburl}`);
+winston.getlog().info(`mongodburl:${config.mongodburl}`);
 
 mongoose.connection.on("connected",function(){
   debug("mongoose connect sucess");
