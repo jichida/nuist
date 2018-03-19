@@ -9,12 +9,13 @@ services:
         - /etc/localtime:/etc/localtime:ro
         - ./srvtcp:/app
         - ./dist:/dist
-        - ./log:/log
+        - ./dist/log:/log
       network_mode: "host"
       environment:
         - DEBUG=srvtcp:*
         - MONGO_URL=mongodb://dabauser:daba159@127.0.0.1/daba
         - listenport=50000
+        - logdir=/log
       ports:
          - "50000:50000"
       expose:

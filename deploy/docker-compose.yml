@@ -23,13 +23,14 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./srv:/app
       - ./dist:/dist
-      - ./log:/log
+      - ./dist/log:/log
     network_mode: "host"
     environment:
       - DEBUG=appsrv:*
       - MONGO_URL=mongodb://dabauser:daba159@127.0.0.1/daba
       - rooturl=http://api.nuistiot.com
       - listenport=30050
+      - logdir=/log
     ports:
        - "30050:30050"
     expose:

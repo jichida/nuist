@@ -2,6 +2,7 @@ const net = require('net');
 const config = require('../../config.js');
 const debug = require('debug')('srvtcp:data')
 const getbuf = require('./protocol');
+const winston = require('../log/log.js');
 // const mongoose = require('mongoose');
 
 const magiclen=2;
@@ -72,7 +73,7 @@ starttcpsrv = (settings)=> {
           let totalLength = recvbuf.length + indatabuf.length;
           recvbuf = Buffer.concat([recvbuf, indatabuf],totalLength);
           debug(`待处理数据:${recvbuf.toString('hex')}`);
-
+          winston.getlog().info(`待处理数据:${recvbuf.toString('hex')}`);
            while(recvbuf.length >= data_headlen){
                if(recvbuf[0] === 0x59 && recvbuf[1]===0x47 ){
                  let datalen = (recvbuf[lengthoffset] << 8) + recvbuf[lengthoffset+1];
@@ -93,13 +94,14 @@ starttcpsrv = (settings)=> {
                  const cmd = recvbuf[cmdoffset];
 
                  debug(`获取到id:${deviceId},命令号:${cmd},长度:${datalen}`);
+                 winston.getlog().info(`获取到id:${deviceId},命令号:${cmd},长度:${datalen}`);
                  let newbuflen = data_headlen + datalen;
                  if(recvbuf.length >= newbuflen){
                        //parse data.
                        let bodybuf = Buffer.allocUnsafe(datalen);
                        recvbuf.copy(bodybuf, 0, data_headlen, data_headlen+datalen);
                        debug(`获取到数据部分:${bodybuf.toString('hex')}`);
-
+                       debug(`获取到数据部分:${bodybuf.toString('hex')}`);
                        if(bodybuf.length >= datalen){
                          getbuf({cmd,recvbuf,bodybuf},(err,newsendbuf)=>{
                            if(!err && !!newsendbuf){
