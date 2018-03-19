@@ -15,6 +15,7 @@ mongoose.connect(config.mongodburl,{
 
 
 debug(`mongodburl:${config.mongodburl}`);
+winston.initLog();
 winston.getlog().info(`mongodburl:${config.mongodburl}`);
 
 mongoose.connection.on("connected",function(){
