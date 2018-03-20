@@ -5,7 +5,7 @@ import Jtimg from "../../img/jt.png";
 import Header from "../header";
 import Footer from "../footer";
 import NodeSel from '../nodesel';
-import Wximg from "../../img/wx_icon.jpg";
+//import Wximg from "../../img/wx_icon.jpg";
 // import Tdimg from "../../img/tp_d.jpg";
 import List from "./list.js";
 import {
