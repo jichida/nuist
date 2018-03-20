@@ -1,14 +1,17 @@
-.indexPage .content  .tita {
+.indexPage .content .tita {
     font-size: 16px;
     font-weight: 600;
     line-height: 40px;
-    border-bottom: 4px solid #0164b5; margin: 20px 20px 0px;display: flex;
+    border-bottom: 4px solid #0164b5;
+    margin: 20px 20px 0px;
+    display: flex;
     display: -webkit-flex;
     -webkit-box-align: center;
     -moz-justify-content: space-between;
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
+
 .tit_left {
     display: inline-block;
     width: 340px;
@@ -17,7 +20,8 @@
     font-weight: normal
 }
 
-.tit_left img, .tit_right img {
+.tit_left img,
+.tit_right img {
     display: inline-block;
     vertical-align: middle;
     margin-left: 10px
@@ -35,63 +39,14 @@
     margin: 0px 0px;
 }
 
-.indexPage .content .cont .left dl {
-    font-size: 16px;
-    border-bottom: 1px solid #e5e5e5;
-    height: auto;
-    overflow: hidden;
-    padding: 10px 10px;
+.pt0 {
+    padding-top: 0px !important;
 }
 
-.indexPage .content .cont .left dl.dl_bg {
-    background-color: #f2f2f2;
-    height: 28px;
-    line-height: 28px;
-    margin-top: 5px;
-    border-bottom: none;
-    padding: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
+.h_520 {
+    height: 520px !important;
 }
 
-.indexPage .content .cont .left dl.dl_bg dt {
-    padding-left: 20px
-}
-
-.indexPage .content .cont .left dl dt {
-    width: 60px;
-    float: left;
-    display: inline-block;
-    padding-left: 10px
-}
-
-.indexPage .content .cont .left dl dd {
-    display: inline-block
-}
-
-.indexPage .content .cont .left dl dd span:first-child {
-    width: 140px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    float: left
-}
-
-.indexPage .content .cont .left dl dd span:last-child {
-    float: right;
-}
-
-.indexPage .content .cont .left dl dd span img {
-    width: 10px;
-    height: 10px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 5px
-}
-.pt0{ padding-top: 0px !important;}
-.h_520{ height: 520px !important;}
 .h_625 {
     height: 625px;
     overflow-y: scroll

@@ -1,79 +1,99 @@
  .indexPage .content .cont .left dl {
-    font-size: 16px;
-    border-bottom: 1px solid #e5e5e5;
-    height: auto;
-    overflow: hidden;
-    padding: 10px 10px;
-}
-
-.indexPage .content .cont .left dl.dl_bg {
-    background-color: #f2f2f2;
-    height: 28px;
-    line-height: 28px;
-    margin-top: 5px;
-    border-bottom: none;
-    padding: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-}
-
-.indexPage .content .cont .left dl.dl_bg dt {
-    padding-left: 20px
-}
-
-.indexPage .content .cont .left dl dt {
-    width: 60px;
-    float: left;
-    display: inline-block;
-    padding-left: 10px
-}
-
-.indexPage .content .cont .left dl dd {
-    display: inline-block
-}
-
-.indexPage .content .cont .left dl dd span:first-child {
-    width: 140px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    float: left
-}
-
-.indexPage .content .cont .left dl dd span:last-child {
-    float: right;
-}
-
-.indexPage .content .cont .left dl dd span img {
-    width: 10px;
-    height: 10px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 5px
-}
-.center_right .tt .tt_right {
-    display: inline-block;
-    float: right
-}
-
-.center_right .tt .tt_right li {
-    background-color: #0164b5;
-    color: #fff;
-    width: 130px;
-    font-size: 14px;
-    margin-left: 10px;
-    border-radius: 10px;
-    text-align: center;
-    display: inline-block;
-    height: 34px;
-    line-height: 34px;
-}
-
-.map_img {
-    border: 1px solid #e5e5e5;
-    margin-top: 2px; height: 680px;
-}
-
-
+     font-size: 16px;
+     border-bottom: 1px solid #e5e5e5;
+     height: auto;
+     overflow: hidden;
+     padding: 10px 10px;
+ }
+ 
+ .indexPage .content .cont .left dl.dl_bg {
+     background-color: #f2f2f2;
+     height: 28px;
+     line-height: 28px;
+     margin-top: 5px;
+     border-bottom: none;
+     padding: 0px;
+     margin-left: 0px;
+     margin-right: 0px;
+ }
+ 
+ .indexPage .content .cont .left dl.dl_bg dt {
+     padding-left: 20px
+ }
+ 
+ .indexPage .content .cont .left dl dt {
+     width: 70px;
+     float: left;
+     display: block;
+     padding-left: 10px
+ }
+ 
+ .indexPage .content .cont .left dl dd {
+     display: block
+ }
+ 
+ .indexPage .content .cont .left dl:first-child.dl_bg dt {
+     width: 80px
+ }
+ 
+ .indexPage .content .cont .left dl dd span:first-child {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     display: -webkit-box;
+     -webkit-box-orient: vertical;
+     -webkit-line-clamp: 1;
+     float: left
+ }
+ 
+ .indexPage .content .cont .left dl dd span:last-child {
+     float: right;
+     margin-right: 10px!important
+ }
+ 
+ .indexPage .content .cont .left dl dd span img {
+     width: 10px;
+     height: 10px;
+     display: inline-block;
+     vertical-align: middle;
+     margin-left: 5px
+ }
+ 
+ .center_right .tt .tt_right {
+     display: inline-block;
+     float: right
+ }
+ 
+ .center_right .tt .tt_right li {
+     background-color: #0164b5;
+     color: #fff;
+     width: 130px;
+     font-size: 14px;
+     margin-left: 10px;
+     border-radius: 10px;
+     text-align: center;
+     display: inline-block;
+     height: 34px;
+     line-height: 34px;
+ }
+ 
+ .map_img {
+     border: 1px solid #e5e5e5;
+     margin-top: 2px;
+     height: 680px;
+ }
+ 
+ .warninglist ul li {
+     background: #FFF;
+     border-radius: 100px 0 0 100px;
+     padding: 20px 80px;
+     position: relative;
+     margin-bottom: 15px !important;
+     -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.09);
+     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.09);
+ }
+ 
+ .warningPage .warninglist ul li .tit {
+     font-size: 18px;
+     color: #0164b5;
+     font-weight: 600;
+ }

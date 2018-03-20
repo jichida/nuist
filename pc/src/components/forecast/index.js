@@ -35,7 +35,7 @@ class App extends React.Component {
               <div className="left pt0">
                   <NodeSel />
             </div>
-            <div className="center">
+            <div className="center_right">
                 <List />
             </div>
             </div>
