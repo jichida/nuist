@@ -1,6 +1,7 @@
 import { createReducer } from 'redux-act';
 import {
   getrealtimealarmlist_result,
+  logout_result
  } from '../actions';
 import lodashmap from 'lodash.map';
 
@@ -22,7 +23,9 @@ const realtimealarm = createReducer({
       });
       return {...state, realtimealarmlist,realtimealarms};
   },
-
+  [logout_result]: (state, payload) => {
+    return {...initial.realtimealarm};
+  },
 }, initial.realtimealarm);
 
 export default realtimealarm;

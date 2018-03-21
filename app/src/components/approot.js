@@ -20,16 +20,16 @@ import {requireAuthentication} from './requireauthentication';
 const AppRoot = (props) => {
     return (
             <div className="container">
-                <Route exact path="/" component={requireAuthentication(Index)} />
+                <Route exact path="/" component={Index} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/investigation" component={Investigation} />
                 <Route exact path="/investigation/add/:id" component={requireAuthentication(AddInvestigation)} />
                 {/* <Route exact path="/investigation/result" component={requireAuthentication(ResultInvestigation)} /> */}
                 <Route exact path="/pro" component={Proindex} />
-                <Route exact path="/datameter/:id/:index" component={requireAuthentication(Monitor)} />
-                <Route exact path="/datameter" component={requireAuthentication(Datameter)} />
-                <Route exact path="/warning" component={requireAuthentication(Warning)} />
-                <Route exact path="/video" component={requireAuthentication(Video)} />
+                <Route exact path="/datameter/:id/:index" component={Monitor} />
+                <Route exact path="/datameter" component={Datameter} />
+                <Route exact path="/warning" component={Warning} />
+                <Route exact path="/video" component={Video} />
             </div>
     );
 }

@@ -59,7 +59,14 @@ class App extends React.Component {
         },10)
     }
 		onClickUserlnk = ()=>{
-			this.props.dispatch(set_uiapp({ispopuserinfo:true}));
+			const {loginsuccess} = this.props;
+			if(!loginsuccess){
+				this.props.history.push(`/login`);
+			}
+			else{
+				this.props.dispatch(set_uiapp({ispopuserinfo:true}));
+			}
+
 		}
 		onClickPopCareSel = ()=>{
 			this.props.dispatch(set_uiapp({ispopcaresel_single_index:true}));
@@ -112,7 +119,9 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index},device:{devicelist,devices},userlogin:{usersettings}}) => {
+const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index},
+	device:{devicelist,devices},
+	userlogin:{usersettings,loginsuccess}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
@@ -123,6 +132,6 @@ const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_sin
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice};
+    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,loginsuccess};
 }
 export default connect(mapStateToProps)(App);

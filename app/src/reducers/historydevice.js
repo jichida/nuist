@@ -1,7 +1,8 @@
 import { createReducer } from 'redux-act';
 import {
   gethistorydevicelist_result,
-  ui_historydevicequeryselect
+  ui_historydevicequeryselect,
+  logout_result
  } from '../actions';
 // import lodashmap from 'lodash.map';
 import moment from 'moment';
@@ -50,6 +51,9 @@ const historydevice = createReducer({
       const historydevices = {...state.historydevices};
       historydevices[_id] = listret;
       return {...state,historydevices};
+  },
+  [logout_result]: (state, payload) => {
+    return {...initial.historydevice};
   },
 
 }, initial.historydevice);

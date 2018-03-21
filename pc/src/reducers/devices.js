@@ -1,7 +1,8 @@
 import { createReducer } from 'redux-act';
 import {
   getdevicelist_result,
-  serverpush_device
+  serverpush_device,
+  logout_result
  } from '../actions';
 import lodashmap from 'lodash.map';
 
@@ -28,6 +29,9 @@ const device = createReducer({
         devices[device._id] = device;
       });
       return {...state, devicelist,devices};
+  },
+  [logout_result]: (state, payload) => {
+    return {...initial.device};
   },
 
 }, initial.device);

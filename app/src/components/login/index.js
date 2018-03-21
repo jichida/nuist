@@ -9,7 +9,7 @@ import "./style.css";
 import LoginBg from "../../img/loginbg.png";
 import Img1 from "../../img/1.png";
 import Img2 from "../../img/2.png";
-
+import Header from "../header/page.js";
 
 let resizetimecontent;
 
@@ -158,7 +158,17 @@ export class Page extends React.Component {
         // this.props.history.push("./");
     }
     render(){
-        return (<PageForm onClickLogin={this.onClickLogin}/>);
+        /*
+        【注意】：
+        加一个透明的返回按钮，把<Header history={this.props.history} title='登录'/>替换掉
+        用onClick={this.props.history.goBack();} 来响应事件
+        */
+        return (<div>
+          <Header history={this.props.history} title='登录'/>
+          <PageForm onClickLogin={this.onClickLogin}/>
+        </div>
+
+        );
     }
 }
 

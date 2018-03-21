@@ -27,7 +27,7 @@ class App extends React.Component {
       this.props.dispatch(set_uiapp({uialarmshowall}));
     }
     render() {
-        const {realtimealarmcount,selectedall} = this.props;
+        const {realtimealarmcount,selectedall,loginsuccess} = this.props;
         const classnameselected_all = selectedall?'lnkselected allshow':'lnk allshow';
         const classnameselected_guanzhu = !selectedall?'lnkselected guanzhu':'lnk guanzhu';
         return (
@@ -35,8 +35,8 @@ class App extends React.Component {
                 <div className="head">
                     <div className="n"><span>{realtimealarmcount>99?'99+':`${realtimealarmcount}`}</span><span>条</span></div>
                     <div className="c"><span>共有预警信息</span></div>
-                    <div onClick={()=>{this.onClickShowAll(true)}} className={`${classnameselected_all}`}>显示全部</div>
-                    <div onClick={()=>{this.onClickShowAll(false)}} className={`${classnameselected_guanzhu}`}>我的关注</div>
+                    {loginsuccess && <div onClick={()=>{this.onClickShowAll(true)}} className={`${classnameselected_all}`}>显示全部</div>}
+                    {loginsuccess && <div onClick={()=>{this.onClickShowAll(false)}} className={`${classnameselected_guanzhu}`}>我的关注</div>}
                 </div>
                 <List />
                 <Footer history={this.props.history} sel={"warning"}  />
@@ -45,8 +45,11 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},app:{uialarmshowall},userlogin:{usersettings}}) => {
+const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},app:{uialarmshowall},userlogin:{usersettings,loginsuccess}}) => {
     let alllist = [];
+    if(!loginsuccess){
+      uialarmshowall = true;
+    }
     if(uialarmshowall){
       alllist = realtimealarmlist;
     }
@@ -62,6 +65,6 @@ const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},app:{
       });
     }
     const ralist = alllist;
-    return {realtimealarmcount:ralist.length,selectedall:uialarmshowall};
+    return {realtimealarmcount:ralist.length,selectedall:uialarmshowall,loginsuccess};
 }
 export default connect(mapStateToProps)(App);

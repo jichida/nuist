@@ -19,7 +19,9 @@ import {
   setvote_result,
   changepwd_result,
   set_uiapp,
-  saveusersettings_result
+  saveusersettings_result,
+
+  logout_result
 } from '../actions';
 // import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 // import map from 'lodash.map';
@@ -134,5 +136,9 @@ export function* wsrecvsagaflow() {
       });
       isstopped = !!stop2;
     }
+  });
+
+  yield takeLatest(`${logout_result}`, function*(action) {
+      yield put(getdevicelist_request({}));
   });
 }
