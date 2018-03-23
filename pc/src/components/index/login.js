@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import {
   login_request,
   logout_request,
-  set_weui
+  set_weui,
+  set_uiapp,
 } from '../../actions';
 import "./login.css";
 
@@ -82,6 +83,9 @@ class Page extends React.Component {
   onClickLogout = ()=>{
     this.props.dispatch(logout_request({}));
   }
+  onClickChangePwd = ()=>{
+    this.props.dispatch(set_uiapp({ispopuserinfo:false,ispoppwd:true}));
+  }
   render() {
     const {userlogin} = this.props;
     const {loginsuccess,username} = userlogin;
@@ -98,6 +102,7 @@ class Page extends React.Component {
     return (<div>
       <span>欢迎您,{username}</span>
       <div onClick={this.onClickLogout}>退出登录</div>
+      <div onClick={this.onClickChangePwd}>修改密码</div>
       </div>);
   }
 }

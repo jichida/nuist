@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import "./index.css";
 import Header from "../header";
 import Login from "./login.js";
@@ -10,9 +11,11 @@ import Investigation from "./investigation";
 import DataChart from './datachart';
 import ProductList from './prolist';
 import Footer from "../footer";
+import Changepwd from "./pwd.js";
 
 class App extends React.Component {
   render() {
+    const {ispoppwd,loginsuccess} = this.props;
     return (
       <div className="indexPage">
         <Header />
@@ -35,10 +38,16 @@ class App extends React.Component {
 			<DataChart />
 			<ProductList />
         </div>
+        {ispoppwd && loginsuccess && <Changepwd />}
         <Footer />
     </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = ({app:{ispoppwd},
+	userlogin:{loginsuccess}}) => {
+
+    return {ispoppwd,loginsuccess};
+}
+export default connect(mapStateToProps)(App);

@@ -8,11 +8,9 @@ const initial = {
 };
 
 const pro = createReducer({
-
     [set_showproid]:(state,payload)=>{
         return {...state, showproid : payload};
     },
-
 }, initial.pro);
 
 export default pro;

@@ -17,6 +17,7 @@ const actiondatahandler = {
   'logout':userlogin.logout,
   'login':userlogin.loginuser,
   //正式版本中下面的删除
+  'saveusersettings':userlogin.saveusersettings,
   'gethistorydevicelist':historydevice.gethistorydevicelist,
   'getdevicelist':device.getdevicelist,
   'getrealtimealarmlist':realtimealarm.getrealtimealarmlist,
@@ -24,7 +25,6 @@ const actiondatahandler = {
 
 const authhandler = {
   'setvote':vote.setvote,
-  'saveusersettings':userlogin.saveusersettings,
   'changepwd':userlogin.changepwd,
 };
 

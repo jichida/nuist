@@ -27,7 +27,7 @@ const actiondatahandler = {
 
 const authhandler = {
   'setvote':vote.setvote,
-  'gettipcount':tip.gettipcount,
+  'changepwd':userlogin.changepwd,
 };
 
 module.exports = (socket,actiondata,ctx)=>{
