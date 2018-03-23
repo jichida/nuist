@@ -86,36 +86,18 @@
 
 .meterchart {
     position: relative;
-    height: 420px;
+    height: 220px;
 }
 
 .meterchart .chartli {
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    text-align: center;
+    width: 100px;
+    text-align: center; display:inline-block; float:left; margin:40px 20px
 }
-
-.meterchart .chart1 {
-    left: 15px;
-    top: 0;
-}
-
-.meterchart .chart2 {
-    right: 15px;
-    top: 0;
-}
-
-.meterchart .chart3 {
-    top: 110px;
-    left: 15px;
-}
-
-.meterchart .chart4 {
-    right: 15px;
-    top: 110px;
-}
-
+.windcontrolc{width: 20%;
+    height: 100%;
+     float:left; margin-right:40px}
+.windcontrolc span.m10{ margin-top:10px; display:block; text-align:center}
+.meterchart .chartli span.m10{ margin-top:10px; display:block}
 .meter .title {
     text-align: center;
     font-size: 16px;
@@ -133,9 +115,7 @@
 
 .windcontrol {
     position: relative;
-    width: 40%;
-    left: 30%;
-    height: 100%;
+    width: 100%; height:175px
 }
 
 .windcontrol .wind1,
@@ -226,7 +206,6 @@
 }
 
 .monitorfiller {
-    margin-bottom: 10px;
     background: #FFF;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -240,12 +219,11 @@
     justify-content: space-between;
     height: 40px;
     border-top: 1px solid #EEE;
-    border-bottom: 1px solid #EEE;
 }
 
 .monitorfiller>div {
-    font-size: 12px;
-    flex-grow: 1;
+    font-size: 14px;
+    flex-grow: 1; text-align: center;
 }
 
 .monitorfiller>div.l {
@@ -264,7 +242,7 @@
     -webkit-align-items: center;
     -moz-justify-content: center;
     -webkit-justify-content: center;
-    justify-content: center;
+    justify-content: center; width:200px
 }
 
 .monitorfiller>div.d span {
@@ -325,3 +303,7 @@
     margin: 0;
     color: rgba(0, 0, 0, 0.65);
 }
+
+.monitordatba{ text-align:center; padding:10px;    color: #0164b5;}
+.monitordatba span{ display:inline-block; vertical-align:middle; margin-right:5px}
+.monitordatba img{ width:12px; height:12px;display:inline-block; vertical-align:middle;}

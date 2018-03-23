@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
 import {getCoureName} from '../../util';
+import jt2 from "../../img/jt.png";
 
 class App extends React.Component {
 
@@ -44,7 +45,9 @@ class App extends React.Component {
                   })
               }
 	        	</ul>
+				<div className="monitordatba"><span>查看更多</span><img alt="" src={jt2}/></div>
 	      	</div>
+			
 	    );
   	}
 }

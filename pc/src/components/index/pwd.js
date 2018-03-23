@@ -124,20 +124,17 @@ class App extends React.Component {
     render() {
         return ( <
             div className = "changepwd" >
-            <
-            div className = "wamp" > < /div> <
-            div className = "infocontent" >
-            <
-            div className = "tit" > 修改密码 < /div> <
-            PageForm onClickchange = { this.onClickchange }
-            /> <
-            div onClick = { this.onClickClosePwd }
-            className = "closediv" > < img className = "close"
-            src = { Close } alt=""
-            /></div >
-            <
-            /div> < /
-            div >
+            <div className = "wamp" >
+			< /div>
+			<div className = "infocontent" >
+			<div className = "infocontenta" >
+            <div className = "tit" > 修改密码 < /div> <
+            PageForm onClickchange = { this.onClickchange }/>
+			 </div >
+			 <div onClick = { this.onClickClosePwd } className = "closediv">
+			<img className = "close" src = { Close } alt=""/></div>
+            </div>
+			</div>
         );
     }
 }

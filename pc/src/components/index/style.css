@@ -306,23 +306,17 @@
 }
 
 .changepwd .infocontent {
-    position: absolute;
-    z-index: 1000;
-    background: #FFF;
-    border-radius: 6px;
-    padding-top: 10px;
-    top: 50%;
-    margin-top: -150px;
-    left: 10%;
-    right: 10%;
-    height: 300px;
+   position: fixed;
+    z-index: 99999;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
 }
-
+.infocontenta{ width:360px; margin: 200px auto 0px;background: #FFF; border-radius:6px; padding:20px}
 .changepwd .infocontent .closediv {
-    position: absolute;
-    bottom: -68px;
-    width: 100%;
-    text-align: center;
+    
+    text-align: center;margin-top: 30px;
 }
 
 .changepwd .infocontent .closediv img {

@@ -36,27 +36,12 @@ class App extends React.Component {
   	      	<div className="meter">
   	        	<div className="title">实时数据</div>
   	        	<div className="meterchart">
-  					<div className="chartli chart1">
-  						<Progress type="circle" percent={100} width={70} format={percent => `${temperature}`} />
-  						<span>温度(℃)</span>
-  					</div>
-  					<div className="chartli chart2">
-  						<Progress type="circle" percent={humidity} width={70} format={percent => `${humidity}`} />
-  						<span>湿度(%)</span>
-  					</div>
-  					<div className="chartli chart3">
-  						<Progress type="circle" percent={100} width={70} format={percent => `${pressure}`} />
-  						<span>大气压(Pa)</span>
-  					</div>
-  					<div className="chartli chart4">
-  						<Progress type="circle" percent={100} width={70} format={percent => `${rainfall}`} />
-  						<span>雨量(mm)</span>
-  					</div>
-  					<div className="windcontrol">
+				<div className="windcontrolc">
+				<div className="windcontrol">
   						<img alt="" style={getstyleimage1(degree_windspeed)} src={Wind1} className="wind1" />
   						<img alt="" style={getstyleimage1(degree_winddirection)}  src={Wind3} className="wind3" />
   						<img alt="" style={getstyleimage1(degree_point)}  src={Wind2} className="wind2" />
-  						<div className="windcontroltxt">
+  						{/*<div className="windcontroltxt">
   							<p>
   								<span>{getCoureName(lodashget(curdevice,'realtimedata.winddirection'))}风</span>
   								<span>风向</span>
@@ -65,8 +50,27 @@ class App extends React.Component {
   								<span>{lodashget(curdevice,'realtimedata.windspeed')}级</span>
   								<span>风力</span>
   							</p>
-  						</div>
+  						</div>*/}
   					</div>
+					<span className="m10">偏东风4级</span>
+					</div>
+  					<div className="chartli chart1">
+  						<Progress type="circle" percent={100} width={90} format={percent => `${temperature}`} />
+  						<span className="m10">温度(℃)</span>
+  					</div>
+  					<div className="chartli chart2">
+  						<Progress type="circle" percent={humidity} width={90} format={percent => `${humidity}`} />
+  						<span className="m10">湿度(%)</span>
+  					</div>
+  					<div className="chartli chart3">
+  						<Progress type="circle" percent={100} width={90} format={percent => `${pressure}`} />
+  						<span className="m10">大气压(Pa)</span>
+  					</div>
+  					<div className="chartli chart4">
+  						<Progress type="circle" percent={100} width={90} format={percent => `${rainfall}`} />
+  						<span className="m10">雨量(mm)</span>
+  					</div>
+  					
   	        	</div>
   	      	</div>
   	    );
