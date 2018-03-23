@@ -10,7 +10,7 @@ import LoginBg from "../../img/loginbg.png";
 import Img1 from "../../img/1.png";
 import Img2 from "../../img/2.png";
 import Img3 from "../../img/23.png";
-import Header from "../header/page.js";
+// import Header from "../header/page.js";
 
 let resizetimecontent;
 
