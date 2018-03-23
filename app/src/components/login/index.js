@@ -9,6 +9,7 @@ import "./style.css";
 import LoginBg from "../../img/loginbg.png";
 import Img1 from "../../img/1.png";
 import Img2 from "../../img/2.png";
+import Img3 from "../../img/23.png";
 import Header from "../header/page.js";
 
 let resizetimecontent;
@@ -164,7 +165,14 @@ export class Page extends React.Component {
         用onClick={this.props.history.goBack();} 来响应事件
         */
         return (<div>
-          <Header history={this.props.history} title='登录'/>
+		      <div className="pageheader login_head" onClick={()=>{
+            this.props.history.goBack();
+            }} >
+            <span className="leftlnk">
+              <img alt="" src={Img3} />
+            </span>
+          </div>
+
           <PageForm onClickLogin={this.onClickLogin}/>
         </div>
 
