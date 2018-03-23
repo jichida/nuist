@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
-import {setvote_request} from '../../actions';
+import {
+  setvote_request,
+  set_weui
+} from '../../actions';
 
 import "./investigation.css";
 class App extends React.Component {
@@ -22,8 +25,17 @@ class App extends React.Component {
     this.setState({selectedoption});
   }
   onClickAdd = ()=>{
-    const {votelist} = this.props;
-    const voteid = lodashget(this.props,votelist[this.state.voteindex]);
+    const {votelist,loginsuccess} = this.props;
+    if(!loginsuccess){
+      this.props.dispatch(set_weui({
+        toast:{
+            text:'请先登录',
+            type:'warning'
+        }
+      }));
+      return;
+    }
+    const voteid = votelist[this.state.voteindex];
     const voteresult = lodashget(this.state,'selectedoption');
     if(!!voteid && !!voteresult){
       this.props.dispatch(setvote_request({voteid,voteresult}));
@@ -77,8 +89,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({vote:{votelist,votes}},props) => {
+const mapStateToProps = ({vote:{votelist,votes},userlogin:{loginsuccess}},props) => {
 
-    return {votelist,votes};
+    return {votelist,votes,loginsuccess};
 }
 export default connect(mapStateToProps)(App);
