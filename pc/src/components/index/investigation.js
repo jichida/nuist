@@ -7,7 +7,10 @@ import {
   set_weui
 } from '../../actions';
 
+import ImageSel from '../../img/sele_sel.png';
+import ImageSelNo from '../../img/selel.png';
 import "./investigation.css";
+
 class App extends React.Component {
   constructor(props) {  
        super(props); 
@@ -69,13 +72,27 @@ class App extends React.Component {
                      if(!isfilled){
                        this.onClickOption(option.optionname)
                      }
-                   }} className="i sel"><span>{option.optionname}</span><span>{option.answername}</span></div>);
+                   }} style={{
+                     backgroundImage: `url(${ImageSel})`,
+                     backgroundRepeat:'no-repeat',
+                     backgroundSize:'20px',
+                     paddingLeft:'20px',
+                     backgroundPosition:'center'
+                   }}><span>{option.optionname}</span><span>{option.answername}</span></div>);
                  }
-                 return (<div  className="i" key={index} onClick={()=>{
+                 return (<div key={index} onClick={()=>{
                    if(!isfilled){
                      this.onClickOption(option.optionname)
                    }
-                 }}><span>{option.optionname}</span><span>{option.answername}</span></div>)
+                 }}
+                 style={{
+                   backgroundImage: `url(${ImageSelNo})`,
+                   backgroundRepeat:'no-repeat',
+                   backgroundSize:'20px',
+                   paddingLeft:'20px',
+                   backgroundPosition:'center'
+                 }}
+                 ><span>{option.optionname}</span><span>{option.answername}</span></div>)
                })
              }
             <div className="btn">
