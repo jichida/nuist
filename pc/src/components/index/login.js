@@ -99,11 +99,17 @@ class Page extends React.Component {
         </div>
       );
     }
-    return (<div>
-      <span>欢迎您,{username}</span>
-      <div onClick={this.onClickLogout}>退出登录</div>
-      <div onClick={this.onClickChangePwd}>修改密码</div>
-      </div>);
+    return (<div className="xjl_loginh">
+	<div className="xjl_login">
+      <p>欢迎您,{username}</p>
+	  </div>
+      <div className="xjl_loginbtn">
+         <span onClick={this.onClickChangePwd}>修改密码</span>
+	       <span onClick={this.onClickLogout}>退出登录</span>
+      </div>
+	  </div>)
+
+	  ;
   }
 }
 

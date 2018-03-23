@@ -68,38 +68,31 @@ class App extends React.Component {
              {
                lodashmap(lodashget(curvote,'answeroptions',[]),(option,index)=>{
                  if(selectedoption === option.optionname){
-                   return (<div key={index} onClick={()=>{
+                   return (<a className="sele sel" key={index} onClick={()=>{
                      if(!isfilled){
                        this.onClickOption(option.optionname)
                      }
                    }} style={{
                      backgroundImage: `url(${ImageSel})`,
-                     backgroundRepeat:'no-repeat',
-                     backgroundSize:'20px',
-                     paddingLeft:'20px',
-                     backgroundPosition:'center'
-                   }}><span>{option.optionname}</span><span>{option.answername}</span></div>);
+                   }}><span>{option.optionname}</span><span>{option.answername}</span></a>);
                  }
-                 return (<div key={index} onClick={()=>{
+                 return (<a className="sele" key={index} onClick={()=>{
                    if(!isfilled){
                      this.onClickOption(option.optionname)
                    }
                  }}
                  style={{
                    backgroundImage: `url(${ImageSelNo})`,
-                   backgroundRepeat:'no-repeat',
-                   backgroundSize:'20px',
-                   paddingLeft:'20px',
-                   backgroundPosition:'center'
                  }}
-                 ><span>{option.optionname}</span><span>{option.answername}</span></div>)
+                 ><span>{option.optionname}</span><span>{option.answername}</span></a>)
                })
              }
-            <div className="btn">
+            
+           </div>
+		   <div className="btn">
               <button onClick={this.onClickAdd.bind(this)}>提交</button>
               <button onClick={this.onClickOther.bind(this)}>换一批</button>
             </div>
-           </div>
         </div>
       </div>
     );

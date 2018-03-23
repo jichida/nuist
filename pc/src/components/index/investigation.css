@@ -1,7 +1,7 @@
 .investigation_indexPage {
     margin-bottom: 19px;
 }
-
+.investigation_indexPage .investigationli .li{ height:135px}
 .investigation_indexPage .tit {
     font-size: 16px;
     font-weight: 600;
@@ -24,15 +24,12 @@
 }
 
 .investigation_indexPage .investigationli .li .i {
-    text-align: center;
+    text-align: left;
     margin-bottom: 10px;
-    cursor: pointer
+    cursor: pointer;
 }
-
-.investigation_indexPage .investigationli .li .sel {
-    text-align: center;
-    color: #0164b5
-}
+.sele{background-repeat:no-repeat; background-size:14px; padding-left:22px; background-position:left center; margin-bottom:10px; display:block; color:#666;font-size: 15px;}
+.sele.sel{ color:#0164b5}
 
 .investigation_indexPage .investigationli .li .i label {
     display: -webkit-box;
