@@ -67,7 +67,7 @@
 }
 .mainmap .mapcanver{
     position: absolute;
-    z-index: 1000;
+    z-index: 10001;
     top: 10px;
     left: 10px;
     background: linear-gradient(180deg, #1297d2, #027db7);
