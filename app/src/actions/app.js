@@ -12,3 +12,4 @@ export const set_routers = createAction('set_routers');
 export const set_weui = createAction('set_weui');
 
 export const set_uiapp = createAction('set_uiapp');
+export const ui_setmapstyle = createAction('ui_setmapstyle');

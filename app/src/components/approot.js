@@ -12,8 +12,35 @@ import Datameter from './datameter';
 import Video from './video';
 import Warning from './warning';
 import {requireAuthentication} from './requireauthentication';
-import {map_setmapinited} from '../actions';
-import AppMap from './map';
+import {
+  map_setmapinited,
+  ui_setmapstyle
+} from '../actions';
+import MapPage from './map';
+
+
+class AppMap extends React.Component {
+    componentWillMount() {
+        this.props.dispatch(ui_setmapstyle({height : (window.innerHeight-80-66) + "px", top: "80px"}))
+    }
+    render (){
+        const {mapstyle,selectedindex} = this.props;
+        let style4map = {
+          height:mapstyle.height,
+          top:mapstyle.top,
+          display:selectedindex===0?'block':'none'
+        };
+        return (
+            <div className="commonmap" style={style4map}>
+                <MapPage height={this.props.mapstyle.height}/>
+            </div>
+        )
+    }
+}
+const mapstyledata = ({app: {mapstyle,selectedindex}}) => {
+    return {mapstyle,selectedindex};
+}
+AppMap = connect(mapstyledata)(AppMap);
 /*
   /           首页          ／网站首页，展示相册列表，每一个相册的首张图片
   /album/:day/:id   展示相册图片，  并且展示图片数量，和上一张下一张操作
