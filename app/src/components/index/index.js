@@ -17,7 +17,7 @@ import Collection from "../user/collection.js";
 import Changepwd from "../user/pwd.js";
 import Usercenter from "../user/center.js";
 import PopcareSel from "../popcaresel";
-import Map from '../map';
+
 import lodashget from 'lodash.get';
 
 
@@ -79,7 +79,6 @@ class App extends React.Component {
   	render() {
 			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,usersettings} = this.props;
 			const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
-			const mapheight =  window.innerHeight - 80 - 64;
 	    return (
 	      	<div
 	      		className="indexPage"
@@ -89,7 +88,6 @@ class App extends React.Component {
 						{
 							!!curdevice && (
 								<div className="mainmap">
-			        		<div style={{width: '100%',height:`${mapheight}px`}} ><Map curdevice={curdevice}/></div>
 			        		<div onClick={this.onClickPopCareSel} className="mapcanver city"><img alt="" src={City} /><span>{lodashget(curdevice,'name')}</span></div>
 			        		<div onClick={this.onClickPopCareSel} className="mapcanver point"><img alt="" src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
 			        		<div className="maindata">
