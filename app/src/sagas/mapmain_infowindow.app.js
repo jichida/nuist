@@ -4,72 +4,12 @@ import map from "lodash.map";
 // import Car_outline from "../img/3.png";
 import Point_list_img from "../img/13.png";
 
-import lodashget from 'lodash.get';
+// import lodashget from 'lodash.get'
+import getDeviceLayerHtml from '../components/map/layerdevice';
 
 const createInfoWindow_popinfo =(data)=> {
-
-    let title = '车辆编号:'+data.DeviceId;
-
-    let contenthtml = "<ul>";
-    map(data.fields, (v,i)=>{
-      let showvalue = v.fieldvalue;
-      let unit = lodashget(v,'unit','');
-      if(unit !== ''){
-        showvalue = `${showvalue}${unit}`;
-      }
-      return contenthtml = `${contenthtml}<li key=${i} class='show_${v.systemflag}'><span class='t'>${v.showname}</span><span>${showvalue}</span></li>`;
-    })
-    contenthtml = `${contenthtml}</ul>`;
-
-    contenthtml =
-        `
-        ${contenthtml}
-        <div class='pop_info_btn'>
-            <div class='lnk'>
-                <span onclick="clickfn_historyplay(${data.DeviceId})">历史轨迹回放</span>
-                <span onclick="clickfn_device(${data.DeviceId})">查看详情</span>
-            </div>
-        </div>
-        `;
-
-    let content = [];
-
-
-    content.push(contenthtml);
     let info = document.createElement("div");
-    info.className = "Window_pop_info_app";
-
-    //可以通过下面的方式修改自定义窗体的宽高
-    info.style.width = "320px";
-    // 定义顶部标题
-    let top = document.createElement("div");
-    let titleD = document.createElement("div");
-    // let closeX = document.createElement("img");
-    top.className = "info-top";
-    titleD.innerHTML = title;
-
-    top.appendChild(titleD);
-    // top.appendChild(closeX);
-    info.appendChild(top);
-
-    // 定义中部内容
-    var middle = document.createElement("div");
-    middle.className = "info-middle";
-    middle.style.backgroundColor = 'white';
-    middle.innerHTML = content;
-    info.appendChild(middle);
-
-    // 定义底部内容
-    // var bottom = document.createElement("div");
-    // bottom.className = "info-bottom";
-    // bottom.style.position = 'relative';
-    // bottom.style.top = '0px';
-    // bottom.style.margin = '0 auto';
-    // var sharp = document.createElement("img");
-    // sharp.src = "https://webapi.amap.com/images/sharp.png";
-    // bottom.appendChild(sharp);
-    // info.appendChild(bottom);
-
+    info.innerHTML = getDeviceLayerHtml(data);
     return {
         isCustom: true,  //使用自定义窗体
         content: info,

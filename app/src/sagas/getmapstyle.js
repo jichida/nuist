@@ -5,46 +5,14 @@ import lodashmap from 'lodash.map';
 import {createInfoWindow_popinfo,createInfoWindow_poplistinfo} from './mapmain_infowindow';
 
 
-const getpop_device =({deviceitem,kvlist})=>{
-  const DeviceId = get(deviceitem,'DeviceId','');
-  // let contentxt = '';
-  let fields = [];
-  // lodashmap(kvlist,(v)=>{
-  //   const fieldvalue = get(deviceitem,v.name,'');
-  //   const unit = get(v,'unit','');
-  //   let systemflag = 0;
-  //   if(v.name === 'formattedAddress' || v.name === 'alarmtxtstat'){
-  //     systemflag = 1;
-  //   }
-  //   fields.push({
-  //     fieldname:v.name,
-  //     showname:v.showname,
-  //     fieldvalue,
-  //     unit,
-  //     systemflag
-  //   });
-  //   // contentxt += `<p class='l'><span class='t'>${v.showname}</span><span class='color_warning'>${fieldvalue}${unit}</span></p>`;
-  // });
-  return createInfoWindow_popinfo({
-    DeviceId,
-    fields
-  });
-  // return {
-  //       isCustom:true,
-  //       size:new window.AMap.Size(500,500),
-  //       content:createInfoWindow(`<p>车辆编号:${DeviceId}</p>`,`
-  //       ${contentxt}
-  //       <button onclick="clickfn_device(${DeviceId})" class='clickfn_device'>查看详情</button>
-  //       <button onclick="clickfn_historyplay(${DeviceId})" class='clickfn_historyplay'>历史轨迹回放</button>
-  //       <button onclick="clickfn_showhistory(${DeviceId})" class='clickfn_showhistory'>历史位置信息</button>
-  //       <button onclick="clickfn_showmessage(${DeviceId})" class='clickfn_showmessage'>历史报警信息</button>`)
-  //   };
-}
+// const getpop_device =(deviceitem)=>{
+//   return createInfoWindow_popinfo(deviceitem);
+// }
 
 
 export const getpopinfowindowstyle = (deviceitem)=>{
   // let result = bridge_deviceinfo_pop(deviceitem);
-  return getpop_device(deviceitem);
+  return createInfoWindow_popinfo(deviceitem);
 }
 
 

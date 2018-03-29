@@ -2,7 +2,7 @@ import lodashget from 'lodash.get';
 import {getCoureName} from '../../util';
 
 import ImageArrow from '../../img/arrow-right.png';
-import ImageLocation from '../../img/location.png';
+// import ImageLocation from '../../img/location.png';
 
 const style_weui_dialog = `
     min-width:220px;text-align:center;
@@ -24,9 +24,9 @@ const style_weui_dialog__bd_p_span = `
 	float:right;
 `;
 
-const style_icon_bottom_img = `
-	width:30px;height:30px;vertical-align:middle;display:inline-flex;
-	`;
+// const style_icon_bottom_img = `
+// 	width:30px;height:30px;vertical-align:middle;display:inline-flex;
+// 	`;
 
 const getDeviceLayerHtml = (curdevice)=>{
   const devicename = lodashget(curdevice,'name','');
@@ -63,7 +63,6 @@ const getDeviceLayerHtml = (curdevice)=>{
             </p>
           </div>
           <div>
-            <img alt="" style=${style_icon_bottom_img} src=${ImageLocation} />
           </div>
         </div>`
       );

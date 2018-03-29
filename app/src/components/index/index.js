@@ -24,7 +24,7 @@ import lodashget from 'lodash.get';
 import "./index.css";
 import {
 	set_uiapp,
-	saveusersettings_request
+	ui_mycar_selcurdevice
 } from '../../actions';
 import {getCoureName} from '../../util';
 
@@ -42,7 +42,7 @@ class App extends React.Component {
     }
 
 	componentDidMount() {
-        window.addEventListener('resize', this.onWindowResize);
+				window.addEventListener('resize', this.onWindowResize);
     }
 
     componentWillUnmount() {
@@ -72,9 +72,12 @@ class App extends React.Component {
 			this.props.dispatch(set_uiapp({ispopcaresel_single_index:true}));
 		}
 		onChangeCaresel = (value)=>{
-			let usersettings = this.props.usersettings;
-			usersettings.indexdeviceid = value;
-			this.props.dispatch(saveusersettings_request(usersettings));
+
+			const {devices} = this.props;
+			if(!!devices[value]){
+				this.props.dispatch(ui_mycar_selcurdevice(devices[value].DeviceId));
+			}
+
 		}
   	render() {
 			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,usersettings} = this.props;
@@ -130,6 +133,6 @@ const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_sin
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,loginsuccess};
+    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,loginsuccess,devices,usersettings};
 }
 export default connect(mapStateToProps)(App);

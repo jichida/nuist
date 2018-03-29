@@ -1,11 +1,10 @@
-import { select,put,call,take,takeEvery,takeLatest,cancel,fork,} from 'redux-saga/effects';
+import { select,put,call,take,takeLatest,cancel,fork,} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import get from 'lodash.get';
 import lodashmap from 'lodash.map';
 import {
   getpopinfowindowstyle,
   getlistpopinfowindowstyle,
-  ui_selcurdevice_request,
   getimageicon
 } from './getmapstyle';
 import {
@@ -13,6 +12,7 @@ import {
   carmapshow_createmap,
   carmapshow_destorymap,
   ui_mycar_selcurdevice,
+  saveusersettings_request,
   mapmain_showpopinfo,
   mapmain_showpopinfo_list,
   mapmain_seldistrict,
@@ -123,70 +123,70 @@ import {
         'ui/geo/DistrictCluster/lib/DistMgr',
       ],(DistrictCluster,utils, domUtils, DistMgr)=> {
              //<------------获取某个地点的Marker----------------
-             const defaultgetClusterMarker = (feature, dataItems, recycledMarker)=> {
-                 //行政区域
-                 try{
-                   let container, title, body;
-                   const nodeClassNames = {
-                				title: 'amap-ui-district-cluster-marker-title',
-                				body: 'amap-ui-district-cluster-marker-body',
-                				container: 'amap-ui-district-cluster-marker'
-                			};
-                			if (recycledMarker) {
-                				container = recycledMarker.getContent();
-                				title = domUtils.getElementsByClassName(nodeClassNames.title, 'span', container)[0];
-                				body = domUtils.getElementsByClassName(nodeClassNames.body, 'span', container)[0];
-                			} else {
-                        container = document.createElement('div');
-                				title = document.createElement('span');
-                				title.className = nodeClassNames.title;
-                				body = document.createElement('span');
-                				body.className = nodeClassNames.body;
-                				container.appendChild(title);
-                				container.appendChild(body);
-                			}
-
-                			const props = feature.properties,
-                			routeNames = [];
-                			const classNameList = [nodeClassNames.container, 'level_' + props.level, 'adcode_' + props.adcode];
-                			if (props.acroutes) {
-                				const acroutes = props.acroutes;
-                				for (let i = 0, len = acroutes.length; i < len; i++) {
-                					classNameList.push('descendant_of_' + acroutes[i]);
-                					if (i === len - 1) {
-                						classNameList.push('child_of_' + acroutes[i]);
-                					}
-                					if (i > 0) {
-                						routeNames.push(DistMgr.getNodeByAdcode(acroutes[i]).name);
-                					}
-                				}
-                			}
-                			container.className = classNameList.join(' ');
-                			if (routeNames.length > 0) {
-                				routeNames.push(props.name);
-                				container.setAttribute('title', routeNames.join('>'));
-                			} else {
-                				container.removeAttribute('title');
-                			}
-                      if(!!title){
-                        title.innerHTML = utils.escapeHtml(props.name);
-                      }
-                			if(!!body){
-                        body.innerHTML = dataItems.length;
-                      }
-
-                			const resultMarker = recycledMarker || new window.AMap.Marker({
-                				topWhenClick: true,
-                				offset: new window.AMap.Pixel(-20, -30),
-                				content: container
-                			});
-                			return resultMarker;
-                 }
-                 catch(e){
-
-                 }
-            	    return null;
-          		}
+            //  const defaultgetClusterMarker = (feature, dataItems, recycledMarker)=> {
+            //      //行政区域
+            //      try{
+            //        let container, title, body;
+            //        const nodeClassNames = {
+            //     				title: 'amap-ui-district-cluster-marker-title',
+            //     				body: 'amap-ui-district-cluster-marker-body',
+            //     				container: 'amap-ui-district-cluster-marker'
+            //     			};
+            //     			if (recycledMarker) {
+            //     				container = recycledMarker.getContent();
+            //     				title = domUtils.getElementsByClassName(nodeClassNames.title, 'span', container)[0];
+            //     				body = domUtils.getElementsByClassName(nodeClassNames.body, 'span', container)[0];
+            //     			} else {
+            //             container = document.createElement('div');
+            //     				title = document.createElement('span');
+            //     				title.className = nodeClassNames.title;
+            //     				body = document.createElement('span');
+            //     				body.className = nodeClassNames.body;
+            //     				container.appendChild(title);
+            //     				container.appendChild(body);
+            //     			}
+             //
+            //     			const props = feature.properties,
+            //     			routeNames = [];
+            //     			const classNameList = [nodeClassNames.container, 'level_' + props.level, 'adcode_' + props.adcode];
+            //     			if (props.acroutes) {
+            //     				const acroutes = props.acroutes;
+            //     				for (let i = 0, len = acroutes.length; i < len; i++) {
+            //     					classNameList.push('descendant_of_' + acroutes[i]);
+            //     					if (i === len - 1) {
+            //     						classNameList.push('child_of_' + acroutes[i]);
+            //     					}
+            //     					if (i > 0) {
+            //     						routeNames.push(DistMgr.getNodeByAdcode(acroutes[i]).name);
+            //     					}
+            //     				}
+            //     			}
+            //     			container.className = classNameList.join(' ');
+            //     			if (routeNames.length > 0) {
+            //     				routeNames.push(props.name);
+            //     				container.setAttribute('title', routeNames.join('>'));
+            //     			} else {
+            //     				container.removeAttribute('title');
+            //     			}
+            //           if(!!title){
+            //             title.innerHTML = utils.escapeHtml(props.name);
+            //           }
+            //     			if(!!body){
+            //             body.innerHTML = dataItems.length;
+            //           }
+             //
+            //     			const resultMarker = recycledMarker || new window.AMap.Marker({
+            //     				topWhenClick: true,
+            //     				offset: new window.AMap.Pixel(-20, -30),
+            //     				content: container
+            //     			});
+            //     			return resultMarker;
+            //      }
+            //      catch(e){
+             //
+            //      }
+            // 	    return null;
+          	// 	}
               //重写行政区域,避免来回刷新时的闪烁
               //  utils.extend(DistrictCluster.prototype,
               //    {//重新设置数据时不刷新Marker
@@ -250,40 +250,40 @@ import {
   }
 
   //获取根结点的数据
-  const getclustertree_root =(SettingOfflineMinutes)=>{
-    const adcodetop=100000;
-    return new Promise((resolve,reject) => {
-      if(!distCluster){
-        console.log(`distCluster is empty`);
-        reject(`distCluster is empty`);
-        return;
-      }
-      distCluster.getClusterRecord(adcodetop,(err,result)=>{
-        if(!err){
-          const {children,dataItems} = result;
-          if(!children || children.length === 0){
-            reject(`children or children.length is empty,${adcodetop}`);
-          }
-          if(!dataItems || dataItems.length === 0){
-            reject(`dataItems or dataItems.length is empty,${adcodetop}`);
-            return;
-          }
-
-
-          let childadcodelist = [];
-          lodashmap(children,(child)=>{
-            if(child.dataItems.length > 0){
-              childadcodelist.push(child.adcode);
-            }
-          });
-          resolve(childadcodelist);
-        }
-        else{
-          reject(err);
-        }
-      });
-    });
-  }
+  // const getclustertree_root =(SettingOfflineMinutes)=>{
+  //   const adcodetop=100000;
+  //   return new Promise((resolve,reject) => {
+  //     if(!distCluster){
+  //       console.log(`distCluster is empty`);
+  //       reject(`distCluster is empty`);
+  //       return;
+  //     }
+  //     distCluster.getClusterRecord(adcodetop,(err,result)=>{
+  //       if(!err){
+  //         const {children,dataItems} = result;
+  //         if(!children || children.length === 0){
+  //           reject(`children or children.length is empty,${adcodetop}`);
+  //         }
+  //         if(!dataItems || dataItems.length === 0){
+  //           reject(`dataItems or dataItems.length is empty,${adcodetop}`);
+  //           return;
+  //         }
+  //
+  //
+  //         let childadcodelist = [];
+  //         lodashmap(children,(child)=>{
+  //           if(child.dataItems.length > 0){
+  //             childadcodelist.push(child.adcode);
+  //           }
+  //         });
+  //         resolve(childadcodelist);
+  //       }
+  //       else{
+  //         reject(err);
+  //       }
+  //     });
+  //   });
+  // }
   //获取某个行政区域的数据
   const getclustertree_one =(adcode,SettingOfflineMinutes)=>{
     return new Promise((resolve,reject) => {
@@ -470,7 +470,8 @@ import {
           reject();
           return;
         }
-        let locz = deviceitem.locz;
+        // console.log(deviceitem)
+        const locz = new window.AMap.LngLat(deviceitem.Longitude,deviceitem.Latitude);
         infoWindow = new window.AMap.InfoWindow(getpopinfowindowstyle(deviceitem));
         if(!!locz){
           window.amapmain.setCenter(locz);
@@ -536,7 +537,7 @@ import {
               lng:118.7190900000,
               lat:32.2030600000
             };
-            const zoomlevel = 3;
+            const zoomlevel = 13;
             yield call(CreateMap,{mapcenterlocation,zoomlevel});//创建地图
 
             // yield call(CreateMapUI_PointSimplifier,window.amapmain);
@@ -571,7 +572,7 @@ import {
                 // let centerlocation = window.amapmain.getCenter();
                 // let centerlatlng = L.latLng(centerlocation.lat, centerlocation.lng);
                 // yield put(md_mapmain_setzoomlevel(window.amapmain.getZoom()));
-                const zoomlevel = window.amapmain.getZoom();
+                // const zoomlevel = window.amapmain.getZoom();
                 // if(zoomlevel > 12){
                 //   yield put(ui_showhugepoints(true));
                 //   yield put(ui_showdistcluster(false));
@@ -608,6 +609,7 @@ import {
               }
             },'click');//'click'
 
+            yield delay(3000);
             //如果已经登录,并且有数据了！，重新加载数据
             let deivcelist = [];
             lodashmap(g_devicesdb,(v)=>{
@@ -616,6 +618,17 @@ import {
             if(deivcelist.length > 0){
               yield put(getdevicelist_result({list:deivcelist}));
             }
+
+            const {usersettings,devices} = yield select((state)=>{
+              const {usersettings} = state.userlogin;
+              const {devices} = state.device;
+              return {usersettings,devices};
+            });
+            const indexdeviceid = get(usersettings,'indexdeviceid','');
+            if(!!devices[indexdeviceid]){
+              yield put(ui_mycar_selcurdevice(devices[indexdeviceid].DeviceId));
+            }
+
             //监听事件
             //  pointSimplifierIns.on('pointClick pointMouseover pointMouseout', function(e, record) {
             //listentask task_dragend task_zoomend task_markclick task_mapclick
@@ -662,27 +675,9 @@ import {
         //显示弹框
         try{
           const {payload:{DeviceId}} = actiondevice;
-          //获取该车辆信息
-          // yield put(querydeviceinfo_request({query:{DeviceId}}));
-          // const {payload} = yield take(`${querydeviceinfo_result}`);
-          // let list = [];
-          // list.push(payload);
-          // const listitem = yield call(getdevicelist,list);
           const listitem = [g_devicesdb[DeviceId]];
           if(listitem.length === 1){
             //1
-            // g_devicesdb[listitem[0].DeviceId] = listitem[0];
-            //地图缩放到最大
-            if(window.amapmain.getZoom() !== maxzoom){
-              //不是最大时候才放大，否则会陷入一个循环两次的问题
-              console.log(`地图当前层级${window.amapmain.getZoom()},最大:${maxzoom}`);
-              window.amapmain.setZoom(maxzoom);
-              // yield put(md_mapmain_setzoomlevel(maxzoom));
-              // yield put(ui_showhugepoints(true));
-              // yield put(ui_showdistcluster(false));
-            }
-
-
             //弹框
             yield call(showinfowindow,listitem[0]);
 
@@ -893,7 +888,6 @@ import {
               }
           });
 
-
           //ui_mycarselcurdevice_request
           yield takeLatest(`${ui_mycar_selcurdevice}`, function*(action) {
             //地图模式选择车辆
@@ -907,8 +901,14 @@ import {
               //先定位到地图模式,然后选择车辆
               const deviceitem = g_devicesdb[DeviceId];
               if(!!deviceitem){
+                let usersettings = yield select((state)=>{
+                  return state.userlogin.usersettings;
+                });
+                usersettings.indexdeviceid = deviceitem._id;
+                yield put(saveusersettings_request(usersettings));
                 yield put(mapmain_showpopinfo({DeviceId}));
               }
+
             }
             catch(e){
               console.log(e);
