@@ -12,6 +12,7 @@ import {
   carmapshow_createmap,
   carmapshow_destorymap,
   ui_mycar_selcurdevice,
+  mapmain_showpopinfo,
   mapmain_showpopinfo_list,
   mapmain_seldistrict,
   getdevicelist_result,
@@ -245,6 +246,122 @@ import {
      });
   }
 
+  //获取根结点的数据
+  const getclustertree_root =(SettingOfflineMinutes)=>{
+    const adcodetop=100000;
+    return new Promise((resolve,reject) => {
+      if(!distCluster){
+        console.log(`distCluster is empty`);
+        reject(`distCluster is empty`);
+        return;
+      }
+      distCluster.getClusterRecord(adcodetop,(err,result)=>{
+        if(!err){
+          const {children,dataItems} = result;
+          if(!children || children.length === 0){
+            reject(`children or children.length is empty,${adcodetop}`);
+          }
+          if(!dataItems || dataItems.length === 0){
+            reject(`dataItems or dataItems.length is empty,${adcodetop}`);
+            return;
+          }
+
+
+          let childadcodelist = [];
+          lodashmap(children,(child)=>{
+            if(child.dataItems.length > 0){
+              childadcodelist.push(child.adcode);
+            }
+          });
+          resolve(childadcodelist);
+        }
+        else{
+          reject(err);
+        }
+      });
+    });
+  }
+  //获取某个行政区域的数据
+  const getclustertree_one =(adcode,SettingOfflineMinutes)=>{
+    return new Promise((resolve,reject) => {
+      if(!distCluster){
+        reject();
+        return;
+      }
+      distCluster.getClusterRecord(adcode,(err,result)=>{
+        if(!err){
+          const {dataItems,children} = result;
+          if(!children || children.length === 0){
+            //device
+            let deviceids = [];
+            if(!!dataItems){
+              lodashmap(dataItems,(deviceitem)=>{
+                if(!!deviceitem.dataItem){
+                  deviceids.push(deviceitem.dataItem.DeviceId);
+                }
+              });
+            }
+            let center;
+            if(deviceids.length > 0){
+              const pickone = deviceids[0];
+              const deviceitem = g_devicesdb[pickone];
+              if(!!deviceitem){
+                if(!!deviceitem.locz){
+                  center = new window.AMap.LngLat(deviceitem.locz[0],deviceitem.locz[1]);
+                }
+                else{
+                  console.log(deviceitem);
+                }
+              }
+            }
+
+            resolve({
+              type:'device',
+              deviceids,
+              center
+            });
+          }
+          else{
+            //group
+            let center;
+            let childadcodelist = [];
+            if(!dataItems || dataItems.length === 0){
+              resolve({
+                type:'group',
+                childadcodelist
+              });
+              return;
+            }
+            lodashmap(dataItems,(di)=>{
+              const deviceitem = di.dataItem;
+              if(!!deviceitem && !center){
+                if(!!deviceitem.locz){
+                  center = new window.AMap.LngLat(deviceitem.locz[0],deviceitem.locz[1]);
+                }
+                else{
+                  console.log(deviceitem);
+                }
+              }
+            });
+
+            lodashmap(children,(child)=>{
+                if(child.dataItems.length > 0){
+                  childadcodelist.push(child.adcode);
+                }
+            });
+            resolve({
+              type:'group',
+              childadcodelist,
+              center
+            });
+          }
+        }
+        else{
+          reject(err);
+        }
+      });
+    });
+  }
   //新建地图
   let CreateMap =({mapcenterlocation,zoomlevel})=> {
 
@@ -535,4 +652,269 @@ import {
         yield call(destorymap,divmapid);
 
       });
+
+      //单个设备弹框
+      yield takeLatest(`${mapmain_showpopinfo}`, function*(actiondevice) {
+        //显示弹框
+        try{
+          const {payload:{DeviceId}} = actiondevice;
+          //获取该车辆信息
+          // yield put(querydeviceinfo_request({query:{DeviceId}}));
+          // const {payload} = yield take(`${querydeviceinfo_result}`);
+          // let list = [];
+          // list.push(payload);
+          // const listitem = yield call(getdevicelist,list);
+          const listitem = [g_devicesdb[DeviceId]];
+          if(listitem.length === 1){
+            //1
+            // g_devicesdb[listitem[0].DeviceId] = listitem[0];
+            //地图缩放到最大
+            if(window.amapmain.getZoom() !== maxzoom){
+              //不是最大时候才放大，否则会陷入一个循环两次的问题
+              console.log(`地图当前层级${window.amapmain.getZoom()},最大:${maxzoom}`);
+              window.amapmain.setZoom(maxzoom);
+              // yield put(md_mapmain_setzoomlevel(maxzoom));
+              yield put(ui_showhugepoints(true));
+              yield put(ui_showdistcluster(false));
+            }
+
+
+            //弹框
+            yield call(showinfowindow,listitem[0]);
+
+            yield fork(function*(eventname){
+             //while(true){//关闭时触发的事件
+              yield call(listenwindowinfoevent,eventname);//触发一次
+              if(!!infoWindow){
+                  infoWindow.close();
+                  infoWindow = null;
+              }
+
+            },'close');
+          }
+
+        }
+        catch(e){
+          console.log(e);
+        }
+      });
+      //多个设备弹出框
+      yield takeLatest(`${mapmain_showpopinfo_list}`, function*(actiondevice) {
+        //显示弹框
+        try{
+          const {payload:{itemdevicelist,lnglat}} = actiondevice;
+          //获取该车辆信息
+          // let deviceids = [];
+          // lodashmap(itemdevicelist,(item)=>{
+          //   deviceids.push(item.DeviceId);
+          // });
+          // yield put(querydeviceinfo_list_request({query:{DeviceId:{'$in':deviceids}}}));
+          // const {payload:{list}} = yield take(`${querydeviceinfo_list_result}`);
+          //
+          const listitem = itemdevicelist;//yield call(getdevicelist,list);
+          //
+          // lodashmap(listitem,(item)=>{
+          //   g_devicesdb[item.DeviceId] = item;
+          // });
+
+          //地图缩放到最大
+          //yield put(md_mapmain_setzoomlevel(maxzoom));
+          const SettingOfflineMinutes =yield select((state)=>{
+            return get(state,'app.SettingOfflineMinutes',20);
+          });
+          //弹框
+          yield call(showinfowindow_cluster,{itemdevicelist:listitem,lnglat,SettingOfflineMinutes});
+
+          yield fork(function*(eventname){
+           //while(true){//关闭时触发的事件
+             yield call(listenwindowinfoevent,eventname);//触发一次
+            //  yield put(ui_showmenu("showdevice_no"));
+             if(!!infoWindow){
+                infoWindow.close();
+                infoWindow = null;
+             }
+           //}
+          },'close');
+
+        }
+        catch(e){
+          console.log(e);
+        }
+      });
+
+      //查询所有车辆返回
+      yield takeLatest(`${getdevicelist_result}`, function*(deviceresult) {
+        let {payload:{list:devicelistresult}} = deviceresult;
+        try{
+            while( !distCluster){
+              console.log(`wait for discluster`);
+              yield call(delay,2500);
+            }
+            // const SettingOfflineMinutes =yield select((state)=>{
+            //   return get(state,'app.SettingOfflineMinutes',20);
+            // });
+            //批量转换一次
+            g_devicesdb = {};//清空，重新初始化
+            // console.log(`clear g_devicesdb...restart g_devicesdb...`)
+            // let devicelistresult = yield call(getgeodatabatch,devicelist);
+
+            const data = [];
+            lodashmap(devicelistresult,(deviceitem)=>{
+              if(!!deviceitem.locz){
+                data.push(deviceitem);
+              }
+              g_devicesdb[deviceitem.DeviceId] = deviceitem;
+            });
+            // console.log(`clear g_devicesdb...restart g_devicesdb...${data.length}`)
+            distCluster.setData(data);
+            // pointSimplifierIns.setData(data);
+
+
+
+
+            // yield call(getclustertree_root,SettingOfflineMinutes);
+            // gmap_acode_treecount[1] = {//所有
+            //   count_total:devicelistresult.length,
+            //   count_online:deviceidonlines_loc.length,
+            // };
+            //
+            // gmap_acode_devices[2] = datanolocate;
+            // gmap_acode_treecount[2] = {
+            //   count_total:datanolocate.length,
+            //   count_online:deviceidonlines_locno.length,
+            // }
+            //
+            // yield put(mapmain_init_device({g_devicesdb,gmap_acode_devices,gmap_acode_treecount}));
+
+            if(window.amapmain.getZoom() > 12){
+              yield put(ui_showhugepoints(true));
+              yield put(ui_showdistcluster(false));
+            }
+            else{
+              yield put(ui_showhugepoints(false));
+              yield put(ui_showdistcluster(true));
+            }
+
+          }
+          catch(e){
+            console.log(e);
+          }
+
+      });
+
+          yield takeLatest(`${ui_showdistcluster}`, function*(action_showflag) {
+              let {payload:isshow} = action_showflag;
+              const showdistclusterfn = (isshow)=>{
+                return new Promise((resolve) => {
+                  try{
+                    if(!!distCluster){
+                      if(isshow !== distCluster.isHidden()){
+                        if(isshow){
+                          distCluster.show();
+                          distCluster.render();
+                        }
+                        else{
+                          distCluster.hide();
+                        }
+                      }
+                    }
+                  }
+                  catch(e){
+                    console.log(e);
+                  }
+                  resolve();
+                });
+              }
+
+              yield call(showdistclusterfn,isshow);
+
+          });
+          //显示海量点
+          yield takeLatest(`${ui_showhugepoints}`, function*(action_showflag) {
+              let {payload:isshow} = action_showflag;
+              try{
+                // if(!!distCluster){
+                //   if(isshow){
+                //     pointSimplifierIns.show();
+                //   }
+                //   else{
+                //     pointSimplifierIns.hide();
+                //   }
+                // pointSimplifierIns.hide();
+                //   pointSimplifierIns.render();
+                // }
+                const SettingOfflineMinutes =yield select((state)=>{
+                  return get(state,'app.SettingOfflineMinutes',20);
+                });
+                yield call(getMarkCluster_showMarks,{isshow,SettingOfflineMinutes});
+              }
+              catch(e){
+                console.log(e);
+              }
+          });
+
+          //选中某个区域
+          yield takeLatest(`${mapmain_seldistrict}`, function*(action_district) {
+              let {payload:{adcodetop,forcetoggled}} = action_district;
+              try{
+                const SettingOfflineMinutes =yield select((state)=>{
+                  return get(state,'app.SettingOfflineMinutes',20);
+                });
+                if(!!adcodetop && adcodetop !==1 && adcodetop!==2){
+                  //========================================================================================
+                  let isarea = false;
+                  //获取该区域的数据
+                  const result = yield call(getclustertree_one,adcodetop,SettingOfflineMinutes);
+                  if(!!result){
+                    isarea = result.type === 'device';
+                  }
+
+                  if(!!distCluster){//放大到该区域
+                    if(isarea){
+                      if(!!result.center){
+                        const targetzoom = window.amapmain.getZoom() > 13?window.amapmain.getZoom():13;
+                        window.amapmain.setZoomAndCenter(targetzoom,result.center);//fixed window.amapmain.getZoom()+1
+                      }
+                    }
+                    else{
+                      //获得该区域下最多结点的数量，找出中心点
+                      distCluster.zoomToShowSubFeatures(adcodetop,result.center);
+                    }
+                  }
+                }
+              }
+              catch(e){
+                console.log(e);
+              }
+          });
+
+
+          //ui_mycarselcurdevice_request
+          // yield takeLatest(`${ui_mycar_selcurdevice}`, function*(action) {
+          //   //地图模式选择车辆
+          //   try{
+          //     const {payload:DeviceId} = action;
+          //
+          //     if(!!infoWindow){
+          //         infoWindow.close();
+          //         infoWindow = null;
+          //     }
+          //     // if(typeof DeviceId === 'string'){
+          //     //   DeviceId = parseInt(DeviceId);
+          //     // }
+          //     //先定位到地图模式,然后选择车辆
+          //     const deviceitem = g_devicesdb[DeviceId];
+          //     // console.log(`${DeviceId}`)
+          //     // console.log(`${deviceitem}`)
+          //     // console.log(`${JSON.stringify(g_devicesdb)}`)
+          //     // yield put(ui_mycar_showtype(0));
+          //     if(!!deviceitem){
+          //       yield put(ui_selcurdevice_request({DeviceId,deviceitem}));
+          //     }
+          //
+          //   }
+          //   catch(e){
+          //     console.log(e);
+          //   }
+          // });
 }
