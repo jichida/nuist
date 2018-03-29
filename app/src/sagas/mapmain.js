@@ -5,6 +5,7 @@ import lodashmap from 'lodash.map';
 import {
   getpopinfowindowstyle,
   getlistpopinfowindowstyle,
+  ui_selcurdevice_request,
   getimageicon
 } from './getmapstyle';
 import {
@@ -71,18 +72,18 @@ import {
     return new Promise((resolve,reject) => {
       if(isshow){
         let markers = [];
-        lodashmap(g_devicesdb,(item,key)=>{
-          if(!!item){//AMap.LngLat(lng:Number,lat:Number)
-            if(!!item.locz){
-              const pos = !!item.locz?new window.AMap.LngLat(item.locz[0],item.locz[1]):window.amapmain.getCenter();
+        lodashmap(g_devicesdb,(deviceitem,key)=>{
+          if(!!deviceitem){//AMap.LngLat(lng:Number,lat:Number)
+            if(!!deviceitem.Longitude){
+              const pos = new window.AMap.LngLat(deviceitem.Longitude,deviceitem.Latitude);
               const marker = new window.AMap.Marker({
                  position:pos,
-                 icon: new window.AMap.Icon({
-                     size: new window.AMap.Size(34, 34),  //图标大小
-                     image: getimageicon(item,SettingOfflineMinutes),
-                     imageOffset: new window.AMap.Pixel(0, 0)
-                 }),
-                 angle:get(item,'angle',0),
+                //  icon: new window.AMap.Icon({
+                //      size: new window.AMap.Size(34, 34),  //图标大小
+                //      image: getimageicon(deviceitem,SettingOfflineMinutes),
+                //      imageOffset: new window.AMap.Pixel(0, 0)
+                //  }),
+                 angle:get(deviceitem,'angle',0),
                 //  content: '<div style="background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
                  offset: new window.AMap.Pixel(0, 0),//-113, -140
                  extData:key
@@ -91,7 +92,7 @@ import {
                 //console.log(`click marker ${key}`);
                 window.AMapUI.loadUI(['overlay/SimpleInfoWindow'], function(SimpleInfoWindow) {
 
-                      store.dispatch(ui_mycar_selcurdevice(item.DeviceId));
+                      store.dispatch(ui_mycar_selcurdevice(deviceitem.DeviceId));
                     // store.dispatch(mapmain_showpopinfo({DeviceId:item.DeviceId}));
                 });
               });
@@ -208,11 +209,13 @@ import {
                    map: map, //所属的地图实例
                    autoSetFitView:false,
                    getPosition: (deviceitem)=> {
-                       if(!!deviceitem.locz){
-                         return deviceitem.locz;
+                       let locz;
+                       if(!!deviceitem.Longitude){
+                         locz = new window.AMap.LngLat(deviceitem.Longitude,deviceitem.Latitude);
                        }
+
                        console.log(`err----->=====>======>${JSON.stringify(deviceitem)}`);
-                       return deviceitem.locz;
+                       return locz;
                    },
                    renderOptions:{
                      featureStyleByLevel:{
@@ -233,9 +236,9 @@ import {
                      clusterMarkerRecycleLimit:100000,
                      clusterMarkerKeepConsistent:true,
                      getClusterMarker : (feature, dataItems, recycledMarker)=> {
-                        if(dataItems.length > 0){
-                          return defaultgetClusterMarker(feature, dataItems, recycledMarker);
-                        }
+                        // if(dataItems.length > 0){
+                        //   return defaultgetClusterMarker(feature, dataItems, recycledMarker);
+                        // }
                         return null;
                       }
                    }
@@ -306,8 +309,8 @@ import {
               const pickone = deviceids[0];
               const deviceitem = g_devicesdb[pickone];
               if(!!deviceitem){
-                if(!!deviceitem.locz){
-                  center = new window.AMap.LngLat(deviceitem.locz[0],deviceitem.locz[1]);
+                if(!!deviceitem.Longitude){
+                  center = new window.AMap.LngLat(deviceitem.Longitude,deviceitem.Latitude);
                 }
                 else{
                   console.log(deviceitem);
@@ -335,8 +338,8 @@ import {
             lodashmap(dataItems,(di)=>{
               const deviceitem = di.dataItem;
               if(!!deviceitem && !center){
-                if(!!deviceitem.locz){
-                  center = new window.AMap.LngLat(deviceitem.locz[0],deviceitem.locz[1]);
+                if(!!deviceitem.Longitude){
+                  center = new window.AMap.LngLat(deviceitem.Longitude,deviceitem.Latitude);
                 }
                 else{
                   console.log(deviceitem);
@@ -500,7 +503,7 @@ import {
   export function* createmapmainflow(){
 
       //创建地图
-      yield takeEvery(`${carmapshow_createmap}`, function*(action_createmap) {
+      yield takeLatest(`${carmapshow_createmap}`, function*(action_createmap) {
         try{
           let {payload:{divmapid}} = action_createmap;
           if(divmapid === divmapid_mapmain){
@@ -511,7 +514,7 @@ import {
             // }
             //console.log(`js script init`);
             //take
-            let mapcarprops = yield select((state) => {
+            const mapcarprops = yield select((state) => {
               const {carmap} = state;
               return {...carmap};
             });
@@ -520,6 +523,7 @@ import {
               //console.log(`wait for mapcarprops.isMapInited`);
               yield take(`${map_setmapinited}`);
             }
+
 
             //console.log(`start create map`);
             // let {mapcenterlocation,zoomlevel} = mapcarprops;
@@ -568,14 +572,14 @@ import {
                 // let centerlatlng = L.latLng(centerlocation.lat, centerlocation.lng);
                 // yield put(md_mapmain_setzoomlevel(window.amapmain.getZoom()));
                 const zoomlevel = window.amapmain.getZoom();
-                if(zoomlevel > 12){
-                  yield put(ui_showhugepoints(true));
-                  yield put(ui_showdistcluster(false));
-                }
-                else{
-                  yield put(ui_showhugepoints(false));
-                  yield put(ui_showdistcluster(true));
-                }
+                // if(zoomlevel > 12){
+                //   yield put(ui_showhugepoints(true));
+                //   yield put(ui_showdistcluster(false));
+                // }
+                // else{
+                //   yield put(ui_showhugepoints(false));
+                //   yield put(ui_showdistcluster(true));
+                // }
               }
             },'zoomend');
 
@@ -674,8 +678,8 @@ import {
               console.log(`地图当前层级${window.amapmain.getZoom()},最大:${maxzoom}`);
               window.amapmain.setZoom(maxzoom);
               // yield put(md_mapmain_setzoomlevel(maxzoom));
-              yield put(ui_showhugepoints(true));
-              yield put(ui_showdistcluster(false));
+              // yield put(ui_showhugepoints(true));
+              // yield put(ui_showdistcluster(false));
             }
 
 
@@ -760,7 +764,7 @@ import {
 
             const data = [];
             lodashmap(devicelistresult,(deviceitem)=>{
-              if(!!deviceitem.locz){
+              if(!!deviceitem.Longitude && deviceitem.Longitude !==0){
                 data.push(deviceitem);
               }
               g_devicesdb[deviceitem.DeviceId] = deviceitem;
@@ -786,15 +790,16 @@ import {
             //
             // yield put(mapmain_init_device({g_devicesdb,gmap_acode_devices,gmap_acode_treecount}));
 
-            if(window.amapmain.getZoom() > 12){
-              yield put(ui_showhugepoints(true));
-              yield put(ui_showdistcluster(false));
-            }
-            else{
-              yield put(ui_showhugepoints(false));
-              yield put(ui_showdistcluster(true));
-            }
-
+            // if(window.amapmain.getZoom() > 12){
+            //   yield put(ui_showhugepoints(true));
+            //   yield put(ui_showdistcluster(false));
+            // }
+            // else{
+            //   yield put(ui_showhugepoints(false));
+            //   yield put(ui_showdistcluster(true));
+            // }
+            yield put(ui_showdistcluster(false));
+            yield put(ui_showhugepoints(true));
           }
           catch(e){
             console.log(e);
@@ -855,7 +860,7 @@ import {
 
           //选中某个区域
           yield takeLatest(`${mapmain_seldistrict}`, function*(action_district) {
-              let {payload:{adcodetop,forcetoggled}} = action_district;
+              let {payload:{adcodetop}} = action_district;
               try{
                 const SettingOfflineMinutes =yield select((state)=>{
                   return get(state,'app.SettingOfflineMinutes',20);
@@ -890,31 +895,25 @@ import {
 
 
           //ui_mycarselcurdevice_request
-          // yield takeLatest(`${ui_mycar_selcurdevice}`, function*(action) {
-          //   //地图模式选择车辆
-          //   try{
-          //     const {payload:DeviceId} = action;
-          //
-          //     if(!!infoWindow){
-          //         infoWindow.close();
-          //         infoWindow = null;
-          //     }
-          //     // if(typeof DeviceId === 'string'){
-          //     //   DeviceId = parseInt(DeviceId);
-          //     // }
-          //     //先定位到地图模式,然后选择车辆
-          //     const deviceitem = g_devicesdb[DeviceId];
-          //     // console.log(`${DeviceId}`)
-          //     // console.log(`${deviceitem}`)
-          //     // console.log(`${JSON.stringify(g_devicesdb)}`)
-          //     // yield put(ui_mycar_showtype(0));
-          //     if(!!deviceitem){
-          //       yield put(ui_selcurdevice_request({DeviceId,deviceitem}));
-          //     }
-          //
-          //   }
-          //   catch(e){
-          //     console.log(e);
-          //   }
-          // });
+          yield takeLatest(`${ui_mycar_selcurdevice}`, function*(action) {
+            //地图模式选择车辆
+            try{
+              const {payload:DeviceId} = action;
+
+              if(!!infoWindow){
+                  infoWindow.close();
+                  infoWindow = null;
+              }
+              //先定位到地图模式,然后选择车辆
+              const deviceitem = g_devicesdb[DeviceId];
+              if(!!deviceitem){
+                yield put(mapmain_showpopinfo({DeviceId}));
+              }
+            }
+            catch(e){
+              console.log(e);
+            }
+          });
+
+
 }

@@ -94,10 +94,10 @@ export const getlistpopinfowindowstyle = (deviceitemlist,SettingOfflineMinutes)=
 
 const getdevicestatus_isonline = (deviceitem,SettingOfflineMinutes=20)=>{
   let isonline = false;
-  let gpstime = get(deviceitem,'LastHistoryTrack.GPSTime');
-  if(!!gpstime){
+  let datatime = get(deviceitem,'realtimedata.datatime');
+  if(!!datatime){
     // a.diff(b, 'days')
-    const diffmin = moment().diff(moment(gpstime),'minutes');
+    const diffmin = moment().diff(moment(datatime),'minutes');
     isonline = diffmin < SettingOfflineMinutes;
   }
   return isonline;
