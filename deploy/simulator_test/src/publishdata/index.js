@@ -1,9 +1,10 @@
 const _ = require('lodash');
-
+const moment = require('moment');
 const getpublishdata_device = (DeviceId)=>{
   return {
     "DeviceId" :DeviceId,
      realtimedata:{
+      "datatime":moment().format('YYYY-MM-DD HH:mm:ss'),
       "pressure" : _.random(0, 100),
       "winddirection" : _.random(0, 360),
       "windspeed" : _.random(0, 12),
