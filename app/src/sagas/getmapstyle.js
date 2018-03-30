@@ -97,26 +97,32 @@ export const getimageicon_isonline = (item,SettingOfflineMinutes)=>{
   return {iconname:curpng,isonline};
 }
 
+const icon_error = `${process.env.PUBLIC_URL}/images/device_error.png`;
+const icon_normal = `${process.env.PUBLIC_URL}/images/device_normal.png`;
+const icon_alarm = `${process.env.PUBLIC_URL}/images/device_alarm.png`;
 
 export const getimageicon = (item,SettingOfflineMinutes)=>{
   //这里根据不同item显示不同图标
-  if(!getdevicestatus_isonline(item,SettingOfflineMinutes)){
-    return `${process.env.PUBLIC_URL}/images/icon_caroffline.png`;
+  let curpng = icon_normal;
+  const realtimedata_datatime = get(item,'realtimedata.datatime');
+  if(!realtimedata_datatime){
+    curpng = icon_error;
+    return;
   }
-  const icon_car0 = `${process.env.PUBLIC_URL}/images/icon_car0.png`;
-  const icon_car1 = `${process.env.PUBLIC_URL}/images/icon_car1.png`;
-  const icon_car2 = `${process.env.PUBLIC_URL}/images/icon_car2.png`;
-  const icon_car3 = `${process.env.PUBLIC_URL}/images/icon_car3.png`;
-  const warninglevel = getdevicestatus_alaramlevel(item);
-  let curpng = icon_car0;
-  if(warninglevel === '高'){
-    curpng = icon_car1;
+  const diffmin = moment().diff(moment(realtimedata_datatime),'minutes');
+  const isonline = diffmin < SettingOfflineMinutes;
+  if(!isonline){
+    curpng = icon_error;
+    return;
   }
-  else if(warninglevel === '中'){
-    curpng = icon_car2;
-  }
-  else if(warninglevel === '低'){
-    curpng = icon_car3;
+
+  const realtimealarm_updatetime = get(item,'realtimealarm.updatetime');
+  if(!!realtimealarm_updatetime){
+    const diffmin = moment().diff(moment(realtimealarm_updatetime),'minutes');
+    const isonline = diffmin < SettingOfflineMinutes;
+    if(isonline){
+      curpng = icon_alarm;
+    }
   }
   return curpng;
 }
