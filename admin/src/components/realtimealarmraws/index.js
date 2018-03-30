@@ -45,7 +45,7 @@ const RealtimeAlarmRawShow = (props) => {
   return (<Show title={<RealtimeAlamTitle />} {...props} actions={<ShowActions />}>
     <SimpleShowLayout>
      <TextField label="节点ID" source="DeviceId" />
-     <TextField label="报警时间" source="updatetime"  />
+     <TextField label="报警时间" source="UpdateTime"  />
      <TextField label="报警类型" source="type"  />
      <TextField label="报警等级" source="level" />
      <TextField label="当前值" source="value" />
@@ -70,7 +70,7 @@ const RealtimeAlarmRawList = (props) => (
   <List title={<RealtimeAlamTitle />} filters={<DeviceFilter />} {...props} sort={{field:'MessageTime',order:'DESC'}}>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
       <TextField label="节点ID" source="DeviceId" />
-      <TextField label="报警时间" source="updatetime"  />
+      <TextField label="报警时间" source="UpdateTime"  />
       <TextField label="报警类型" source="type"  />
       <TextField label="报警等级" source="level" />
       <TextField label="当前值" source="value" />

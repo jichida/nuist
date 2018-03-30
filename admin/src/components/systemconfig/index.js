@@ -39,32 +39,38 @@ const SystemconfigCreateTitle = ({ record }) => {
  const SystemconfigCreate = (props) => (
        <Create {...props} title={<SystemconfigCreateTitle />} >
        <TabbedForm>
-       <FormTab label="报警规则">
-       <CfAlaramRuleInput label="报警规则设置(高)" source="warningrulelevel0" />
-       <CfAlaramRuleInput label="报警规则设置(中)" source="warningrulelevel1" />
-       <CfAlaramRuleInput label="报警规则设置(低)" source="warningrulelevel2" />
-       </FormTab>
+         <FormTab label="系统设置">
+           <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
+           <ReferenceInput label="演示节点分组" source="demodevicegroupid" reference="devicegroup" allowEmpty>
+             <SelectInput optionText="name" />
+           </ReferenceInput>
+         </FormTab>
+           <FormTab label="报警规则">
+           <CfAlaramRuleInput label="报警规则设置(高)" source="warningrulelevel0" />
+           <CfAlaramRuleInput label="报警规则设置(中)" source="warningrulelevel1" />
+           <CfAlaramRuleInput label="报警规则设置(低)" source="warningrulelevel2" />
+         </FormTab>
        </TabbedForm>
        </Create>
 );
 
  const SystemconfigEdit = (props) => (
     <EditPage {...props} title={<SystemconfigTitle />}>
-        <TabbedForm>
-          <FormTab label="报警规则">
-          <CfAlaramRuleInput label="报警规则设置(高)" source="warningrulelevel0" />
-          <CfAlaramRuleInput label="报警规则设置(中)" source="warningrulelevel1" />
-          <CfAlaramRuleInput label="报警规则设置(低)" source="warningrulelevel2" />
-        </FormTab>
-        <FormTab label="数据权限设置">
-          <PmsSelectArrayInputDetail label="数据权限设置列表" source="permissiondatasettings" />
-        </FormTab>
+      <TabbedForm>
         <FormTab label="系统设置">
           <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
           <ReferenceInput label="演示节点分组" source="demodevicegroupid" reference="devicegroup" allowEmpty>
             <SelectInput optionText="name" />
           </ReferenceInput>
         </FormTab>
+          <FormTab label="报警规则">
+          <CfAlaramRuleInput label="报警规则设置(高)" source="warningrulelevel0" />
+          <CfAlaramRuleInput label="报警规则设置(中)" source="warningrulelevel1" />
+          <CfAlaramRuleInput label="报警规则设置(低)" source="warningrulelevel2" />
+        </FormTab>
+        {/* <FormTab label="数据权限设置">
+          <PmsSelectArrayInputDetail label="数据权限设置列表" source="permissiondatasettings" />
+        </FormTab> */}
         </TabbedForm>
     </EditPage>
 );

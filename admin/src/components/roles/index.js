@@ -26,7 +26,7 @@ const RoleCreate = (props) => {
         <TextInput label="角色名称" source="name" validate={required} />
         <TextInput label="备注" source="memo" />
         <CfSelectArrayInput label="操作权限" source="permissions_opt" loadOptions={getOptions('permission','name','_id',{type:'操作权限'})}/>
-        <CfSelectArrayInput label="数据权限" source="permissions_data" loadOptions={getOptions('permission','name','_id',{type:'数据权限'})}/>
+        {/* <CfSelectArrayInput label="数据权限" source="permissions_data" loadOptions={getOptions('permission','name','_id',{type:'数据权限'})}/> */}
       </SimpleForm>
     </Create>
   );
@@ -39,7 +39,7 @@ const RoleEdit = (props) => {
         <TextInput label="角色名称" source="name" validate={required} />
         <TextInput label="备注" source="memo" />
         <CfSelectArrayInput label="操作权限" source="permissions_opt" loadOptions={getOptions('permission','name','_id',{type:'操作权限'})}/>
-        <CfSelectArrayInput label="数据权限" source="permissions_data" loadOptions={getOptions('permission','name','_id',{type:'数据权限'})}/>
+        {/* <CfSelectArrayInput label="数据权限" source="permissions_data" loadOptions={getOptions('permission','name','_id',{type:'数据权限'})}/> */}
       </SimpleForm>
     </Edit>
   );
@@ -57,11 +57,11 @@ const RoleList = (props) => (
                   <ChipField source="name" />
               </SingleFieldList>
       </ReferenceArrayField>
-      <ReferenceArrayField label="数据权限" reference="permission" source="permissions_data" >
+      {/* <ReferenceArrayField label="数据权限" reference="permission" source="permissions_data" >
               <SingleFieldList>
                   <ChipField source="name" />
               </SingleFieldList>
-      </ReferenceArrayField>
+      </ReferenceArrayField> */}
       <EditButton />
     </Datagrid>
   </List>

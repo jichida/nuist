@@ -23,7 +23,7 @@ export default [
         { name: 'devicegroup', icon: <DeviceGroupIcon /> ,adminonly:false},
         { name: 'user', icon: <UserIcon /> ,adminonly:true},
         { name: 'role', icon: <RoleIcon /> ,adminonly:true},
-        { name: 'permission', icon: <PermissionIcon /> ,adminonly:true},
+        // { name: 'permission', icon: <PermissionIcon /> ,adminonly:true},
         { name: 'realtimealarmraw', icon: <RealtimeAlarmRawIcon /> ,adminonly:false},
         { name: 'historydevice', icon: <HistoryDeviceIcon /> ,adminonly:false},
 ];

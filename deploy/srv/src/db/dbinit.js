@@ -20,11 +20,10 @@ const initjson = [
   },
   {
     "_id" : mongoose.Types.ObjectId("5a5a1113da6e595af4eb515e"),
-    "name" : "气象",
-    "memo" : "气象",
-    datafields:[],
-    "systemflag" : 1,
-    "type" : "数据权限",
+    "name" : "导出数据",
+    "memo" : "导出数据",
+    "type" : "操作权限",
+    systemflag:1,
   },
   {
     "_id" : mongoose.Types.ObjectId("5a5a1198da6e595af4eb515f"),

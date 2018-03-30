@@ -44,6 +44,10 @@ const DeviceCreate = (props) => (
     <SimpleForm defaultValue={deviceDefaultValue}>
       <TextInput label="节点ID" source="DeviceId" validate={required} />
       <TextInput label="节点名字" source="name" validate={required} />
+      <SelectInput  label="节点类型"  source="devicetype" choices={[
+          { id: '气象', name: '气象' },
+          { id: '水利', name: '水利' },
+      ]} />
       <TextInput label="所属城市" source="city"  validate={required} />
       <TextInput label="所属城市首字母" source="cityindex"  validate={required} />
     </SimpleForm>
@@ -57,6 +61,10 @@ const DeviceEdit = (props) => {
         <FormTab label="节点基本信息">
           <TextField label="节点ID" source="DeviceId"  />
           <TextInput label="节点名字" source="name"  validate={required} />
+          <SelectInput  label="节点类型"  source="devicetype" choices={[
+              { id: '气象', name: '气象' },
+              { id: '水利', name: '水利' },
+          ]} />
           <TextInput label="所属城市" source="city"  validate={required} />
           <TextInput label="所属城市首字母" source="cityindex"  validate={required} />
           <TextField label="地理位置" source="locationname"  />
@@ -110,8 +118,8 @@ const DeviceList = (props) => (
     <Datagrid  bodyOptions={{ showRowHover: true }}>
       <TextField label="节点ID" source="DeviceId" />
       <TextField label="节点名字" source="name"/>
+      <TextField label="节点类型" source="devicetype"/>
       <TextField label="所在区域" source="locationname"/>
-
       <TextField label="最后更新时间" source="updated_at"/>
       <EditButton />
     </Datagrid>

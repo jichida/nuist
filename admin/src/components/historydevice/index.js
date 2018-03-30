@@ -62,7 +62,7 @@ const HistoryDeviceShow = (props) => {
           <TextField label="风力" source="realtimedata.windspeed" />
           <TextField label="风向" source="realtimedata.winddirection" />
           <TextField label="大气压" source="realtimedata.pressure" />
-          <TextField label="最后更新时间" source="realtimedata.updatetime" />
+          <TextField label="最后更新时间" source="realtimedata.datatime" />
         </FormTab>
       </TabbedForm>
     </Show>
@@ -89,7 +89,7 @@ const HistoryDeviceList = (props) => (
       <TextField label="节点ID" source="DeviceId" />
       <TextField label="节点名字" source="name"/>
       <TextField label="所在区域" source="locationname"/>
-      <TextField label="更新时间" source="realtimedata.updatetime"  />
+      <TextField label="更新时间" source="realtimedata.datatime"  />
       <ShowButton />
     </Datagrid>
 

@@ -4,7 +4,7 @@ import { Admin, Resource ,Delete} from 'admin-on-rest';
 import themeReducer from './themeReducer';
 import authClient from './authClient';
 
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import sagas from './sagas';
 import Login from './Login';
