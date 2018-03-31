@@ -5,7 +5,7 @@ import Header from "../header";
 import Login from "./login.js";
 import Weather from "./weather";
 import Swiper from "./swiper";
-import Mapindex from "./map";
+
 import Monitoring from "./monitoring";
 import Investigation from "./investigation";
 import DataChart from './datachart';
@@ -13,7 +13,34 @@ import ProductList from './prolist';
 import Footer from "../footer";
 import Changepwd from "./pwd.js";
 
+import {
+  ui_notifyresizeformap,
+  ui_setmapstyle
+} from '../../actions';
+
 class App extends React.Component {
+  componentDidMount(){
+    const setmapstyle = ()=>{
+      window.setTimeout(()=>{
+        this.props.dispatch(ui_notifyresizeformap('mapidplaceholder'));
+      },0);
+    }
+
+    setmapstyle();
+
+    window.addEventListener('resize', ()=>{
+      setmapstyle();
+    });
+  }
+
+  componentWillUnmount() {
+      this.props.dispatch(ui_setmapstyle({
+        display:'none'
+      }));
+      window.removeEventListener('resize',()=>{
+
+      });
+  }
   render() {
     const {ispoppwd,loginsuccess} = this.props;
     return (
@@ -28,7 +55,7 @@ class App extends React.Component {
 				</div>
 				<div className="center">
 					<Swiper />
-					<Mapindex />
+					<div id='mapidplaceholder' style={{height:'300px',width:'550px'}}/>
 				</div>
 				<div className="right">
 					<Monitoring />
@@ -47,7 +74,6 @@ class App extends React.Component {
 
 const mapStateToProps = ({app:{ispoppwd},
 	userlogin:{loginsuccess}}) => {
-
     return {ispoppwd,loginsuccess};
 }
 export default connect(mapStateToProps)(App);

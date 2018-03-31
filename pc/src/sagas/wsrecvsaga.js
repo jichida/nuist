@@ -1,4 +1,4 @@
-import { put,call,takeLatest,take,race,select} from 'redux-saga/effects';
+import { put,call,takeLatest,take,race,select,} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
   common_err,
@@ -20,16 +20,15 @@ import {
   changepwd_result,
   set_uiapp,
   saveusersettings_result,
-
+  ui_notifyresizeformap,
+  ui_setmapstyle,
   logout_result
 } from '../actions';
 // import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 // import map from 'lodash.map';
 import lodashget from 'lodash.get';
 import config from '../env/config.js';
-// import  {
-//   getrandom
-// } from '../test/bmsdata.js';
+import {getdomposition} from '../util/index';
 
 export function* wsrecvsagaflow() {
   yield takeLatest(`${getdevicelist_result}`,function*(action){
@@ -140,5 +139,13 @@ export function* wsrecvsagaflow() {
 
   yield takeLatest(`${logout_result}`, function*(action) {
       yield put(getdevicelist_request({}));
+  });
+
+  yield takeLatest(`${ui_notifyresizeformap}`, function*(action) {
+      const {payload:dividname} = action;
+      yield delay(500);//防抖动
+      const positiondiv = getdomposition(dividname);
+      console.log(`ui_notifyresizeformap--->${JSON.stringify(positiondiv)}`)
+      yield put(ui_setmapstyle(positiondiv));
   });
 }

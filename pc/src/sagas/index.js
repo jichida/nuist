@@ -1,7 +1,7 @@
 import { fork } from 'redux-saga/effects';
 import {wsflow} from './api.ws.js';
 // import {createsagacallbackflow} from './pagination';
-
+import {createmapmainflow} from './mapmain';
 import {wsrecvsagaflow} from './wsrecvsaga';
 import {jpushflow} from './jpushflow';
 
@@ -14,6 +14,7 @@ export default function* rootSaga() {
     if(config.softmode === 'app'){
       yield fork(jpushflow);
     }
+    yield fork(createmapmainflow);
     yield fork(wsflow);
     yield fork(socketflow);
 

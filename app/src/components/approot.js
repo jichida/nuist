@@ -31,7 +31,7 @@ class AppMap extends React.Component {
           display:selectedindex===0?'block':'none'
         };
         return (
-            <div className="commonmap" style={style4map}>
+            <div className="commonmap">
                 <MapPage height={this.props.mapstyle.height}/>
             </div>
         )

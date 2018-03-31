@@ -3,7 +3,7 @@ import Progress  from 'antd/lib/progress';
 import Wind1 from "../../img/wind1.png";
 import Wind2 from "../../img/wind2.png";
 import Wind3 from "../../img/wind3.png";
-import {getCoureName} from '../../util';
+// import {getCoureName} from '../../util';
 import lodashget from 'lodash.get';
 
 import 'antd/lib/progress/style';
@@ -52,7 +52,7 @@ class App extends React.Component {
   							</p>
   						</div>*/}
   					</div>
-					<span className="m10">偏东风4级</span>
+					{/* <span className="m10">偏东风4级</span> */}
 					</div>
   					<div className="chartli chart1">
   						<Progress type="circle" percent={100} width={90} format={percent => `${temperature}`} />
@@ -70,7 +70,7 @@ class App extends React.Component {
   						<Progress type="circle" percent={100} width={90} format={percent => `${rainfall}`} />
   						<span className="m10">雨量(mm)</span>
   					</div>
-  					
+
   	        	</div>
   	      	</div>
   	    );

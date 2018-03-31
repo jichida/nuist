@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
 import "./style.css";
 import Headimg from "../../img/1.jpg";
-import {set_uiapp} from '../../actions';
+import {set_uiapp,ui_setmapstyle} from '../../actions';
 
 let resizetimecontent = null;
 
@@ -36,6 +36,7 @@ class App extends React.Component {
     this.props.dispatch(set_uiapp({
         selectedindex:index
     }));
+
     this.props.history.replace(lnk);
   }
   render() {

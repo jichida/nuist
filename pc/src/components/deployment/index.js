@@ -1,12 +1,37 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import "./index.css";
 import Header from "../header";
 import Footer from "../footer";
-import Map from "../map/index.js";
 
+import {
+  ui_notifyresizeformap,
+  ui_setmapstyle
+} from '../../actions';
 import NodeSel from '../nodesel';
 
 class App extends React.Component {
+    componentDidMount(){
+      const setmapstyle = ()=>{
+        window.setTimeout(()=>{
+          this.props.dispatch(ui_notifyresizeformap('mapidplaceholder'));
+        },0);
+      }
+
+      setmapstyle();
+
+      window.addEventListener('resize', ()=>{
+        setmapstyle();
+      });
+    }
+
+    componentWillUnmount() {
+      this.props.dispatch(ui_setmapstyle({
+        display:'none'
+      }));
+      window.removeEventListener('resize',()=>{
+      });
+    }
     render() {
         return (
             <div className="indexPage">
@@ -20,9 +45,7 @@ class App extends React.Component {
             </div>
               <div className="center_right">
                   <div className="tt">节点拓扑</div>
-                  <div className="map_img">
-                    <Map />
-                  </div>
+                  <div id='mapidplaceholder' style={{height:'680px',width:'875px'}}/>
               </div>
         </div>
         </div>
@@ -32,4 +55,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default connect()(App);
