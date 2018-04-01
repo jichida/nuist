@@ -39,12 +39,12 @@ class App extends React.Component {
 
 		componentDidMount(){
 			const setmapstyle = (delay)=>{
-				window.setTimeout(()=>{
+				// window.setTimeout(()=>{
 					this.props.dispatch(ui_notifyresizeformap({
 						divid:'mapidplaceholder',
 						delay
 					}));
-				},0);
+				// },0);
 			}
 
 			setmapstyle(0);

@@ -12,25 +12,29 @@ import NodeSel from '../nodesel';
 
 class App extends React.Component {
     componentDidMount(){
-      const setmapstyle = ()=>{
-        window.setTimeout(()=>{
-          this.props.dispatch(ui_notifyresizeformap('mapidplaceholder'));
-        },0);
-      }
+      const setmapstyle = (delay)=>{
+				// window.setTimeout(()=>{
+					this.props.dispatch(ui_notifyresizeformap({
+						divid:'mapidplaceholder',
+						delay
+					}));
+				// },0);
+			}
 
-      setmapstyle();
+			setmapstyle(0);
 
-      window.addEventListener('resize', ()=>{
-        setmapstyle();
-      });
+			window.addEventListener('resize', ()=>{
+				setmapstyle(50);
+			});
     }
 
     componentWillUnmount() {
-      this.props.dispatch(ui_setmapstyle({
-        display:'none'
-      }));
-      window.removeEventListener('resize',()=>{
-      });
+      const {mapstyle} = this.props;
+			const mapstylenew = {...mapstyle,display:'none'};
+
+			this.props.dispatch(ui_setmapstyle(mapstylenew));
+			window.removeEventListener('resize',()=>{
+			});
     }
     render() {
         return (
@@ -55,4 +59,7 @@ class App extends React.Component {
     }
 }
 
-export default connect()(App);
+const mapStateToProps = ({app:{mapstyle}})=> {
+    return {mapstyle};
+}
+export default connect(mapStateToProps)(App);

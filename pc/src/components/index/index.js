@@ -20,26 +20,29 @@ import {
 
 class App extends React.Component {
   componentDidMount(){
-    const setmapstyle = ()=>{
-      window.setTimeout(()=>{
-        this.props.dispatch(ui_notifyresizeformap('mapidplaceholder'));
-      },0);
+    const setmapstyle = (delay)=>{
+      // window.setTimeout(()=>{
+        this.props.dispatch(ui_notifyresizeformap({
+          divid:'mapidplaceholder',
+          delay
+        }));
+      // },0);
     }
 
-    setmapstyle();
+    setmapstyle(0);
 
     window.addEventListener('resize', ()=>{
-      setmapstyle();
+      setmapstyle(50);
     });
   }
 
   componentWillUnmount() {
-      this.props.dispatch(ui_setmapstyle({
-        display:'none'
-      }));
-      window.removeEventListener('resize',()=>{
+    const {mapstyle} = this.props;
+    const mapstylenew = {...mapstyle,display:'none'};
 
-      });
+    this.props.dispatch(ui_setmapstyle(mapstylenew));
+    window.removeEventListener('resize',()=>{
+    });
   }
   render() {
     const {ispoppwd,loginsuccess} = this.props;
@@ -72,8 +75,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({app:{ispoppwd},
+const mapStateToProps = ({app:{ispoppwd,mapstyle},
 	userlogin:{loginsuccess}}) => {
-    return {ispoppwd,loginsuccess};
+    return {ispoppwd,loginsuccess,mapstyle};
 }
 export default connect(mapStateToProps)(App);

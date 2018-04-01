@@ -142,9 +142,9 @@ export function* wsrecvsagaflow() {
   });
 
   yield takeLatest(`${ui_notifyresizeformap}`, function*(action) {
-      const {payload:dividname} = action;
-      yield delay(500);//防抖动
-      const positiondiv = getdomposition(dividname);
+      const {payload:{divid,delay:delayms}} = action;
+      yield delay(delayms);//防抖动
+      const positiondiv = getdomposition(divid);
       console.log(`ui_notifyresizeformap--->${JSON.stringify(positiondiv)}`)
       yield put(ui_setmapstyle(positiondiv));
   });
