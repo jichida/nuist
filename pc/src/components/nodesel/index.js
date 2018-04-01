@@ -5,14 +5,19 @@ import lodashget from 'lodash.get';
 import Jtimg from "../../img/jt.png";
 import "./index.css";
 import {
-	saveusersettings_request
+	ui_mycar_selcurdevice
 } from '../../actions';
 
 class App extends React.Component {
     selectdevice = (did)=>{
-      const usersettings = this.props.usersettings;
-      usersettings.indexdeviceid = did;
-      this.props.dispatch(saveusersettings_request(usersettings));
+			const {devices} = this.props;
+			if(!!devices[did]){
+				this.props.dispatch(ui_mycar_selcurdevice(devices[did].DeviceId));
+			}
+
+      // const usersettings = this.props.usersettings;
+      // usersettings.indexdeviceid = did;
+      // this.props.dispatch(saveusersettings_request(usersettings));
     }
     render() {
         const {devicelist,devices,usersettings} = this.props;
