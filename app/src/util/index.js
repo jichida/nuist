@@ -1,4 +1,19 @@
-
+export const getdomposition = (divid)=> {
+    const el = document.getElementById(divid);
+    if(!!el){
+      const rect = el.getBoundingClientRect(),
+      scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+      scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      return {
+        top: `${rect.top + scrollTop}px`,
+        left:`${rect.left + scrollLeft}px`,
+        height:`${rect.height}px`,
+        width:`${rect.width}px`,
+        display:'block'
+      };
+    }
+    return {  display:'none' };
+}
 
 export const getCoureName = (course)=> {
     var name = "";

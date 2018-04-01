@@ -7,7 +7,9 @@ import {
   carmapshow_createmap,
   carmapshow_destorymap,
 } from '../../actions';
+import lodashmap from 'lodash.map';
 const divmapid = 'mapmain';
+
 class Page extends React.Component {
   componentWillMount () {
     console.log('地图---->componentWillMount---------');
@@ -20,12 +22,23 @@ class Page extends React.Component {
     console.log('地图---->componentDidMount---------');
     this.props.dispatch(carmapshow_createmap({divmapid}));
  }
+ shouldComponentUpdate(nextProps, nextState){
+   const {mapstyle:mapstyle1} = this.props;
+   const {mapstyle:mapstyle2} = nextProps;
+   let shouldupdate = false;
+   lodashmap(mapstyle1,(v,k)=>{
+     if(mapstyle1[k] !== mapstyle2[k]){
+       shouldupdate = true;
+     }
+   })
+   return shouldupdate;
+ }
  render() {
-     const height = this.props.height || window.innerHeight+"px";
-     console.log('地图---->render---------height:'+height);
+     const {mapstyle} = this.props;
+     console.log(`地图---->render---------${JSON.stringify(mapstyle)}`);
      return (
          <div className="AdminContent">
-             <div id={divmapid} style={{height:height}}/>
+             <div id={divmapid} style={mapstyle}/>
          </div>
      );
  }

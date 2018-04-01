@@ -24,40 +24,44 @@ import lodashget from 'lodash.get';
 import "./index.css";
 import {
 	set_uiapp,
-	ui_mycar_selcurdevice
+	ui_mycar_selcurdevice,
+	ui_notifyresizeformap,
+	ui_setmapstyle
 } from '../../actions';
 import {getCoureName} from '../../util';
-
-let resizetimecontent;
 
 
 class App extends React.Component {
 
-	constructor(props) {
-        super(props);
-        this.state = {
-          innerHeight : window.innerHeight,
-          innerWidth : window.innerWidth
-        };
-    }
+	// constructor(props) {
+  //       super(props);
+  //   }
 
-	componentDidMount() {
-				window.addEventListener('resize', this.onWindowResize);
-    }
+		componentDidMount(){
+			const setmapstyle = (delay)=>{
+				window.setTimeout(()=>{
+					this.props.dispatch(ui_notifyresizeformap({
+						divid:'mapidplaceholder',
+						delay
+					}));
+				},0);
+			}
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.onWindowResize);
-    }
+			setmapstyle(0);
 
-    onWindowResize=()=> {
-        window.clearTimeout(resizetimecontent);
-        resizetimecontent = window.setTimeout(()=>{
-            this.setState({
-                innerHeight: window.innerHeight,
-                innerWidth : window.innerWidth
-            });
-        },10)
-    }
+			window.addEventListener('resize', ()=>{
+				setmapstyle(50);
+			});
+		}
+
+		componentWillUnmount() {
+			const {mapstyle} = this.props;
+			const mapstylenew = {...mapstyle,display:'none'};
+
+			this.props.dispatch(ui_setmapstyle(mapstylenew));
+			window.removeEventListener('resize',()=>{
+			});
+		}
 		onClickUserlnk = ()=>{
 			const {loginsuccess} = this.props;
 			if(!loginsuccess){
@@ -85,30 +89,37 @@ class App extends React.Component {
 	    return (
 	      	<div
 	      		className="indexPage"
-	      		style={{height: `${this.state.innerHeight-64}px`}}
+	      		style={{height: `${window.innerHeight-64}px`}}
 	      		>
 	        	<Header history={this.props.history} onClickUserlnk={this.onClickUserlnk}/>
+						<div id='mapidplaceholder' style={{
+							zIndex: 0,
+							position: `absolute`,
+							height:`${window.innerHeight-64-80}px`,
+							width:`${window.innerWidth}px`,
+							top:`80px`,
+							}}/>
+
 						{
 							!!curdevice && (
-								<div className="mainmap">
+								<div className="mainmap" style={{height: `${window.innerHeight-64}px`}}>
 			        		<div onClick={this.onClickPopCareSel} className="mapcanver city"><img alt="" src={City} /><span>{lodashget(curdevice,'name')}</span></div>
 			        		<div onClick={this.onClickPopCareSel} className="mapcanver point"><img alt="" src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
 			        		<div className="maindata">
-								<ul>
-									<li><img alt="" src={Data1} /><span>风向</span>
-									<span>{getCoureName(lodashget(curdevice,'realtimedata.winddirection'))}风</span>
-									</li>
-									<li><img alt="" src={Data2} /><span>风力</span><span>{lodashget(curdevice,'realtimedata.windspeed')}级</span></li>
-									<li><img alt="" src={Data3} /><span>温度</span><span>{lodashget(curdevice,'realtimedata.temperature')}℃</span></li>
-									<li><img alt="" src={Data4} /><span>湿度</span><span>{lodashget(curdevice,'realtimedata.humidity')}%</span></li>
-									<li><img alt="" src={Data5} /><span>大气压</span><span>{lodashget(curdevice,'realtimedata.pressure')}Pa</span></li>
-									<li><img alt="" src={Data6} /><span>雨量</span><span>{lodashget(curdevice,'realtimedata.rainfall')}mm</span></li>
-								</ul>
+											<ul>
+												<li><img alt="" src={Data1} /><span>风向</span>
+												<span>{getCoureName(lodashget(curdevice,'realtimedata.winddirection'))}风</span>
+												</li>
+												<li><img alt="" src={Data2} /><span>风力</span><span>{lodashget(curdevice,'realtimedata.windspeed')}级</span></li>
+												<li><img alt="" src={Data3} /><span>温度</span><span>{lodashget(curdevice,'realtimedata.temperature')}℃</span></li>
+												<li><img alt="" src={Data4} /><span>湿度</span><span>{lodashget(curdevice,'realtimedata.humidity')}%</span></li>
+												<li><img alt="" src={Data5} /><span>大气压</span><span>{lodashget(curdevice,'realtimedata.pressure')}Pa</span></li>
+												<li><img alt="" src={Data6} /><span>雨量</span><span>{lodashget(curdevice,'realtimedata.rainfall')}mm</span></li>
+											</ul>
 			        		</div>
 			        	</div>
 							)
 						}
-
 	        	{ispopuserinfo  && <Usercenter /> }
 						{ispoppwd && <Changepwd />}
 						{ispopcare && <Collection />}
@@ -120,7 +131,7 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index},
+const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,mapstyle},
 	device:{devicelist,devices},
 	userlogin:{usersettings,loginsuccess}}) => {
 		let curdevice;
@@ -133,6 +144,6 @@ const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_sin
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,loginsuccess,devices,usersettings};
+    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,loginsuccess,devices,usersettings,mapstyle};
 }
 export default connect(mapStateToProps)(App);

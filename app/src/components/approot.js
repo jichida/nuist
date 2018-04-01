@@ -14,31 +14,26 @@ import Warning from './warning';
 import {requireAuthentication} from './requireauthentication';
 import {
   map_setmapinited,
-  ui_setmapstyle
 } from '../actions';
 import MapPage from './map';
 
 
 class AppMap extends React.Component {
-    componentWillMount() {
-        this.props.dispatch(ui_setmapstyle({height : (window.innerHeight-80-66) + "px", top: "80px"}))
-    }
     render (){
-        const {mapstyle,selectedindex} = this.props;
-        let style4map = {
-          height:mapstyle.height,
-          top:mapstyle.top,
-          display:selectedindex===0?'block':'none'
+        const {mapstyle:style4map} = this.props;
+        const mapstyleinner = {
+          height:style4map.height,
+          width:style4map.width
         };
         return (
-            <div className="commonmap">
-                <MapPage height={this.props.mapstyle.height}/>
+            <div className="commonmap" style={style4map}>
+                <MapPage mapstyle={mapstyleinner}/>
             </div>
         )
     }
 }
-const mapstyledata = ({app: {mapstyle,selectedindex}}) => {
-    return {mapstyle,selectedindex};
+const mapstyledata = ({app: {mapstyle}}) => {
+    return {mapstyle};
 }
 AppMap = connect(mapstyledata)(AppMap);
 /*
