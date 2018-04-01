@@ -166,6 +166,8 @@ import {
                   visible: true
               });
             const  toolBar = new window.AMap.ToolBar({
+                  position:config.softmode === 'app'?'RT':'LT',
+                  liteStyle:config.softmode === 'app'?true:false,
                   visible: true
               });
             const  overView = new window.AMap.OverView({
