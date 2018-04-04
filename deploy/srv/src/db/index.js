@@ -20,6 +20,11 @@ const dbs ={
     schema:db.DeviceSchema,
     collectionname:'device',
   },
+  'devicetype':{
+    urlname:'/devicetype',
+    schema:db.DeviceTypeSchema,
+    collectionname:'devicetype',
+  },
   'devicegroup':{
     urlname:'/devicegroup',
     schema:db.DeviceGroupSchema,

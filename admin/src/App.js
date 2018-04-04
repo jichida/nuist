@@ -22,6 +22,7 @@ import {ProductlistCreate,ProductlistList,ProductlistEdit} from './components/pr
 import {OnlineResearchCreate,OnlineResearchEdit,OnlineResearchList} from './components/onlineresearch/index.js';
 import {DeviceGroupCreate,DeviceGroupList,DeviceGroupEdit} from './components/devicegroups/index.js';
 import {DeviceCreate,DeviceList,DeviceEdit} from './components/devices/index.js';
+import {DeviceTypeCreate,DeviceTypeList,DeviceTypeEdit} from './components/devicetype/index.js';
 import {RealtimeAlarmRawList,RealtimeAlarmRawShow} from './components/realtimealarmraws/index.js';
 import {UserCreate,UserList,UserEdit} from './components/users/index.js';
 import {PermissionCreate,PermissionList,PermissionEdit} from './components/permissions/index.js';
@@ -62,6 +63,7 @@ class App extends Component {
                     <Resource name="onlineresearch" list={OnlineResearchList} edit={OnlineResearchEdit} create={OnlineResearchCreate}  remove={Delete} />,
                     <Resource name="devicegroup" list={DeviceGroupList} edit={DeviceGroupEdit} create={DeviceGroupCreate}  remove={Delete} />,
                     <Resource name="device" list={DeviceList} edit={DeviceEdit} create={DeviceCreate}  remove={Delete} />,
+                    <Resource name="devicetype" list={DeviceTypeList} edit={DeviceTypeEdit} create={DeviceTypeCreate}  remove={Delete} />,
                     <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} remove={Delete} />,
                     <Resource name="role" list={RoleList} edit={RoleEdit} create={RoleCreate}  remove={Delete} />,
                     <Resource name="permission" list={PermissionList} edit={PermissionEdit} create={PermissionCreate}  remove={Delete} />,

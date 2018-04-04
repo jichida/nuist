@@ -25,6 +25,9 @@ export default {
     device:{
       name: '节点管理 |||| 节点管理',
     },
+    devicetype:{
+      name: '节点类型管理 |||| 节点类型管理',
+    },
     devicegroup:{
       name: '节点分组管理 |||| 节点分组管理',
       fields:{

@@ -37,10 +37,28 @@ const OnlineResearchModel =mongoose.model('onlineresearch',  OnlineResearchSchem
 
 //设备
 const DeviceSchema = new Schema({
+  devicetype:{ type: Schema.Types.ObjectId, ref: 'devicetype' },
 }, { strict: false });
 DeviceSchema.plugin(mongoosePaginate);
 const DeviceModel =mongoose.model('device',  DeviceSchema);
 
+const DeviceTypeSchema = new Schema({
+  name:String,
+  iconurl_normal:String,
+  iconurl_alarm:String,
+  iconurl_error:String,
+  fieldsall:[
+    {
+      name:String,
+      showname:String,
+      iconurl:String
+    }
+  ],
+  fieldslist_brief:[],
+  fieldslist_detail:[]
+}, { strict: false });
+DeviceTypeSchema.plugin(mongoosePaginate);
+const DeviceTypeModel =mongoose.model('devicetype',  DeviceTypeSchema);
 //设备分组
 const DeviceGroupSchema = new Schema({
   name:String,
@@ -111,6 +129,7 @@ exports.SystemConfigSchema = SystemConfigSchema;
 exports.ProductSchema = ProductSchema;
 exports.OnlineResearchSchema = OnlineResearchSchema;
 exports.DeviceSchema = DeviceSchema;
+exports.DeviceTypeSchema = DeviceTypeSchema;
 exports.DeviceGroupSchema = DeviceGroupSchema;
 exports.UserSchema = UserSchema;
 exports.PermissionSchema = PermissionSchema;
@@ -122,6 +141,7 @@ exports.SystemConfigModel = SystemConfigModel;
 exports.ProductModel = ProductModel;
 exports.OnlineResearchModel = OnlineResearchModel;
 exports.DeviceModel = DeviceModel;
+exports.DeviceTypeModel = DeviceTypeModel;
 exports.DeviceGroupModel = DeviceGroupModel;
 exports.UserModel = UserModel;
 exports.PermissionModel = PermissionModel;

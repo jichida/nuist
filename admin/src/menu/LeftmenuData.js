@@ -20,6 +20,7 @@ export default [
         { name: 'product', icon: <ProductIcon /> ,adminonly:true},
         { name: 'onlineresearch', icon: <OnlineResearchIcon /> ,adminonly:true},
         { name: 'device', icon: <DeviceIcon />,adminonly:false },
+        { name: 'devicetype', icon: <DeviceIcon />,adminonly:false },
         { name: 'devicegroup', icon: <DeviceGroupIcon /> ,adminonly:false},
         { name: 'user', icon: <UserIcon /> ,adminonly:true},
         { name: 'role', icon: <RoleIcon /> ,adminonly:true},
