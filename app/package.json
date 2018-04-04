@@ -33,6 +33,7 @@
     "jest": "20.0.4",
     "lodash.find": "^4.6.0",
     "lodash.get": "^4.4.2",
+    "lodash.includes": "^4.3.0",
     "lodash.map": "^4.6.0",
     "lodash.pull": "^4.1.0",
     "lodash.uniq": "^4.5.0",

@@ -31,12 +31,12 @@ class App extends React.Component {
 			this.props.dispatch(saveusersettings_request(usersettings));
 		}
     render() {
-        const {ispopcaresel_single_datameter,curdevice,devicelist,devices} = this.props;
+        const {ispopcaresel_single_datameter,curdevice,devicelist,devices,devicetype} = this.props;
         return (
             <div className="datameterPage">
                 <Header title="数据监控" history={this.props.history} ishidereturn/>
-                { !!curdevice && <Filler curdevice={curdevice}/> }
-                { !!curdevice && <Meter curdevice={curdevice}/> }
+                { !!curdevice && <Filler curdevice={curdevice} devicetype={devicetype}/> }
+                { !!curdevice && <Meter curdevice={curdevice} devicetype={devicetype}/> }
                 <List history={this.props.history} devicelist={devicelist} devices={devices}/>
                 <Footer history={this.props.history} sel={"datameter"} />
                 {ispopcaresel_single_datameter && <PopcareSel value={curdevice._id} onChange={this.onChangeCaresel}/>}
@@ -45,7 +45,7 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{devicelist,devices},userlogin:{usersettings},app:{ispopcaresel_single_datameter}}) => {
+const mapStateToProps = ({device:{devicelist,devices,devicetype},userlogin:{usersettings},app:{ispopcaresel_single_datameter}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
@@ -56,6 +56,6 @@ const mapStateToProps = ({device:{devicelist,devices},userlogin:{usersettings},a
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {curdevice,devicelist,devices,ispopcaresel_single_datameter};
+    return {curdevice,devicelist,devices,ispopcaresel_single_datameter,devicetype};
 }
 export default connect(mapStateToProps)(App);
