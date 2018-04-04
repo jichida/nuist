@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import lodashget from 'lodash.get';
 import moment from 'moment';
 // import lodashmap from 'lodash.map';
 
@@ -62,7 +62,7 @@ export const getpopinfowindowstyle = (deviceitem,g_devicetype)=>{
 
 const getdevicestatus_isonline = (deviceitem,SettingOfflineMinutes=20)=>{
   let isonline = false;
-  let datatime = get(deviceitem,'realtimedata.datatime');
+  let datatime = lodashget(deviceitem,'realtimedata.datatime');
   if(!!datatime){
     // a.diff(b, 'days')
     const diffmin = moment().diff(moment(datatime),'minutes');
@@ -72,11 +72,11 @@ const getdevicestatus_isonline = (deviceitem,SettingOfflineMinutes=20)=>{
 }
 
 const getdevicestatus_alaramlevel = (deviceitem)=>{
-  let warninglevel = get(deviceitem,'warninglevel','');
+  let warninglevel = lodashget(deviceitem,'warninglevel','');
   return warninglevel;
 }
 
-export const getimageicon_isonline = (item,SettingOfflineMinutes)=>{
+export const getimageicon_isonline = (item,SettingOfflineMinutes,g_devicetype)=>{
   //这里根据不同item显示不同图标
   const isonline = getdevicestatus_isonline(item,SettingOfflineMinutes);
   const icon_car0 = `${process.env.PUBLIC_URL}/images/icon_car0.png`;
@@ -97,14 +97,17 @@ export const getimageicon_isonline = (item,SettingOfflineMinutes)=>{
   return {iconname:curpng,isonline};
 }
 
-const icon_error = `${process.env.PUBLIC_URL}/images/device_error.png`;
-const icon_normal = `${process.env.PUBLIC_URL}/images/device_normal.png`;
-const icon_alarm = `${process.env.PUBLIC_URL}/images/device_alarm.png`;
 
-export const getimageicon = (item,SettingOfflineMinutes)=>{
+export const getimageicon = (item,SettingOfflineMinutes,g_devicetype)=>{
+
   //这里根据不同item显示不同图标
+  const curdevicetype = g_devicetype[item.devicetype];
+  const icon_error = lodashget(curdevicetype,'iconurl_error',`${process.env.PUBLIC_URL}/images/device_error.png`);
+  const icon_normal = lodashget(curdevicetype,'iconurl_normal',`${process.env.PUBLIC_URL}/images/device_normal.png`);
+  const icon_alarm = lodashget(curdevicetype,'iconurl_alarm',`${process.env.PUBLIC_URL}/images/device_alarm.png`);
+
   let curpng = icon_normal;
-  const realtimedata_datatime = get(item,'realtimedata.datatime');
+  const realtimedata_datatime = lodashget(item,'realtimedata.datatime');
   if(!realtimedata_datatime){
     curpng = icon_error;
     return;
@@ -116,7 +119,7 @@ export const getimageicon = (item,SettingOfflineMinutes)=>{
     return;
   }
 
-  const realtimealarm_updatetime = get(item,'realtimealarm.updatetime');
+  const realtimealarm_updatetime = lodashget(item,'realtimealarm.updatetime');
   if(!!realtimealarm_updatetime){
     const diffmin = moment().diff(moment(realtimealarm_updatetime),'minutes');
     const isonline = diffmin < SettingOfflineMinutes;
