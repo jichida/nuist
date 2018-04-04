@@ -5,6 +5,40 @@ import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
 import {getCoureName,getindexstring} from '../../util';
 
+const TitleC = (props)=>{
+	const {fieldslist_brief,fields} = props;
+	return (<div className="t1">
+				{
+					lodashmap(fieldslist_brief,(fieldname)=>{
+						const fieldsprops = fields[fieldname];
+						if(!!fieldsprops){
+							return (<span key={fieldname}>{`${fieldsprops.showname}`}</span>);
+						}
+					})
+				}
+			</div>);
+}
+
+const TitleD = (props)=>{
+	const {curdevice,fieldslist_brief,fields} = props;
+	return (<div>
+				{
+					lodashmap(fieldslist_brief,(fieldname)=>{
+						const fieldsprops = fields[fieldname];
+						if(!!fieldsprops){
+							let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`);
+							if(fieldname === 'winddirection'){
+								showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
+							}
+							return (<span  key={fieldname}>{showvalue}
+								{`${lodashget(fieldsprops,'unit','')}`}
+							</span>);
+						}
+					})
+				}
+			</div>);
+}
+
 class App extends React.Component {
 
 	 pushurl=(name)=>{
@@ -12,13 +46,13 @@ class App extends React.Component {
     }
 
   	render() {
-			const {devicelist,devices} = this.props;
+			const {devicelist,devices,devicetype} = this.props;
 	    return (
 	      	<div className="datamonitordata">
-
 							{
 								lodashmap(devicelist,(did,index)=>{
 									const curdevice = devices[did];
+									const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
 									if(!!curdevice){
 										return (
 											<ul key={did}>
@@ -32,23 +66,11 @@ class App extends React.Component {
 						        			</div>
 						        		</li>
 						        		<li className="dd">
-						        			<div className="t1">
-							        			<span>风向</span>
-								      			<span>风力</span>
-														<span>温度</span>
-								      			<span>湿度</span>
-								      			<span>气压</span>
-								      			<span>雨量</span>
-							      			</div>
+						        			<TitleC  key={`${did}_c`} fieldslist_brief={fieldslist_brief} fields={fields}/>
 													{
-														!!curdevice.realtimedata ? (	<div>
-									        			<span>{getCoureName(lodashget(curdevice,'realtimedata.winddirection'))}风</span>
-										      			<span>{lodashget(curdevice,'realtimedata.windspeed')}级</span>
-										      			<span>{lodashget(curdevice,'realtimedata.temperature')}℃</span>
-										      			<span>{lodashget(curdevice,'realtimedata.humidity')}%</span>
-										      			<span>{lodashget(curdevice,'realtimedata.pressure')}Pa</span>
-										      			<span>{lodashget(curdevice,'realtimedata.rainfall')}mm</span>
-									      			</div>):(<div><p className = "text_center" >暂无数据</p></div>)
+														!!curdevice.realtimedata ?
+														 (<TitleD key={`${did}_d`} fieldslist_brief={fieldslist_brief} fields={fields} curdevice={curdevice}/>):
+														(<div><p className = "text_center" >暂无数据</p></div>)
 													}
 
 						        		</li>

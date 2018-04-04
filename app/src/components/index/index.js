@@ -46,20 +46,16 @@ const BottomBannerData = (props)=>{
 				lodashmap(fieldslist_brief,(fieldname)=>{
 					const fieldsprops = fields[fieldname];
 					if(!!fieldsprops){
+						let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`);
 						if(fieldname === 'winddirection'){
-							return (
-								<li key={fieldname}>
-									<img alt="" src={`${fieldsprops.iconurl}`} />
-									<span>{`${fieldsprops.showname}`}</span>
-									<span>{getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`))}风</span>
-								</li>)
+							showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
 						}
 
 						return (
 							<li key={fieldname}>
 								<img alt="" src={`${fieldsprops.iconurl}`} />
 								<span>{`${fieldsprops.showname}`}</span>
-								<span>{lodashget(curdevice,`realtimedata.${fieldname}`)}
+								<span>{showvalue}
 									{`${lodashget(fieldsprops,'unit','')}`}
 								</span>
 							</li>
