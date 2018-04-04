@@ -1,5 +1,6 @@
-import lodashget from 'lodash.get';
 import {getCoureName} from '../../util';
+import lodashget from 'lodash.get';
+import lodashmap from 'lodash.map';
 
 import ImageArrow from '../../img/arrow-right.png';
 // import ImageLocation from '../../img/location.png';
@@ -30,12 +31,31 @@ const style_weui_dialog__bd_p_span = `
 
 const getDeviceLayerHtml = (curdevice,g_devicetype)=>{
   const devicename = lodashget(curdevice,'name','');
-  const winddirection = getCoureName(lodashget(curdevice,'realtimedata.winddirection',0));
-  const windspeed = lodashget(curdevice,'realtimedata.windspeed','');
-  const temperature = lodashget(curdevice,'realtimedata.temperature','');
-  const humidity = lodashget(curdevice,'realtimedata.humidity','');
-  const pressure = lodashget(curdevice,'realtimedata.pressure','');
-  const rainfall =lodashget(curdevice,'realtimedata.rainfall','');
+  const curdevicetype = g_devicetype[curdevice.devicetype];
+  const {fields,fieldslist_brief} = curdevicetype;
+  // const winddirection = getCoureName(lodashget(curdevice,'realtimedata.winddirection',0));
+  // const windspeed = lodashget(curdevice,'realtimedata.windspeed','');
+  // const temperature = lodashget(curdevice,'realtimedata.temperature','');
+  // const humidity = lodashget(curdevice,'realtimedata.humidity','');
+  // const pressure = lodashget(curdevice,'realtimedata.pressure','');
+  // const rainfall =lodashget(curdevice,'realtimedata.rainfall','');
+  let content_all = '';
+  lodashmap(fieldslist_brief,(fieldname)=>{
+    const fieldsprops = fields[fieldname];
+    if(!!fieldsprops){
+      const show_showname = `${fieldsprops.showname}`;
+      let show_showvalue = lodashget(curdevice,`realtimedata.${fieldname}`,'');
+      if(fieldname === 'winddirection'){
+        show_showvalue = getCoureName(show_showvalue);
+      }
+      const show_showunit = `${fieldsprops.unit}`;
+      content_all += `<p style = ${style_weui_dialog__bd_p}>
+        ${show_showname} ${show_showvalue}${show_showunit}
+        <span style=${style_weui_dialog__bd_p_span}>
+        </span>
+      </p>`
+    }
+  })
   return (
         `<div style =${style_weui_dialog}>
           <div style = ${style_weui_dialog__bd}>
@@ -43,29 +63,31 @@ const getDeviceLayerHtml = (curdevice,g_devicetype)=>{
               ${devicename}
               <img alt="" style=${style_weui_dialog__bd_p_img} src=${ImageArrow} />
             </p>
-            <p style = ${style_weui_dialog__bd_p}>
-              风向 ${winddirection}
-              <span style=${style_weui_dialog__bd_p_span}>
-                风力 ${windspeed}级
-              </span>
-            </p>
-            <p style = ${style_weui_dialog__bd_p}>
-              温度 ${temperature}℃
-              <span style=${style_weui_dialog__bd_p_span}>
-                湿度 ${humidity}%
-              </span>
-            </p>
-            <p style = ${style_weui_dialog__bd_p}>
-              气压 ${pressure}Pa
-              <span style=${style_weui_dialog__bd_p_span}>
-                雨量 ${rainfall}mm
-              </span>
-            </p>
+            ${content_all}
           </div>
           <div>
           </div>
         </div>`
       );
 }
+
+/* <p style = ${style_weui_dialog__bd_p}>
+  风向 ${winddirection}
+  <span style=${style_weui_dialog__bd_p_span}>
+    风力 ${windspeed}级
+  </span>
+</p>
+<p style = ${style_weui_dialog__bd_p}>
+  温度 ${temperature}℃
+  <span style=${style_weui_dialog__bd_p_span}>
+    湿度 ${humidity}%
+  </span>
+</p>
+<p style = ${style_weui_dialog__bd_p}>
+  气压 ${pressure}Pa
+  <span style=${style_weui_dialog__bd_p_span}>
+    雨量 ${rainfall}mm
+  </span>
+</p> */
 
 export default getDeviceLayerHtml;

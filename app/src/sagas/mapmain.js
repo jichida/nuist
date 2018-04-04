@@ -16,6 +16,7 @@ import {
   mapmain_showpopinfo,
   // mapmain_showpopinfo_list,
   getdevicelist_result,
+  getdevicelist_result_4reducer,
   serverpush_device
   } from '../actions';
   import config from '../env/config.js';
@@ -93,7 +94,7 @@ import {
           marker.on('click',()=>{
             //console.log(`click marker ${key}`);
             window.AMapUI.loadUI(['overlay/SimpleInfoWindow'], function(SimpleInfoWindow) {
-                store.dispatch(ui_mycar_selcurdevice(item.DeviceId));
+                store.dispatch(ui_mycar_selcurdevice(item._id));
             });
           });
           markers.push(marker);
@@ -107,7 +108,7 @@ import {
     const allmarks = markCluster.getMarkers();
     lodashmap(allmarks,(mark)=>{
       const deviceitem = g_devicesdb[mark.getExtData()];
-      const deviceitemnew = g_devicesdb_updated[deviceitem.DeviceId];
+      const deviceitemnew = g_devicesdb_updated[deviceitem._id];
       if(!!deviceitemnew){
         if(!!deviceitemnew.Longitude){
           const pos = new window.AMap.LngLat(deviceitemnew.Longitude,deviceitemnew.Latitude);
@@ -358,16 +359,15 @@ import {
       yield takeLatest(`${mapmain_showpopinfo}`, function*(actiondevice) {
         //显示弹框
         try{
-          const {payload:{DeviceId}} = actiondevice;
+          const {payload:_id} = actiondevice;
           const {g_devicesdb,g_devicetype} = yield select((state)=>{
             const {devices,devicetype} = state.device;
             return {g_devicesdb:devices,g_devicetype:devicetype};
           });
-          const listitem = [g_devicesdb[DeviceId]];
-          if(listitem.length === 1){
+
             //1
             //弹框
-            yield call(showinfowindow,listitem[0],g_devicetype);
+            yield call(showinfowindow,g_devicesdb[_id],g_devicetype);
 
             yield fork(function*(eventname){
              //while(true){//关闭时触发的事件
@@ -376,9 +376,8 @@ import {
                   infoWindow.close();
                   infoWindow = null;
               }
+            });
 
-            },'close');
-          }
 
         }
         catch(e){
@@ -429,49 +428,51 @@ import {
       //   }
       // });
 
-      //查询所有车辆返回
-      yield takeLatest(`${getdevicelist_result}`, function*(deviceresult) {
-        let {payload:{list:devicelistresult}} = deviceresult;
-        try{
-            const {g_devicesdb,g_devicetype} = yield select((state)=>{
-              const {devices,devicetype} = state.device;
-              return {g_devicesdb:devices,g_devicetype:devicetype};
-            });
 
-            const data = [];
-            lodashmap(devicelistresult,(deviceitem)=>{
-              if(!!deviceitem.Longitude && deviceitem.Longitude !==0){
-                data.push(deviceitem);
+        yield takeLatest(`${getdevicelist_result}`, function*(deviceresult) {
+          let {payload} = deviceresult;
+          try{
+              yield put.resolve(getdevicelist_result_4reducer(payload));
+
+              const {g_devicesdb,g_devicetype} = yield select((state)=>{
+                const {devices,devicetype} = state.device;
+                return {g_devicesdb:devices,g_devicetype:devicetype};
+              });
+
+              // const data = [];
+              // lodashmap(devicelistresult,(deviceitem)=>{
+              //   if(!!deviceitem.Longitude && deviceitem.Longitude !==0){
+              //     data.push(deviceitem);
+              //   }
+              //   g_devicesdb[deviceitem.DeviceId] = deviceitem;
+              // });
+
+              //等待地图创建
+              while(!markCluster){
+                yield delay(500);
               }
-              g_devicesdb[deviceitem.DeviceId] = deviceitem;
-            });
 
-            //等待地图创建
-            while(!markCluster){
-              yield delay(500);
+              const SettingOfflineMinutes =yield select((state)=>{
+                return get(state,'app.SettingOfflineMinutes',20);
+              });
+              getMarkCluster_recreateMarks(SettingOfflineMinutes,g_devicesdb,g_devicetype);
+              yield call(getMarkCluster_showMarks,{isshow:true,SettingOfflineMinutes,g_devicesdb,g_devicetype});
+
+              //选中一个默认节点
+              const {usersettings} = yield select((state)=>{
+                const {usersettings} = state.userlogin;
+                return {usersettings};
+              });
+              const indexdeviceid = get(usersettings,'indexdeviceid','');
+              if(!!g_devicesdb[indexdeviceid]){
+                yield put(ui_mycar_selcurdevice(indexdeviceid));
+              }
+            }
+            catch(e){
+              console.log(e);
             }
 
-            const SettingOfflineMinutes =yield select((state)=>{
-              return get(state,'app.SettingOfflineMinutes',20);
-            });
-            getMarkCluster_recreateMarks(SettingOfflineMinutes,g_devicesdb,g_devicetype);
-            yield call(getMarkCluster_showMarks,{isshow:true,SettingOfflineMinutes,g_devicesdb,g_devicetype});
-
-            //选中一个默认节点
-            const {usersettings} = yield select((state)=>{
-              const {usersettings} = state.userlogin;
-              return {usersettings};
-            });
-            const indexdeviceid = get(usersettings,'indexdeviceid','');
-            if(!!g_devicesdb[indexdeviceid]){
-              yield put(ui_mycar_selcurdevice(g_devicesdb[indexdeviceid].DeviceId));
-            }
-          }
-          catch(e){
-            console.log(e);
-          }
-
-      });
+        });
 
         yield takeLatest(`${serverpush_device}`, function*(action) {
           const {payload:deviceitem} = action;
@@ -479,12 +480,12 @@ import {
             const {devices,devicetype} = state.device;
             return {g_devicesdb:devices,g_devicetype:devicetype};
           });
-          g_devicesdb[deviceitem.DeviceId] = deviceitem;
+          g_devicesdb[deviceitem._id] = deviceitem;
           const SettingOfflineMinutes =yield select((state)=>{
             return get(state,'app.SettingOfflineMinutes',20);
           });
           let g_devicesdb_updated = {};
-          g_devicesdb_updated[deviceitem.DeviceId] = deviceitem;
+          g_devicesdb_updated[deviceitem._id] = deviceitem;
           getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,g_devicetype);
         });
 
@@ -492,7 +493,7 @@ import {
           yield takeLatest(`${ui_mycar_selcurdevice}`, function*(action) {
             //地图模式选择车辆
             try{
-              const {payload:DeviceId} = action;
+              const {payload:_id} = action;
               const {g_devicesdb} = yield select((state)=>{
                 const {devices,devicetype} = state.device;
                 return {g_devicesdb:devices,g_devicetype:devicetype};
@@ -502,14 +503,14 @@ import {
                   infoWindow = null;
               }
               //先定位到地图模式,然后选择车辆
-              const deviceitem = g_devicesdb[DeviceId];
+              const deviceitem = g_devicesdb[_id];
               if(!!deviceitem){
                 let usersettings = yield select((state)=>{
                   return state.userlogin.usersettings;
                 });
                 usersettings.indexdeviceid = deviceitem._id;
                 yield put(saveusersettings_request(usersettings));
-                yield put(mapmain_showpopinfo({DeviceId}));
+                yield put(mapmain_showpopinfo(_id));
               }
 
             }

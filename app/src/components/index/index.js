@@ -119,7 +119,7 @@ class App extends React.Component {
 
 			const {devices} = this.props;
 			if(!!devices[value]){
-				this.props.dispatch(ui_mycar_selcurdevice(devices[value].DeviceId));
+				this.props.dispatch(ui_mycar_selcurdevice(value));
 			}
 
 		}

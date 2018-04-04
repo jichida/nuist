@@ -2,7 +2,7 @@ import { createAction } from 'redux-act';
 //获取结点信息
 export const getdevicelist_request = createAction('getdevicelist_request');
 export const getdevicelist_result = createAction('getdevicelist_result');
-
+export const getdevicelist_result_4reducer = createAction('getdevicelist_result_4reducer');
 //查询报警信息
 export const getrealtimealarmlist_request = createAction('getrealtimealarmlist_request');
 export const getrealtimealarmlist_result = createAction('getrealtimealarmlist_result');

@@ -9,7 +9,7 @@ import {
   set_weui,
 
   getdevicelist_request,
-  getdevicelist_result,
+  getdevicelist_result_4reducer,
 
   ui_startalarm,
   ui_stopalarm,
@@ -31,7 +31,7 @@ import config from '../env/config.js';
 import {getdomposition} from '../util/index';
 
 export function* wsrecvsagaflow() {
-  yield takeLatest(`${getdevicelist_result}`,function*(action){
+  yield takeLatest(`${getdevicelist_result_4reducer}`,function*(action){
     //若第一次usersettings里面字段为空，则设置
     const {list} = action.payload;
     if(list.length > 0){
