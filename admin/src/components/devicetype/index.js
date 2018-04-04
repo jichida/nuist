@@ -3,6 +3,7 @@ import { List, EmailField } from 'admin-on-rest/lib/mui';
 import { CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
+import { Field } from 'redux-form';
 import {
   CreateButton,
   RichTextField,
@@ -29,10 +30,12 @@ import {
   BooleanField,
   ImageField,
   NumberField,
-  ReferenceField
+  ReferenceField,
+  TabbedForm,
+  FormTab
 } from 'admin-on-rest/lib/mui';
 
-import { Field } from 'redux-form';
+import FieldList from './fieldlist';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TimePicker from 'material-ui/TimePicker';
@@ -43,6 +46,7 @@ import {ImageInputUpload} from '../controls/imageupload.js';
 import {ImageInputUploadArray} from '../controls/imageuploadarray.js';
 import RichTextInput from '../controls/richtoolbar.js';
 
+import FieldSelectArrayInput from './fieldarrayselect';
 
 export const DeviceTypeFilter = props => (
     <Filter {...props}>
@@ -53,14 +57,24 @@ export const DeviceTypeFilter = props => (
 const DeviceTypecreateTitle = ({ record }) => {
    return <span>新建 节点类型</span>;
 };
+
+
+
 const DeviceTypeCreate = (props) => (
        <Create {...props} title={<DeviceTypeTitle />} >
-           <SimpleForm>
-              <TextInput label="名字" source="name" />
-              <ImageInputUpload label="普通节点图标"  source="iconurl_normal" />
-              <ImageInputUpload label="报警节点图标"  source="iconurl_alarm" />
-              <ImageInputUpload label="故障节点图标"  source="iconurl_error" />
-           </SimpleForm>
+           <TabbedForm>
+             <FormTab label="基本信息">
+               <TextInput label="名字" source="name" />
+               <ImageInputUpload label="普通节点图标"  source="iconurl_normal" />
+               <ImageInputUpload label="报警节点图标"  source="iconurl_alarm" />
+               <ImageInputUpload label="故障节点图标"  source="iconurl_error" />
+            </FormTab>
+           <FormTab label="自定义字段">
+             <FieldList label="全部字段" source="fieldsall" />
+             <FieldSelectArrayInput  label="简要字段列表【不超过6个】" source="fieldslist_brief" />
+             <FieldSelectArrayInput label="详细字段列表" source="fieldslist_detail" />
+              </FormTab>
+           </TabbedForm>
        </Create>
 );
 
@@ -71,16 +85,25 @@ const DeviceTypeTitle = ({ record }) => {
 
 const DeviceTypeEdit = (props) => {
       return (<Edit title={<DeviceTypeTitle />} {...props}>
-          <SimpleForm>
+        <TabbedForm>
+          <FormTab label="基本信息">
             <TextInput label="名字" source="name" />
             <ImageInputUpload label="普通节点图标"  source="iconurl_normal" />
             <ImageInputUpload label="报警节点图标"  source="iconurl_alarm" />
             <ImageInputUpload label="故障节点图标"  source="iconurl_error" />
-          </SimpleForm>
+         </FormTab>
+        <FormTab label="自定义字段">
+           <FieldList label="全部字段" source="fieldsall" />
+           <FieldSelectArrayInput  label="简要字段列表【不超过6个】" source="fieldslist_brief" />
+           <FieldSelectArrayInput label="详细字段列表" source="fieldslist_detail" />
+         </FormTab>
+        </TabbedForm>
       </Edit>);
 
 };
 
+{/* <CfSelectArrayInput label="简要字段列表【不超过6个】" source="fieldslist_brief" loadOptions={getOptions(props)}/>
+<CfSelectArrayInput label="详细字段列表" source="fieldslist_detail" loadOptions={getOptions(props)}/> */}
 
 
 const DeviceTypeList = (props) => (//
