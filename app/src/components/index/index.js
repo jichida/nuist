@@ -4,12 +4,12 @@ import Footer from "../footer";
 import Header from "../header/main";
 // import Header2 from "../header/page";
 // import Mainmap from "../../img/mapbg.png";
-import Data1 from "../../img/14.png";
-import Data2 from "../../img/15.png";
-import Data3 from "../../img/16.png";
-import Data4 from "../../img/17.png";
-import Data5 from "../../img/18.png";
-import Data6 from "../../img/19.png";
+// import Data1 from "../../img/14.png";
+// import Data2 from "../../img/15.png";
+// import Data3 from "../../img/16.png";
+// import Data4 from "../../img/17.png";
+// import Data5 from "../../img/18.png";
+// import Data6 from "../../img/19.png";
 import City from "../../img/20.png";
 import Point from "../../img/21.png";
 

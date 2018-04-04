@@ -51,7 +51,8 @@ const DeviceTypeSchema = new Schema({
     {
       name:String,
       showname:String,
-      iconurl:String
+      iconurl:String,
+      unit:String,
     }
   ],
   fieldslist_brief:[],

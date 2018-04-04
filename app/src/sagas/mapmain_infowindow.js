@@ -7,9 +7,9 @@ import Point_list_img from "../img/13.png";
 // import lodashget from 'lodash.get'
 import getDeviceLayerHtml from '../components/map/layerdevice';
 
-const createInfoWindow_popinfo =(data)=> {
+const createInfoWindow_popinfo =(data,g_devicetype)=> {
     let info = document.createElement("div");
-    info.innerHTML = getDeviceLayerHtml(data);
+    info.innerHTML = getDeviceLayerHtml(data,g_devicetype);
     return {
         isCustom: true,  //使用自定义窗体
         content: info,

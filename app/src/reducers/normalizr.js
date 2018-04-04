@@ -1,5 +1,6 @@
 import { normalize, schema } from 'normalizr';
 import lodashmap from 'lodash.map';
+import lodashget from 'lodash.get';
 // Define a users schema
 const devicetype = new schema.Entity('devicetype',{},{
   idAttribute: '_id',
@@ -22,7 +23,8 @@ const normalizrdevices=(list)=>{
     lodashmap(fieldsall,(v)=>{
       fields[v.name] = {
         showname:v.showname,
-        iconurl:v.iconurl
+        iconurl:v.iconurl,
+        unit:lodashget(v,'unit','')
       };
     })
     devicetypenew[k] = {fields,...rest};

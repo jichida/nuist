@@ -28,7 +28,7 @@ const style_weui_dialog__bd_p_span = `
 // 	width:30px;height:30px;vertical-align:middle;display:inline-flex;
 // 	`;
 
-const getDeviceLayerHtml = (curdevice)=>{
+const getDeviceLayerHtml = (curdevice,g_devicetype)=>{
   const devicename = lodashget(curdevice,'name','');
   const winddirection = getCoureName(lodashget(curdevice,'realtimedata.winddirection',0));
   const windspeed = lodashget(curdevice,'realtimedata.windspeed','');

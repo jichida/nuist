@@ -42,14 +42,16 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
     if(index != -1 && index < vsz.length ){
       const name = values["columns"][0].value;
       const showname = values["columns"][1].value;
-      const iconurl = values["columns"][2].value;
-      newv[index] = {name,showname,iconurl};
+      const unit = values["columns"][2].value;
+      const iconurl = values["columns"][3].value;
+      newv[index] = {name,showname,unit,iconurl};
     }
     else if(index >= vsz.length){
       const name = values["columns"][0].value;
       const showname = values["columns"][1].value;
-      const iconurl = values["columns"][2].value;
-      newv.push( {name,showname,iconurl});
+      const unit = values["columns"][2].value;
+      const iconurl = values["columns"][3].value;
+      newv.push( {name,showname,unit,iconurl});
     }
     else{
       return;
@@ -62,6 +64,7 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
   let headers = [
      {value:'字段名',type:'TextField',width:200},
      {value: '字段显示名', type: 'TextField', width: 200},
+     {value: '单位', type: 'TextField', width: 200},
      {value: '图标', type: 'ImageUpload', width: 'auto'},
   ];
 
@@ -70,6 +73,7 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
       {columns: [
         {value: v.name},
         {value: v.showname},
+        {value: v.unit},
         {value: v.iconurl},
       ]}
     );

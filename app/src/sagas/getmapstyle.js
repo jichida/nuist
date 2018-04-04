@@ -1,8 +1,8 @@
 import get from 'lodash.get';
 import moment from 'moment';
-import lodashmap from 'lodash.map';
+// import lodashmap from 'lodash.map';
 
-import {createInfoWindow_popinfo,createInfoWindow_poplistinfo} from './mapmain_infowindow';
+import {createInfoWindow_popinfo} from './mapmain_infowindow';
 
 
 // const getpop_device =(deviceitem)=>{
@@ -10,55 +10,55 @@ import {createInfoWindow_popinfo,createInfoWindow_poplistinfo} from './mapmain_i
 // }
 
 
-export const getpopinfowindowstyle = (deviceitem)=>{
+export const getpopinfowindowstyle = (deviceitem,g_devicetype)=>{
   // let result = bridge_deviceinfo_pop(deviceitem);
-  return createInfoWindow_popinfo(deviceitem);
+  return createInfoWindow_popinfo(deviceitem,g_devicetype);
 }
 
-
-
-export const getlistpopinfowindowstyle = (deviceitemlist,SettingOfflineMinutes)=>{
-    // let info = '<div class="getmapstylepage">';
-    const result = (deviceitemlist);
-    const {kvlist} = result;
-
-    let data = [];
-    lodashmap(result.deviceitemlist,(deviceitem)=>{
-
-        const DeviceId = get(deviceitem,'DeviceId','');
-        let fields = [];
-        // let contentxt = '';
-        lodashmap(kvlist,(v)=>{
-          const fieldvalue = get(deviceitem,v.name,'');
-          const unit = get(deviceitem,v.unit,'');
-          // contentxt += `${v.showname}${fieldvalue}${unit}|`;
-          fields.push({
-            fieldname:v.name,
-            showname:v.showname,
-            fieldvalue,
-            unit
-          });
-        });
-        // console.log(`deviceitem:${deviceitem.DeviceId},GPSTime:${}`)
-        const  {iconname,isonline} = getimageicon_isonline(deviceitem,SettingOfflineMinutes);
-
-        data.push({
-          iconname,
-          isonline,
-          DeviceId,
-          fields
-        });
-        // info +=  `<p onclick="clickfn_device(${deviceitem.DeviceId})">
-        // <i class="t">车辆ID:${DeviceId}</i>
-        // <i>${contentxt}</i></p>`;
-    });
-    // info += '</div>'
-    return createInfoWindow_poplistinfo(data);
-
-    // {
-    //     content: createInfoWindow('aaa',`${info}`)
-    // };
-}
+//
+//
+// export const getlistpopinfowindowstyle = (deviceitemlist,SettingOfflineMinutes)=>{
+//     // let info = '<div class="getmapstylepage">';
+//     const result = (deviceitemlist);
+//     const {kvlist} = result;
+//
+//     let data = [];
+//     lodashmap(result.deviceitemlist,(deviceitem)=>{
+//
+//         const DeviceId = get(deviceitem,'DeviceId','');
+//         let fields = [];
+//         // let contentxt = '';
+//         lodashmap(kvlist,(v)=>{
+//           const fieldvalue = get(deviceitem,v.name,'');
+//           const unit = get(deviceitem,v.unit,'');
+//           // contentxt += `${v.showname}${fieldvalue}${unit}|`;
+//           fields.push({
+//             fieldname:v.name,
+//             showname:v.showname,
+//             fieldvalue,
+//             unit
+//           });
+//         });
+//         // console.log(`deviceitem:${deviceitem.DeviceId},GPSTime:${}`)
+//         const  {iconname,isonline} = getimageicon_isonline(deviceitem,SettingOfflineMinutes);
+//
+//         data.push({
+//           iconname,
+//           isonline,
+//           DeviceId,
+//           fields
+//         });
+//         // info +=  `<p onclick="clickfn_device(${deviceitem.DeviceId})">
+//         // <i class="t">车辆ID:${DeviceId}</i>
+//         // <i>${contentxt}</i></p>`;
+//     });
+//     // info += '</div>'
+//     return createInfoWindow_poplistinfo(data);
+//
+//     // {
+//     //     content: createInfoWindow('aaa',`${info}`)
+//     // };
+// }
 
 const getdevicestatus_isonline = (deviceitem,SettingOfflineMinutes=20)=>{
   let isonline = false;
