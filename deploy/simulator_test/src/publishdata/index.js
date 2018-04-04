@@ -11,6 +11,11 @@ const getpublishdata_device = (DeviceId)=>{
       "humidity" : _.random(0, 100),
       "rainfall" : _.random(0, 1000),
       "temperature" : _.random(0, 43),
+      "deformation":_.random(0, 100),
+      "voltage":_.random(0, 100),
+      "stress0":_.random(0, 100),
+      "stress1":_.random(0, 100),
+      "osmoticpressure":_.random(0, 100),
     }
   };
 }
