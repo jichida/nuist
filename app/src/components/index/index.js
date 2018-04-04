@@ -19,7 +19,7 @@ import Usercenter from "../user/center.js";
 import PopcareSel from "../popcaresel";
 
 import lodashget from 'lodash.get';
-
+import lodashmap from 'lodash.map';
 
 import "./index.css";
 import {
@@ -29,6 +29,46 @@ import {
 	ui_setmapstyle
 } from '../../actions';
 import {getCoureName} from '../../util';
+
+const BottomBannerData = (props)=>{
+	const {curdevice,devicetype} = props;
+	const curdevicetype = devicetype[curdevice.devicetype];
+	if(!curdevicetype){
+		return (<div>无法获取节点类型</div>);
+	}
+	const {fields,fieldslist_brief} = curdevicetype;
+	if(!fields){
+		return (<div>无法获取节点类型的字段属性</div>);
+	}
+	return (
+		<ul>
+			{
+				lodashmap(fieldslist_brief,(fieldname)=>{
+					const fieldsprops = fields[fieldname];
+					if(!!fieldsprops){
+						if(fieldname === 'winddirection'){
+							return (
+								<li key={fieldname}>
+									<img alt="" src={`${fieldsprops.iconurl}`} />
+									<span>{`${fieldsprops.showname}`}</span>
+									<span>{getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`))}风</span>
+								</li>)
+						}
+
+						return (
+							<li key={fieldname}>
+								<img alt="" src={`${fieldsprops.iconurl}`} />
+								<span>{`${fieldsprops.showname}`}</span>
+								<span>{lodashget(curdevice,`realtimedata.${fieldname}`)}
+									{`${lodashget(fieldsprops,'unit','')}`}
+								</span>
+							</li>
+						)
+					}
+				})
+			}
+	</ul>);
+}
 
 
 class App extends React.Component {
@@ -84,7 +124,7 @@ class App extends React.Component {
 
 		}
   	render() {
-			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,usersettings} = this.props;
+			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,usersettings,devicetype} = this.props;
 			const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
 	    return (
 	      	<div
@@ -106,16 +146,7 @@ class App extends React.Component {
 			        		<div onClick={this.onClickPopCareSel} className="mapcanver city"><img alt="" src={City} /><span>{lodashget(curdevice,'name')}</span></div>
 			        		<div onClick={this.onClickPopCareSel} className="mapcanver point"><img alt="" src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
 			        		<div className="maindata">
-											<ul>
-												<li><img alt="" src={Data1} /><span>风向</span>
-												<span>{getCoureName(lodashget(curdevice,'realtimedata.winddirection'))}风</span>
-												</li>
-												<li><img alt="" src={Data2} /><span>风力</span><span>{lodashget(curdevice,'realtimedata.windspeed')}级</span></li>
-												<li><img alt="" src={Data3} /><span>温度</span><span>{lodashget(curdevice,'realtimedata.temperature')}℃</span></li>
-												<li><img alt="" src={Data4} /><span>湿度</span><span>{lodashget(curdevice,'realtimedata.humidity')}%</span></li>
-												<li><img alt="" src={Data5} /><span>大气压</span><span>{lodashget(curdevice,'realtimedata.pressure')}Pa</span></li>
-												<li><img alt="" src={Data6} /><span>雨量</span><span>{lodashget(curdevice,'realtimedata.rainfall')}mm</span></li>
-											</ul>
+											<BottomBannerData curdevice={curdevice} devicetype={devicetype} />
 			        		</div>
 			        	</div>
 							)
@@ -132,7 +163,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,mapstyle},
-	device:{devicelist,devices},
+	device:{devicelist,devices,devicetype},
 	userlogin:{usersettings,loginsuccess}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
@@ -144,6 +175,6 @@ const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_sin
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,loginsuccess,devices,usersettings,mapstyle};
+    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,loginsuccess,devices,usersettings,mapstyle,devicetype};
 }
 export default connect(mapStateToProps)(App);
