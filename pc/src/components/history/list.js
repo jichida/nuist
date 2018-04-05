@@ -4,57 +4,80 @@ import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
 import {getCoureName} from '../../util';
-import jt2 from "../../img/jt.png";
+// import jt2 from "../../img/jt.png";
+
+
+const TitleC = (props)=>{
+	const {fieldslist_brief,fields} = props;
+	return (<div className="tit">
+				{
+					lodashmap(fieldslist_brief,(fieldname)=>{
+						const fieldsprops = fields[fieldname];
+						if(!!fieldsprops){
+							return (<span key={fieldname}>{`${fieldsprops.showname}`}</span>);
+						}
+					})
+				}
+				<span>时间</span>
+			</div>);
+}
+
+const TitleD = (props)=>{
+	const {curdevice,fieldslist_brief,fields,vs} = props;
+	return (<li>
+				{
+					lodashmap(fieldslist_brief,(fieldname)=>{
+						const fieldsprops = fields[fieldname];
+						if(!!fieldsprops){
+							let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`);
+							if(fieldname === 'winddirection'){
+								showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
+							}
+							return (<span  key={fieldname}>{showvalue}
+								{`${lodashget(fieldsprops,'unit','')}`}
+							</span>);
+						}
+					})
+				}
+				  <span className="small">{vs}</span>
+			</li>);
+}
 
 class App extends React.Component {
 
   	render() {
-      const {retlist} = this.props;
+      const {retlist,devicetype,curdevice} = this.props;
+			const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
       const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
 	    return (
 	      	<div className="monitordata">
-	      		<div className="tit">
-	      			<span>风向</span>
-	      			<span>风力</span>
-	      			<span>风力</span>
-	      			<span>湿度</span>
-	      			<span>气压</span>
-	      			<span>雨量</span>
-	      			<span>时间</span>
-	      		</div>
+	      		<TitleC fields={fields} fieldslist_brief={fieldslist_brief} />
 	        	<ul>
               {
                 lodashmap(ticktimestringlist,(vs,index)=>{
-                  const timetickstring = vs;
-                  const temperature = retlist.temperature[index];
-                  const rainfall = retlist.rainfall[index];
-                  const humidity = retlist.humidity[index];
-                  const windspeed = retlist.windspeed[index];
-                  const winddirection = retlist.winddirection[index];
-                  const pressure = retlist.pressure[index];
-                  return (
-                      <li key={index}>
-      	        			<span>{getCoureName(winddirection)}风</span>
-      	        			<span>{windspeed}级</span>
-      	        			<span>{temperature}℃</span>
-      	        			<span>{humidity}%</span>
-      	        			<span>{pressure}Pa</span>
-      	        			<span>{rainfall}mm</span>
-      	        			<span>{timetickstring}</span>
-                    </li>);
-                  })
+									const v = {};
+									lodashmap(fieldslist_brief,(fieldname)=>{
+										if(!!retlist[fieldname]){
+											v[fieldname] = retlist[fieldname][index];
+										}
+									});
+									const curdevice = {
+										realtimedata:v
+									}
+									return (<TitleD key={index} fields={fields} fieldslist_brief={fieldslist_brief} vs={vs} curdevice={curdevice}/>);
+  							})
               }
 	        	</ul>
-				<div className="monitordatba"><span>查看更多</span><img alt="" src={jt2}/></div>
+
 	      	</div>
-			
+
 	    );
   	}
 }
 
-const mapStateToProps = ({historydevice:{historydevices}},props) => {
+const mapStateToProps = ({historydevice:{historydevices},device:{devicetype}},props) => {
     const did = lodashget(props,'curdevice._id');
     const retlist = lodashget(historydevices,`${did}`,[]);
-    return {retlist};
+    return {retlist,devicetype};
 }
 export default connect(mapStateToProps)(App);

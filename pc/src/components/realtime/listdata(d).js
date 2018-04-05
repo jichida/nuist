@@ -3,6 +3,42 @@ import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
 import {getCoureName} from '../../util';
 
+
+const TitleC = (props)=>{
+	const {fieldslist_brief,fields} = props;
+	return (<dd>
+				{
+					lodashmap(fieldslist_brief,(fieldname)=>{
+						const fieldsprops = fields[fieldname];
+						if(!!fieldsprops){
+							return (<span key={fieldname}>{`${fieldsprops.showname}`}</span>);
+						}
+					})
+				}
+			</dd>);
+}
+
+const TitleD = (props)=>{
+	const {curdevice,fieldslist_brief,fields} = props;
+	return (<dd>
+        <span className="small">{curdevice.updated_at}</span>
+				{
+					lodashmap(fieldslist_brief,(fieldname)=>{
+						const fieldsprops = fields[fieldname];
+						if(!!fieldsprops){
+							let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`);
+							if(fieldname === 'winddirection'){
+								showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
+							}
+							return (<span  key={fieldname}>{showvalue}
+								{`${lodashget(fieldsprops,'unit','')}`}
+							</span>);
+						}
+					})
+				}
+			</dd>);
+}
+
 class App extends React.Component {
     render() {
       const {devicelist,devices,devicetype} = this.props;
@@ -12,7 +48,7 @@ class App extends React.Component {
         const curdevice = devices[did];
         if(!!curdevice){
           const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
-          
+
           const name = lodashget(curdevice,'name','');
           const updated_at = lodashget(curdevice,'updated_at','');
 
@@ -26,15 +62,7 @@ class App extends React.Component {
           datarowCo.push(
             <dl key={did}>
               <dt>{name}</dt>
-              <dd>
-                <span className="small">{updated_at}</span>
-                <span>{temperature}</span>
-                <span>{humidity}</span>
-                <span>{pressure}</span>
-                <span>{rainfall}</span>
-                <span>{getCoureName(degree_point)}</span>
-                <span>{windspeed}</span>
-              </dd>
+              <TitleD curdevice={curdevice} fields={fields} fieldslist_brief={fieldslist_brief} />
             </dl>
           );
         }
@@ -45,15 +73,8 @@ class App extends React.Component {
         <div>
           <dl className="dl_bg">
             <dt>节点</dt>
-            <dd>
-              <span>时间</span>
-              <span>温度(℃)</span>
-              <span>湿度(%)</span>
-              <span>大气压(Pa)</span>
-              <span>雨量(mm)</span>
-              <span>风向</span>
-              <span>风力</span>
-            </dd>
+            <TitleC fields={fields} fieldslist_brief={fieldslist_brief} />
+
         </dl>
           <div className="h_625 scroll_bar">
             {datarowCo}

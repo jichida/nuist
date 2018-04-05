@@ -8,20 +8,30 @@ import {
   gethistorydevicelist_request
 } from '../../actions';
 import lodashmap from 'lodash.map';
+import lodashget from 'lodash.get';
 
 class App extends React.Component {
     componentDidMount () {
       this.onClickQuery();
     }
+    componentWillReceiveProps (nextProps) {
+        const oldcurdeviceid = lodashget(this.props,'curdevice._id');
+        const newcurdeviceid = lodashget(nextProps,'curdevice._id');
+        if(oldcurdeviceid !== newcurdeviceid){
+          //chang curdevice
+          this.onClickQuery(nextProps);
+        }
+      }
 
     onClickQuery = ()=>{
-      const {periodquery,curdevice} = this.props;
+      const {periodquery,curdevice,devicetype} = this.props;
       const {periodname,starttime,endtime} = periodquery;
       this.props.dispatch(gethistorydevicelist_request({
         _id:curdevice._id,
         periodname,
         starttime,
-        endtime
+        endtime,
+        fieldslist:devicetype[curdevice.devicetype].fieldslist_brief,
       }));
     }
 

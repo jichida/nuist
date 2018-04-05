@@ -5,17 +5,24 @@ import Header from "../header";
 import Footer from "../footer";
 import NodeSel from '../nodesel';
 import Meter from "./meter";
-import lodashget from 'lodash.get';
 import List from "../history/list.js";
 import Filler from "../history/filler.js";
 import Report from "../history/report.js";
 
+import lodashget from 'lodash.get';
+import lodashmap from 'lodash.map';
+
 class App extends React.Component {
+
     render() {
         const {devices,usersettings,retlist,devicetype} = this.props;
         const indexdeviceid = usersettings.indexdeviceid;
         const curdevice = devices[indexdeviceid];
+        if(!curdevice){
+          return <div>无设备</div>
+        }
         const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
+        const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
         return (
             <div className="indexPage">
                 <Header />
@@ -33,11 +40,16 @@ class App extends React.Component {
                     { !!curdevice && <Meter curdevice={curdevice} devicetype={devicetype}/> }
                     { !!curdevice && <Filler curdevice={curdevice}  devicetype={devicetype}/> }
                     { !!curdevice && <List curdevice={curdevice}  devicetype={devicetype}/>}
-                    {ticktimestringlist.length>0 && <Report title="历史温度曲线" ticktimestring={ticktimestringlist} vlist={retlist.temperature}/>}
-                    {ticktimestringlist.length>0 && <Report title="历史降雨量曲线" ticktimestring={ticktimestringlist} vlist={retlist.rainfall}/>}
-                    {ticktimestringlist.length>0 && <Report title="历史湿度曲线" ticktimestring={ticktimestringlist} vlist={retlist.humidity}/>}
-                    {ticktimestringlist.length>0 && <Report title="历史风力曲线" ticktimestring={ticktimestringlist} vlist={retlist.windspeed}/>}
-                    {ticktimestringlist.length>0 && <Report title="历史气压曲线" ticktimestring={ticktimestringlist} vlist={retlist.pressure}/>}
+                    {
+
+                      lodashmap(fieldslist_brief,(fieldname)=>{
+                        const fieldsprops = fields[fieldname];
+                        if(!!fieldsprops && ticktimestringlist.length>0){
+                          return (<Report title={`历史${fieldsprops.showname}曲线`} ticktimestring={ticktimestringlist}
+                            vlist={retlist[fieldname]} key={fieldname}/>);
+                        }
+                      })
+                    }
                   </div>
                 </div>
             </div>
