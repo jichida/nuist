@@ -12,7 +12,7 @@ class App extends React.Component {
     selectdevice = (did)=>{
 			const {devices} = this.props;
 			if(!!devices[did]){
-				this.props.dispatch(ui_mycar_selcurdevice(devices[did].DeviceId));
+				this.props.dispatch(ui_mycar_selcurdevice(did));
 			}
 
       // const usersettings = this.props.usersettings;

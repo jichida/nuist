@@ -4,7 +4,7 @@ import Dropdown from 'antd/lib/dropdown';
 import Button from 'antd/lib/button';
 import Icon from 'antd/lib/icon';
 import {
-	saveusersettings_request
+	ui_mycar_selcurdevice
 } from '../../actions';
 /*
 问题：
@@ -28,9 +28,10 @@ import {getCoureName} from '../../util';
 class App extends React.Component {
   onMenuClick(did){
     console.log(did);
-		const usersettings = this.props.usersettings;
-		usersettings.indexdeviceid = did;
-		this.props.dispatch(saveusersettings_request(usersettings));
+		this.props.dispatch(ui_mycar_selcurdevice(did));
+		// const usersettings = this.props.usersettings;
+		// usersettings.indexdeviceid = did;
+		// this.props.dispatch(saveusersettings_request(usersettings));
   }
   render() {
     const {curdevice,devicelist,devices} = this.props;
