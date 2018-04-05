@@ -7,8 +7,9 @@ import Investigation from './investigation';
 import AddInvestigation from './investigation/add';
 // import ResultInvestigation from './investigation/result';
 import Proindex from './pro';
-import Monitor from './monitor';
+import Monitor from './deviceinfo';
 import Datameter from './datameter';
+import DeviceinfoHistory from './history';
 import Video from './video';
 import Warning from './warning';
 import {requireAuthentication} from './requireauthentication';
@@ -74,6 +75,7 @@ class AppRoot extends React.Component {
                   {/* <Route exact path="/investigation/result" component={requireAuthentication(ResultInvestigation)} /> */}
                   <Route exact path="/pro" component={Proindex} />
                   <Route exact path="/datameter/:id/:index" component={Monitor} />
+                  <Route exact path="/history/:id" component={DeviceinfoHistory} />
                   <Route exact path="/datameter" component={Datameter} />
                   <Route exact path="/warning" component={Warning} />
                   <Route exact path="/video" component={Video} />
