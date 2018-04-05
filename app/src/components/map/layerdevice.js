@@ -1,6 +1,8 @@
 import {getCoureName} from '../../util';
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
+import store from '../../env/store';
+import { push } from 'react-router-redux';
 
 import ImageArrow from '../../img/arrow-right.png';
 // import ImageLocation from '../../img/location.png';
@@ -28,6 +30,9 @@ const style_weui_dialog__bd_p_span = `
 // const style_icon_bottom_img = `
 // 	width:30px;height:30px;vertical-align:middle;display:inline-flex;
 // 	`;
+window.clickfn_device =(did)=>{
+  store.dispatch(push(`/datameter/${did}/0`));
+}
 
 const getDeviceLayerHtml = (curdevice,g_devicetype)=>{
   const devicename = lodashget(curdevice,'name','');
@@ -59,7 +64,7 @@ const getDeviceLayerHtml = (curdevice,g_devicetype)=>{
   return (
         `<div style =${style_weui_dialog}>
           <div style = ${style_weui_dialog__bd}>
-            <p style = ${style_weui_dialog__bd_p}>
+            <p style = ${style_weui_dialog__bd_p} onClick="clickfn_device('${curdevice._id}')">
               ${devicename}
               <img alt="" style=${style_weui_dialog__bd_p_img} src=${ImageArrow} />
             </p>
