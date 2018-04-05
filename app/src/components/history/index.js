@@ -8,6 +8,7 @@ import Filler from "./filler.js";
 import Report from "./report.js";
 // import Footer from "../footer";
 import lodashget from 'lodash.get';
+import lodashmap from 'lodash.map';
 
 
 class App extends React.Component {
@@ -16,16 +17,21 @@ class App extends React.Component {
         const {curdevice,devicetype,retlist} = this.props;
         if(!!curdevice){
           const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
+          const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
           return (
               <div className="monitorPage">
                   <Header history={this.props.history} title={`${lodashget(curdevice,'name','')}-${lodashget(curdevice,'locationname','')}`}/>
                   <Filler curdevice={curdevice} devicetype={devicetype}/>
                   <List curdevice={curdevice} devicetype={devicetype}/>
-                  {ticktimestringlist.length>0 && <Report title="历史温度曲线" ticktimestring={ticktimestringlist} vlist={retlist.temperature}/>}
-                  {ticktimestringlist.length>0 && <Report title="历史降雨量曲线" ticktimestring={ticktimestringlist} vlist={retlist.rainfall}/>}
-                  {ticktimestringlist.length>0 && <Report title="历史湿度曲线" ticktimestring={ticktimestringlist} vlist={retlist.humidity}/>}
-                  {ticktimestringlist.length>0 && <Report title="历史风力曲线" ticktimestring={ticktimestringlist} vlist={retlist.windspeed}/>}
-                  {ticktimestringlist.length>0 && <Report title="历史气压曲线" ticktimestring={ticktimestringlist} vlist={retlist.pressure}/>}
+                  {
+                    lodashmap(fieldslist_brief,(fieldname)=>{
+          						const fieldsprops = fields[fieldname];
+          						if(!!fieldsprops && ticktimestringlist.length>0){
+                        return (<Report title={`历史${fieldsprops.showname}曲线`} ticktimestring={ticktimestringlist}
+                          vlist={retlist[fieldname]} key={fieldname}/>);
+                      }
+                    })
+                  }
               </div>
           );
         }

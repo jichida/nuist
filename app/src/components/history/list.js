@@ -59,7 +59,6 @@ class App extends React.Component {
 											v[fieldname] = retlist[fieldname][index];
 										}
 									});
-									console.log(v);
 									const curdevice = {
 										realtimedata:v
 									}
