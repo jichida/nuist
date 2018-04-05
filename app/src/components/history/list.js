@@ -16,11 +16,12 @@ const TitleC = (props)=>{
 						}
 					})
 				}
+				<span>时间</span>
 			</div>);
 }
 
 const TitleD = (props)=>{
-	const {curdevice,fieldslist_brief,fields} = props;
+	const {curdevice,fieldslist_brief,fields,vs} = props;
 	return (<li>
 				{
 					lodashmap(fieldslist_brief,(fieldname)=>{
@@ -36,6 +37,7 @@ const TitleD = (props)=>{
 						}
 					})
 				}
+				<span>{vs}</span>
 			</li>);
 }
 
@@ -63,7 +65,7 @@ class App extends React.Component {
 										realtimedata:v
 									}
                   return (
-                    <TitleD key={index} curdevice={curdevice} fieldslist_brief={fieldslist_brief} fields={fields} />);
+                    <TitleD key={index} curdevice={curdevice} fieldslist_brief={fieldslist_brief} fields={fields} vs={vs}/>);
                   })
               }
 	        	</ul>

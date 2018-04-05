@@ -72,7 +72,6 @@ class App extends React.Component {
 														 (<TitleD key={`${did}_d`} fieldslist_brief={fieldslist_brief} fields={fields} curdevice={curdevice}/>):
 														(<div><p className = "text_center" >暂无数据</p></div>)
 													}
-
 						        		</li>
 											</ul>
 										)
