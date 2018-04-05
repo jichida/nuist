@@ -49,6 +49,7 @@ class App extends React.Component {
       const {retlist,devicetype,curdevice} = this.props;
 			const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
       const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
+
 	    return (
 	      	<div className="monitordata">
 	      		<TitleC fields={fields} fieldslist_brief={fieldslist_brief} />

@@ -15,12 +15,14 @@ import lodashmap from 'lodash.map';
 class App extends React.Component {
 
     render() {
-        const {devices,usersettings,retlist,devicetype} = this.props;
+        const {devices,usersettings,historydevices,devicetype} = this.props;
         const indexdeviceid = usersettings.indexdeviceid;
         const curdevice = devices[indexdeviceid];
         if(!curdevice){
           return <div>无设备</div>
         }
+        const retlist = lodashget(historydevices,`${curdevice._id}`,[]);
+
         const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
         const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
         return (
@@ -61,7 +63,6 @@ class App extends React.Component {
 
 const mapStateToProps = ({device,userlogin,historydevice:{historydevices}}) => {
     const {devicelist,devices,devicetype} = device;
-    const retlist = lodashget(historydevices,`${userlogin.usersettings.indexdeviceid}`,[]);
-    return {devicelist,devices,devicetype,retlist,usersettings:userlogin.usersettings};
+    return {devicelist,devices,devicetype,historydevices,usersettings:userlogin.usersettings};
 }
 export default connect(mapStateToProps)(App);

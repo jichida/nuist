@@ -12,7 +12,7 @@ import lodashget from 'lodash.get';
 
 class App extends React.Component {
     componentDidMount () {
-      this.onClickQuery();
+      this.onClickQuery(this.props);
     }
     componentWillReceiveProps (nextProps) {
         const oldcurdeviceid = lodashget(this.props,'curdevice._id');
@@ -23,8 +23,8 @@ class App extends React.Component {
         }
       }
 
-    onClickQuery = ()=>{
-      const {periodquery,curdevice,devicetype} = this.props;
+    onClickQuery = (props)=>{
+      const {periodquery,curdevice,devicetype} = props;
       const {periodname,starttime,endtime} = periodquery;
       this.props.dispatch(gethistorydevicelist_request({
         _id:curdevice._id,
