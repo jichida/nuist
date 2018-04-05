@@ -74,7 +74,7 @@ class AppRoot extends React.Component {
                   <Route exact path="/investigation/add/:id" component={requireAuthentication(AddInvestigation)} />
                   {/* <Route exact path="/investigation/result" component={requireAuthentication(ResultInvestigation)} /> */}
                   <Route exact path="/pro" component={Proindex} />
-                  <Route exact path="/datameter/:id/:index" component={Monitor} />
+                  <Route exact path="/deviceinfo/:id/:index" component={Monitor} />
                   <Route exact path="/history/:id" component={DeviceinfoHistory} />
                   <Route exact path="/datameter" component={Datameter} />
                   <Route exact path="/warning" component={Warning} />

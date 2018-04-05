@@ -31,7 +31,7 @@ const style_weui_dialog__bd_p_span = `
 // 	width:30px;height:30px;vertical-align:middle;display:inline-flex;
 // 	`;
 window.clickfn_device =(did)=>{
-  store.dispatch(push(`/datameter/${did}/0`));
+  store.dispatch(push(`/deviceinfo/${did}/0`));
 }
 
 const getDeviceLayerHtml = (curdevice,g_devicetype)=>{
