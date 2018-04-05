@@ -5,14 +5,17 @@ import {getCoureName} from '../../util';
 
 class App extends React.Component {
     render() {
-      const {devicelist,devices} = this.props;
+      const {devicelist,devices,devicetype} = this.props;
 
       let datarowCo = [];
       lodashmap(devicelist,(did)=>{
         const curdevice = devices[did];
         if(!!curdevice){
+          const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
+          
           const name = lodashget(curdevice,'name','');
           const updated_at = lodashget(curdevice,'updated_at','');
+
           const degree_point = lodashget(curdevice,'realtimedata.winddirection',0);//指针 win2
           const windspeed = lodashget(curdevice,'realtimedata.windspeed',0);
           const temperature = lodashget(curdevice,'realtimedata.temperature',0);

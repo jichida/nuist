@@ -12,7 +12,7 @@ import Report from "../history/report.js";
 
 class App extends React.Component {
     render() {
-        const {devices,usersettings,retlist} = this.props;
+        const {devices,usersettings,retlist,devicetype} = this.props;
         const indexdeviceid = usersettings.indexdeviceid;
         const curdevice = devices[indexdeviceid];
         const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
@@ -30,9 +30,9 @@ class App extends React.Component {
                   <div className="tt">
                       节点数据
                     </div>
-                    { !!curdevice && <Meter curdevice={curdevice}/> }
-                    { !!curdevice && <Filler curdevice={curdevice}/> }
-                    { !!curdevice && <List curdevice={curdevice}/>}
+                    { !!curdevice && <Meter curdevice={curdevice} devicetype={devicetype}/> }
+                    { !!curdevice && <Filler curdevice={curdevice}  devicetype={devicetype}/> }
+                    { !!curdevice && <List curdevice={curdevice}  devicetype={devicetype}/>}
                     {ticktimestringlist.length>0 && <Report title="历史温度曲线" ticktimestring={ticktimestringlist} vlist={retlist.temperature}/>}
                     {ticktimestringlist.length>0 && <Report title="历史降雨量曲线" ticktimestring={ticktimestringlist} vlist={retlist.rainfall}/>}
                     {ticktimestringlist.length>0 && <Report title="历史湿度曲线" ticktimestring={ticktimestringlist} vlist={retlist.humidity}/>}
@@ -48,8 +48,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({device,userlogin,historydevice:{historydevices}}) => {
-    const {devicelist,devices} = device;
+    const {devicelist,devices,devicetype} = device;
     const retlist = lodashget(historydevices,`${userlogin.usersettings.indexdeviceid}`,[]);
-    return {devicelist,devices,retlist,usersettings:userlogin.usersettings};
+    return {devicelist,devices,devicetype,retlist,usersettings:userlogin.usersettings};
 }
 export default connect(mapStateToProps)(App);
