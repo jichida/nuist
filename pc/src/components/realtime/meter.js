@@ -3,7 +3,7 @@ import Progress  from 'antd/lib/progress';
 import Wind1 from "../../img/wind1.png";
 import Wind2 from "../../img/wind2.png";
 import Wind3 from "../../img/wind3.png";
-import {getCoureName} from '../../util';
+// import {getCoureName} from '../../util';
 import lodashget from 'lodash.get';
 import lodashincludes from 'lodash.includes';
 import lodashmap from 'lodash.map';
@@ -41,7 +41,7 @@ const ProgressCtrl = (props)=>{
   return (
     <div className={`chartli chart${index}`}>
       <Progress type="circle" percent={100} width={70} format={percent => `${lodashget(curdevice,`realtimedata.${fieldname}`)}`} />
-      <span>{fieldsprops.showname}({lodashget(fieldsprops,'unit','')})</span>
+      <span className="m10">{`${fieldsprops.showname}`}({`${lodashget(fieldsprops,'unit','')}`})</span>
     </div>
   )
 }
