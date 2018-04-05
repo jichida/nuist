@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 // import Chartdemo from "../../img/z3.png";
 import Report from "./report.js";
 import lodashget from 'lodash.get';
+import lodashmap from 'lodash.map';
 import {
   gethistorydevicelist_request
 } from '../../actions';
@@ -11,14 +12,15 @@ class App extends React.Component {
     this.onClickQuery(this.props);
   }
   onClickQuery = (props)=>{
-    const {periodquery,curdevice} = props;
+    const {periodquery,curdevice,devicetype} = props;
     const {periodname,starttime,endtime} = periodquery;
     if(!!curdevice){
       this.props.dispatch(gethistorydevicelist_request({
         _id:curdevice._id,
         periodname,
         starttime,
-        endtime
+        endtime,
+        fieldslist:devicetype[curdevice.devicetype].fieldslist_brief,
       }));
     }
   }
@@ -33,26 +35,27 @@ class App extends React.Component {
     }
 
   	render() {
-      const {curdevice,retlist} = this.props;
+      const {curdevice,devicetype,retlist} = this.props;
       if(!curdevice){
         return <div />
       }
       const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
+      const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
 			return (
         <div className="datachart">
           <ul>
-            <li>
-              {ticktimestringlist.length>0 && <Report title="历史温度曲线" ticktimestring={ticktimestringlist} vlist={retlist.temperature}/>}
-            </li>
-            <li>
-              {ticktimestringlist.length>0 && <Report title="历史降雨量曲线" ticktimestring={ticktimestringlist} vlist={retlist.rainfall}/>}
-            </li>
-            <li>
-              {ticktimestringlist.length>0 && <Report title="历史湿度曲线" ticktimestring={ticktimestringlist} vlist={retlist.humidity}/>}
-            </li>
-            <li>
-              {ticktimestringlist.length>0 && <Report title="历史气压曲线" ticktimestring={ticktimestringlist} vlist={retlist.pressure}/>}
-            </li>
+            {
+              lodashmap(fieldslist_brief,(fieldname)=>{
+                const fieldsprops = fields[fieldname];
+                if(!!fieldsprops && ticktimestringlist.length>0){
+                  return (<li key={fieldname}>
+                            <Report title={`历史${fieldsprops.showname}曲线`} ticktimestring={ticktimestringlist}
+                              vlist={retlist[fieldname]}/>
+                        </li>
+                  );
+                }
+              })
+            }
           </ul>
         </div>
 	    );
@@ -60,7 +63,7 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({historydevice:{periodquery},device:{devices,devicelist},historydevice:{historydevices},userlogin:{usersettings}}) => {
+const mapStateToProps = ({historydevice:{periodquery},device:{devices,devicelist,devicetype},historydevice:{historydevices},userlogin:{usersettings}}) => {
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
     let curdevice;
     if(!!curdeviceid){
@@ -73,6 +76,6 @@ const mapStateToProps = ({historydevice:{periodquery},device:{devices,devicelist
     }
     curdeviceid = lodashget(curdevice,'_id');
     const retlist = lodashget(historydevices,`${curdeviceid}`,[]);
-    return {curdevice,retlist,periodquery};
+    return {curdevice,retlist,periodquery,devicetype};
 }
 export default connect(mapStateToProps)(App);
