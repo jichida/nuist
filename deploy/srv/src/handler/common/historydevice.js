@@ -52,7 +52,8 @@ const getticktimestring = (periodname,ticktime)=>{
 }
 
 exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
-
+    const fieldslist = _.get(actiondata,'fieldslist',
+    ['temperature','rainfall','humidity','windspeed','winddirection','pressure']);
     const periodname = _.get(actiondata,'periodname');
     const starttime = _.get(actiondata,'starttime');
     const endtime = _.get(actiondata,'endtime');
@@ -89,84 +90,74 @@ exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
     const maxcount = periodname === 'weekly'?MAX_NUMBER*7:MAX_NUMBER;
 
     const historydeviceModel = DBModels.HistoryDeviceModel;
-    historydeviceModel.aggregate([
-        {
-            $match:
-            {
-                did:did,
-                UpdateTime:{
-                  $gte: starttimeleast,
-                  $lte: endtime
-                }
-            }
-        },
-        {
-            $group:
-            {
-                _id:
-                {
-                    ticktime:
-                    {
-                        $substrBytes: [ "$UpdateTime", 0, trunklen ]
-                    }
-                },
-                temperature:
-                {
-                    $avg: "$realtimedata.temperature"
-                },
-                rainfall:
-                {
-                    $avg: "$realtimedata.rainfall"
-                },
-                humidity:
-                {
-                    $avg: "$realtimedata.humidity"
-                },
-                windspeed:
-                {
-                    $avg: "$realtimedata.windspeed"
-                },
-                winddirection:
-                {
-                    $avg: "$realtimedata.winddirection"
-                },
-                pressure:
-                {
-                    $avg: "$realtimedata.pressure"
-                },
 
-            }
-        },
+    const aggregate_groupobj =
+    {
+        $group:
         {
-            $sort: {
-                "_id.ticktime": -1
-            }
+            _id:
+            {
+                ticktime:
+                {
+                    $substrBytes: [ "$UpdateTime", 0, trunklen ]
+                }
+            },
         }
+    };
+    _.map(fieldslist,(fieldname)=>{
+      _.set(aggregate_groupobj,`$group.${fieldname}`,{
+          $avg: `$realtimedata.${fieldname}`
+      })
+    });
+    console.log(aggregate_groupobj);
+
+    historydeviceModel.aggregate([
+      {
+          $match:
+          {
+              did:did,
+              UpdateTime:{
+                $gte: starttimeleast,
+                $lte: endtime
+              }
+          }
+      },
+      aggregate_groupobj,
+      {
+          $sort: {
+              "_id.ticktime": -1
+          }
+      }
     ],(err,result)=>{
       debug(err);
 
       let listret = {
         ticktime:[],
         ticktimestring:[],
-        temperature:[],
-        rainfall:[],
-        humidity:[],
-        windspeed:[],
-        winddirection:[],
-        pressure:[],
       };
+
+      _.map(fieldslist,(fieldname)=>{
+        listret[`${fieldname}`] = [];
+      });
+
       if(!err && !!result){
           const maxcountcur = maxcount > result.length?result.length:maxcount;
           for(let i=0 ;i<maxcountcur;i++){
             const v = result[i];
             listret.ticktime.push(v._id.ticktime);
             listret.ticktimestring.push(getticktimestring(periodname,v._id.ticktime));
-            listret.temperature.push(_.toNumber(v.temperature.toFixed(1)));
-            listret.rainfall.push(_.toNumber(v.rainfall.toFixed(0)));
-            listret.humidity.push(_.toNumber(v.humidity.toFixed(1)));
-            listret.windspeed.push(_.toNumber(v.windspeed.toFixed(0)));
-            listret.winddirection.push(_.toNumber(v.winddirection.toFixed(0)));
-            listret.pressure.push(_.toNumber(v.pressure.toFixed(1)));
+
+            _.map(fieldslist,(fieldname)=>{
+              // listret[`${fieldname}`] = [];
+              listret[`${fieldname}`].push(_.toNumber(v[`${fieldname}`].toFixed(0)));
+            });
+
+            // listret.temperature.push(_.toNumber(v.temperature.toFixed(1)));
+            // listret.rainfall.push(_.toNumber(v.rainfall.toFixed(0)));
+            // listret.humidity.push(_.toNumber(v.humidity.toFixed(1)));
+            // listret.windspeed.push(_.toNumber(v.windspeed.toFixed(0)));
+            // listret.winddirection.push(_.toNumber(v.winddirection.toFixed(0)));
+            // listret.pressure.push(_.toNumber(v.pressure.toFixed(1)));
           }
 
           const payload = {

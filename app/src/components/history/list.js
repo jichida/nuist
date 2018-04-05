@@ -53,22 +53,18 @@ class App extends React.Component {
 	        	<ul>
               {
                 lodashmap(ticktimestringlist,(vs,index)=>{
-                  // const timetickstring = vs;
-                  // const temperature = retlist.temperature[index];
-                  // const rainfall = retlist.rainfall[index];
-                  // const humidity = retlist.humidity[index];
-                  // const windspeed = retlist.windspeed[index];
-                  // const winddirection = retlist.winddirection[index];
-                  // const pressure = retlist.pressure[index];
 									const v = {};
 									lodashmap(fieldslist_brief,(fieldname)=>{
-										v[fieldname] = retlist[fieldname][index];
+										if(!!retlist[fieldname]){
+											v[fieldname] = retlist[fieldname][index];
+										}
 									});
+									console.log(v);
 									const curdevice = {
 										realtimedata:v
 									}
                   return (
-                    <TitleD curdevice={curdevice} fieldslist_brief={fieldslist_brief} fields={fields} />);
+                    <TitleD key={index} curdevice={curdevice} fieldslist_brief={fieldslist_brief} fields={fields} />);
                   })
               }
 	        	</ul>
