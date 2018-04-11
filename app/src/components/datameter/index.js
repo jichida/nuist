@@ -36,7 +36,7 @@ class App extends React.Component {
             <div className="datameterPage">
                 <Header title="数据监控" history={this.props.history} ishidereturn/>
                 { !!curdevice && <Filler curdevice={curdevice} devicetype={devicetype}/> }
-                { !!curdevice && <Meter curdevice={curdevice} devicetype={devicetype}/> }
+                {/* { !!curdevice && <Meter curdevice={curdevice} devicetype={devicetype}/> } */}
                 <List history={this.props.history} devicelist={devicelist} devices={devices} devicetype={devicetype}/>
                 <Footer history={this.props.history} sel={"datameter"} />
                 {ispopcaresel_single_datameter && <PopcareSel value={curdevice._id} onChange={this.onChangeCaresel}/>}
