@@ -56,6 +56,6 @@ const mapStateToProps = ({device:{devicelist,devices,devicetype},userlogin:{user
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {curdevice,devicelist,devices,ispopcaresel_single_datameter,devicetype};
+    return {curdevice,devicelist,devices,ispopcaresel_single_datameter,devicetype,usersettings};
 }
 export default connect(mapStateToProps)(App);

@@ -141,9 +141,9 @@ class App extends React.Component {
 								<div className="mainmap" style={{height: `${window.innerHeight-64}px`}}>
 			        		<div onClick={this.onClickPopCareSel} className="mapcanver city"><img alt="" src={City} /><span>{lodashget(curdevice,'name')}</span></div>
 			        		<div onClick={this.onClickPopCareSel} className="mapcanver point"><img alt="" src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
-			        		<div className="maindata">
+			        		{/* <div className="maindata">
 											<BottomBannerData curdevice={curdevice} devicetype={devicetype} />
-			        		</div>
+			        		</div> */}
 			        	</div>
 							)
 						}

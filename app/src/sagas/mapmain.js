@@ -81,8 +81,8 @@ import {
           const marker = new window.AMap.Marker({
              position:pos,
              icon: new window.AMap.Icon({
-                size: new window.AMap.Size(68, 68),
-                imageSize: new window.AMap.Size(43, 64),  //图标大小
+                size: new window.AMap.Size(48, 48),
+                imageSize: new window.AMap.Size(33, 48),  //图标大小
                 image: getimageicon(item,SettingOfflineMinutes,g_devicetype),
                 imageOffset: new window.AMap.Pixel(0, 0)
             }),
@@ -114,8 +114,8 @@ import {
           const pos = new window.AMap.LngLat(deviceitemnew.Longitude,deviceitemnew.Latitude);
           mark.setPosition(pos);
           const newIcon = new window.AMap.Icon({
-             size: new window.AMap.Size(68, 68),
-             imageSize: new window.AMap.Size(43, 64),  //图标大小
+             size: new window.AMap.Size(48, 48),
+             imageSize: new window.AMap.Size(33, 48),  //图标大小
              image: getimageicon(deviceitemnew,SettingOfflineMinutes,g_devicetype),
              imageOffset: new window.AMap.Pixel(0, 0)
          });
