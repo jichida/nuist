@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import Progress  from 'antd/lib/progress';
 import 'antd/dist/antd.css';
 import Wind1 from "../../img/wind1.png";
@@ -8,6 +9,7 @@ import {getCoureName} from '../../util';
 import lodashget from 'lodash.get';
 import lodashincludes from 'lodash.includes';
 import lodashmap from 'lodash.map';
+import Imgjtr from "../../img/jtr.png";
 
 const Windcontrol = (props)=>{
   const {curdevice} = props;
@@ -52,6 +54,12 @@ const ProgressCtrl = (props)=>{
   )
 }
 class App extends React.Component {
+    viewhistory=()=>{
+      const {curdevice} = this.props;
+      this.props.history.push(`/history/${curdevice._id}`);
+     }
+
+
   	render() {
       const {curdevice,devicetype} = this.props;
       if(!!curdevice){
@@ -60,24 +68,27 @@ class App extends React.Component {
         let index = 0;
         return (
   	      	<div className="meter">
-  	        	<div className="title">实时数据</div>
+  	        	<div className="title"><h2>实时数据</h2><div onClick={this.viewhistory}>
+                <span>查看历史数据</span><img alt="" src={Imgjtr} /></div>
+              </div>
+              {isshowwincontrol && <Windcontrol curdevice={curdevice} />}
   	        	<div className="meterchart">
-                  {
+                {
                     lodashmap(fieldslist_brief,(fieldname)=>{
-                      if((fieldname === 'winddirection' || fieldname === 'windspeed') && isshowwincontrol){
+                    if((fieldname === 'winddirection' || fieldname === 'windspeed') && isshowwincontrol){
                         //empty
-                      }
-                      else{
+                    }
+                    else{
                         const fieldsprops = fields[fieldname];
                         if(!!fieldsprops){
-                          index = index + 1;
-                          return <ProgressCtrl key={fieldname} curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />
+                            index = index + 1;
+                            return <ProgressCtrl key={fieldname} curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />
                         }
-                      }
-                    })
-                  }
-                  {isshowwincontrol && <Windcontrol curdevice={curdevice} />}
-  	        	</div>
+                    }
+                })
+            }
+            </div>
+
   	      	</div>
   	    );
       }
@@ -85,4 +96,4 @@ class App extends React.Component {
   	}
 }
 
-export default App;
+export default withRouter(App);

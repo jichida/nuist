@@ -35,22 +35,22 @@ class App extends React.Component {
 						<Progress type="circle" percent={75} width={70} />
 						<span>雨量(mm)</span>
 					</div>
-					<div className="windcontrol">
-						<img alt="" src={Wind1} className="wind1" />
-						<img alt="" src={Wind3} className="wind3" />
-						<img alt="" src={Wind2} className="wind2" />
-						<div className="windcontroltxt">
-							<p>
-								<span>偏东风</span>
-								<span>风向</span>
-							</p>
-							<p>
-								<span>4级</span>
-								<span>风力</span>
-							</p>
-						</div>
-					</div>
 	        	</div>
+			<div className="windcontrol">
+			<img alt="" src={Wind1} className="wind1" />
+			<img alt="" src={Wind3} className="wind3" />
+			<img alt="" src={Wind2} className="wind2" />
+			<div className="windcontroltxt">
+			<p>
+			<span>偏东风</span>
+			<span>风向</span>
+			</p>
+			<p>
+			<span>4级</span>
+		<span>风力</span>
+		</p>
+		</div>
+		</div>
 	      	</div>
 	    );
   	}

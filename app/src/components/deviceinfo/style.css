@@ -2,19 +2,8 @@
     padding-top: 80px;
 }
 
-.meterchart {
-    position: relative;
-    height: 220px;
-}
 
-.meterchart .chartli {
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    text-align: center;
-}
-
-.meterchart .chart1 {
+/* .meterchart .chart1 {
     left: 15px;
     top: 0;
 }
@@ -32,16 +21,31 @@
 .meterchart .chart4 {
     right: 15px;
     top: 110px;
-}
+} */
 
 .meter .title {
-    text-align: center;
+    text-align: left;
     font-size: 16px;
     line-height: 20px;
-    padding: 12px 0;
+    padding: 12px 10px;
     border-bottom: 1px solid #EEE;
     margin-bottom: 10px;
-    color: #0164b5
+    color: #0164b5;
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.meter .title h2 {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 0px;
+    font-size: 16px;
+    margin-bottom: 0px
 }
 
 .meter {
@@ -100,6 +104,16 @@
     margin-bottom: 10px;
 }
 
+.monitordata_tit {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    background-color: #fff;
+}
+
 .monitordata .tit {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -111,8 +125,9 @@
     -moz-justify-content: space-between;
     -webkit-justify-content: space-between;
     justify-content: space-between;
-    background: #fafafa;
-    border-top: 1px solid #EEE;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
 }
 
 .monitordata .tit span,

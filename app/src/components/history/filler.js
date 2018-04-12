@@ -85,20 +85,20 @@ class App extends React.Component {
 
       const peroiddivs = [
         {
-          name:'月',value:'monthly'
+          name:'按天显示',value:'monthly'
         },
         // {
         //   name:'周',value:'weekly'
         // },
         {
-          name:'日',value:'daily'
+          name:'按周显示',value:'daily'
         },
         {
-          name:'时',value:'hourly'
+          name:'按年显示',value:'hourly'
         },
-        {
-          name:'分',value:'minutely'
-        },
+        //{
+        //  name:'分',value:'minutely'
+        //},
       ];
 
 

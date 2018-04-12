@@ -21,9 +21,9 @@ class App extends React.Component {
               <div className="monitorPage">
                   <Header history={this.props.history} title={`${getindexstring(index,2)}-${lodashget(curdevice,'name','')}-${lodashget(curdevice,'locationname','')}`}/>
                   <Meter curdevice={curdevice} devicetype={devicetype}/>
-                  <DeviceInfoDetailList curdevice={curdevice} devicetype={devicetype}/>
-
-                  <div onClick={this.viewhistory}>查看历史数据</div>
+                 //<DeviceInfoDetailList curdevice={curdevice} devicetype={devicetype}/>
+                 //
+                 // <div onClick={this.viewhistory}>查看历史数据</div>
               </div>
           );
         }
