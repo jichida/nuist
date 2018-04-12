@@ -58,7 +58,7 @@
 .datamonitordata ul {
     border-top: 1px solid #EEE;
     background: #FFF;
-    margin-bottom: 10px !important
+    margin: 0px 10px 10px !important
 }
 
 .datamonitordata div.tt,
@@ -75,10 +75,10 @@
     justify-content: space-between;
     height: 30px;
     position: relative;
-    background: #FFF;
-    padding: 0 25px 0 15px;
+    padding: 0 10px 0 20px;
     border-bottom: 1px solid #EEE;
-    color: #0164b5
+    color: #fff;
+    background-color: #0481bb
 }
 
 .datamonitordata div.tt {
@@ -88,15 +88,16 @@
 .datamonitordata div.tt:before,
 .datamonitordata ul li.tt:before {
     content: "";
-    background: #0164b5;
+    background: #fff;
     width: 5px;
     height: 20px;
     top: 5px;
-    left: 0;
+    left: 10px;
     position: absolute;
 }
 
-.datamonitordata div.tt:after,
+
+/* .datamonitordata div.tt:after,
 .datamonitordata ul li.tt:after {
     content: " ";
     display: inline-block;
@@ -113,7 +114,7 @@
     top: 50%;
     margin-top: -4px;
     right: 10px;
-}
+} */
 
 .datamonitordata ul li.dd {
     padding-top: 5px;

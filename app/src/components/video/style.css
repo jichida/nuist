@@ -58,6 +58,7 @@
 .datamonitordata ul {
     border-top: 1px solid #EEE;
     background: #FFF;
+    margin: 0px 10px 10px !important
 }
 
 .datamonitordata div.tt,
@@ -74,8 +75,7 @@
     justify-content: space-between;
     height: 30px;
     position: relative;
-    background: #FFF;
-    padding: 0 25px 0 15px;
+    padding: 0 10px 0 20px;
     border-bottom: 1px solid #EEE;
 }
 
@@ -86,11 +86,11 @@
 .datamonitordata div.tt:before,
 .datamonitordata ul li.tt:before {
     content: "";
-    background: #0164b5;
+    background: #fff;
     width: 5px;
     height: 20px;
     top: 5px;
-    left: 0;
+    left: 10px;
     position: absolute;
 }
 
