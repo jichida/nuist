@@ -58,7 +58,8 @@
 .datamonitordata ul {
     border-top: 1px solid #EEE;
     background: #FFF;
-    margin: 0px 10px 10px !important
+    margin: 0px 10px 10px !important;
+    border-radius: 8px;
 }
 
 .datamonitordata div.tt,
@@ -78,7 +79,8 @@
     padding: 0 10px 0 20px;
     border-bottom: 1px solid #EEE;
     color: #fff;
-    background-color: #0481bb
+    background-color: #0481bb;
+    border-radius: 8px 8px 0px 0px;
 }
 
 .datamonitordata div.tt {
@@ -90,8 +92,8 @@
     content: "";
     background: #fff;
     width: 5px;
-    height: 20px;
-    top: 5px;
+    height: 10px;
+    top: 10px;
     left: 10px;
     position: absolute;
 }

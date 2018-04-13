@@ -80,7 +80,6 @@
     position: absolute;
 }
 .data_list li span:last-child{ font-size: 22px}
-.data_list li.cur{ background-color: #f5f9f9}
 .meter {
     margin: 10px 0;
     background: #FFF;

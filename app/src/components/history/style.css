@@ -103,9 +103,20 @@
 
 .windcontrol {
     position: relative;
-    width: 40%;
-    left: 30%;
-    height: 100%;
+    height: 160px;
+    padding: 10px;
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.windcontrolcol {
+    width: 120px;
+    height: 120px;
+    position: relative
 }
 
 .windcontrol .wind1,
@@ -116,20 +127,9 @@
 }
 
 .windcontrol .windcontroltxt {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    display: -webkit-flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-align-items: center;
-    -moz-justify-content: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    margin-bottom: 10px;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
 }
 
 .windcontrol .windcontroltxt p {
@@ -139,13 +139,16 @@
 
 .windcontrol .windcontroltxt span {
     display: block;
-    color: #999;
+    color: #fff;
+    background-color: #1792d0;
+    border-radius: 30px
 }
 
 .windcontrol .windcontroltxt span:first-child {
     font-size: 16px;
     font-weight: 600;
-    color: #000
+    color: #000;
+    background-color: transparent
 }
 
 .monitordata {

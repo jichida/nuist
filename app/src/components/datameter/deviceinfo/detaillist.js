@@ -9,17 +9,15 @@ const DeviceInfoDetailList = (props)=>{
 	const {fieldslist_brief,fields} = devicetype[curdevice.devicetype];
 	return (<ul className="data_list">
 				{
-					lodashmap(fieldslist_brief,(fieldname,index)=>{
+					lodashmap(fieldslist_brief,(fieldname)=>{
 						const fieldsprops = fields[fieldname];
 						if(!!fieldsprops){
 							let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`);
 							if(fieldname === 'winddirection'){
 								showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
 							}
-							const modeindex = index%4;
-							const classnamesel = (modeindex===2||modeindex===3)?'cur':'';
 							return (
-								<li  key={fieldname} className={`${classnamesel}`}>
+								<li  key={fieldname}>
 									<span>
 										{`${fieldsprops.showname}`}
 									</span>
