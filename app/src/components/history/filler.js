@@ -85,20 +85,20 @@ class App extends React.Component {
 
       const peroiddivs = [
         {
-          name:'按天显示',value:'monthly'
-        },
-        // {
-        //   name:'周',value:'weekly'
-        // },
-        {
-          name:'按周显示',value:'daily'
+          name:'月',value:'monthly'
         },
         {
-          name:'按年显示',value:'hourly'
+          name:'周',value:'weekly'
         },
-        //{
-        //  name:'分',value:'minutely'
-        //},
+        {
+          name:'日',value:'daily'
+        },
+        {
+          name:'时',value:'hourly'
+        },
+        {
+          name:'分',value:'minutely'
+        },
       ];
 
 
@@ -115,11 +115,7 @@ class App extends React.Component {
               })
             }
 	      		<div className="d">
-	      			<span onClick={
-                ()=>{
-                  this.onClickOpen({isdateopen:true,seltype:0})
-                }
-              }>{starttime_s}</span>
+	      			<span>{starttime_s}</span>
 	      			<span>至</span>
               <span onClick={
                 ()=>{
