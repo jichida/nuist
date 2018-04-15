@@ -63,6 +63,7 @@ class AppRoot extends React.Component {
                   <Route exact path="/video" component={Video} />
                   <Route exact path="/realtime" component={Realtime} />
                   <Route exact path="/forecast" component={Forecast} />
+                  <Route exact path="/deviceinfo/:id/:index" component={Realtime} />
                 </Switch>
                 <AppMap />
              </div>

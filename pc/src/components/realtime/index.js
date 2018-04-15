@@ -11,8 +11,16 @@ import Report from "../history/report.js";
 
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
+import {set_uiapp} from '../../actions';
 
 class App extends React.Component {
+    componentDidMount() {
+      if(lodashget(this.props,'match.params.id','') !== ''){
+        this.props.dispatch(set_uiapp({
+            selectedindex:2
+        }));
+      }
+    }
 
     render() {
         const {devices,usersettings,historydevices,devicetype} = this.props;

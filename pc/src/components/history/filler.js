@@ -25,13 +25,14 @@ class App extends React.Component {
 
     onClickQuery = (props)=>{
       const {periodquery,curdevice,devicetype} = props;
+      console.log(periodquery);
       const {periodname,starttime,endtime} = periodquery;
       this.props.dispatch(gethistorydevicelist_request({
+        fieldslist:devicetype[curdevice.devicetype].fieldslist_brief,
         _id:curdevice._id,
         periodname,
         starttime,
-        endtime,
-        fieldslist:devicetype[curdevice.devicetype].fieldslist_brief,
+        endtime
       }));
     }
 
@@ -96,9 +97,9 @@ class App extends React.Component {
         {
           name:'月',value:'monthly'
         },
-        // {
-        //   name:'周',value:'weekly'
-        // },
+        {
+          name:'周',value:'weekly'
+        },
         {
           name:'日',value:'daily'
         },
@@ -109,7 +110,6 @@ class App extends React.Component {
           name:'分',value:'minutely'
         },
       ];
-
 
 	    return (
 	      	<div className="monitorfiller">
@@ -124,18 +124,15 @@ class App extends React.Component {
               })
             }
 	      		<div className="d">
-	      			<span onClick={
-                ()=>{
-                  this.onClickOpen({isdateopen:true,seltype:0})
-                }
-              }>{starttime_s}</span>
+	      			<span >{starttime_s}</span>
 	      			<span>至</span>
               <span onClick={
                 ()=>{
                   this.onClickOpen({isdateopen:true,seltype:1})
                 }
               }>{endtime_s}</span>
-	      			<span className="search" onClick={this.onClickQuery}><img alt="" src={Search} /></span>
+	      			<span className="search" onClick={()=>{
+                this.onClickQuery(this.props)}}><img alt="" src={Search} /></span>
 	      		</div>
             <DatePicker
                 value={curtime}
@@ -151,7 +148,7 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({historydevice:{periodquery}},props) => {
-    return {periodquery};
+const mapStateToProps = ({historydevice:{periodquery},device:{devicetype}},props) => {
+    return {periodquery,devicetype};
 }
 export default connect(mapStateToProps)(App);

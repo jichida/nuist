@@ -16,9 +16,11 @@ const style_weui_dialog__bd = `
 `;
 
 const style_weui_dialog__bd_p = `
-    font-size:13px;line-height:20px;color:#fff;text-align:left;margin:0px;
+    font-size:13px;line-height:20px;color:#fff;text-align:left;margin:0px
 `;
-
+const style_weui_dialog__bd_pa = `
+font-size:13px;line-height:20px;color:#fff;text-align:left;margin:0px;width:50%;display:inline-block;
+`;
 const style_weui_dialog__bd_p_img = `
 	width:20px;height:20px;vertical-align:middle;display:inline-flex;float:right;
 `;
@@ -54,11 +56,11 @@ const getDeviceLayerHtml = (curdevice,g_devicetype)=>{
         show_showvalue = getCoureName(show_showvalue);
       }
       const show_showunit = `${fieldsprops.unit}`;
-      content_all += `<p style = ${style_weui_dialog__bd_p}>
+      content_all += `<span style = ${style_weui_dialog__bd_pa}>
         ${show_showname} ${show_showvalue}${show_showunit}
         <span style=${style_weui_dialog__bd_p_span}>
         </span>
-      </p>`
+      </span>`
     }
   })
   return (
