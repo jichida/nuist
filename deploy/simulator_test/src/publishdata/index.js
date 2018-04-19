@@ -15,7 +15,16 @@ const getpublishdata_device = (DeviceId)=>{
       "voltage":_.random(0, 100),
       "stress0":_.random(0, 100),
       "stress1":_.random(0, 100),
-      "osmoticpressure":_.random(0, 100),
+      "osmoticpressure":_.random(0, 100),//渗压
+      "no":_.random(0, 100),
+      "co":_.random(0, 100),
+      "pm2d5":_.random(0, 100),
+      "h2s":_.random(0, 100),
+      "no2":_.random(0, 100),
+      "o3":_.random(0, 100),
+      "level":_.random(0, 100),
+      "displacement":_.random(0, 100),
+      "steelbarmeter":_.random(0, 100),
     }
   };
 }
