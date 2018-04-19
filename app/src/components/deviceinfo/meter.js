@@ -48,10 +48,14 @@ const Windcontrol = (props)=>{
 
 const ProgressCtrl = (props)=>{
   const {curdevice,fieldname,fieldsprops,index} = props;
+  let unitstring = '';
+  if(lodashget(fieldsprops,'unit','') !==''){
+    unitstring = `(${lodashget(fieldsprops,'unit','')})`;
+  }
   return (
     <div className={`chartli chart${index}`}>
       <Progress type="circle" percent={100} width={70} format={percent => `${lodashget(curdevice,`realtimedata.${fieldname}`)}`} />
-      <span>{`${fieldsprops.showname}`}({`${lodashget(fieldsprops,'unit','')}`})</span>
+      <span>{`${fieldsprops.showname}`}{unitstring}</span>
     </div>
   )
 }

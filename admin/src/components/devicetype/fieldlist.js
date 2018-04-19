@@ -43,15 +43,15 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
       const name = values["columns"][0].value;
       const showname = values["columns"][1].value;
       const unit = values["columns"][2].value;
-      const iconurl = values["columns"][3].value;
-      newv[index] = {name,showname,unit,iconurl};
+      // const iconurl = values["columns"][3].value;
+      newv[index] = {name,showname,unit};
     }
     else if(index >= vsz.length){
       const name = values["columns"][0].value;
       const showname = values["columns"][1].value;
       const unit = values["columns"][2].value;
-      const iconurl = values["columns"][3].value;
-      newv.push( {name,showname,unit,iconurl});
+      // const iconurl = values["columns"][3].value;
+      newv.push( {name,showname,unit});
     }
     else{
       return;
@@ -65,7 +65,7 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
      {value:'字段名',type:'TextField',width:200},
      {value: '字段显示名', type: 'TextField', width: 200},
      {value: '单位', type: 'TextField', width: 200},
-     {value: '图标', type: 'ImageUpload', width: 'auto'},
+    //  {value: '图标', type: 'ImageUpload', width: 'auto'},
   ];
 
   _.map(vsz,(v)=>{
@@ -74,7 +74,7 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
         {value: v.name},
         {value: v.showname},
         {value: v.unit},
-        {value: v.iconurl},
+        // {value: v.iconurl},
       ]}
     );
   });

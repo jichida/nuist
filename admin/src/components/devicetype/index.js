@@ -71,7 +71,7 @@ const DeviceTypeCreate = (props) => (
             </FormTab>
            <FormTab label="自定义字段">
              <FieldList label="全部字段" source="fieldsall" />
-             <FieldSelectArrayInput  label="简要字段列表【不超过6个】" source="fieldslist_brief" />
+             <FieldSelectArrayInput  label="简要字段列表【不超过4个】" source="fieldslist_brief" />
              <FieldSelectArrayInput label="详细字段列表" source="fieldslist_detail" />
               </FormTab>
            </TabbedForm>
@@ -94,7 +94,7 @@ const DeviceTypeEdit = (props) => {
          </FormTab>
         <FormTab label="自定义字段">
            <FieldList label="全部字段" source="fieldsall" />
-           <FieldSelectArrayInput  label="简要字段列表【不超过6个】" source="fieldslist_brief" />
+           <FieldSelectArrayInput  label="简要字段列表【不超过4个】" source="fieldslist_brief" />
            <FieldSelectArrayInput label="详细字段列表" source="fieldslist_detail" />
          </FormTab>
         </TabbedForm>

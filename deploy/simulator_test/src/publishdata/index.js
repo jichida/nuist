@@ -5,7 +5,7 @@ const getpublishdata_device = (DeviceId)=>{
     "DeviceId" :DeviceId,
      realtimedata:{
       "datatime":moment().format('YYYY-MM-DD HH:mm:ss'),
-      "pressure" : _.random(0, 100),
+      "pressure" : _.random(0, 100),//温度
       "winddirection" : _.random(0, 360),
       "windspeed" : _.random(0, 12),
       "humidity" : _.random(0, 100),
@@ -22,9 +22,9 @@ const getpublishdata_device = (DeviceId)=>{
       "h2s":_.random(0, 100),
       "no2":_.random(0, 100),
       "o3":_.random(0, 100),
-      "level":_.random(0, 100),
-      "displacement":_.random(0, 100),
-      "steelbarmeter":_.random(0, 100),
+      "level":_.random(0, 100),//液位
+      "displacement":_.random(0, 100),//位移
+      "steelbarmeter":_.random(0, 100),//钢筋计
     }
   };
 }

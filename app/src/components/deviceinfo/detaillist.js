@@ -6,10 +6,10 @@ import {getCoureName} from '../../util';
 
 const DeviceInfoDetailList = (props)=>{
 	const {curdevice,devicetype} = props;
-	const {fieldslist_brief,fields} = devicetype[curdevice.devicetype];
+	const {fieldslist_detail,fields} = devicetype[curdevice.devicetype];
 	return (<ul className="data_list">
 				{
-					lodashmap(fieldslist_brief,(fieldname,index)=>{
+					lodashmap(fieldslist_detail,(fieldname,index)=>{
 						const fieldsprops = fields[fieldname];
 						if(!!fieldsprops){
 							let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`);
