@@ -25,13 +25,16 @@ export default {
     device:{
       name: '节点管理 |||| 节点管理',
     },
-    devicetype:{
-      name: '节点类型管理 |||| 节点类型管理',
+    viewtype:{
+      name: '数据视图 |||| 数据视图',
     },
-    devicegroup:{
-      name: '节点分组管理 |||| 节点分组管理',
+    gateway:{
+      name: '网关管理 |||| 网关管理',
+    },
+    gatewaygroup:{
+      name: '网关分组管理 |||| 网关分组管理',
       fields:{
-        deviceids:'节点列表',
+        gatewayids:'网关列表',
       }
     },
     user:{

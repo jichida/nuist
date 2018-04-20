@@ -44,11 +44,9 @@ const DeviceCreate = (props) => (
     <SimpleForm defaultValue={deviceDefaultValue}>
       <TextInput label="节点ID" source="DeviceId" validate={required} />
       <TextInput label="节点名字" source="name" validate={required} />
-      <ReferenceInput label="节点类型" source="devicetype" reference="devicetype" allowEmpty>
+      <ReferenceInput label="网关ID" source="gatewayid" reference="gateway" allowEmpty>
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <TextInput label="所属城市" source="city"  validate={required} />
-      <TextInput label="所属城市首字母" source="cityindex"  validate={required} />
     </SimpleForm>
   </Create>
 );
@@ -60,17 +58,11 @@ const DeviceEdit = (props) => {
         <FormTab label="节点基本信息">
           <TextField label="节点ID" source="DeviceId"  />
           <TextInput label="节点名字" source="name"  validate={required} />
-          <ReferenceInput label="节点类型" source="devicetype" reference="devicetype" allowEmpty>
+          <ReferenceInput label="网关ID" source="gatewayid" reference="gateway" allowEmpty>
             <SelectInput optionText="name" />
           </ReferenceInput>
-          <TextInput label="所属城市" source="city"  validate={required} />
-          <TextInput label="所属城市首字母" source="cityindex"  validate={required} />
-          <TextInput label="地理位置" source="locationname"  />
           <NumberInput label="经度" source="Longitude"  />
           <NumberInput label="纬度" source="Latitude"  />
-          <TextField label="详细地址" source="addressname"  />
-          <TextField label="创建时间" source="created_at"  />
-          <TextField label="更新时间" source="updated_at"  />
         </FormTab>
         <FormTab label="实时数据">
           <TextField label="温度" source="realtimedata.temperature"  />
@@ -112,18 +104,15 @@ const DeviceFilter = (props) => (
 
 const DeviceList = (props) => (
   <List title="节点管理" filters={<DeviceFilter />} sort={{field:'LastRealtimeAlarm.DataTime',order:'DESC'}} {...props}>
-  {permissions =>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
       <TextField label="节点ID" source="DeviceId" />
       <TextField label="节点名字" source="name"/>
-      <ReferenceField label="节点类型" source="devicetype" reference="devicetype" allowEmpty>
+      <ReferenceField label="网关" source="gatewayid" reference="gateway" allowEmpty>
         <TextField source="name" />
       </ReferenceField>
-      <TextField label="所在区域" source="locationname"/>
       <TextField label="最后更新时间" source="updated_at"/>
       <EditButton />
     </Datagrid>
-  }
   </List>
 );
 

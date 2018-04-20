@@ -4,7 +4,7 @@ import { translate } from 'admin-on-rest';
 
 import SystemconfigIcon from 'material-ui/svg-icons/action/settings-brightness';//系统设置
 import DeviceIcon from 'material-ui/svg-icons/device/devices';//节点
-import DeviceGroupIcon from 'material-ui/svg-icons/action/list';//节点分组
+import GatewayGroupIcon from 'material-ui/svg-icons/action/list';//节点分组
 import UserIcon from 'material-ui/svg-icons/action/account-circle';//用户
 import ProductIcon from 'material-ui/svg-icons/action/dns';//产品
 import OnlineResearchIcon from 'material-ui/svg-icons/social/poll';//在线调查
@@ -16,14 +16,15 @@ import HistoryDeviceIcon from 'material-ui/svg-icons/action/history';//历史节
 // ic_history
 
 export default [
-        { name: 'systemconfig', icon: <SystemconfigIcon /> ,adminonly:true},
-        { name: 'product', icon: <ProductIcon /> ,adminonly:true},
-        { name: 'onlineresearch', icon: <OnlineResearchIcon /> ,adminonly:true},
+        { name: 'systemconfig', icon: <SystemconfigIcon /> ,adminonly:false},
+        { name: 'product', icon: <ProductIcon /> ,adminonly:false},
+        { name: 'onlineresearch', icon: <OnlineResearchIcon /> ,adminonly:false},
         { name: 'device', icon: <DeviceIcon />,adminonly:false },
-        { name: 'devicetype', icon: <DeviceIcon />,adminonly:false },
-        { name: 'devicegroup', icon: <DeviceGroupIcon /> ,adminonly:false},
-        { name: 'user', icon: <UserIcon /> ,adminonly:true},
-        { name: 'role', icon: <RoleIcon /> ,adminonly:true},
+        { name: 'gateway', icon: <DeviceIcon />,adminonly:false },
+        { name: 'viewtype', icon: <DeviceIcon />,adminonly:false },
+        { name: 'gatewaygroup', icon: <GatewayGroupIcon /> ,adminonly:false},
+        { name: 'user', icon: <UserIcon /> ,adminonly:false},
+        // { name: 'role', icon: <RoleIcon /> ,adminonly:false},
         // { name: 'permission', icon: <PermissionIcon /> ,adminonly:true},
         { name: 'realtimealarmraw', icon: <RealtimeAlarmRawIcon /> ,adminonly:false},
         { name: 'historydevice', icon: <HistoryDeviceIcon /> ,adminonly:false},

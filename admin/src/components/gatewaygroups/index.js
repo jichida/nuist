@@ -17,28 +17,28 @@ import {getOptions} from '../controls/getselect.js';
 import {CfSelectArrayInput} from '../controls/selectarrayinput.js';
 
 
-const DeviceGroupTitle = ({record}) => {
-  return <span>节点分组管理</span>
+const GatewayGroupTitle = ({record}) => {
+  return <span>网关分组管理</span>
 };
 
-const DeviceGroupCreate = (props) => (
-  <Create title="创建节点组" {...props}  actions={<CreateActions />} >
+const GatewayGroupCreate = (props) => (
+  <Create title="创建网关组" {...props}  actions={<CreateActions />} >
     <SimpleForm>
       <TextInput label="分组名称" source="name" validate={required} />
       <TextInput label="备注" source="memo" />
       <TextInput label="联系人" source="contact" />
-      <CfSelectArrayInput label="选择节点列表" source="deviceids" loadOptions={getOptions('device','DeviceId','_id')}/>
+      <CfSelectArrayInput label="选择网关列表" source="gatewayids" loadOptions={getOptions('gateway','name','_id')}/>
     </SimpleForm>
   </Create>
 );
 
-const DeviceGroupEdit = (props) => {
-  return (<Edit title="编辑节点组" actions={<EditActions />} {...props}>
+const GatewayGroupEdit = (props) => {
+  return (<Edit title="编辑网关组" actions={<EditActions />} {...props}>
     <SimpleForm>
       <TextInput label="分组名称" source="name" validate={required} />
       <TextInput label="备注" source="memo" />
       <TextInput label="联系人" source="contact" />
-      <CfSelectArrayInput label="选择节点列表" source="deviceids" loadOptions={getOptions('device','DeviceId','_id')}/>
+      <CfSelectArrayInput label="选择网关列表" source="gatewayids" loadOptions={getOptions('gateway','name','_id')}/>
     </SimpleForm>
   </Edit>
   );
@@ -52,8 +52,8 @@ const EditBtnif = (props)=>{
 const rowStyle = (record, index) => ({
     backgroundColor: record.systemflag === 1 ? '#efe' : 'white',
 });
-const DeviceGroupList = (props) => (
-  <List title={<DeviceGroupTitle />} {...props}>
+const GatewayGroupList = (props) => (
+  <List title={<GatewayGroupTitle />} {...props}>
     {permissions =>
       <Datagrid  bodyOptions={{ showRowHover: true }} rowStyle={rowStyle}>
         <TextField label="分组名称" source="name" />
@@ -68,4 +68,4 @@ const DeviceGroupList = (props) => (
 
 
 
-export {DeviceGroupCreate,DeviceGroupList,DeviceGroupEdit};
+export {GatewayGroupCreate,GatewayGroupList,GatewayGroupEdit};

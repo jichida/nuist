@@ -1,4 +1,4 @@
-let islocalhost = false;
+let islocalhost = true;
 let serverurl = islocalhost?'http://localhost:6011':'http://api.nuistiot.com';
 
 export default {

@@ -41,7 +41,7 @@ const SystemconfigCreateTitle = ({ record }) => {
        <TabbedForm>
          <FormTab label="系统设置">
            <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
-           <ReferenceInput label="演示节点分组" source="demodevicegroupid" reference="devicegroup" allowEmpty>
+           <ReferenceInput label="演示节点分组" source="demogatewaygroupid" reference="gatewaygroup" allowEmpty>
              <SelectInput optionText="name" />
            </ReferenceInput>
          </FormTab>
@@ -59,7 +59,7 @@ const SystemconfigCreateTitle = ({ record }) => {
       <TabbedForm>
         <FormTab label="系统设置">
           <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
-          <ReferenceInput label="演示节点分组" source="demodevicegroupid" reference="devicegroup" allowEmpty>
+          <ReferenceInput label="演示节点分组" source="demogatewaygroupid" reference="gatewaygroup" allowEmpty>
             <SelectInput optionText="name" />
           </ReferenceInput>
         </FormTab>

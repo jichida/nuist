@@ -30,10 +30,10 @@ const UserCreate = (props) => (
       <TextInput label="密码" source="password" validate={required} />
       <TextInput label="真实姓名" source="truename"/>
       <TextInput label="备注" source="demo" />
-      <ReferenceInput label="用户角色" source="roleid" reference="role" allowEmpty>
+      <ReferenceInput label="查看数据类型" source="viewtype" reference="viewtype" allowEmpty>
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <CfSelectArrayInput label="节点组" source="devicegroups" loadOptions={getOptions('devicegroup','name','_id')}/>
+      <CfSelectArrayInput label="网关组" source="gatewaygroups" loadOptions={getOptions('gatewaygroup','name','_id')}/>
     </SimpleForm>
   </Create>
 );
@@ -47,10 +47,10 @@ const UserEdit = (props) => {
         <TextField label="用户名" source="username" validate={required} />
         <TextInput label="真实姓名" source="truename"/>
         <TextInput label="备注" source="demo" />
-        <ReferenceInput label="用户角色" source="roleid" reference="role" allowEmpty>
+        <ReferenceInput label="查看数据类型" source="viewtype" reference="viewtype" allowEmpty>
           <SelectInput optionText="name" />
         </ReferenceInput>
-        <CfSelectArrayInput label="节点组" source="devicegroups" loadOptions={getOptions('devicegroup','name','_id')}/>
+        <CfSelectArrayInput label="网关组" source="gatewaygroups" loadOptions={getOptions('gatewaygroup','name','_id')}/>
       </SimpleForm>
     </Edit>
   );
@@ -80,10 +80,10 @@ const UserList = (props) => (
         <TextField label="用户名" source="username" />
         <DateField label="注册时间" source="created_at" showTime />
         <DateField label="上次登录时间" source="updated_at" showTime />
-        <ReferenceField label="用户角色" source="roleid" reference="role" allowEmpty>
+        <ReferenceField label="查看数据类型" source="viewtype" reference="viewtype" allowEmpty>
           <TextField source="name" />
         </ReferenceField>
-        <ReferenceArrayField label="节点组" reference="devicegroup" source="devicegroups" >
+        <ReferenceArrayField label="网关组" reference="gatewaygroup" source="gatewaygroups" >
                 <SingleFieldList>
                     <ChipField source="name" />
                 </SingleFieldList>

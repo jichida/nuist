@@ -35,14 +35,22 @@ const OnlineResearchSchema = new Schema({
 OnlineResearchSchema.plugin(mongoosePaginate);
 const OnlineResearchModel =mongoose.model('onlineresearch',  OnlineResearchSchema);
 
-//设备
+//设备/节点
 const DeviceSchema = new Schema({
-  devicetype:{ type: Schema.Types.ObjectId, ref: 'devicetype' },
+  gatewayid:{ type: Schema.Types.ObjectId, ref: 'gateway' },
 }, { strict: false });
 DeviceSchema.plugin(mongoosePaginate);
 const DeviceModel =mongoose.model('device',  DeviceSchema);
 
-const DeviceTypeSchema = new Schema({
+//网关
+const GatewaySchema = new Schema({
+  devicepath:[{ type: Schema.Types.ObjectId, ref: 'device', default: [] }],//传输路径
+}, { strict: false });
+GatewaySchema.plugin(mongoosePaginate);
+const GatewayModel =mongoose.model('gateway',  GatewaySchema);
+
+//视图类型
+const ViewTypeSchema = new Schema({
   name:String,
   iconurl_normal:String,
   iconurl_alarm:String,
@@ -56,20 +64,22 @@ const DeviceTypeSchema = new Schema({
     }
   ],
   fieldslist_brief:[],
-  fieldslist_detail:[]
+  fieldslist_detail:[],
+  fieldslist_history:[]
 }, { strict: false });
-DeviceTypeSchema.plugin(mongoosePaginate);
-const DeviceTypeModel =mongoose.model('devicetype',  DeviceTypeSchema);
-//设备分组
-const DeviceGroupSchema = new Schema({
+ViewTypeSchema.plugin(mongoosePaginate);
+const ViewTypeModel =mongoose.model('viewtype',  ViewTypeSchema);
+
+//网关分组
+const GatewayGroupSchema = new Schema({
   name:String,
   memo:String,
   contact:String,
-  deviceids:[{ type: Schema.Types.ObjectId, ref: 'device', default: [] }],
+  gatewayids:[{ type: Schema.Types.ObjectId, ref: 'gateway', default: [] }],
   systemflag:{ type: Schema.Types.Number,default: 0 },
 });
-DeviceGroupSchema.plugin(mongoosePaginate);
-const DeviceGroupModel =mongoose.model('devicegroup',  DeviceGroupSchema);
+GatewayGroupSchema.plugin(mongoosePaginate);
+const GatewayGroupModel =mongoose.model('gatewaygroup',  GatewayGroupSchema);
 
 //用户
 const UserSchema = new Schema({
@@ -82,7 +92,8 @@ const UserSchema = new Schema({
   updated_at: { type: String, default:moment().format('YYYY-MM-DD HH:mm:ss')},
   roleid:{ type: Schema.Types.ObjectId, ref: 'role' },
   adminflag:{ type: Schema.Types.Number,default: 0 },
-  devicegroups:[{ type: Schema.Types.ObjectId, ref: 'devicegroup', default: [] }],
+  viewtype:{ type: Schema.Types.ObjectId, ref: 'viewtype' },
+  gatewaygroups:[{ type: Schema.Types.ObjectId, ref: 'gatewaygroup', default: [] }],
   usersettings:{
     indexdeviceid:String,
     warninglevel:String,//报警等级
@@ -130,8 +141,9 @@ exports.SystemConfigSchema = SystemConfigSchema;
 exports.ProductSchema = ProductSchema;
 exports.OnlineResearchSchema = OnlineResearchSchema;
 exports.DeviceSchema = DeviceSchema;
-exports.DeviceTypeSchema = DeviceTypeSchema;
-exports.DeviceGroupSchema = DeviceGroupSchema;
+exports.GatewaySchema = GatewaySchema;
+exports.ViewTypeSchema = ViewTypeSchema;
+exports.GatewayGroupSchema = GatewayGroupSchema;
 exports.UserSchema = UserSchema;
 exports.PermissionSchema = PermissionSchema;
 exports.RoleSchema = RoleSchema;
@@ -142,8 +154,9 @@ exports.SystemConfigModel = SystemConfigModel;
 exports.ProductModel = ProductModel;
 exports.OnlineResearchModel = OnlineResearchModel;
 exports.DeviceModel = DeviceModel;
-exports.DeviceTypeModel = DeviceTypeModel;
-exports.DeviceGroupModel = DeviceGroupModel;
+exports.GatewayModel  = GatewayModel ;
+exports.ViewTypeModel  = ViewTypeModel ;
+exports.GatewayGroupModel  = GatewayGroupModel;
 exports.UserModel = UserModel;
 exports.PermissionModel = PermissionModel;
 exports.RoleModel = RoleModel;

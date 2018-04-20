@@ -20,25 +20,25 @@ const dbs ={
     schema:db.DeviceSchema,
     collectionname:'device',
   },
-  'devicetype':{
-    urlname:'/devicetype',
-    schema:db.DeviceTypeSchema,
-    collectionname:'devicetype',
+  'viewtype':{
+    urlname:'/viewtype',
+    schema:db.ViewTypeSchema,
+    collectionname:'viewtype',
   },
-  'devicegroup':{
-    urlname:'/devicegroup',
-    schema:db.DeviceGroupSchema,
-    collectionname:'devicegroup',
+  'gateway':{
+    urlname:'/gateway',
+    schema:db.GatewaySchema,
+    collectionname:'gateway',
+  },
+  'gatewaygroup':{
+    urlname:'/gatewaygroup',
+    schema:db.GatewayGroupSchema,
+    collectionname:'gatewaygroup',
   },
   'user':{
     urlname:'/user',
     schema:db.UserSchema,
     collectionname:'user',
-  },
-  'role':{
-    urlname:'/role',
-    schema:db.RoleSchema,
-    collectionname:'role',
   },
   'permission':{
     urlname:'/permission',

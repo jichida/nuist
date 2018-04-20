@@ -48,20 +48,20 @@ import RichTextInput from '../controls/richtoolbar.js';
 
 import FieldSelectArrayInput from './fieldarrayselect';
 
-export const DeviceTypeFilter = props => (
+export const ViewTypeFilter = props => (
     <Filter {...props}>
         <TextInput label="搜索节点类型" source="name_q" />
     </Filter>
 );
 
-const DeviceTypecreateTitle = ({ record }) => {
+const ViewTypecreateTitle = ({ record }) => {
    return <span>新建 节点类型</span>;
 };
 
 
 
-const DeviceTypeCreate = (props) => (
-       <Create {...props} title={<DeviceTypeTitle />} >
+const ViewTypeCreate = (props) => (
+       <Create {...props} title={<ViewTypeTitle />} >
            <TabbedForm>
              <FormTab label="基本信息">
                <TextInput label="名字" source="name" />
@@ -79,12 +79,12 @@ const DeviceTypeCreate = (props) => (
 );
 
 
-const DeviceTypeTitle = ({ record }) => {
+const ViewTypeTitle = ({ record }) => {
    return <span>编辑 节点类型</span>;
 };
 
-const DeviceTypeEdit = (props) => {
-      return (<Edit title={<DeviceTypeTitle />} {...props}>
+const ViewTypeEdit = (props) => {
+      return (<Edit title={<ViewTypeTitle />} {...props}>
         <TabbedForm>
           <FormTab label="基本信息">
             <TextInput label="名字" source="name" />
@@ -106,8 +106,8 @@ const DeviceTypeEdit = (props) => {
 <CfSelectArrayInput label="详细字段列表" source="fieldslist_detail" loadOptions={getOptions(props)}/> */}
 
 
-const DeviceTypeList = (props) => (//
-     <List title="节点类型"  filters={<DeviceTypeFilter />}  {...props} >
+const ViewTypeList = (props) => (//
+     <List title="节点类型"  filters={<ViewTypeFilter />}  {...props} >
         <Datagrid>
         <ImageField source="iconurl_normal" label="普通节点图标"/>
         <ImageField source="iconurl_alarm" label="报警节点图标"/>
@@ -119,4 +119,4 @@ const DeviceTypeList = (props) => (//
 );
 
 
-export  {DeviceTypeCreate,DeviceTypeList,DeviceTypeEdit};
+export  {ViewTypeCreate,ViewTypeList,ViewTypeEdit};

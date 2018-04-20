@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import renderGroupEdit from './devicegroupedit';
+import renderGroupEdit from './gatewaygroupedit';
 import renderAlaramRuleEdit from './alarmrule';
 
 const CfSelectArrayInputDetail = ({source,label}) => {
