@@ -14,15 +14,15 @@ import lodashmap from 'lodash.map';
 class App extends React.Component {
 
     render() {
-        const {curdevice,devicetype,retlist} = this.props;
+        const {curdevice,viewtype,retlist} = this.props;
         if(!!curdevice){
           const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
-          const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
+          const {fields,fieldslist_brief} = viewtype;
           return (
               <div className="monitorPage">
                   <Header history={this.props.history} title={`${lodashget(curdevice,'name','')}-${lodashget(curdevice,'locationname','')}`}/>
-                  <Filler curdevice={curdevice} devicetype={devicetype}/>
-                  <List curdevice={curdevice} devicetype={devicetype}/>
+                  <Filler curdevice={curdevice} viewtype={viewtype}/>
+                  <List curdevice={curdevice} viewtype={viewtype}/>
                   {
                     lodashmap(fieldslist_brief,(fieldname)=>{
           						const fieldsprops = fields[fieldname];
@@ -40,9 +40,9 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{devices,devicetype},historydevice:{historydevices}},props) => {
+const mapStateToProps = ({device:{devices,viewtype},historydevice:{historydevices}},props) => {
 		const curdevice = devices[props.match.params.id];
     const retlist = lodashget(historydevices,`${props.match.params.id}`,[]);
-    return {curdevice,devicetype,retlist};
+    return {curdevice,viewtype,retlist};
 }
 export default connect(mapStateToProps)(App);

@@ -7,9 +7,9 @@
 // import lodashget from 'lodash.get'
 import getDeviceLayerHtml from '../components/map/layerdevice';
 
-const createInfoWindow_popinfo =(data,g_devicetype)=> {
+const createInfoWindow_popinfo =(data,viewtype)=> {
     let info = document.createElement("div");
-    info.innerHTML = getDeviceLayerHtml(data,g_devicetype);
+    info.innerHTML = getDeviceLayerHtml(data,viewtype);
     return {
         isCustom: true,  //使用自定义窗体
         content: info,

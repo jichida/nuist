@@ -1,6 +1,6 @@
 const systemconfig = require('../common/systemconfig');
 const userlogin = require('../common/userlogin');
-const device = require('../common/device.js');
+const gateway = require('../common/gateway');
 const historydevice = require('../common/historydevice.js');
 const realtimealarm = require('../common/realtimealarm.js');
 const moment = require('moment');
@@ -19,7 +19,7 @@ const actiondatahandler = {
   'login':userlogin.loginuser,
 
   'gethistorydevicelist':historydevice.gethistorydevicelist,
-  'getdevicelist':device.getdevicelist,
+  'getgatewaylist':gateway.getgatewaylist,
   'getrealtimealarmlist':realtimealarm.getrealtimealarmlist,
 
   'saveusersettings':userlogin.saveusersettings,

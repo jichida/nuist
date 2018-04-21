@@ -6,6 +6,7 @@ const realtimealarm = require('../common/realtimealarm.js');
 const moment = require('moment');
 const product = require('../common/product.js');
 const vote = require('../common/vote.js');
+const gateway = require('../common/gateway');
 const debugapp = require('debug')('appsrv:app:index');
 
 const actiondatahandler = {
@@ -19,7 +20,7 @@ const actiondatahandler = {
   //正式版本中下面的删除
   'saveusersettings':userlogin.saveusersettings,
   'gethistorydevicelist':historydevice.gethistorydevicelist,
-  'getdevicelist':device.getdevicelist,
+  'getgatewaylist':gateway.getgatewaylist,
   'getrealtimealarmlist':realtimealarm.getrealtimealarmlist,
 };
 

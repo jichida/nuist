@@ -31,13 +31,13 @@ class App extends React.Component {
 			this.props.dispatch(saveusersettings_request(usersettings));
 		}
     render() {
-        const {ispopcaresel_single_datameter,curdevice,devicelist,devices,devicetype} = this.props;
+        const {ispopcaresel_single_datameter,curdevice,devicelist,devices,viewtype} = this.props;
         return (
             <div className="datameterPage">
                 <Header title="数据监控" history={this.props.history} ishidereturn/>
-                { !!curdevice && <Filler curdevice={curdevice} devicetype={devicetype}/> }
-                {/* { !!curdevice && <Meter curdevice={curdevice} devicetype={devicetype}/> } */}
-                <List history={this.props.history} devicelist={devicelist} devices={devices} devicetype={devicetype}/>
+                { !!curdevice && <Filler curdevice={curdevice} viewtype={viewtype}/> }
+                {/* { !!curdevice && <Meter curdevice={curdevice} viewtype={viewtype}/> } */}
+                <List history={this.props.history} devicelist={devicelist} devices={devices} viewtype={viewtype}/>
                 <Footer history={this.props.history} sel={"datameter"} />
                 {ispopcaresel_single_datameter && <PopcareSel value={curdevice._id} onChange={this.onChangeCaresel}/>}
             </div>
@@ -45,7 +45,7 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{devicelist,devices,devicetype},userlogin:{usersettings},app:{ispopcaresel_single_datameter}}) => {
+const mapStateToProps = ({device:{devicelist,devices,viewtype},userlogin:{usersettings},app:{ispopcaresel_single_datameter}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
@@ -56,6 +56,6 @@ const mapStateToProps = ({device:{devicelist,devices,devicetype},userlogin:{user
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {curdevice,devicelist,devices,ispopcaresel_single_datameter,devicetype,usersettings};
+    return {curdevice,devicelist,devices,ispopcaresel_single_datameter,viewtype,usersettings};
 }
 export default connect(mapStateToProps)(App);

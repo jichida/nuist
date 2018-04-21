@@ -15,10 +15,10 @@ class App extends React.Component {
     }
 
     onClickQuery = ()=>{
-      const {periodquery,curdevice,devicetype} = this.props;
+      const {periodquery,curdevice,viewtype} = this.props;
       const {periodname,starttime,endtime} = periodquery;
       this.props.dispatch(gethistorydevicelist_request({
-        fieldslist:devicetype[curdevice.devicetype].fieldslist_brief,
+        fieldslist:viewtype.fieldslist_brief,
         _id:curdevice._id,
         periodname,
         starttime,
@@ -137,7 +137,7 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({historydevice:{periodquery},device:{devicetype}},props) => {
-    return {periodquery,devicetype};
+const mapStateToProps = ({historydevice:{periodquery},device:{viewtype}},props) => {
+    return {periodquery,viewtype};
 }
 export default connect(mapStateToProps)(App);

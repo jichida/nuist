@@ -5,8 +5,8 @@ import lodashmap from 'lodash.map';
 import {getCoureName} from '../../util';
 
 const DeviceInfoDetailList = (props)=>{
-	const {curdevice,devicetype} = props;
-	const {fieldslist_detail,fields} = devicetype[curdevice.devicetype];
+	const {curdevice,viewtype} = props;
+	const {fieldslist_detail,fields} = viewtype;
 	return (<ul className="data_list">
 				{
 					lodashmap(fieldslist_detail,(fieldname,index)=>{

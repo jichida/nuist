@@ -3,7 +3,7 @@ import {
   notify_socket_connected,
   getsystemconfig_request,
   loginwithtoken_request,
-  getdevicelist_request,
+  getgatewaylist_request,
   getproductlist_request,
   getvotelist_request
 } from '../actions';
@@ -15,7 +15,7 @@ export function* socketflow(){//仅执行一次
       let {payload:issocketconnected} = action;
       if(issocketconnected){
         yield put(getsystemconfig_request({}));
-        yield put(getdevicelist_request({}));
+        yield put(getgatewaylist_request({}));
         yield put(getproductlist_request({}));
         yield put(getvotelist_request({}));
         if(config.softmode === 'app'){

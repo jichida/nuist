@@ -15,8 +15,8 @@ import {
   saveusersettings_request,
   mapmain_showpopinfo,
   // mapmain_showpopinfo_list,
-  getdevicelist_result,
-  getdevicelist_result_4reducer,
+  getgatewaylist_result,
+  getgatewaylist_result_4reducer,
   serverpush_device
   } from '../actions';
   import config from '../env/config.js';
@@ -66,14 +66,14 @@ import {
     });
   }
 
-  const getMarkCluster_recreateMarks = (SettingOfflineMinutes,g_devicesdb,g_devicetype)=>{
+  const getMarkCluster_recreateMarks = (SettingOfflineMinutes,g_devicesdb,viewtype)=>{
     if(markCluster.getMarkers().length > 0){
       markCluster.clearMarkers();
     }
-    getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,g_devicetype);
+    getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtype);
   }
 
-  const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,g_devicetype)=>{
+  const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,viewtype)=>{
     let markers = [];
     lodashmap(g_devicesdb,(item,key)=>{
       if(!!item){//AMap.LngLat(lng:Number,lat:Number)
@@ -81,9 +81,9 @@ import {
           const marker = new window.AMap.Marker({
              position:pos,
              icon: new window.AMap.Icon({
-                size: new window.AMap.Size(48, 48),
-                imageSize: new window.AMap.Size(33, 48),  //图标大小
-                image: getimageicon(item,SettingOfflineMinutes,g_devicetype),
+                size: new window.AMap.Size(24, 24),
+                imageSize: new window.AMap.Size(16, 24),  //图标大小
+                image: getimageicon(item,SettingOfflineMinutes,viewtype),
                 imageOffset: new window.AMap.Pixel(0, 0)
             }),
              angle:get(item,'angle',0),
@@ -104,7 +104,7 @@ import {
     markCluster.setMarkers(markers);
   }
 
-  const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,g_devicetype)=>{
+  const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype)=>{
     const allmarks = markCluster.getMarkers();
     lodashmap(allmarks,(mark)=>{
       const deviceitem = g_devicesdb[mark.getExtData()];
@@ -114,9 +114,9 @@ import {
           const pos = new window.AMap.LngLat(deviceitemnew.Longitude,deviceitemnew.Latitude);
           mark.setPosition(pos);
           const newIcon = new window.AMap.Icon({
-             size: new window.AMap.Size(48, 48),
-             imageSize: new window.AMap.Size(33, 48),  //图标大小
-             image: getimageicon(deviceitemnew,SettingOfflineMinutes,g_devicetype),
+             size: new window.AMap.Size(24, 24),
+             imageSize: new window.AMap.Size(16, 24),  //图标大小
+             image: getimageicon(deviceitemnew,SettingOfflineMinutes,viewtype),
              imageOffset: new window.AMap.Pixel(0, 0)
          });
           mark.setIcon(newIcon);
@@ -128,12 +128,12 @@ import {
     });
   }
 
-  const getMarkCluster_showMarks = ({isshow,SettingOfflineMinutes,g_devicesdb,g_devicetype})=>{
+  const getMarkCluster_showMarks = ({isshow,SettingOfflineMinutes,g_devicesdb,viewtype})=>{
     return new Promise((resolve,reject) => {
       if(isshow){
         markCluster.setMap(window.amapmain);
         if(markCluster.getMarkers().length === 0){
-          getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,g_devicetype);
+          getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtype);
         }
       }
       else{
@@ -212,7 +212,7 @@ import {
   }
 
   //显示弹框
-  const showinfowindow = (deviceitem,g_devicetype)=>{
+  const showinfowindow = (deviceitem,viewtype)=>{
     return new Promise((resolve,reject) =>{
         if(!window.AMapUI){
           alert('未加载到AMapUI！');
@@ -221,7 +221,7 @@ import {
         }
         // console.log(deviceitem)
         const locz = new window.AMap.LngLat(deviceitem.Longitude,deviceitem.Latitude);
-        infoWindow = new window.AMap.InfoWindow(getpopinfowindowstyle(deviceitem,g_devicetype));
+        infoWindow = new window.AMap.InfoWindow(getpopinfowindowstyle(deviceitem,viewtype));
         if(!!locz){
           window.amapmain.setCenter(locz);
           infoWindow.open(window.amapmain, locz);
@@ -301,7 +301,7 @@ import {
             //   deivcelist.push(v);
             // });
             // if(deivcelist.length > 0){
-            //   yield put(getdevicelist_result({list:deivcelist}));
+            //   yield put(getgatewaylist_result({list:deivcelist}));
             // }
             //
             // const {usersettings,devices} = yield select((state)=>{
@@ -360,14 +360,14 @@ import {
         //显示弹框
         try{
           const {payload:_id} = actiondevice;
-          const {g_devicesdb,g_devicetype} = yield select((state)=>{
-            const {devices,devicetype} = state.device;
-            return {g_devicesdb:devices,g_devicetype:devicetype};
+          const {g_devicesdb,viewtype} = yield select((state)=>{
+            const {devices,viewtype} = state.device;
+            return {g_devicesdb:devices,viewtype:viewtype};
           });
 
             //1
             //弹框
-            yield call(showinfowindow,g_devicesdb[_id],g_devicetype);
+            yield call(showinfowindow,g_devicesdb[_id],viewtype);
 
             yield fork(function*(eventname){
              //while(true){//关闭时触发的事件
@@ -397,7 +397,7 @@ import {
       //     // yield put(querydeviceinfo_list_request({query:{DeviceId:{'$in':deviceids}}}));
       //     // const {payload:{list}} = yield take(`${querydeviceinfo_list_result}`);
       //     //
-      //     const listitem = itemdevicelist;//yield call(getdevicelist,list);
+      //     const listitem = itemdevicelist;//yield call(getgatewaylist,list);
       //     //
       //     // lodashmap(listitem,(item)=>{
       //     //   g_devicesdb[item.DeviceId] = item;
@@ -429,14 +429,14 @@ import {
       // });
 
 
-        yield takeLatest(`${getdevicelist_result}`, function*(deviceresult) {
+        yield takeLatest(`${getgatewaylist_result}`, function*(deviceresult) {
           let {payload} = deviceresult;
           try{
-              yield put.resolve(getdevicelist_result_4reducer(payload));
+              yield put.resolve(getgatewaylist_result_4reducer(payload));
 
-              const {g_devicesdb,g_devicetype} = yield select((state)=>{
-                const {devices,devicetype} = state.device;
-                return {g_devicesdb:devices,g_devicetype:devicetype};
+              const {g_devicesdb,viewtype} = yield select((state)=>{
+                const {devices,viewtype} = state.device;
+                return {g_devicesdb:devices,viewtype:viewtype};
               });
 
               // const data = [];
@@ -455,8 +455,8 @@ import {
               const SettingOfflineMinutes =yield select((state)=>{
                 return get(state,'app.SettingOfflineMinutes',20);
               });
-              getMarkCluster_recreateMarks(SettingOfflineMinutes,g_devicesdb,g_devicetype);
-              yield call(getMarkCluster_showMarks,{isshow:true,SettingOfflineMinutes,g_devicesdb,g_devicetype});
+              getMarkCluster_recreateMarks(SettingOfflineMinutes,g_devicesdb,viewtype);
+              yield call(getMarkCluster_showMarks,{isshow:true,SettingOfflineMinutes,g_devicesdb,viewtype});
 
               //选中一个默认节点
               const {usersettings} = yield select((state)=>{
@@ -476,9 +476,9 @@ import {
 
         yield takeLatest(`${serverpush_device}`, function*(action) {
           const {payload:deviceitem} = action;
-          const {g_devicesdb,g_devicetype} = yield select((state)=>{
-            const {devices,devicetype} = state.device;
-            return {g_devicesdb:devices,g_devicetype:devicetype};
+          const {g_devicesdb,viewtype} = yield select((state)=>{
+            const {devices,viewtype} = state.device;
+            return {g_devicesdb:devices,viewtype:viewtype};
           });
           g_devicesdb[deviceitem._id] = deviceitem;
           const SettingOfflineMinutes =yield select((state)=>{
@@ -486,7 +486,7 @@ import {
           });
           let g_devicesdb_updated = {};
           g_devicesdb_updated[deviceitem._id] = deviceitem;
-          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,g_devicetype);
+          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype);
         });
 
           //ui_mycarselcurdevice_request
@@ -495,8 +495,8 @@ import {
             try{
               const {payload:_id} = action;
               const {g_devicesdb} = yield select((state)=>{
-                const {devices,devicetype} = state.device;
-                return {g_devicesdb:devices,g_devicetype:devicetype};
+                const {devices,viewtype} = state.device;
+                return {g_devicesdb:devices,viewtype:viewtype};
               });
               if(!!infoWindow){
                   infoWindow.close();

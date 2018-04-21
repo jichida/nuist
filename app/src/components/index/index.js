@@ -31,12 +31,11 @@ import {
 import {getCoureName} from '../../util';
 
 const BottomBannerData = (props)=>{
-	const {curdevice,devicetype} = props;
-	const curdevicetype = devicetype[curdevice.devicetype];
-	if(!curdevicetype){
+	const {curdevice,viewtype} = props;
+	if(!viewtype){
 		return (<div>无法获取节点类型</div>);
 	}
-	const {fields,fieldslist_brief} = curdevicetype;
+	const {fields,fieldslist_brief} = viewtype;
 	if(!fields){
 		return (<div>无法获取节点类型的字段属性</div>);
 	}
@@ -120,7 +119,7 @@ class App extends React.Component {
 
 		}
   	render() {
-			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,usersettings,devicetype} = this.props;
+			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,usersettings,viewtype} = this.props;
 			const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
 	    return (
 	      	<div
@@ -142,7 +141,7 @@ class App extends React.Component {
 			        		<div onClick={this.onClickPopCareSel} className="mapcanver city"><img alt="" src={City} /><span>{lodashget(curdevice,'name')}</span></div>
 			        		<div onClick={this.onClickPopCareSel} className="mapcanver point"><img alt="" src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
 			        		{/* <div className="maindata">
-											<BottomBannerData curdevice={curdevice} devicetype={devicetype} />
+											<BottomBannerData curdevice={curdevice} viewtype={viewtype} />
 			        		</div> */}
 			        	</div>
 							)
@@ -159,7 +158,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,mapstyle},
-	device:{devicelist,devices,devicetype},
+	device:{devicelist,devices,viewtype},
 	userlogin:{usersettings,loginsuccess}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
@@ -171,6 +170,6 @@ const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_sin
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,loginsuccess,devices,usersettings,mapstyle,devicetype};
+    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,loginsuccess,devices,usersettings,mapstyle,viewtype};
 }
 export default connect(mapStateToProps)(App);

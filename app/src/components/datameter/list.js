@@ -46,13 +46,13 @@ class App extends React.Component {
     }
 
   	render() {
-			const {devicelist,devices,devicetype} = this.props;
+			const {devicelist,devices,viewtype} = this.props;
 	    return (
 	      	<div className="datamonitordata">
 							{
 								lodashmap(devicelist,(did,index)=>{
 									const curdevice = devices[did];
-									const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
+									const {fields,fieldslist_brief} = viewtype;
 									if(!!curdevice){
 										return (
 											<ul key={did}>

@@ -15,13 +15,13 @@ class App extends React.Component {
    }
 
     render() {
-        const {curdevice,devicetype,index} = this.props;
+        const {curdevice,viewtype,index} = this.props;
         if(!!curdevice){
           return (
               <div className="monitorPage">
                   <Header history={this.props.history} title={`${getindexstring(index,2)}-${lodashget(curdevice,'name','')}-${lodashget(curdevice,'locationname','')}`}/>
-                  <Meter curdevice={curdevice} devicetype={devicetype}/>
-                 <DeviceInfoDetailList curdevice={curdevice} devicetype={devicetype}/>
+                  <Meter curdevice={curdevice} viewtype={viewtype}/>
+                 <DeviceInfoDetailList curdevice={curdevice} viewtype={viewtype}/>
 
 
               </div>
@@ -32,9 +32,9 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{devices,devicetype},historydevice:{historydevices}},props) => {
+const mapStateToProps = ({device:{devices,viewtype},historydevice:{historydevices}},props) => {
 		const curdevice = devices[props.match.params.id];
     const index = props.match.params.index;
-    return {curdevice,devicetype,index};
+    return {curdevice,viewtype,index};
 }
 export default connect(mapStateToProps)(App);
