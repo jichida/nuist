@@ -12,7 +12,7 @@ class App extends React.Component {
     this.onClickQuery(this.props);
   }
   onClickQuery = (props)=>{
-    const {periodquery,curdevice,devicetype} = props;
+    const {periodquery,curdevice,viewtype} = props;
     const {periodname,starttime,endtime} = periodquery;
     if(!!curdevice){
       this.props.dispatch(gethistorydevicelist_request({
@@ -20,7 +20,7 @@ class App extends React.Component {
         periodname,
         starttime,
         endtime,
-        fieldslist:devicetype[curdevice.devicetype].fieldslist_brief,
+        fieldslist:viewtype.fieldslist_brief,
       }));
     }
   }
@@ -35,12 +35,12 @@ class App extends React.Component {
     }
 
   	render() {
-      const {curdevice,devicetype,retlist} = this.props;
+      const {curdevice,viewtype,retlist} = this.props;
       if(!curdevice){
         return <div />
       }
       const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
-      const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
+      const {fields,fieldslist_brief} = viewtype;
 			return (
         <div className="datachart">
           <ul>
@@ -63,7 +63,7 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({historydevice:{periodquery},device:{devices,devicelist,devicetype},historydevice:{historydevices},userlogin:{usersettings}}) => {
+const mapStateToProps = ({historydevice:{periodquery},device:{devices,devicelist,viewtype},historydevice:{historydevices},userlogin:{usersettings}}) => {
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
     let curdevice;
     if(!!curdeviceid){
@@ -76,6 +76,6 @@ const mapStateToProps = ({historydevice:{periodquery},device:{devices,devicelist
     }
     curdeviceid = lodashget(curdevice,'_id');
     const retlist = lodashget(historydevices,`${curdeviceid}`,[]);
-    return {curdevice,retlist,periodquery,devicetype};
+    return {curdevice,retlist,periodquery,viewtype};
 }
 export default connect(mapStateToProps)(App);

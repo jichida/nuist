@@ -48,9 +48,9 @@ const ProgressCtrl = (props)=>{
 
 class App extends React.Component {
   	render() {
-      const {curdevice,devicetype} = this.props;
+      const {curdevice,viewtype} = this.props;
       if(!!curdevice){
-        const {fields,fieldslist_detail,fieldslist_brief} = devicetype[curdevice.devicetype];
+        const {fields,fieldslist_detail,fieldslist_brief} = viewtype;
         let isshowwincontrol = lodashincludes(fieldslist_detail,'winddirection') && lodashincludes(fieldslist_detail,'windspeed');
         let index = 0;
         return (

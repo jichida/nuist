@@ -10,9 +10,9 @@ import {createInfoWindow_popinfo} from './mapmain_infowindow';
 // }
 
 
-export const getpopinfowindowstyle = (deviceitem,g_devicetype)=>{
+export const getpopinfowindowstyle = (deviceitem,viewtype)=>{
   // let result = bridge_deviceinfo_pop(deviceitem);
-  return createInfoWindow_popinfo(deviceitem,g_devicetype);
+  return createInfoWindow_popinfo(deviceitem,viewtype);
 }
 
 //
@@ -76,7 +76,7 @@ const getdevicestatus_alaramlevel = (deviceitem)=>{
   return warninglevel;
 }
 
-export const getimageicon_isonline = (item,SettingOfflineMinutes,g_devicetype)=>{
+export const getimageicon_isonline = (item,SettingOfflineMinutes,viewtype)=>{
   //这里根据不同item显示不同图标
   const isonline = getdevicestatus_isonline(item,SettingOfflineMinutes);
   const icon_car0 = `${process.env.PUBLIC_URL}/images/icon_car0.png`;
@@ -98,10 +98,10 @@ export const getimageicon_isonline = (item,SettingOfflineMinutes,g_devicetype)=>
 }
 
 
-export const getimageicon = (item,SettingOfflineMinutes,g_devicetype)=>{
+export const getimageicon = (item,SettingOfflineMinutes,viewtype)=>{
 
   //这里根据不同item显示不同图标
-  const curdevicetype = g_devicetype[item.devicetype];
+  const curdevicetype =viewtype;
   const icon_error = lodashget(curdevicetype,'iconurl_error',`${process.env.PUBLIC_URL}/images/device_error.png`);
   const icon_normal = lodashget(curdevicetype,'iconurl_normal',`${process.env.PUBLIC_URL}/images/device_normal.png`);
   const icon_alarm = lodashget(curdevicetype,'iconurl_alarm',`${process.env.PUBLIC_URL}/images/device_alarm.png`);

@@ -8,8 +8,8 @@ import {
 
   set_weui,
 
-  getdevicelist_request,
-  getdevicelist_result_4reducer,
+  getgatewaylist_request,
+  getgatewaylist_result_4reducer,
 
   ui_startalarm,
   ui_stopalarm,
@@ -31,7 +31,7 @@ import config from '../env/config.js';
 import {getdomposition} from '../util/index';
 
 export function* wsrecvsagaflow() {
-  yield takeLatest(`${getdevicelist_result_4reducer}`,function*(action){
+  yield takeLatest(`${getgatewaylist_result_4reducer}`,function*(action){
     //若第一次usersettings里面字段为空，则设置
     const {list} = action.payload;
     if(list.length > 0){
@@ -82,7 +82,7 @@ export function* wsrecvsagaflow() {
               // if(config.softmode === 'pc'){
               //   yield put(gettipcount_request({}));//获取个数
               // }
-              yield put(getdevicelist_request({}));
+              yield put(getgatewaylist_request({}));
 
               // if(config.ispopalarm){
               //   yield put(start_serverpush_alarm_sz({}));
@@ -138,7 +138,7 @@ export function* wsrecvsagaflow() {
   });
 
   yield takeLatest(`${logout_result}`, function*(action) {
-      yield put(getdevicelist_request({}));
+      yield put(getgatewaylist_request({}));
   });
 
   yield takeLatest(`${ui_notifyresizeformap}`, function*(action) {

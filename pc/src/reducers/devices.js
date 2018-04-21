@@ -1,17 +1,24 @@
 import { createReducer } from 'redux-act';
 import {
-  getdevicelist_result_4reducer,
+  getgatewaylist_result_4reducer,
   serverpush_device,
   logout_result
  } from '../actions';
  import {normalizrdevices} from './normalizr';
 // import lodashmap from 'lodash.map';
 
+
 const initial = {
     device: {
+        viewtype:{
+          fields:{},
+          "fieldslist_detail" : [],
+          "fieldslist_brief" : [],
+          "fieldsall" : []
+        },
+        gateways:{},
         devicelist:[],
         devices: {},
-        devicetype:{}
     },
 };
 
@@ -22,14 +29,14 @@ const device = createReducer({
     devices[_id] = {...devices[_id],realtimedata:{...realtimedata}};
     return {...state,devices};
   },
-  [getdevicelist_result_4reducer]:(state,payload)=>{
-      const {list} = payload;
+  [getgatewaylist_result_4reducer]:(state,payload)=>{
       const {
+        viewtype,
         devicelist,
         devices,
-        devicetype
-      } = normalizrdevices(list);
-      return {...state, devicelist,devicetype,devices};
+        gateways
+      } = normalizrdevices(payload);
+      return {...state, devicelist,viewtype,gateways,devices};
   },
   [logout_result]: (state, payload) => {
     return {...initial.device};

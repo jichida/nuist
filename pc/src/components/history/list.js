@@ -46,8 +46,8 @@ const TitleD = (props)=>{
 class App extends React.Component {
 
   	render() {
-      const {retlist,devicetype,curdevice} = this.props;
-			const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
+      const {retlist,viewtype} = this.props;
+			const {fields,fieldslist_brief} = viewtype;
       const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
 
 	    return (
@@ -76,9 +76,9 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({historydevice:{historydevices},device:{devicetype}},props) => {
+const mapStateToProps = ({historydevice:{historydevices},device:{viewtype}},props) => {
     const did = lodashget(props,'curdevice._id');
     const retlist = lodashget(historydevices,`${did}`,[]);
-    return {retlist,devicetype};
+    return {retlist,viewtype};
 }
 export default connect(mapStateToProps)(App);

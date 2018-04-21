@@ -14,8 +14,8 @@ import lodashmap from 'lodash.map';
 import {getCoureName} from '../../util';
 
 const DeviceInfoDetailList = (props)=>{
-	const {curdevice,devicetype} = props;
-	const {fieldslist_brief,fields} = devicetype[curdevice.devicetype];
+	const {curdevice,viewtype} = props;
+	const {fieldslist_brief,fields} = viewtype;
 	return (<div className="monitoringli">
 				{
 					lodashmap(fieldslist_brief,(fieldname)=>{
@@ -43,7 +43,7 @@ class App extends React.Component {
 		this.props.dispatch(ui_mycar_selcurdevice(did));
   }
   render() {
-    const {curdevice,devicelist,devices,devicetype} = this.props;
+    const {curdevice,devicelist,devices,viewtype} = this.props;
     if(!curdevice){
       return <div />
     }
@@ -62,13 +62,13 @@ class App extends React.Component {
             </Dropdown>
           </span>
         </div>
-				<DeviceInfoDetailList curdevice={curdevice} devicetype={devicetype} />
+				<DeviceInfoDetailList curdevice={curdevice} viewtype={viewtype} />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({device:{devicelist,devices,devicetype},userlogin:{usersettings}}) => {
+const mapStateToProps = ({device:{devicelist,devices,viewtype},userlogin:{usersettings}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
@@ -79,6 +79,6 @@ const mapStateToProps = ({device:{devicelist,devices,devicetype},userlogin:{user
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {curdevice,devicelist,devices,usersettings,devicetype};
+    return {curdevice,devicelist,devices,usersettings,viewtype};
 }
 export default connect(mapStateToProps)(App);

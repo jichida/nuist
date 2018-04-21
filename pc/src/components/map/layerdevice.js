@@ -36,9 +36,9 @@ window.clickfn_device =(did)=>{
   store.dispatch(push(`/deviceinfo/${did}/0`));
 }
 
-const getDeviceLayerHtml = (curdevice,g_devicetype)=>{
+const getDeviceLayerHtml = (curdevice,viewtype)=>{
   const devicename = lodashget(curdevice,'name','');
-  const curdevicetype = g_devicetype[curdevice.devicetype];
+  const curdevicetype = viewtype;
   const {fields,fieldslist_brief} = curdevicetype;
   // const winddirection = getCoureName(lodashget(curdevice,'realtimedata.winddirection',0));
   // const windspeed = lodashget(curdevice,'realtimedata.windspeed','');

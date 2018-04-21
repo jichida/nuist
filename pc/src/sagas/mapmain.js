@@ -15,15 +15,15 @@ import {
   saveusersettings_request,
   mapmain_showpopinfo,
   // mapmain_showpopinfo_list,
-  getdevicelist_result,
-  getdevicelist_result_4reducer,
+  getgatewaylist_result,
+  getgatewaylist_result_4reducer,
   serverpush_device
   } from '../actions';
   import config from '../env/config.js';
   import store from '../env/store';
 
   const divmapid_mapmain = 'mapmain';
-  const maxzoom = config.softmode === 'pc'?18:19;
+  // const maxzoom = config.softmode === 'pc'?18:19;
   let infoWindow;
 
   //=====数据部分=====
@@ -44,36 +44,21 @@ import {
         }
 
         markCluster = new window.AMap.MarkerClusterer(map, [],{
-          maxZoom:maxzoom,
+          maxZoom:12,
           gridSize:80,
         });
-        // markCluster.on('click',({cluster,lnglat,target,markers})=>{
-        //   let itemdevicelist = [];
-        //   lodashmap(markers,(mark)=>{
-        //     itemdevicelist.push(g_devicesdb[mark.getExtData()]);
-        //   });
-        //   const curzoom = markCluster.getMap().getZoom();
-        //   // 在PC上，默认为[3,18]，取值范围[3-18]；
-        //   // 在移动设备上，默认为[3,19],取值范围[3-19]
-        //   if(curzoom === maxzoom ){
-        //       store.dispatch(mapmain_showpopinfo_list({itemdevicelist,lnglat}));
-        //     //弹框
-        //   }
-        //   //console.log(`click device list:${JSON.stringify(itemdevicelist)},curzoom:${curzoom}`);
-        // });
-
         resolve();
     });
   }
 
-  const getMarkCluster_recreateMarks = (SettingOfflineMinutes,g_devicesdb,g_devicetype)=>{
+  const getMarkCluster_recreateMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
     if(markCluster.getMarkers().length > 0){
       markCluster.clearMarkers();
     }
-    getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,g_devicetype);
+    getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
   }
 
-  const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,g_devicetype)=>{
+  const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
     let markers = [];
     lodashmap(g_devicesdb,(item,key)=>{
       if(!!item){//AMap.LngLat(lng:Number,lat:Number)
@@ -81,15 +66,15 @@ import {
           const marker = new window.AMap.Marker({
              position:pos,
              icon: new window.AMap.Icon({
-                size: new window.AMap.Size(48, 48),
-                imageSize: new window.AMap.Size(33, 48),  //图标大小
-                image: getimageicon(item,SettingOfflineMinutes,g_devicetype),
+                size: new window.AMap.Size(24, 24),
+                imageSize: new window.AMap.Size(16, 24),  //图标大小
+                image: getimageicon(item,SettingOfflineMinutes,viewtype),
                 imageOffset: new window.AMap.Pixel(0, 0)
             }),
              angle:get(item,'angle',0),
             //  content: '<div style="background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
              offset: new window.AMap.Pixel(0, 0),//-113, -140
-             extData:key
+             extData:{type:'device',key}
           });
           marker.on('click',()=>{
             //console.log(`click marker ${key}`);
@@ -99,41 +84,89 @@ import {
           });
           markers.push(marker);
         }
-
     });
+
+    lodashmap(gateways,(item,key)=>{
+      if(!!item){//AMap.LngLat(lng:Number,lat:Number)
+          const pos = new window.AMap.LngLat(item.Longitude,item.Latitude);
+          const marker = new window.AMap.Marker({
+             position:pos,
+            //  icon: new window.AMap.Icon({
+            //     size: new window.AMap.Size(48, 48),
+            //     imageSize: new window.AMap.Size(32, 48),  //图标大小
+            //     image: getimageicon(item,SettingOfflineMinutes,viewtype),
+            //     imageOffset: new window.AMap.Pixel(0, 0)
+            // }),
+             angle:get(item,'angle',0),
+            //  content: '<div style="background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
+             offset: new window.AMap.Pixel(0, 0),//-113, -140
+             extData:{type:'gateway',key}
+          });
+          markers.push(marker);
+
+          //化纤
+
+          lodashmap(gateways,(gw)=>{
+            let lineArr = [];
+            lodashmap(gw.devicepath,(did)=>{
+              const item = g_devicesdb[did];
+              if(!!item){
+                lineArr.push([item.Longitude,item.Latitude]);
+              }
+            });
+            lineArr.push([gw.Longitude,gw.Latitude]);
+            const polyline = new window.AMap.Polyline({
+                 path: lineArr,          //设置线覆盖物路径
+                 strokeColor: "#3366FF", //线颜色
+                 strokeOpacity: 1,       //线透明度
+                 strokeWeight: 5,        //线宽
+                 strokeStyle: "solid",   //线样式
+                 strokeDasharray: [10, 5] //补充线样式
+             });
+             polyline.setMap(window.amapmain);
+          });
+
+        }
+    });
+    console.log(`markers===>${markers.length}`)
     markCluster.setMarkers(markers);
+
+
   }
 
-  const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,g_devicetype)=>{
+  const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
     const allmarks = markCluster.getMarkers();
     lodashmap(allmarks,(mark)=>{
-      const deviceitem = g_devicesdb[mark.getExtData()];
-      const deviceitemnew = g_devicesdb_updated[deviceitem._id];
-      if(!!deviceitemnew){
-        if(!!deviceitemnew.Longitude){
-          const pos = new window.AMap.LngLat(deviceitemnew.Longitude,deviceitemnew.Latitude);
-          mark.setPosition(pos);
-          const newIcon = new window.AMap.Icon({
-             size: new window.AMap.Size(48, 48),
-             imageSize: new window.AMap.Size(33, 48),  //图标大小
-             image: getimageicon(deviceitemnew,SettingOfflineMinutes,g_devicetype),
-             imageOffset: new window.AMap.Pixel(0, 0)
-         });
-          mark.setIcon(newIcon);
-        }
-        else{
-          markCluster.removeMarker(mark);
+      const {type,key} = mark.getExtData();
+      if(type === 'device'){
+        const deviceitem = g_devicesdb[key];
+        const deviceitemnew = g_devicesdb_updated[deviceitem._id];
+        if(!!deviceitemnew){
+          if(!!deviceitemnew.Longitude){
+            const pos = new window.AMap.LngLat(deviceitemnew.Longitude,deviceitemnew.Latitude);
+            mark.setPosition(pos);
+            const newIcon = new window.AMap.Icon({
+               size: new window.AMap.Size(24, 24),
+               imageSize: new window.AMap.Size(16, 24),  //图标大小
+               image: getimageicon(deviceitemnew,SettingOfflineMinutes,viewtype),
+               imageOffset: new window.AMap.Pixel(0, 0)
+           });
+            mark.setIcon(newIcon);
+          }
+          else{
+            markCluster.removeMarker(mark);
+          }
         }
       }
     });
   }
 
-  const getMarkCluster_showMarks = ({isshow,SettingOfflineMinutes,g_devicesdb,g_devicetype})=>{
+  const getMarkCluster_showMarks = ({isshow,SettingOfflineMinutes,g_devicesdb,viewtype,gateways})=>{
     return new Promise((resolve,reject) => {
       if(isshow){
         markCluster.setMap(window.amapmain);
         if(markCluster.getMarkers().length === 0){
-          getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,g_devicetype);
+          getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
         }
       }
       else{
@@ -212,7 +245,7 @@ import {
   }
 
   //显示弹框
-  const showinfowindow = (deviceitem,g_devicetype)=>{
+  const showinfowindow = (deviceitem,viewtype)=>{
     return new Promise((resolve,reject) =>{
         if(!window.AMapUI){
           alert('未加载到AMapUI！');
@@ -221,7 +254,7 @@ import {
         }
         // console.log(deviceitem)
         const locz = new window.AMap.LngLat(deviceitem.Longitude,deviceitem.Latitude);
-        infoWindow = new window.AMap.InfoWindow(getpopinfowindowstyle(deviceitem,g_devicetype));
+        infoWindow = new window.AMap.InfoWindow(getpopinfowindowstyle(deviceitem,viewtype));
         if(!!locz){
           window.amapmain.setCenter(locz);
           infoWindow.open(window.amapmain, locz);
@@ -301,7 +334,7 @@ import {
             //   deivcelist.push(v);
             // });
             // if(deivcelist.length > 0){
-            //   yield put(getdevicelist_result({list:deivcelist}));
+            //   yield put(getgatewaylist_result({list:deivcelist}));
             // }
             //
             // const {usersettings,devices} = yield select((state)=>{
@@ -360,14 +393,14 @@ import {
         //显示弹框
         try{
           const {payload:_id} = actiondevice;
-          const {g_devicesdb,g_devicetype} = yield select((state)=>{
-            const {devices,devicetype} = state.device;
-            return {g_devicesdb:devices,g_devicetype:devicetype};
+          const {g_devicesdb,viewtype} = yield select((state)=>{
+            const {devices,viewtype} = state.device;
+            return {g_devicesdb:devices,viewtype:viewtype};
           });
 
             //1
             //弹框
-            yield call(showinfowindow,g_devicesdb[_id],g_devicetype);
+            yield call(showinfowindow,g_devicesdb[_id],viewtype);
 
             yield fork(function*(eventname){
              //while(true){//关闭时触发的事件
@@ -397,7 +430,7 @@ import {
       //     // yield put(querydeviceinfo_list_request({query:{DeviceId:{'$in':deviceids}}}));
       //     // const {payload:{list}} = yield take(`${querydeviceinfo_list_result}`);
       //     //
-      //     const listitem = itemdevicelist;//yield call(getdevicelist,list);
+      //     const listitem = itemdevicelist;//yield call(getgatewaylist,list);
       //     //
       //     // lodashmap(listitem,(item)=>{
       //     //   g_devicesdb[item.DeviceId] = item;
@@ -429,14 +462,14 @@ import {
       // });
 
 
-        yield takeLatest(`${getdevicelist_result}`, function*(deviceresult) {
+        yield takeLatest(`${getgatewaylist_result}`, function*(deviceresult) {
           let {payload} = deviceresult;
           try{
-              yield put.resolve(getdevicelist_result_4reducer(payload));
+              yield put.resolve(getgatewaylist_result_4reducer(payload));
 
-              const {g_devicesdb,g_devicetype} = yield select((state)=>{
-                const {devices,devicetype} = state.device;
-                return {g_devicesdb:devices,g_devicetype:devicetype};
+              const {g_devicesdb,viewtype,gateways} = yield select((state)=>{
+                const {devices,viewtype,gateways} = state.device;
+                return {g_devicesdb:devices,viewtype,gateways};
               });
 
               // const data = [];
@@ -455,8 +488,8 @@ import {
               const SettingOfflineMinutes =yield select((state)=>{
                 return get(state,'app.SettingOfflineMinutes',20);
               });
-              getMarkCluster_recreateMarks(SettingOfflineMinutes,g_devicesdb,g_devicetype);
-              yield call(getMarkCluster_showMarks,{isshow:true,SettingOfflineMinutes,g_devicesdb,g_devicetype});
+              getMarkCluster_recreateMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
+              yield call(getMarkCluster_showMarks,{isshow:true,SettingOfflineMinutes,g_devicesdb,viewtype,gateways});
 
               //选中一个默认节点
               const {usersettings} = yield select((state)=>{
@@ -476,9 +509,9 @@ import {
 
         yield takeLatest(`${serverpush_device}`, function*(action) {
           const {payload:deviceitem} = action;
-          const {g_devicesdb,g_devicetype} = yield select((state)=>{
-            const {devices,devicetype} = state.device;
-            return {g_devicesdb:devices,g_devicetype:devicetype};
+          const {g_devicesdb,gateways,viewtype} = yield select((state)=>{
+            const {devices,viewtype,gateways} = state.device;
+            return {g_devicesdb:devices,gateways,viewtype};
           });
           g_devicesdb[deviceitem._id] = deviceitem;
           const SettingOfflineMinutes =yield select((state)=>{
@@ -486,7 +519,7 @@ import {
           });
           let g_devicesdb_updated = {};
           g_devicesdb_updated[deviceitem._id] = deviceitem;
-          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,g_devicetype);
+          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
         });
 
           //ui_mycarselcurdevice_request
@@ -495,8 +528,8 @@ import {
             try{
               const {payload:_id} = action;
               const {g_devicesdb} = yield select((state)=>{
-                const {devices,devicetype} = state.device;
-                return {g_devicesdb:devices,g_devicetype:devicetype};
+                const {devices,viewtype} = state.device;
+                return {g_devicesdb:devices,viewtype:viewtype};
               });
               if(!!infoWindow){
                   infoWindow.close();

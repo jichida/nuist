@@ -23,7 +23,7 @@ class App extends React.Component {
     }
 
     render() {
-        const {devices,usersettings,historydevices,devicetype} = this.props;
+        const {devices,usersettings,historydevices,viewtype} = this.props;
         const indexdeviceid = usersettings.indexdeviceid;
         const curdevice = devices[indexdeviceid];
         if(!curdevice){
@@ -32,7 +32,7 @@ class App extends React.Component {
         const retlist = lodashget(historydevices,`${curdevice._id}`,[]);
 
         const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
-        const {fields,fieldslist_brief} = devicetype[curdevice.devicetype];
+        const {fields,fieldslist_brief} = viewtype;
         return (
             <div className="indexPage">
                 <Header />
@@ -47,9 +47,9 @@ class App extends React.Component {
                   <div className="tt">
                       节点数据
                     </div>
-                    { !!curdevice && <Meter curdevice={curdevice} devicetype={devicetype}/> }
-                    { !!curdevice && <Filler curdevice={curdevice}  devicetype={devicetype}/> }
-                    { !!curdevice && <List curdevice={curdevice}  devicetype={devicetype}/>}
+                    { !!curdevice && <Meter curdevice={curdevice} viewtype={viewtype}/> }
+                    { !!curdevice && <Filler curdevice={curdevice}  viewtype={viewtype}/> }
+                    { !!curdevice && <List curdevice={curdevice}  viewtype={viewtype}/>}
                     {
 
                       lodashmap(fieldslist_brief,(fieldname)=>{
@@ -70,7 +70,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({device,userlogin,historydevice:{historydevices}}) => {
-    const {devicelist,devices,devicetype} = device;
-    return {devicelist,devices,devicetype,historydevices,usersettings:userlogin.usersettings};
+    const {devicelist,devices,viewtype} = device;
+    return {devicelist,devices,viewtype,historydevices,usersettings:userlogin.usersettings};
 }
 export default connect(mapStateToProps)(App);
