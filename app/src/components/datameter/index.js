@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import "./style.css";
-import Meter from "../deviceinfo/meter";
+// import Meter from "../deviceinfo/meter";
 import Header from "../header/page.js";
 import List from "./list.js";
 import Filler from "./filler.js";

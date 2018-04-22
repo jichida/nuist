@@ -47,7 +47,7 @@ const TitleD = (props)=>{
 class App extends React.Component {
 
   	render() {
-      const {retlist,curdevice,viewtype} = this.props;
+      const {retlist,viewtype} = this.props;
 			const {fields,fieldslist_brief} = viewtype;
 
       const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);

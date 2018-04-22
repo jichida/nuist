@@ -110,13 +110,13 @@ export const getimageicon = (item,SettingOfflineMinutes,viewtype)=>{
   const realtimedata_datatime = lodashget(item,'realtimedata.datatime');
   if(!realtimedata_datatime){
     curpng = icon_error;
-    return;
+    return curpng;
   }
   const diffmin = moment().diff(moment(realtimedata_datatime),'minutes');
   const isonline = diffmin < SettingOfflineMinutes;
   if(!isonline){
     curpng = icon_error;
-    return;
+    return curpng;
   }
 
   const realtimealarm_updatetime = lodashget(item,'realtimealarm.updatetime');

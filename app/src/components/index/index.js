@@ -19,7 +19,7 @@ import Usercenter from "../user/center.js";
 import PopcareSel from "../popcaresel";
 
 import lodashget from 'lodash.get';
-import lodashmap from 'lodash.map';
+// import lodashmap from 'lodash.map';
 
 import "./index.css";
 import {
@@ -28,42 +28,42 @@ import {
 	ui_notifyresizeformap,
 	ui_setmapstyle
 } from '../../actions';
-import {getCoureName} from '../../util';
-
-const BottomBannerData = (props)=>{
-	const {curdevice,viewtype} = props;
-	if(!viewtype){
-		return (<div>无法获取节点类型</div>);
-	}
-	const {fields,fieldslist_brief} = viewtype;
-	if(!fields){
-		return (<div>无法获取节点类型的字段属性</div>);
-	}
-	return (
-		<ul>
-			{
-				lodashmap(fieldslist_brief,(fieldname)=>{
-					const fieldsprops = fields[fieldname];
-					if(!!fieldsprops){
-						let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`);
-						if(fieldname === 'winddirection'){
-							showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
-						}
-
-						return (
-							<li key={fieldname}>
-								<img alt="" src={`${fieldsprops.iconurl}`} />
-								<span>{`${fieldsprops.showname}`}</span>
-								<span>{showvalue}
-									{`${lodashget(fieldsprops,'unit','')}`}
-								</span>
-							</li>
-						)
-					}
-				})
-			}
-	</ul>);
-}
+// import {getCoureName} from '../../util';
+//
+// const BottomBannerData = (props)=>{
+// 	const {curdevice,viewtype} = props;
+// 	if(!viewtype){
+// 		return (<div>无法获取节点类型</div>);
+// 	}
+// 	const {fields,fieldslist_brief} = viewtype;
+// 	if(!fields){
+// 		return (<div>无法获取节点类型的字段属性</div>);
+// 	}
+// 	return (
+// 		<ul>
+// 			{
+// 				lodashmap(fieldslist_brief,(fieldname)=>{
+// 					const fieldsprops = fields[fieldname];
+// 					if(!!fieldsprops){
+// 						let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`);
+// 						if(fieldname === 'winddirection'){
+// 							showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
+// 						}
+//
+// 						return (
+// 							<li key={fieldname}>
+// 								<img alt="" src={`${fieldsprops.iconurl}`} />
+// 								<span>{`${fieldsprops.showname}`}</span>
+// 								<span>{showvalue}
+// 									{`${lodashget(fieldsprops,'unit','')}`}
+// 								</span>
+// 							</li>
+// 						)
+// 					}
+// 				})
+// 			}
+// 	</ul>);
+// }
 
 
 class App extends React.Component {
@@ -119,7 +119,7 @@ class App extends React.Component {
 
 		}
   	render() {
-			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,usersettings,viewtype} = this.props;
+			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,usersettings} = this.props;
 			const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
 	    return (
 	      	<div

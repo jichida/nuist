@@ -6,7 +6,8 @@ const moment = require('moment');
 mongoose.Promise = global.Promise;
 //系统设置
 const SystemConfigSchema = new Schema({
-  demodevicegroupid:{ type: Schema.Types.ObjectId, ref: 'devicegroup' },
+  demogatewaygroupid:{ type: Schema.Types.ObjectId, ref: 'gatewaygroup' },
+  viewtype:{ type: Schema.Types.ObjectId, ref: 'viewtype' },
 }, { strict: false });
 SystemConfigSchema.plugin(mongoosePaginate);
 const SystemConfigModel =mongoose.model('systemconfig',  SystemConfigSchema);

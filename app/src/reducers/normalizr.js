@@ -17,9 +17,10 @@ const devicesSchma = {list:[device]};
 
 const normalizrdevices=(payload)=>{
   const {viewtype,list} = payload;
-  const {result,entities:{device,gateway}} = normalize({list}, devicesSchma);
+  const {result,entities} = normalize({list}, devicesSchma);
   let devicetypenew = {};
-
+  const device = lodashget(entities,'device',{});
+  const gateway = lodashget(entities,'gateway',{});
   const {fieldsall,...rest} = viewtype;
   let fields = {};
   lodashmap(fieldsall,(v)=>{

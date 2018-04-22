@@ -10,7 +10,7 @@ const getdevicesids = require('../getdevicesids');
 exports.getrealtimealarmlist =  (actiondata,ctx,callback)=>{
   const realtimealarmrawModel = DBModels.RealtimeAlarmRawModel;
   let query = actiondata.query || {};
-  getdevicesids(ctx.userid,({devicegroupIds,deviceIds})=>{
+  getdevicesids(ctx.userid,(deviceIds)=>{
     if(!query.DeviceId){
       query.DeviceId = {'$in':deviceIds};
     }

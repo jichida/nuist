@@ -27,6 +27,8 @@ import ShowPageOne from '../singledocumentpage/index.js';
 import {CfAlaramRuleInput} from './cf.js';
 import {PmsSelectArrayInputDetail} from './pms.js';
 import {ImageInputUploadArray} from '../controls/imageuploadarray.js';
+import {CfSelectArrayInput} from '../controls/selectarrayinput.js';
+import {getOptions} from '../controls/getselect.js';
 import "./style.css";
 
 
@@ -41,9 +43,10 @@ const SystemconfigCreateTitle = ({ record }) => {
        <TabbedForm>
          <FormTab label="系统设置">
            <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
-           <ReferenceInput label="演示节点分组" source="demogatewaygroupid" reference="gatewaygroup" allowEmpty>
+           <ReferenceInput label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
              <SelectInput optionText="name" />
            </ReferenceInput>
+           <CfSelectArrayInput label="演示网关组" source="gatewaygroups" loadOptions={getOptions('gatewaygroup','name','_id')}/>
          </FormTab>
            <FormTab label="报警规则">
            <CfAlaramRuleInput label="报警规则设置(高)" source="warningrulelevel0" />
@@ -59,9 +62,10 @@ const SystemconfigCreateTitle = ({ record }) => {
       <TabbedForm>
         <FormTab label="系统设置">
           <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
-          <ReferenceInput label="演示节点分组" source="demogatewaygroupid" reference="gatewaygroup" allowEmpty>
+          <ReferenceInput label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
             <SelectInput optionText="name" />
           </ReferenceInput>
+          <CfSelectArrayInput label="演示网关组" source="gatewaygroups" loadOptions={getOptions('gatewaygroup','name','_id')}/>
         </FormTab>
           <FormTab label="报警规则">
           <CfAlaramRuleInput label="报警规则设置(高)" source="warningrulelevel0" />
