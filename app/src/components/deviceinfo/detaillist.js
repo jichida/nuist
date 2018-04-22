@@ -12,7 +12,7 @@ const DeviceInfoDetailList = (props)=>{
 					lodashmap(fieldslist_detail,(fieldname,index)=>{
 						const fieldsprops = fields[fieldname];
 						if(!!fieldsprops){
-							let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`);
+							let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`,'');
 							if(fieldname === 'winddirection'){
 								showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
 							}

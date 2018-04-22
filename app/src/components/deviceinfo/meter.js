@@ -54,7 +54,7 @@ const ProgressCtrl = (props)=>{
   }
   return (
     <div className={`chartli chart${index}`}>
-      <Progress type="circle" percent={100} width={70} format={percent => `${lodashget(curdevice,`realtimedata.${fieldname}`)}`} />
+      <Progress type="circle" percent={100} width={70} format={percent => `${lodashget(curdevice,`realtimedata.${fieldname}`,'')}`} />
       <span>{`${fieldsprops.showname}`}{unitstring}</span>
     </div>
   )
