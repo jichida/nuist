@@ -31,7 +31,7 @@ const getDeviceIds = (gwgroups,callbackfn)=>{
 const getdevicesids = (userid,callbackfn)=>{
   if(!!userid){//登录用户
     const dbModel = DBModels.UserModel;
-    dbModel.findOne({ _id: ctx.userid })
+    dbModel.findOne({ _id: userid })
       .populate([
         {
           path:'gatewaygroups',
