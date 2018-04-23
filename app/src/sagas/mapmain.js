@@ -91,12 +91,12 @@ import {
           const pos = new window.AMap.LngLat(item.Longitude,item.Latitude);
           const marker = new window.AMap.Marker({
              position:pos,
-            //  icon: new window.AMap.Icon({
-            //     size: new window.AMap.Size(48, 48),
-            //     imageSize: new window.AMap.Size(32, 48),  //图标大小
-            //     image: getimageicon(item,SettingOfflineMinutes,viewtype),
-            //     imageOffset: new window.AMap.Pixel(0, 0)
-            // }),
+             icon: new window.AMap.Icon({
+                size: new window.AMap.Size(32, 32),
+                imageSize: new window.AMap.Size(24, 32),  //图标大小
+                image: `${process.env.PUBLIC_URL}/images/base_normal.png`,
+                imageOffset: new window.AMap.Pixel(0, 0)
+            }),
              angle:get(item,'angle',0),
             //  content: '<div style="background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
              offset: new window.AMap.Pixel(0, 0),//-113, -140
