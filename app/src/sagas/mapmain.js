@@ -19,15 +19,58 @@ import {
   getgatewaylist_result_4reducer,
   serverpush_device
   } from '../actions';
-  import config from '../env/config.js';
-  import store from '../env/store';
+import config from '../env/config.js';
+import store from '../env/store';
 
-  const divmapid_mapmain = 'mapmain';
-  // const maxzoom = config.softmode === 'pc'?18:19;
-  let infoWindow;
+const divmapid_mapmain = 'mapmain';
+// const maxzoom = config.softmode === 'pc'?18:19;
+let infoWindow;
 
-  //=====数据部分=====
-  let markCluster;
+//=====数据部分=====
+let markCluster;
+
+const Create_PathSimplifier = (callbackfn)=>{
+  let gpathSimplifierIns;
+  let gPathSimplifier;
+    window.AMapUI.load(['ui/misc/PathSimplifier'], function(PathSimplifier) {
+      gPathSimplifier = PathSimplifier;
+      if (!PathSimplifier.supportCanvas) {
+          alert('当前环境不支持 Canvas！');
+          return;
+      }
+
+          //启动页面
+          //创建组件实例
+      gpathSimplifierIns = new PathSimplifier({
+              zIndex: 100,
+              map: window.amapmain, //所属的地图实例
+              getPath: function(pathData, pathIndex) {
+                  //返回轨迹数据中的节点坐标信息，[AMap.LngLat, AMap.LngLat...] 或者 [[lng|number,lat|number],...]
+                  return pathData.path;
+              },
+              getHoverTitle: function(pathData, pathIndex, pointIndex) {
+                  //返回鼠标悬停时显示的信息
+                  if (pointIndex >= 0) {
+                      //鼠标悬停在某个轨迹节点上
+                      return pathData.name + '，点:' + pointIndex + '/' + pathData.path.length;
+                  }
+                  //鼠标悬停在节点之间的连线上
+                  return pathData.name + '，点数量' + pathData.path.length;
+              },
+              renderOptions: {
+                  //轨迹线的样式
+                  pathLineStyle: {
+                      strokeStyle: 'red',
+                      lineWidth: 6,
+                      dirArrowStyle: true
+                  }
+              }
+          });
+          callbackfn({gpathSimplifierIns,gPathSimplifier})
+    });
+}
+
+
   //新建聚合点
   const CreateMapUI_MarkCluster = (map)=>{
     return new Promise((resolve,reject) => {
@@ -56,6 +99,61 @@ import {
       markCluster.clearMarkers();
     }
     getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
+  }
+
+  const drawgGatewayPath = (gateways,g_devicesdb)=>{
+    Create_PathSimplifier(({gpathSimplifierIns,gPathSimplifier})=>{
+      let lineArrayList = [];
+      lodashmap(gateways,(gw)=>{
+        let lineArr = [];
+        lodashmap(gw.devicepath,(did)=>{
+          const item = g_devicesdb[did];
+          if(!!item){
+            lineArr.push([item.Longitude,item.Latitude]);
+          }
+        });
+        lineArr.push([gw.Longitude,gw.Latitude]);
+        lineArrayList.push({
+           name:gw.name,
+           path:lineArr
+         });
+        // const polyline = new window.AMap.Polyline({
+        //      path: lineArr,          //设置线覆盖物路径
+        //      strokeColor: "#3366FF", //线颜色
+        //      strokeOpacity: 1,       //线透明度
+        //      strokeWeight: 5,        //线宽
+        //      strokeStyle: "solid",   //线样式
+        //      strokeDasharray: [10, 5] //补充线样式
+        //  });
+        //  polyline.setMap(window.amapmain);
+        // if(!!gpathSimplifierIns){
+        //   //这里构建两条简单的轨迹，仅作示例
+        //    gpathSimplifierIns.setData([{
+        //        name: '轨迹0',
+        //        path: lineArr
+        //    }, {
+        //        name: '大地线',
+        //        //创建一条包括500个插值点的大地线
+        //        path: gPathSimplifier.getGeodesicPath([116.405289, 39.904987], [87.61792, 43.793308], 500)
+        //    }]);
+        // }
+
+      });
+
+        gpathSimplifierIns.setData(lineArrayList);
+        //创建一个巡航器
+        for(let i = 0 ;i < lineArrayList.length ;i ++){
+          var navg0 = gpathSimplifierIns.createPathNavigator(0, //关联第1条轨迹
+              {
+                  loop: true, //循环播放
+                  speed: 3
+              });
+
+          navg0.start();
+        }
+
+    });
+
   }
 
   const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
@@ -105,26 +203,7 @@ import {
           markers.push(marker);
 
           //化纤
-
-          lodashmap(gateways,(gw)=>{
-            let lineArr = [];
-            lodashmap(gw.devicepath,(did)=>{
-              const item = g_devicesdb[did];
-              if(!!item){
-                lineArr.push([item.Longitude,item.Latitude]);
-              }
-            });
-            lineArr.push([gw.Longitude,gw.Latitude]);
-            const polyline = new window.AMap.Polyline({
-                 path: lineArr,          //设置线覆盖物路径
-                 strokeColor: "#3366FF", //线颜色
-                 strokeOpacity: 1,       //线透明度
-                 strokeWeight: 5,        //线宽
-                 strokeStyle: "solid",   //线样式
-                 strokeDasharray: [10, 5] //补充线样式
-             });
-             polyline.setMap(window.amapmain);
-          });
+          drawgGatewayPath(gateways,g_devicesdb);
 
         }
     });
@@ -209,6 +288,8 @@ import {
               window.amapmain.addControl(scale);
               window.amapmain.addControl(toolBar);
               window.amapmain.addControl(overView);
+
+
               resolve(window.amapmain);
           });
 
