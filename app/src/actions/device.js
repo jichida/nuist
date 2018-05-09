@@ -9,6 +9,7 @@ export const getrealtimealarmlist_result = createAction('getrealtimealarmlist_re
 
 export const serverpush_alarm =  createAction('serverpush_alarm');
 export const serverpush_device =  createAction('serverpush_device');
+export const serverpush_gateway =  createAction('serverpush_gateway');
 
 export const gethistorydevicelist_request  = createAction('gethistorydevicelist_request');
 export const gethistorydevicelist_result = createAction('gethistorydevicelist_result');

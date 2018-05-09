@@ -2,6 +2,7 @@ import { select,put,call,take,takeLatest,cancel,fork,} from 'redux-saga/effects'
 import {delay} from 'redux-saga';
 import get from 'lodash.get';
 import lodashmap from 'lodash.map';
+import lodashshuffle from 'lodash.shuffle';
 import {
   getpopinfowindowstyle,
   // getlistpopinfowindowstyle,
@@ -14,10 +15,11 @@ import {
   ui_mycar_selcurdevice,
   saveusersettings_request,
   mapmain_showpopinfo,
-  // mapmain_showpopinfo_list,
+  mapmain_drawgatewaypath,
   getgatewaylist_result,
   getgatewaylist_result_4reducer,
-  serverpush_device
+  serverpush_device,
+  serverpush_gateway
   } from '../actions';
 import config from '../env/config.js';
 import store from '../env/store';
@@ -28,26 +30,29 @@ let infoWindow;
 
 //=====数据部分=====
 let markCluster;
-
+let CachedlineArrayList = [];
+let gpathSimplifierIns,gPathSimplifier;
 const Create_PathSimplifier = (callbackfn)=>{
-  let gpathSimplifierIns;
-  let gPathSimplifier;
+  return new Promise((resolve,reject) => {
+  let tmppathSimplifierIns;
+  let tmpPathSimplifier;
     window.AMapUI.load(['ui/misc/PathSimplifier'], function(PathSimplifier) {
-      gPathSimplifier = PathSimplifier;
-      if (!PathSimplifier.supportCanvas) {
+      tmpPathSimplifier = PathSimplifier;
+      if (!tmpPathSimplifier.supportCanvas) {
           alert('当前环境不支持 Canvas！');
           return;
       }
 
           //启动页面
           //创建组件实例
-      gpathSimplifierIns = new PathSimplifier({
+      tmppathSimplifierIns = new PathSimplifier({
               zIndex: 100,
               map: window.amapmain, //所属的地图实例
               getPath: function(pathData, pathIndex) {
                   //返回轨迹数据中的节点坐标信息，[AMap.LngLat, AMap.LngLat...] 或者 [[lng|number,lat|number],...]
                   return pathData.path;
               },
+              autoSetFitView:false,
               getHoverTitle: function(pathData, pathIndex, pointIndex) {
                   //返回鼠标悬停时显示的信息
                   if (pointIndex >= 0) {
@@ -66,8 +71,13 @@ const Create_PathSimplifier = (callbackfn)=>{
                   }
               }
           });
-          callbackfn({gpathSimplifierIns,gPathSimplifier})
+          console.log(`created--->gpathSimplifierIns--->gPathSimplifier`)
+          resolve({
+            gpathSimplifierIns:tmppathSimplifierIns,
+            gPathSimplifier:tmpPathSimplifier
+          })
     });
+  });
 }
 
 
@@ -101,60 +111,70 @@ const Create_PathSimplifier = (callbackfn)=>{
     getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
   }
 
-  const drawgGatewayPath = (gateways,g_devicesdb)=>{
-    Create_PathSimplifier(({gpathSimplifierIns,gPathSimplifier})=>{
-      let lineArrayList = [];
-      lodashmap(gateways,(gw)=>{
-        let lineArr = [];
-        lodashmap(gw.devicepath,(did)=>{
-          const item = g_devicesdb[did];
-          if(!!item){
-            lineArr.push([item.Longitude,item.Latitude]);
-          }
-        });
-        lineArr.push([gw.Longitude,gw.Latitude]);
-        lineArrayList.push({
-           name:gw.name,
-           path:lineArr
-         });
-        // const polyline = new window.AMap.Polyline({
-        //      path: lineArr,          //设置线覆盖物路径
-        //      strokeColor: "#3366FF", //线颜色
-        //      strokeOpacity: 1,       //线透明度
-        //      strokeWeight: 5,        //线宽
-        //      strokeStyle: "solid",   //线样式
-        //      strokeDasharray: [10, 5] //补充线样式
-        //  });
-        //  polyline.setMap(window.amapmain);
-        // if(!!gpathSimplifierIns){
-        //   //这里构建两条简单的轨迹，仅作示例
-        //    gpathSimplifierIns.setData([{
-        //        name: '轨迹0',
-        //        path: lineArr
-        //    }, {
-        //        name: '大地线',
-        //        //创建一条包括500个插值点的大地线
-        //        path: gPathSimplifier.getGeodesicPath([116.405289, 39.904987], [87.61792, 43.793308], 500)
-        //    }]);
-        // }
+const isEqualArray = (array1,array2)=>{
+  if(array1.length !== array2.length){
+    return false;
+  }
+  let isequal = true;
+  for(let i = 0 ;i < array1.length ; i++){
+    const item1 = array1[i];
+    const item2 = array2[2];
+    if(JSON.stringify(item1) !== JSON.stringify(item2)){
+      isequal = false;
+      break;
+    }
+  }
+  return isequal;
+}
+const getGatewayPath = (gateways,g_devicesdb)=>{
+  let lineArrayList = [];
+  lodashmap(gateways,(gw)=>{
+    let lineArr = [];
+    lodashmap(gw.devicepath,(did)=>{
+      const item = g_devicesdb[did];
+      if(!!item){
+        lineArr.push([item.Longitude,item.Latitude]);
+      }
+    });
+    lineArr.push([gw.Longitude,gw.Latitude]);
+    lineArrayList.push({
+       name:gw.name,
+       path:lineArr
+     });
+  });
+  return lineArrayList;
+};
 
-      });
+let navgz = []; ;
+const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
+  return new Promise((resolve,reject) => {
+
+        for(let i = 0; i < navgz.length; i++){
+          navgz[i].stop();
+          navgz[i].destroy();
+        }
+        navgz = [];
 
         gpathSimplifierIns.setData(lineArrayList);
         //创建一个巡航器
         for(let i = 0 ;i < lineArrayList.length ;i ++){
-          var navg0 = gpathSimplifierIns.createPathNavigator(0, //关联第1条轨迹
+          const navg0 = gpathSimplifierIns.createPathNavigator(i, //关联第1条轨迹
               {
                   loop: true, //循环播放
-                  speed: 3
+                  speed: 10000
               });
 
-          navg0.start();
+          navgz.push(navg0);
+        }
+        for(let i = 0; i < navgz.length; i++){
+          navgz[i].start();
         }
 
+        console.log(`drawgGatewayPath`)
+        resolve();
     });
 
-  }
+}
 
   const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
     let markers = [];
@@ -203,8 +223,7 @@ const Create_PathSimplifier = (callbackfn)=>{
           markers.push(marker);
 
           //化纤
-          drawgGatewayPath(gateways,g_devicesdb);
-
+          store.dispatch(mapmain_drawgatewaypath({gateways,g_devicesdb}));
         }
     });
     console.log(`markers===>${markers.length}`)
@@ -632,5 +651,44 @@ const Create_PathSimplifier = (callbackfn)=>{
               console.log(e);
             }
           });
+
+      yield takeLatest(`${mapmain_drawgatewaypath}`, function*(action) {
+        const {gateways,g_devicesdb} = action.payload;
+        const lineArrayList = getGatewayPath(gateways,g_devicesdb);
+        if(!isEqualArray(lineArrayList,CachedlineArrayList)){
+          console.log(`why call gpathSimplifierIns:${!!gpathSimplifierIns},gPathSimplifier:${!!gPathSimplifier}`)
+          if(!gpathSimplifierIns && !gPathSimplifier){
+            const result  =   yield call(Create_PathSimplifier);
+            gpathSimplifierIns = result.gpathSimplifierIns;
+            gPathSimplifier = result.gPathSimplifier;
+          }
+          yield call(drawgGatewayPath,lineArrayList,{gpathSimplifierIns,gPathSimplifier});
+        }
+      });
+
+      yield takeLatest(`${serverpush_gateway}`, function*(action) {
+        const {gateways} = action.payload;
+        const {g_devicesdb} = yield select((state)=>{
+          return {
+            g_devicesdb:state.device.devices
+          }
+        });
+        yield put(mapmain_drawgatewaypath({gateways,g_devicesdb}));
+      });
+//<------模拟
+  yield fork(function*(){
+    while (true) {
+        yield call(delay, 10000);
+        let {gateways} = yield select((state)=>{
+          return {
+            gateways:state.device.gateways
+          }
+        });
+        lodashmap(gateways,(gw)=>{
+          gw.devicepath = lodashshuffle(gw.devicepath);
+        });
+        yield put(serverpush_gateway({gateways}));
+    }
+  });
 
 }
