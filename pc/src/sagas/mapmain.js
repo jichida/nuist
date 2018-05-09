@@ -2,6 +2,7 @@ import { select,put,call,take,takeLatest,cancel,fork,} from 'redux-saga/effects'
 import {delay} from 'redux-saga';
 import get from 'lodash.get';
 import lodashmap from 'lodash.map';
+import lodashshuffle from 'lodash.shuffle';
 import {
   getpopinfowindowstyle,
   // getlistpopinfowindowstyle,
@@ -14,20 +15,72 @@ import {
   ui_mycar_selcurdevice,
   saveusersettings_request,
   mapmain_showpopinfo,
-  // mapmain_showpopinfo_list,
+  mapmain_drawgatewaypath,
   getgatewaylist_result,
   getgatewaylist_result_4reducer,
-  serverpush_device
+  serverpush_device,
+  serverpush_gateway
   } from '../actions';
-  import config from '../env/config.js';
-  import store from '../env/store';
+import config from '../env/config.js';
+import store from '../env/store';
 
-  const divmapid_mapmain = 'mapmain';
-  // const maxzoom = config.softmode === 'pc'?18:19;
-  let infoWindow;
+const divmapid_mapmain = 'mapmain';
+// const maxzoom = config.softmode === 'pc'?18:19;
+let infoWindow;
 
-  //=====数据部分=====
-  let markCluster;
+//=====数据部分=====
+let markCluster;
+let CachedlineArrayList = [];
+let gpathSimplifierIns,gPathSimplifier;
+const Create_PathSimplifier = (callbackfn)=>{
+  return new Promise((resolve,reject) => {
+  let tmppathSimplifierIns;
+  let tmpPathSimplifier;
+    window.AMapUI.load(['ui/misc/PathSimplifier'], function(PathSimplifier) {
+      tmpPathSimplifier = PathSimplifier;
+      if (!tmpPathSimplifier.supportCanvas) {
+          alert('当前环境不支持 Canvas！');
+          return;
+      }
+
+          //启动页面
+          //创建组件实例
+      tmppathSimplifierIns = new PathSimplifier({
+              zIndex: 100,
+              map: window.amapmain, //所属的地图实例
+              getPath: function(pathData, pathIndex) {
+                  //返回轨迹数据中的节点坐标信息，[AMap.LngLat, AMap.LngLat...] 或者 [[lng|number,lat|number],...]
+                  return pathData.path;
+              },
+              autoSetFitView:false,
+              getHoverTitle: function(pathData, pathIndex, pointIndex) {
+                  //返回鼠标悬停时显示的信息
+                  if (pointIndex >= 0) {
+                      //鼠标悬停在某个轨迹节点上
+                      return pathData.name + '，点:' + pointIndex + '/' + pathData.path.length;
+                  }
+                  //鼠标悬停在节点之间的连线上
+                  return pathData.name + '，点数量' + pathData.path.length;
+              },
+              renderOptions: {
+                  //轨迹线的样式
+                  pathLineStyle: {
+                      strokeStyle: 'red',
+                      lineWidth: 6,
+                      dirArrowStyle: true
+                  }
+              }
+          });
+          console.log(`created--->gpathSimplifierIns--->gPathSimplifier`)
+          resolve({
+            gpathSimplifierIns:tmppathSimplifierIns,
+            gPathSimplifier:tmpPathSimplifier
+          })
+    });
+  });
+}
+
+
   //新建聚合点
   const CreateMapUI_MarkCluster = (map)=>{
     return new Promise((resolve,reject) => {
@@ -57,6 +110,71 @@ import {
     }
     getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
   }
+
+const isEqualArray = (array1,array2)=>{
+  if(array1.length !== array2.length){
+    return false;
+  }
+  let isequal = true;
+  for(let i = 0 ;i < array1.length ; i++){
+    const item1 = array1[i];
+    const item2 = array2[2];
+    if(JSON.stringify(item1) !== JSON.stringify(item2)){
+      isequal = false;
+      break;
+    }
+  }
+  return isequal;
+}
+const getGatewayPath = (gateways,g_devicesdb)=>{
+  let lineArrayList = [];
+  lodashmap(gateways,(gw)=>{
+    let lineArr = [];
+    lodashmap(gw.devicepath,(did)=>{
+      const item = g_devicesdb[did];
+      if(!!item){
+        lineArr.push([item.Longitude,item.Latitude]);
+      }
+    });
+    lineArr.push([gw.Longitude,gw.Latitude]);
+    lineArrayList.push({
+       name:gw.name,
+       path:lineArr
+     });
+  });
+  return lineArrayList;
+};
+
+let navgz = []; ;
+const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
+  return new Promise((resolve,reject) => {
+
+        for(let i = 0; i < navgz.length; i++){
+          navgz[i].stop();
+          navgz[i].destroy();
+        }
+        navgz = [];
+
+        gpathSimplifierIns.setData(lineArrayList);
+        //创建一个巡航器
+        for(let i = 0 ;i < lineArrayList.length ;i ++){
+          const navg0 = gpathSimplifierIns.createPathNavigator(i, //关联第1条轨迹
+              {
+                  loop: true, //循环播放
+                  speed: 10000
+              });
+
+          navgz.push(navg0);
+        }
+        for(let i = 0; i < navgz.length; i++){
+          navgz[i].start();
+        }
+
+        console.log(`drawgGatewayPath`)
+        resolve();
+    });
+
+}
 
   const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
     let markers = [];
@@ -105,27 +223,7 @@ import {
           markers.push(marker);
 
           //化纤
-
-          lodashmap(gateways,(gw)=>{
-            let lineArr = [];
-            lodashmap(gw.devicepath,(did)=>{
-              const item = g_devicesdb[did];
-              if(!!item){
-                lineArr.push([item.Longitude,item.Latitude]);
-              }
-            });
-            lineArr.push([gw.Longitude,gw.Latitude]);
-            const polyline = new window.AMap.Polyline({
-                 path: lineArr,          //设置线覆盖物路径
-                 strokeColor: "#3366FF", //线颜色
-                 strokeOpacity: 1,       //线透明度
-                 strokeWeight: 5,        //线宽
-                 strokeStyle: "solid",   //线样式
-                 strokeDasharray: [10, 5] //补充线样式
-             });
-             polyline.setMap(window.amapmain);
-          });
-
+          store.dispatch(mapmain_drawgatewaypath({gateways,g_devicesdb}));
         }
     });
     console.log(`markers===>${markers.length}`)
@@ -209,6 +307,8 @@ import {
               window.amapmain.addControl(scale);
               window.amapmain.addControl(toolBar);
               window.amapmain.addControl(overView);
+
+
               resolve(window.amapmain);
           });
 
@@ -551,5 +651,44 @@ import {
               console.log(e);
             }
           });
+
+      yield takeLatest(`${mapmain_drawgatewaypath}`, function*(action) {
+        const {gateways,g_devicesdb} = action.payload;
+        const lineArrayList = getGatewayPath(gateways,g_devicesdb);
+        if(!isEqualArray(lineArrayList,CachedlineArrayList)){
+          console.log(`why call gpathSimplifierIns:${!!gpathSimplifierIns},gPathSimplifier:${!!gPathSimplifier}`)
+          if(!gpathSimplifierIns && !gPathSimplifier){
+            const result  =   yield call(Create_PathSimplifier);
+            gpathSimplifierIns = result.gpathSimplifierIns;
+            gPathSimplifier = result.gPathSimplifier;
+          }
+          yield call(drawgGatewayPath,lineArrayList,{gpathSimplifierIns,gPathSimplifier});
+        }
+      });
+
+      yield takeLatest(`${serverpush_gateway}`, function*(action) {
+        const {gateways} = action.payload;
+        const {g_devicesdb} = yield select((state)=>{
+          return {
+            g_devicesdb:state.device.devices
+          }
+        });
+        yield put(mapmain_drawgatewaypath({gateways,g_devicesdb}));
+      });
+//<------模拟
+  yield fork(function*(){
+    while (true) {
+        yield call(delay, 10000);
+        let {gateways} = yield select((state)=>{
+          return {
+            gateways:state.device.gateways
+          }
+        });
+        lodashmap(gateways,(gw)=>{
+          gw.devicepath = lodashshuffle(gw.devicepath);
+        });
+        yield put(serverpush_gateway({gateways}));
+    }
+  });
 
 }

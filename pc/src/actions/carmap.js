@@ -11,8 +11,9 @@ export const ui_selcurdevice_request = createAction('ui_selcurdevice_request');
 export const ui_selcurdevice_result = createAction('ui_selcurdevice_result');
 
 export const mapmain_seldistrict = createAction('mapmain_seldistrict');
-
+export const mapmain_drawgatewaypath = createAction('mapmain_drawgatewaypath');
 export const mapmain_clusterMarkerClick = createAction('mapmain_clusterMarkerClick');
+
 
 export const mapmain_showpopinfo = createAction('mapmain_showpopinfo');
 export const mapmain_showpopinfo_list = createAction('mapmain_showpopinfo_list');
