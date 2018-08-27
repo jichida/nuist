@@ -404,7 +404,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
               lng:118.7190900000,
               lat:32.2030600000
             };
-            const zoomlevel = 13;
+            const zoomlevel = 16;
             yield call(CreateMap,{mapcenterlocation,zoomlevel});//创建地图
 
             // yield call(CreateMapUI_PointSimplifier,window.amapmain);

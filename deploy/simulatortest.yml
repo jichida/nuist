@@ -5,6 +5,9 @@ services:
       restart: always
       command: node ./index.js
       working_dir: /app
+      environment:
+        - DEBUG=srvtcp:*
+        - MONGO_URL=mongodb://dabauser:daba159@127.0.0.1/daba
       volumes:
         - /etc/localtime:/etc/localtime:ro
         - ./simulator_test:/app
