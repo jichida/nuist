@@ -161,7 +161,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           const navg0 = gpathSimplifierIns.createPathNavigator(i, //关联第1条轨迹
               {
                   loop: true, //循环播放
-                  speed: 10000
+                  speed: 1000
               });
 
           navgz.push(navg0);

@@ -26,7 +26,7 @@ class App extends React.Component {
 
         const cols = {
             ticktimestring: { alias: '月份' },
-            value: { alias: '积累量' },
+            value: { alias: '值' },
 
         };
 
