@@ -191,7 +191,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
             }),
              angle:get(item,'angle',0),
             //  content: '<div style="background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
-             offset: new window.AMap.Pixel(0, 0),//-113, -140
+             offset: new window.AMap.Pixel(-12,-24),//-113, -140
              extData:{type:'device',key}
           });
           marker.on('click',()=>{
@@ -213,11 +213,11 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
                 size: new window.AMap.Size(32, 32),
                 imageSize: new window.AMap.Size(24, 32),  //图标大小
                 image: `${process.env.PUBLIC_URL}/images/base_normal.png`,
-                imageOffset: new window.AMap.Pixel(0, 0)
+                imageOffset: new window.AMap.Pixel(0, 0),
             }),
              angle:get(item,'angle',0),
             //  content: '<div style="background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
-             offset: new window.AMap.Pixel(0, 0),//-113, -140
+             offset: new window.AMap.Pixel(-12,-32),//-113, -140
              extData:{type:'gateway',key}
           });
           markers.push(marker);
@@ -247,7 +247,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
                size: new window.AMap.Size(24, 24),
                imageSize: new window.AMap.Size(16, 24),  //图标大小
                image: getimageicon(deviceitemnew,SettingOfflineMinutes,viewtype),
-               imageOffset: new window.AMap.Pixel(0, 0)
+               imageOffset: new window.AMap.Pixel(0, 0),
            });
             mark.setIcon(newIcon);
           }
