@@ -66,7 +66,7 @@ const Create_PathSimplifier = (callbackfn)=>{
                   //轨迹线的样式
                   pathLineStyle: {
                       strokeStyle: 'red',
-                      lineWidth: 6,
+                      lineWidth: 5,
                       dirArrowStyle: true
                   }
               }
@@ -283,7 +283,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
         window.amapmain = new window.AMap.Map(divmapid_mapmain, {
               center: center,
               zoom:zoomlevel,
-              zooms:[13,17],
+              zooms:[9,17],
               lang:"zh-cn",
               dragEnable:true,
               zoomEnable:true,
@@ -405,7 +405,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
               lng:118.7190900000,
               lat:32.2030600000
             };
-            const zoomlevel = 16;
+            const zoomlevel = 13;
             yield call(CreateMap,{mapcenterlocation,zoomlevel});//创建地图
 
             // yield call(CreateMapUI_PointSimplifier,window.amapmain);
@@ -679,7 +679,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 //<------模拟
   yield fork(function*(){
     while (true) {
-        yield call(delay, 10000);
+        yield call(delay, 30000);
         let {gateways} = yield select((state)=>{
           return {
             gateways:state.device.gateways
