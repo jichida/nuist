@@ -2,7 +2,7 @@ import { select,put,call,take,takeLatest,cancel,fork,} from 'redux-saga/effects'
 import {delay} from 'redux-saga';
 import get from 'lodash.get';
 import lodashmap from 'lodash.map';
-import lodashshuffle from 'lodash.shuffle';
+import {lodashshuffle_gwpath,getdevicestatus,setshuffledevices} from '../util';
 import {
   getpopinfowindowstyle,
   // getlistpopinfowindowstyle,
@@ -132,7 +132,7 @@ const getGatewayPath = (gateways,g_devicesdb)=>{
     let lineArr = [];
     lodashmap(gw.devicepath,(did)=>{
       const item = g_devicesdb[did];
-      const firstLetter = item.DeviceId.substr(0,1);
+      const firstLetter = getdevicestatus(did);
       if(!!item && firstLetter==='N'){
         lineArr.push([item.Longitude,item.Latitude]);
       }
@@ -574,6 +574,9 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
                 return {g_devicesdb:devices,viewtype,gateways};
               });
 
+              lodashmap(gateways,(gw)=>{
+                setshuffledevices(gw.devicepath);
+              });
               // const data = [];
               // lodashmap(devicelistresult,(deviceitem)=>{
               //   if(!!deviceitem.Longitude && deviceitem.Longitude !==0){
@@ -658,7 +661,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
         const {gateways,g_devicesdb} = action.payload;
         const lineArrayList = getGatewayPath(gateways,g_devicesdb);
         if(!isEqualArray(lineArrayList,CachedlineArrayList)){
-          console.log(`why call gpathSimplifierIns:${!!gpathSimplifierIns},gPathSimplifier:${!!gPathSimplifier}`)
+          // console.log(`why call gpathSimplifierIns:${!!gpathSimplifierIns},gPathSimplifier:${!!gPathSimplifier}`)
           if(!gpathSimplifierIns && !gPathSimplifier){
             const result  =   yield call(Create_PathSimplifier);
             gpathSimplifierIns = result.gpathSimplifierIns;
@@ -677,20 +680,35 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
         });
         yield put(mapmain_drawgatewaypath({gateways,g_devicesdb}));
       });
-//<------模拟
-  yield fork(function*(){
-    while (true) {
-        yield call(delay, 30000);
-        let {gateways} = yield select((state)=>{
-          return {
-            gateways:state.device.gateways
-          }
-        });
-        lodashmap(gateways,(gw)=>{
-          gw.devicepath = lodashshuffle(gw.devicepath);
-        });
-        yield put(serverpush_gateway({gateways}));
-    }
-  });
+
+      //<------模拟
+      yield fork(function*(){
+        while (true) {
+            yield call(delay, 30000);
+            let {gateways,devices} = yield select((state)=>{
+              return {
+                gateways:state.device.gateways,
+                devices:state.device.devices
+              }
+            });
+            lodashmap(gateways,(gw)=>{
+              gw.devicepath = lodashshuffle_gwpath(gw.devicepath,devices);
+              setshuffledevices(gw.devicepath);
+            });
+            //---------------------------------------------
+            //更新所有图标
+            const {g_devicesdb,viewtype} = yield select((state)=>{
+              const {devices,viewtype,gateways} = state.device;
+              return {g_devicesdb:devices,gateways,viewtype};
+            });
+            const SettingOfflineMinutes =yield select((state)=>{
+              return get(state,'app.SettingOfflineMinutes',20);
+            });
+            let g_devicesdb_updated = g_devicesdb;
+            getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
+            //---------------------------------------------
+            yield put(serverpush_gateway({gateways}));
+        }
+      });
 
 }

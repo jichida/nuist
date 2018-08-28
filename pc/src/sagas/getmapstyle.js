@@ -1,5 +1,6 @@
 import lodashget from 'lodash.get';
 import moment from 'moment';
+import {getdevicestatus} from '../util';
 // import lodashmap from 'lodash.map';
 
 import {createInfoWindow_popinfo} from './mapmain_infowindow';
@@ -105,7 +106,7 @@ export const getimageicon = (item,SettingOfflineMinutes,viewtype)=>{
   const icon_error = lodashget(curdevicetype,'iconurl_error',`${process.env.PUBLIC_URL}/images/device_error.png`);
   const icon_normal = lodashget(curdevicetype,'iconurl_normal',`${process.env.PUBLIC_URL}/images/device_normal.png`);
   const icon_alarm = lodashget(curdevicetype,'iconurl_alarm',`${process.env.PUBLIC_URL}/images/device_alarm.png`);
-  const firstLetter = item.DeviceId.substr(0,1);
+  const firstLetter = getdevicestatus(item._id);
   if(firstLetter === 'N'){
     return icon_normal;
   }
