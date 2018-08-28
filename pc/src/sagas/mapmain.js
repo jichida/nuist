@@ -132,7 +132,8 @@ const getGatewayPath = (gateways,g_devicesdb)=>{
     let lineArr = [];
     lodashmap(gw.devicepath,(did)=>{
       const item = g_devicesdb[did];
-      if(!!item){
+      const firstLetter = item.DeviceId.substr(0,1);
+      if(!!item && firstLetter==='N'){
         lineArr.push([item.Longitude,item.Latitude]);
       }
     });

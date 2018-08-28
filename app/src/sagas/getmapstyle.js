@@ -105,6 +105,16 @@ export const getimageicon = (item,SettingOfflineMinutes,viewtype)=>{
   const icon_error = lodashget(curdevicetype,'iconurl_error',`${process.env.PUBLIC_URL}/images/device_error.png`);
   const icon_normal = lodashget(curdevicetype,'iconurl_normal',`${process.env.PUBLIC_URL}/images/device_normal.png`);
   const icon_alarm = lodashget(curdevicetype,'iconurl_alarm',`${process.env.PUBLIC_URL}/images/device_alarm.png`);
+  const firstLetter = item.DeviceId.substr(0,1);
+  if(firstLetter === 'N'){
+    return icon_normal;
+  }
+  if(firstLetter === 'E'){
+    return icon_error;
+  }
+  if(firstLetter === 'A'){
+    return icon_alarm;
+  }
 
   let curpng = icon_normal;
   const realtimedata_datatime = lodashget(item,'realtimedata.datatime');
