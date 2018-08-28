@@ -19,6 +19,7 @@
   	-moz-justify-content: center;
   	-webkit-justify-content: center;
   	justify-content: center;
+    height:194px;
 }
 .header .headnav{
 	height: 40px;

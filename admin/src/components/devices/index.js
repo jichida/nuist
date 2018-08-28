@@ -76,16 +76,6 @@ const DeviceEdit = (props) => {
           <TextField label="大气压" source="realtimedata.pressure" />
           <TextField label="最后更新时间" source="realtimedata.updatetime" />
         </FormTab>
-        <FormTab label="实时数据">
-          <TextField label="这里显示图表" />
-        </FormTab>
-        <FormTab label="最近报警">
-          <TextField label="报警时间" source="realtimealarm.updatetime" />
-          <TextField label="报警类型" source="realtimealarm.type" />
-          <TextField label="当前值" source="realtimealarm.value" />
-          <TextField label="报警等级" source="realtimealarm.level" />
-          <TextField label="报警内容" source="realtimealarm.content" />
-        </FormTab>
       </TabbedForm>
     </Edit>
     );
