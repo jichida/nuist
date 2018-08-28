@@ -60,17 +60,22 @@ class App extends React.Component {
                                 title={null}
                                 />
                             <Tooltip />
+                           
+                            <Geom
+                               type="point"
+                               position="ticktimestring*value"
+                               size={4}
+                               shape={"circle"}
+                               style={{
+                                 stroke: "#fff",
+                                 lineWidth: 1
+                               }}
+                             />
                             <Geom
                                 type="line"
                                 position="ticktimestring*value"
                                 size={1}
-                                color="l (270) 0:rgba(255, 146, 255, 1) .5:rgba(100, 268, 255, 1) 1:rgba(215, 0, 255, 1)"
                                 shape="smooth"
-                                style={{
-                                    shadowColor: 'l (270) 0:rgba(21, 146, 255, 0)',
-                                    shadowBlur: 60,
-                                    shadowOffsetY: 6
-                                }}
                             />
                         </Chart>
                     </div>

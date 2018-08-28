@@ -283,6 +283,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
         window.amapmain = new window.AMap.Map(divmapid_mapmain, {
               center: center,
               zoom:zoomlevel,
+              zooms:[13,17],
               lang:"zh-cn",
               dragEnable:true,
               zoomEnable:true,
