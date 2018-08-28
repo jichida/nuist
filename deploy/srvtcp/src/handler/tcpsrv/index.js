@@ -3,6 +3,7 @@ const config = require('../../config.js');
 const debug = require('debug')('srvtcp:data')
 const getbuf = require('./protocol');
 const winston = require('../../log/log.js');
+const util = require('../../util/util.js');
 // const mongoose = require('mongoose');
 
 const magiclen=2;
@@ -48,7 +49,25 @@ starttcpsrv = (settings)=> {
       let fromsock = remoteip + ':' + socket.remotePort;
       debug(`${fromsock}接受一个socket`);
       const ipaddr = getpureIp(remoteip);
-
+      util.getIpInfo(ipaddr,(err,result)=>{
+           let curaddress = {
+             ipaddr,
+             provice:'未知',
+             city:'未知',
+             county:'未知'
+           }
+           if(!err && !!result){
+             if(result.code === 0 && !!result.data){
+               curaddress = {
+                 ipaddr,
+                 provice:result.data.region,
+                 city:result.data.city,
+                 county:result.data.county
+               };
+             }
+           }
+           winston.getlog().info(`来自ip:${ipaddr},provice:${curaddress.provice},city:${curaddress.city},county:${curaddress.county}`);
+      });
       let recvbuf = new Buffer('','binary');
 
       socket.on("error", (err) =>{

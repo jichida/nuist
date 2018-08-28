@@ -1,5 +1,5 @@
 const net=require('net');
-const ip=process.env.targetip||'47.97.174.215';//47.97.174.215 //目标ip
+const ip=process.env.targetip||'127.0.0.1';//'47.97.174.215';//47.97.174.215 //目标ip
 const port=50000;//目标端口
 
 const client=net.connect({port:port,host:ip},()=>{
