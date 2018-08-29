@@ -12,7 +12,7 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
     const ZigbeeData = bodybuf.toString('hex');//
     debug(`getcmd2====>${ZigbeeData}`);
 
-    const FX = (bodybuf[17] << 8) + bodybuf[18];
+    const FX = (bodybuf[18] << 8) + bodybuf[17];
     debug(`风向:${FX}`);
 
     const CS215_Temperature0 = bodybuf[33];
@@ -21,37 +21,42 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
     const CS215_Humidity1 = bodybuf[36];
     debug(`温度为:${CS215_Temperature0}.${CS215_Temperature1},湿度为:${CS215_Humidity0}.${CS215_Humidity1}`);
 
-    const PTB210_Pressure0 =  (bodybuf[41] << 8) + bodybuf[42];
-    const PTB210_Pressure1 =  (bodybuf[43] << 8) + bodybuf[44];
+    const PTB210_Pressure0 =  (bodybuf[42] << 8) + bodybuf[41];
+    const PTB210_Pressure1 =  bodybuf[44];
 
     debug(`气压为:${PTB210_Pressure0}.${PTB210_Pressure1}`);
 
-    const Rainfall = (bodybuf[45] << 8) + bodybuf[46];
+    const Rainfall = (bodybuf[46] << 8) + bodybuf[45];
     debug(`雨量为:${Rainfall}`);
 
-    const WindSpeed = (bodybuf[47] << 8) + bodybuf[48];
-    debug(`风速为:${Rainfall}`);
+    const WindSpeed = (bodybuf[48] << 8) + bodybuf[47];
+    debug(`风速为:${WindSpeed}`);
 
-    const Temperature_Int = (bodybuf[49] << 8) + bodybuf[50];
-    debug(`温度为:${Temperature_Int}`);
-    const Humidity_Int = (bodybuf[51] << 8) + bodybuf[52];
-    debug(`湿度为:${Humidity_Int}`);
+    const SHT10_Temperature0 = bodybuf[33];
+    const SHT10_Temperature1 = bodybuf[34];
+    const SHT10_Humidity0 = bodybuf[35];
+    const SHT10_Humidity1 = bodybuf[36];
+    debug(`温度为:${SHT10_Temperature0}.${SHT10_Temperature1},湿度为:${SHT10_Humidity0}.${SHT10_Humidity1}`);
+
 
   }
   else if(cmd === 0x03){
-    const GPSStatus = bodybuf.toString('ascii',0,1);
-    const UTCTime = bodybuf.toString('ascii',1,18);
-    const Latitude = bodybuf.toString('ascii',19,13);
-    const Longitude = bodybuf.toString('ascii',32,13);
+    const datahex = bodybuf.toString('hex');//
+    debug(`datahex:${datahex.length}`)
+    const GPSStatus = datahex.substr(0,1*2);//->'V'
+    const UTCTime = datahex.substr(1*2,18*2);
+    const Latitude = datahex.substr(19*2,13*2);
+    const Longitude = datahex.substr(32*2,13*2);
 
-    const Temperature_Int = (bodybuf[45] << 8) + bodybuf[46];
-    const Temperature_float = Temperature_Int & 0x01;
-    const Temperature_num = (Temperature_Int >> 1);
-    const Temperature = `${Temperature_num}.${Temperature_float}`;
-    const Humidity_Int = (bodybuf[47] << 8) + bodybuf[48];
-    const Humidity_float = Humidity_Int & 0x01;
-    const Humidity_num = (Humidity_Int >> 1);
-    const Humidity = `${Humidity_num}.${Humidity_float}`;
+    const Temperature0 = bodybuf[45];
+    const Temperature1 = bodybuf[46];
+
+    const Temperature = `${Temperature0}.${Temperature1}`;
+
+    const Humidity0 = bodybuf[47];
+    const Humidity1 = bodybuf[48];
+
+    const Humidity = `${Humidity0}.${Humidity1}`;
 
     const BatteryStatus = bodybuf[49];
     const Battery1Level = bodybuf[50];

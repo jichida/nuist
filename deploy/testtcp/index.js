@@ -21,7 +21,8 @@ const client=net.connect({port:port,host:ip},()=>{
   console.log(`payload-->${payload.length}`);
   const buf_cmd_payload = '594700010000000453B832C50037010207'+payload;
   const buf_cmd4=Buffer.from(buf_cmd_payload,'hex');
-  const sendbuf = buf_cmd4;
+
+  const sendbuf = buf_cmd3;
 
   let bufstring=sendbuf.toString()//'aa3c2c9422b9e300130000360000009d00090006000600060006000600';//buf.toString('hex');
   console.log(`连接上服务器【${ip}:${port}】,发送数据${bufstring}`);
