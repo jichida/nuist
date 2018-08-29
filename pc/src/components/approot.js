@@ -11,6 +11,7 @@ import Realtime from './realtime';
 import Forecast from './forecast';
 import Index from './index/';
 import MapPage from './map';
+import Mappub from './index/mappub.js';
 
 class AppMap extends React.Component {
     render (){
@@ -63,6 +64,7 @@ class AppRoot extends React.Component {
                   <Route exact path="/video" component={Video} />
                   <Route exact path="/realtime" component={Realtime} />
                   <Route exact path="/forecast" component={Forecast} />
+                  <Route exact path="/map" component={Mappub} />
                   <Route exact path="/deviceinfo/:id/:index" component={Realtime} />
                 </Switch>
                 <AppMap />
