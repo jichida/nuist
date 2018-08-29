@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import Chartdemo from "../../img/z3.png";
-import Report from "../history/report2.js";
+import Report from "../history/reportcontainer.js";
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
 import {
@@ -43,16 +43,13 @@ class App extends React.Component {
       const {fields,fieldslist_brief} = viewtype;
 			return (
         <div className="datachart">
-          <ul>
-            <li>
-                <Report fieldslist_brief={fieldslist_brief}
-                  ticktimestring={ticktimestringlist}
-                  fields={fields}
-                  retlist={retlist}
-                        />
-            </li>
-
-          </ul>
+            <Report
+              splitcount={2}
+              fieldslist_brief={fieldslist_brief}
+              ticktimestring={ticktimestringlist}
+              fields={fields}
+              retlist={retlist}
+                    />
         </div>
 	    );
 

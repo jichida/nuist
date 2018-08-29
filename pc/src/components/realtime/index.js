@@ -7,7 +7,7 @@ import NodeSel from '../nodesel';
 import Meter from "./meter";
 import List from "../history/list.js";
 import Filler from "../history/filler.js";
-import Report from "../history/report2.js";
+import ReportContainer from "../history/reportcontainer.js";
 
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
@@ -51,7 +51,9 @@ class App extends React.Component {
                     { !!curdevice && <Filler curdevice={curdevice} viewtype={viewtype}/> }
                     { !!curdevice && <List curdevice={curdevice}  viewtype={viewtype}/>}
                     {
-                      <Report fieldslist_brief={fieldslist_brief}
+                      <ReportContainer 
+                        splitcount={1}
+                        fieldslist_brief={fieldslist_brief}
                         ticktimestring={ticktimestringlist}
                         fields={fields}
                         retlist={retlist}

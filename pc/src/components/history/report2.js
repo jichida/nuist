@@ -1,11 +1,12 @@
 import React from 'react';
 import lodashmap from 'lodash.map';
 import { Chart, Geom, Axis, Tooltip, } from "bizcharts";
-const geomcolors = ['red','blue','green','black','orange','pink','yellow'];
+const geomcolors = ['blue','green'];
 class App extends React.Component {
 
     render() {
-        let {title,ticktimestring,fields,retlist,fieldslist_brief} = this.props;
+        let {title,ticktimestring,fields,retlist,
+          indextype,fieldslist_brief} = this.props;
 
 
         let vlistlist = [];
@@ -29,37 +30,59 @@ class App extends React.Component {
           data.push(dataitem);
 
         }//vlistlist.length
-        for(let j=0 ;j< 2;j++){
-          GeomList.push(<Geom
-              key={j}
-              type="point"
+        for(let j=0 ;j< vlistlist.length;j++){
+          if(indextype === 0){
+            GeomList.push(<Geom
+                key={`point_${j}`}
+                type="point"
+                position={`ticktimestring*value${j}`}
+                size={4}
+                shape={"circle"}
+                style={{
+                 stroke: "#fff",
+                 lineWidth: 1
+               }}
+            />);
+            GeomList.push(<Geom
+                key={`line_${j}`}
+                type="line"
+                position={`ticktimestring*value${j}`}
+                size={2}
+                color={geomcolors[j]}
+                shape={"smooth"}
+            />);
+          }
+          if(indextype === 1){
+            GeomList.push(<Geom
+              key={`interval_${j}`}
+              type="interval"
               position={`ticktimestring*value${j}`}
-              size={4}
-           shape={"circle"}
-           color={"city"}
-           style={{
-             stroke: "#fff",
-             lineWidth: 1
-           }}
-          />);
-          GeomList.push(<Geom
-              key={j}
-              type="line"
+              />);
+              GeomList.push(<Geom
+                  key={`line_${j}`}
+                  type="line"
+                  position={`ticktimestring*value${j}`}
+                  size={2}
+                  color={geomcolors[j]}
+                  shape={"smooth"}
+              />);
+          }
+          if(indextype === 2){
+            GeomList.push(<Geom
+              key={`area_${j}`}
+              type="area"
               position={`ticktimestring*value${j}`}
-              size={2}
-              color={"city"}
-              shape={"smooth"}
-          />);
+              />);
+              GeomList.push(<Geom
+                  key={`line_${j}`}
+                  type="line"
+                  position={`ticktimestring*value${j}`}
+                  size={2}
+                  color={geomcolors[j]}
+                  shape={"smooth"}
+              />);
+          }
         }
-
-        // const data = [
-        //     { month: '01-01', acc: 84.0 },
-        //     { month: '02-01', acc: 14.9 },
-        //     { month: '03-01', acc: 17.0 },
-        //     { month: '04-01', acc: 20.2 },
-        //     { month: '05-01', acc: 55.6 },
-        //     { month: '06-01', acc: 56.7 },
-        // ];
 
         const cols = {
             ticktimestring: { alias: '时间' },
