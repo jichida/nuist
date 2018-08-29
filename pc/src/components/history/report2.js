@@ -1,7 +1,7 @@
 import React from 'react';
 import lodashmap from 'lodash.map';
 import { Chart, Geom, Axis, Tooltip, } from "bizcharts";
-const geomcolors = ['blue','green'];
+const geomcolors = ['rgb(24,144,255)','rgb(47,194,91)'];
 class App extends React.Component {
 
     render() {
