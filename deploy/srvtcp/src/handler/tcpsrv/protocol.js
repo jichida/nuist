@@ -10,7 +10,33 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
   }
   else if(cmd === 0x02){
     const ZigbeeData = bodybuf.toString('hex');//
-    debug(`getcmd2:${ZigbeeData}`);
+    debug(`getcmd2====>${ZigbeeData}`);
+
+    const FX = (bodybuf[17] << 8) + bodybuf[18];
+    debug(`风向:${FX}`);
+
+    const CS215_Temperature0 = bodybuf[33];
+    const CS215_Temperature1 = bodybuf[34];
+    const CS215_Humidity0 = bodybuf[35];
+    const CS215_Humidity1 = bodybuf[36];
+    debug(`温度为:${CS215_Temperature0}.${CS215_Temperature1},湿度为:${CS215_Humidity0}.${CS215_Humidity1}`);
+
+    const PTB210_Pressure0 =  (bodybuf[41] << 8) + bodybuf[42];
+    const PTB210_Pressure1 =  (bodybuf[43] << 8) + bodybuf[44];
+
+    debug(`气压为:${PTB210_Pressure0}.${PTB210_Pressure1}`);
+
+    const Rainfall = (bodybuf[45] << 8) + bodybuf[46];
+    debug(`雨量为:${Rainfall}`);
+
+    const WindSpeed = (bodybuf[47] << 8) + bodybuf[48];
+    debug(`风速为:${Rainfall}`);
+
+    const Temperature_Int = (bodybuf[49] << 8) + bodybuf[50];
+    debug(`温度为:${Temperature_Int}`);
+    const Humidity_Int = (bodybuf[51] << 8) + bodybuf[52];
+    debug(`湿度为:${Humidity_Int}`);
+
   }
   else if(cmd === 0x03){
     const GPSStatus = bodybuf.toString('ascii',0,1);
@@ -41,7 +67,7 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
       Battery1Level,
       Battery2Level
     };
-    debug(`getcmd2:${JSON.stringify(jsonData)}`);
+    debug(`getcmd3====>${JSON.stringify(jsonData)}`);
   }
 
 }

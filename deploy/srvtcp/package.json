@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "DEBUG=srvtcp:* node --inspect index",
+    "start": "DEBUG=srvtcp:* logdir=/Users/wangxiaoqing/Downloads/work/nuist/deploy/dist/log node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
