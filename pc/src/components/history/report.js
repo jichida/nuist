@@ -38,45 +38,46 @@ class App extends React.Component {
                 lineDash: [0, 0] // 网格线的虚线配置，第一个参数描述虚线的实部占多少像素，第二个参数描述虚线的虚部占多少像素
             }, // 网格线的样式配置，原有属性为 line
         }
-        let chartvisiable = data.length > 1;
+
         return (
             <div className="monitorreport">
                 <div className="li">
                     <div className="tit">{title}</div>
                     <div className="chartcontent">
-                      {
-                        chartvisiable && (
-                          <Chart
-                              height={200}
-                              data={data}
-                              scale={cols}
-                              forceFit={true}
-                              padding={[ 15, 10, 30, 40]}
-                              >
-                              <Axis name="ticktimestring" grid={grid} tickLine={true} line={{ stroke: '#EEEEEE'}} />
-                              <Axis
-                                  name="value"
-                                  grid={grid}
-                                  line={{stroke: '#DDD'}}
-                                  tickLine={null}
-                                  title={null}
-                                  />
-                              <Tooltip />
-                              <Geom
-                                  type="line"
-                                  position="ticktimestring*value"
-                                  size={1}
-                                  color="l (270) 0:rgba(255, 146, 255, 1) .5:rgba(100, 268, 255, 1) 1:rgba(215, 0, 255, 1)"
-                                  shape="smooth"
-                                  style={{
-                                      shadowColor: 'l (270) 0:rgba(21, 146, 255, 0)',
-                                      shadowBlur: 60,
-                                      shadowOffsetY: 6
-                                  }}
-                              />
-                          </Chart>
-                        )
-                      }
+                        <Chart
+                            height={200}
+                            data={data}
+                            scale={cols}
+                            forceFit={true}
+                            padding={[ 15, 10, 30, 40]}
+                            >
+                            <Axis name="ticktimestring" grid={grid} tickLine={true} line={{ stroke: '#EEEEEE'}} />
+                            <Axis
+                                name="value"
+                                grid={grid}
+                                line={{stroke: '#DDD'}}
+                                tickLine={null}
+                                title={null}
+                                />
+                            <Tooltip />
+
+                            <Geom
+                               type="point"
+                               position="ticktimestring*value"
+                               size={4}
+                               shape={"circle"}
+                               style={{
+                                 stroke: "#fff",
+                                 lineWidth: 1
+                               }}
+                             />
+                            <Geom
+                                type="line"
+                                position="ticktimestring*value"
+                                size={1}
+                                shape="smooth"
+                            />
+                        </Chart>
                     </div>
                 </div>
             </div>

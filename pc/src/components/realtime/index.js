@@ -7,7 +7,7 @@ import NodeSel from '../nodesel';
 import Meter from "./meter";
 import List from "../history/list.js";
 import Filler from "../history/filler.js";
-import Report from "../history/report.js";
+import Report from "../history/report2.js";
 
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';

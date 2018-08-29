@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import Chartdemo from "../../img/z3.png";
-import Report from "./report.js";
+import Report from "../history/report2.js";
 import lodashget from 'lodash.get';
-import lodashmap from 'lodash.map';
+// import lodashmap from 'lodash.map';
 import {
   gethistorydevicelist_request
 } from '../../actions';
@@ -44,18 +44,14 @@ class App extends React.Component {
 			return (
         <div className="datachart">
           <ul>
-            {
-              lodashmap(fieldslist_brief,(fieldname)=>{
-                const fieldsprops = fields[fieldname];
-                if(!!fieldsprops && ticktimestringlist.length>0){
-                  return (<li key={fieldname}>
-                            <Report title={`历史${fieldsprops.showname}曲线`} ticktimestring={ticktimestringlist}
-                              vlist={retlist[fieldname]}/>
-                        </li>
-                  );
-                }
-              })
-            }
+            <li>
+                <Report fieldslist_brief={fieldslist_brief}
+                  ticktimestring={ticktimestringlist}
+                  fields={fields}
+                  retlist={retlist}
+                        />
+            </li>
+
           </ul>
         </div>
 	    );
