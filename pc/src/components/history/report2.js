@@ -1,7 +1,7 @@
 import React from 'react';
 import lodashmap from 'lodash.map';
 import { Chart, Geom, Axis, Tooltip, } from "bizcharts";
-
+const geomcolors = ['red','blue','green','black','orange','pink','yellow'];
 class App extends React.Component {
 
     render() {
@@ -28,14 +28,27 @@ class App extends React.Component {
           }
           data.push(dataitem);
 
-        }
-        for(let j=0 ;j< vlistlist.length;j++){
+        }//vlistlist.length
+        for(let j=0 ;j< 2;j++){
+          GeomList.push(<Geom
+              key={j}
+              type="point"
+              position={`ticktimestring*value${j}`}
+              size={4}
+           shape={"circle"}
+           color={"city"}
+           style={{
+             stroke: "#fff",
+             lineWidth: 1
+           }}
+          />);
           GeomList.push(<Geom
               key={j}
               type="line"
               position={`ticktimestring*value${j}`}
-              size={1}
-              shape="smooth"
+              size={2}
+              color={"city"}
+              shape={"smooth"}
           />);
         }
 
@@ -49,7 +62,7 @@ class App extends React.Component {
         // ];
 
         const cols = {
-            ticktimestring: { alias: '月份' },
+            ticktimestring: { alias: '时间' },
             value: { alias: '值' },
 
         };

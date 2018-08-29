@@ -10,7 +10,7 @@ import Filler from "../history/filler.js";
 import Report from "../history/report2.js";
 
 import lodashget from 'lodash.get';
-import lodashmap from 'lodash.map';
+// import lodashmap from 'lodash.map';
 import {set_uiapp} from '../../actions';
 
 class App extends React.Component {
@@ -48,17 +48,14 @@ class App extends React.Component {
                       节点数据
                     </div>
                     { !!curdevice && <Meter curdevice={curdevice} viewtype={viewtype}/> }
-                    { !!curdevice && <Filler curdevice={curdevice}  viewtype={viewtype}/> }
+                    { !!curdevice && <Filler curdevice={curdevice} viewtype={viewtype}/> }
                     { !!curdevice && <List curdevice={curdevice}  viewtype={viewtype}/>}
                     {
-
-                      lodashmap(fieldslist_brief,(fieldname)=>{
-                        const fieldsprops = fields[fieldname];
-                        if(!!fieldsprops && ticktimestringlist.length>0){
-                          return (<Report title={`历史${fieldsprops.showname}曲线`} ticktimestring={ticktimestringlist}
-                            vlist={retlist[fieldname]} key={fieldname}/>);
-                        }
-                      })
+                      <Report fieldslist_brief={fieldslist_brief}
+                        ticktimestring={ticktimestringlist}
+                        fields={fields}
+                        retlist={retlist}
+                              />
                     }
                   </div>
                 </div>
