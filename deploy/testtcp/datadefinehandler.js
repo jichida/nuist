@@ -302,11 +302,48 @@ const simulatordata = {
     parsevalue:(hexstring)=>{
 
     }
-  }
-  };
+  },
+};
 
 const replaceAt = (payload,index, replacement)=> {
     return payload.substr(0, index) + replacement+ payload.substr(index + replacement.length);
+}
+
+simulatordata.gethex1 = (value)=>{
+  const buf0 = Buffer.allocUnsafe(1);
+  buf0.writeInt8(value, 0);
+  const hex0 = buf0.toString('hex');
+  return hex0;
+},
+
+simulatordata.parsevalue1 = (hexstring)=>{
+  const buf = Buffer.from(hexstring,'hex');
+  const value =  buf.readInt8(0);
+  return value;
+}
+
+simulatordata.gethex2 = (value)=>{
+  const buf0 = Buffer.allocUnsafe(2);
+  buf0.writeInt16BE(value, 0);
+  const hex0 = buf0.toString('hex');
+  return hex0;
+},
+
+simulatordata.parsevalue2 = (hexstring)=>{
+  const buf = Buffer.from(hexstring,'hex');
+  const value =  buf.readInt16BE(0);
+  return value;
+}
+
+simulatordata.getheader = ({gwid,length,cmd})=>{
+  let header = '594700010000000453B832C50037010207';
+  let gwidhex = simulatordata.gethex2(gwid);
+  let lengthhex = simulatordata.gethex2(length);
+  let cmdhex = simulatordata.gethex1(cmd);
+  header = replaceAt(header,2*2,gwidhex);
+  header = replaceAt(header,12*2,lengthhex);
+  header = replaceAt(header,16*2,cmdhex);
+  return header;
 }
 
 simulatordata.getbufcmd1 = ({pressure,winddirection,humidity,rainfall,temperature})=>{

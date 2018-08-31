@@ -1,6 +1,7 @@
 const handler = require('./datadefinehandler');
 const debug = require('debug')('testtcp:test');
 
+
 const pressure = 1020.21;
 debug(`pressure->${pressure}`);
 const pressure_hex = handler.pressure.gethex(pressure);
@@ -39,3 +40,5 @@ debug(`${temperature===temperature_value}\n`);
 
 const hex = handler.getbufcmd1({pressure,winddirection,humidity,rainfall,temperature});
 debug(`hex->\n${hex}`)
+const headerhex = handler.getheader({gwid:1,length:hex.length/2,cmd:2});
+debug(`headerhex->\n${headerhex}`);
