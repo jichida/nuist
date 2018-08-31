@@ -1,7 +1,7 @@
 const debug = require('debug')('testtcp:parse');
 const simulatordata = {
-  "pressure":{//压力
-    offset:42,
+  "pressure":{//压力<----PTB210
+    offset:41,
     length:4,
     max:50,
     min:20,
@@ -28,8 +28,25 @@ const simulatordata = {
       return parseFloat(valuestring);
     }
   },
-  "winddirection":{
-    offset:0,
+  "winddirection":{//风向
+    offset:17,
+    length:2,
+    max:360,
+    min:0,
+    gethex:(value)=>{
+      const buf0 = Buffer.allocUnsafe(2);
+      buf0.writeInt16LE(value, 0);
+      const hex0 = buf0.toString('hex');
+      return hex0;
+    },
+    parsevalue:(hexstring)=>{
+      const buf = Buffer.from(hexstring,'hex');
+      const value =  buf.readInt16LE(0);
+      return value;
+    }
+  },
+  "windspeed":{//风速
+    offset:47,
     length:2,
     max:50,
     min:20,
@@ -45,52 +62,77 @@ const simulatordata = {
       return value;
     }
   },
-  "windspeed":{
-    offset:0,
+  "humidity" :{//CS215
+    offset:35,
     length:2,
     max:50,
     min:20,
     gethex:(value)=>{
-
+      const valuestring = `${value}`;
+      const sz = valuestring.split(".");
+      const CS215_Humidity0 = sz[0];
+      const CS215_Humidity1 = sz.length > 1?sz[1]:0;
+      const CS215_Humidity0_Int = parseInt(CS215_Humidity0,10);
+      const CS215_Humidity1_Int = parseInt(CS215_Humidity1,10);
+      const buf0 = Buffer.allocUnsafe(2);
+      buf0.writeInt8(CS215_Humidity0_Int, 0);
+      buf0.writeInt8(CS215_Humidity1_Int, 1);
+      const hex0 = buf0.toString('hex');
+      return hex0;
     },
     parsevalue:(hexstring)=>{
-
-    }
-  },
-  "humidity" :{
-    offset:0,
-    length:2,
-    max:50,
-    min:20,
-    gethex:(value)=>{
-
-    },
-    parsevalue:(hexstring)=>{
-
+      const buf = Buffer.from(hexstring,'hex');
+      const CS215_Humidity0 =  buf.readInt8(0);
+      const CS215_Humidity1 =  buf.readInt8(1);
+      const valuestring = `${CS215_Humidity0}.${CS215_Humidity1}`;
+      debug(`湿度为:${CS215_Humidity0}.${CS215_Humidity1}`);
+      return parseFloat(valuestring);
     }
   },
   "rainfall" : {
-    offset:0,
+    offset:45,
     length:2,
     max:50,
     min:20,
     gethex:(value)=>{
-
+      const buf0 = Buffer.allocUnsafe(2);
+      buf0.writeInt16LE(value, 0);
+      const hex0 = buf0.toString('hex');
+      return hex0;
     },
     parsevalue:(hexstring)=>{
-
+      const buf = Buffer.from(hexstring,'hex');
+      const value =  buf.readInt16LE(0);
+      return value;
     }
   },
-  "temperature" :{
-    offset:0,
+  "temperature" :{//CS215
+    offset:33,
     length:2,
     max:50,
     min:20,
     gethex:(value)=>{
-
+      const valuestring = `${value}`;
+      const sz = valuestring.split(".");
+      const CS215_Temperature0 = sz[0];
+      const CS215_Temperature1 = sz.length > 1?sz[1]:0;
+      debug(`CS215_Temperature0:${CS215_Temperature0},CS215_Temperature1:${CS215_Temperature1}`)
+      const CS215_Temperature0_Int = parseInt(CS215_Temperature0,10);
+      const CS215_Temperature1_Int = parseInt(CS215_Temperature1,10);
+      debug(`CS215_Temperature0:${CS215_Temperature0_Int},CS215_Temperature1:${CS215_Temperature1_Int}`)
+      const buf0 = Buffer.allocUnsafe(2);
+      buf0.writeInt8(CS215_Temperature0_Int, 0);
+      buf0.writeInt8(CS215_Temperature1_Int, 1);
+      const hex0 = buf0.toString('hex');
+      return hex0;
     },
     parsevalue:(hexstring)=>{
-
+      const buf = Buffer.from(hexstring,'hex');
+      const CS215_Temperature0 =  buf.readInt8(0);
+      const CS215_Temperature1 =  buf.readInt8(1);
+      const valuestring = `${CS215_Temperature0}.${CS215_Temperature1}`;
+      debug(`温度为:${CS215_Temperature0}.${CS215_Temperature1}`);
+      return parseFloat(valuestring);
     }
   },
   "deformation":{
