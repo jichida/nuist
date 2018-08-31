@@ -1,4 +1,4 @@
-
+const debug = require('debug')('testtcp:parse');
 const simulatordata = {
   "pressure":{//压力
     offset:42,
@@ -10,18 +10,18 @@ const simulatordata = {
       const sz = valuestring.split(".");
       const PTB210_Pressure0 = sz[0];
       const PTB210_Pressure1 = sz.length > 1?sz[1]:0;
-      let hex0 = new Number(PTB210_Pressure0).toString(16);
-      while(hex0.length < 4){
-        hex0 = '0'+hex0;
-      }
-      let hex1 = new Number(PTB210_Pressure0).toString(16);
-      while(hex0.length < 4){
-        hex0 = '0'+hex0;
-      }
+      const buf0 = Buffer.allocUnsafe(2);
+      buf0.writeInt16LE(PTB210_Pressure0, 0);
+      const hex0 = buf0.toString('hex');
+
+      const buf1 = Buffer.allocUnsafe(1);
+      buf1.writeInt8(PTB210_Pressure1, 0);
+      const hex1 = buf1.toString('hex');
+      return `${hex0}00${hex1}`;
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
       const buf = Buffer.from(hexstring,'hex');
-      const PTB210_Pressure0 =  (buf[1] << 8) + buf[0];
+      const PTB210_Pressure0 =  buf.readInt16LE(0);
       const PTB210_Pressure1 =  buf[3];
       const valuestring = `${PTB210_Pressure0}.${PTB210_Pressure1}`;
       debug(`气压为:${PTB210_Pressure0}.${PTB210_Pressure1}`);
@@ -36,7 +36,7 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
@@ -48,11 +48,11 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
-  "humidity" ::{
+  "humidity" :{
     offset:0,
     length:2,
     max:50,
@@ -60,11 +60,11 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
-  "rainfall" : :{
+  "rainfall" : {
     offset:0,
     length:2,
     max:50,
@@ -72,11 +72,11 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
-  "temperature" : :{
+  "temperature" :{
     offset:0,
     length:2,
     max:50,
@@ -84,11 +84,11 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
-  "deformation"::{
+  "deformation":{
     offset:0,
     length:2,
     max:50,
@@ -96,11 +96,11 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
-  "voltage"::{
+  "voltage":{
     offset:0,
     length:2,
     max:50,
@@ -108,11 +108,11 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
-  "stress0"::{
+  "stress0":{
     offset:0,
     length:2,
     max:50,
@@ -120,11 +120,11 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
-  "stress1"::{
+  "stress1":{
     offset:0,
     length:2,
     max:50,
@@ -132,11 +132,11 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
-  "osmoticpressure"::{
+  "osmoticpressure":{
     offset:0,
     length:2,
     max:50,
@@ -144,11 +144,11 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
-  "no"::{
+  "no":{
     offset:0,
     length:2,
     max:50,
@@ -156,7 +156,7 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
@@ -168,7 +168,7 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
@@ -180,7 +180,7 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
@@ -192,7 +192,7 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
@@ -204,7 +204,7 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
@@ -216,7 +216,7 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
@@ -228,7 +228,7 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
@@ -240,7 +240,7 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
   },
@@ -252,9 +252,10 @@ const simulatordata = {
     gethex:(value)=>{
 
     },
-    parsevalue(hexstring)=>{
+    parsevalue:(hexstring)=>{
 
     }
+  }
   };
 
   module.exports = simulatordata;
