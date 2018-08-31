@@ -34,10 +34,15 @@ const simulatordata = {
     max:50,
     min:20,
     gethex:(value)=>{
-
+      const buf0 = Buffer.allocUnsafe(2);
+      buf0.writeInt16LE(value, 0);
+      const hex0 = buf0.toString('hex');
+      return hex0;
     },
     parsevalue:(hexstring)=>{
-
+      const buf = Buffer.from(hexstring,'hex');
+      const value =  buf.readInt16LE(0);
+      return value;
     }
   },
   "windspeed":{
