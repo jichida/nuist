@@ -36,3 +36,6 @@ debug(`temperature_hex->${temperature_hex}`);
 const temperature_value = handler.temperature.parsevalue(temperature_hex);
 debug(`temperature_value->${temperature_value}`);
 debug(`${temperature===temperature_value}\n`);
+
+const hex = handler.getbufcmd1({pressure,winddirection,humidity,rainfall,temperature});
+debug(`hex->\n${hex}`)

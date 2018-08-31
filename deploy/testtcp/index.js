@@ -19,10 +19,12 @@ const client=net.connect({port:port,host:ip},()=>{
   payload+='071538306004050607FC030015000000';
   payload+='002B18D0050001299D';
   console.log(`payload-->${payload.length}`);
+
+  payload = `427E000B7D310000010000003381860000DE09E10A660B030BFC002E056606AC071538306004050607FC030015000000002B18D0050001299D`
   const buf_cmd_payload = '594700010000000453B832C50037010207'+payload;
   const buf_cmd4=Buffer.from(buf_cmd_payload,'hex');
 
-  const sendbuf = buf_cmd3;
+  const sendbuf = buf_cmd4;
 
   let bufstring=sendbuf.toString()//'aa3c2c9422b9e300130000360000009d00090006000600060006000600';//buf.toString('hex');
   console.log(`连接上服务器【${ip}:${port}】,发送数据${bufstring}`);

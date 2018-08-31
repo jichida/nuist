@@ -305,4 +305,34 @@ const simulatordata = {
   }
   };
 
-  module.exports = simulatordata;
+const replaceAt = (payload,index, replacement)=> {
+    return payload.substr(0, index) + replacement+ payload.substr(index + replacement.length);
+}
+
+simulatordata.getbufcmd1 = ({pressure,winddirection,humidity,rainfall,temperature})=>{
+  let payload = '427E000B7D3100000100000033818600';
+  payload+='00DE09E10A660B030BFC002E056606AC';
+  payload+='071538306004050607FC030015000000';
+  payload+='002B18D0050001299D';
+  debug(`payload-->${payload.length}`);
+  const pressurehex = simulatordata.pressure.gethex(pressure);
+  payload = replaceAt(payload,simulatordata.pressure.offset*2,pressurehex);
+
+  const winddirectionhex = simulatordata.winddirection.gethex(winddirection);
+  payload = replaceAt(payload,simulatordata.winddirection.offset*2,winddirectionhex);
+
+  const humidityhex = simulatordata.humidity.gethex(humidity);
+  payload = replaceAt(payload,simulatordata.humidity.offset*2,humidityhex);
+
+  const rainfallhex = simulatordata.rainfall.gethex(rainfall);
+  payload = replaceAt(payload,simulatordata.rainfall.offset*2,rainfallhex);
+
+  const temperaturehex = simulatordata.temperature.gethex(temperature);
+  payload = replaceAt(payload,simulatordata.temperature.offset*2,temperaturehex);
+
+  debug(`payload-->${payload}`);
+  return payload;
+}
+
+
+module.exports = simulatordata;
