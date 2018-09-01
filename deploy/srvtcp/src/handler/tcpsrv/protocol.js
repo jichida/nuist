@@ -7,6 +7,7 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
     // const Heartbeatinterval = bodybuf.readInt32BE();
     // const Servertime = bodybuf.readInt32BE();
     // debug(`getcmd1:Heartbeatinterval:${Heartbeatinterval},Servertime:${Servertime}`)
+    callbackfn(null,null);
   }
   else if(cmd === 0x02){
     const ZigbeeData = bodybuf.toString('hex');//
@@ -37,8 +38,13 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
     const SHT10_Humidity0 = bodybuf[35];
     const SHT10_Humidity1 = bodybuf[36];
     debug(`温度为:${SHT10_Temperature0}.${SHT10_Temperature1},湿度为:${SHT10_Humidity0}.${SHT10_Humidity1}`);
+    const jsonData = {
+      Pressure:parseFloat(`${PTB210_Pressure0}.${PTB210_Pressure1}`),
+      Temperature:parseFloat(`${CS215_Temperature0}.${CS215_Temperature1}`),
+      Humidity:parseFloat(`${CS215_Humidity0}.${CS215_Humidity1}`),
 
-
+    }
+    callbackfn(null,jsonData);
   }
   else if(cmd === 0x03){
     const datahex = bodybuf.toString('hex');//
@@ -73,6 +79,7 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
       Battery2Level
     };
     debug(`getcmd3====>${JSON.stringify(jsonData)}`);
+    callbackfn(null,jsonData);
   }
 
 }

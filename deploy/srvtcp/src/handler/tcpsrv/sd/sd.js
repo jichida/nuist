@@ -51,5 +51,6 @@ const getdatahex2 = (DeviceId)=>{
   return `${headerhex}${hexpayload}`;
 }
 
+
 exports.getdatahex1 = getdatahex1;
 exports.getdatahex2 = getdatahex2;

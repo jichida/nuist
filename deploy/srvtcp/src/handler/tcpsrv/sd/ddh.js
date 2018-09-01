@@ -311,7 +311,8 @@ const replaceAt = (payload,index, replacement)=> {
 
 simulatordata.gethex1 = (value)=>{
   const buf0 = Buffer.allocUnsafe(1);
-  buf0.writeInt8(value, 0);
+  debug(`value->${value}`)
+  buf0.writeUInt8(value, 0);
   const hex0 = buf0.toString('hex');
   return hex0;
 },
@@ -334,6 +335,19 @@ simulatordata.parsevalue2 = (hexstring)=>{
   const value =  buf.readInt16BE(0);
   return value;
 }
+
+simulatordata.getdatahexreply = ({cmd},{HeartbeatInterval,ServerTime})=>{
+  let header = '594700010000000453B832C50037010207';
+  let lengthhex = simulatordata.gethex2(8);//固定8个字节
+  debug(`cmd->${cmd}`)
+  cmd = 0x80+cmd;
+  let cmdhex = simulatordata.gethex1(cmd);
+  header = replaceAt(header,12*2,lengthhex);
+  header = replaceAt(header,15*2,cmdhex);
+  let payload = '0000000053B01D39';//for HeartbeatInterval & ServerTime
+  return `${header}${payload}`;
+}
+
 
 simulatordata.getheader = ({gwid,length,cmd})=>{
   let header = '594700010000000453B832C50037010207';
