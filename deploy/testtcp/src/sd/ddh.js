@@ -342,7 +342,8 @@ simulatordata.getheader = ({gwid,length,cmd})=>{
   let cmdhex = simulatordata.gethex1(cmd);
   header = replaceAt(header,2*2,gwidhex);
   header = replaceAt(header,12*2,lengthhex);
-  header = replaceAt(header,16*2,cmdhex);
+  header = replaceAt(header,15*2,cmdhex);
+  debug(`cmdhex->${cmdhex},header->${header},header->${header.length}`);
   return header;
 }
 

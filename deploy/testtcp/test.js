@@ -1,4 +1,4 @@
-const handler = require('./datadefinehandler');
+const handler = require('./src/sd/ddh.js');
 const debug = require('debug')('testtcp:test');
 
 

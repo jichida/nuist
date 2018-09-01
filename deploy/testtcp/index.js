@@ -1,19 +1,28 @@
 const net=require('net');
-const sd = require('./sd');
-const config = require('./config');
-const ip=process.env.targetip||'127.0.0.1';//'47.97.174.215';//47.97.174.215 //目标ip
-const port=50000;//目标端口
-let timer;
-const getsimulatordata = ()=>{
+const debug = require('debug')('testtcp:start');
+const sd = require('./src/sd/sd.js');
+const config = require('./src/config');
+const ip = process.env.targetip||'127.0.0.1';//'47.97.174.215';//47.97.174.215 //目标ip
+const port = process.env.targetport|| 50000;//目标端口
+let timerInterval;
+let timerTimeout;
 
+const getsimulatordata = ()=>{
+// 594700010000000653B832F0000001012A
+// 594700010000000453B832C50000010201
 }
 
 const client= net.connect({port:port,host:ip},()=>{
-  timer = setInterval(()=>{
-    const bufhex = sd.getdatahex2(config.deviceid);
-    const buf_cmd2 = Buffer.from(bufhex,'hex');
-    client.write(buf_cmd2);
-  },config.senddatainterval)
+  const sendcmd1 = ()=>{
+    const bufhex = sd.getdatahex1(config.deviceid);
+    const buf_cmd1 = Buffer.from(bufhex,'hex');
+    client.write(buf_cmd1);
+  }
+
+  sendcmd1();
+  timerInterval = setInterval(()=>{
+    sendcmd1();
+  },10*1000)
 
   // const bufstr_cmd1='594700010000000653B832F0000001012A';
   // const buf_cmd1=Buffer.from(bufstr_cmd1,'hex');
@@ -46,10 +55,17 @@ const client= net.connect({port:port,host:ip},()=>{
 
 client.on('data',(data)=>{
   console.log(`接收到数据为${data.toString('hex')}`);
-//client.end();
+  timerTimeout = setTimeout(()=>{
+    const bufhex = sd.getdatahex2(config.deviceid);
+    const buf_cmd2 = Buffer.from(bufhex,'hex');
+    client.write(buf_cmd2);
+  },config.senddatainterval)
 });
 
 client.on('end',()=>{
   console.log(`和服务器断开`);
-  clearInterval(timer);
+  if(!!timerInterval){
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
 });

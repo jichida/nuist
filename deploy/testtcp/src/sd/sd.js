@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const moment = require('moment');
-const handler = require('./datadefinehandler');
+const handler = require('./ddh');
 const debug = require('debug')('testtcp:test');
 
 // const getpublishdata_device = (DeviceId)=>{
@@ -31,6 +31,11 @@ const debug = require('debug')('testtcp:test');
 //     }
 //   };
 // }
+const getdatahex1 = (DeviceId)=>{
+  const headerhex = handler.getheader({gwid:DeviceId,length:0,cmd:1});
+  debug(`headerhex->\n${headerhex}`);
+  return `${headerhex}`;
+}
 
 const getdatahex2 = (DeviceId)=>{
   const pressure = _.random(handler.pressure.min, handler.pressure.max);//温度
@@ -46,4 +51,5 @@ const getdatahex2 = (DeviceId)=>{
   return `${headerhex}${hexpayload}`;
 }
 
+exports.getdatahex1 = getdatahex1;
 exports.getdatahex2 = getdatahex2;
