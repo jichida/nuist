@@ -4,7 +4,7 @@ const debug = require('debug')('srvtcp:data')
 const getbuf = require('./protocol');
 const winston = require('../../log/log.js');
 const util = require('../../util/util.js');
-const ddh = require('./sd/ddh');
+
 // const mongoose = require('mongoose');
 
 const magiclen=2;
@@ -123,16 +123,28 @@ starttcpsrv = (settings)=> {
                        debug(`获取到数据部分:${bodybuf.toString('hex')}`);
                        debug(`获取到数据部分:${bodybuf.toString('hex')}`);
                        if(bodybuf.length >= datalen){
-                         getbuf({cmd,recvbuf,bodybuf},(err,newsendbuf)=>{
-                           if(!err && !!newsendbuf){
-                             //<----getdatahexreply
-                             debug(`get data--->${JSON.stringify(newsendbuf)}`);
+                         getbuf({cmd,recvbuf,bodybuf},(err,result)=>{
+                           if(!err){
+                             if(!!result.resultdata){
+                               //<----publish data==========
+                               debug(`get data--->${JSON.stringify(result.resultdata)}`);
+                             }
+
+                             if(!!result.replybuf){
+                               //reply---->
+                              socket.write(result.replybuf);
+                             }
                            }
-                           //reply---->
-                           const ServerTime = 0;
-                           const hexreply = ddh.getdatahexreply({cmd},{HeartbeatInterval:0,ServerTime});
-                           const buf_cmd1 = Buffer.from(hexreply,'hex');
-                           socket.write(buf_cmd1);
+                           else{
+                             //error--->
+                             debug(`【${curid}】连接关闭`);
+                             socket.end();
+                             socket.destroy();
+                             if(!!curid){
+                               tcpsocksmap.delete(curid);
+                             }
+                           }
+
                          });
                        }
 

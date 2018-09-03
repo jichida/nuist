@@ -1,10 +1,11 @@
 const debug = require('debug')('testtcp:parse');
+const config = require('../config.js');
 const simulatordata = {
   "pressure":{//压力<----PTB210
-    offset:41,
-    length:4,
-    max:50,
-    min:20,
+    offset:parseInt(config.pressure_data_offset),
+    length:parseInt(config.pressure_data_length),
+    max:parseInt(config.pressure_data_max),
+    min:parseInt(config.pressure_data_min),
     gethex:(value)=>{
       const valuestring = `${value}`;
       const sz = valuestring.split(".");
@@ -29,10 +30,10 @@ const simulatordata = {
     }
   },
   "winddirection":{//风向
-    offset:17,
-    length:2,
-    max:360,
-    min:0,
+    offset:parseInt(config.winddirection_data_offset),
+    length:parseInt(config.winddirection_data_length),
+    max:parseInt(config.winddirection_data_max),
+    min:parseInt(config.winddirection_data_min),
     gethex:(value)=>{
       const buf0 = Buffer.allocUnsafe(2);
       buf0.writeInt16LE(value, 0);
@@ -46,10 +47,10 @@ const simulatordata = {
     }
   },
   "windspeed":{//风速
-    offset:47,
-    length:2,
-    max:50,
-    min:20,
+    offset:parseInt(config.windspeed_data_offset),
+    length:parseInt(config.windspeed_data_length),
+    max:parseInt(config.windspeed_data_max),
+    min:parseInt(config.windspeed_data_min),
     gethex:(value)=>{
       const buf0 = Buffer.allocUnsafe(2);
       buf0.writeInt16LE(value, 0);
@@ -63,10 +64,10 @@ const simulatordata = {
     }
   },
   "humidity" :{//CS215
-    offset:35,
-    length:2,
-    max:50,
-    min:20,
+    offset:parseInt(config.humidity_data_offset),
+    length:parseInt(config.humidity_data_length),
+    max:parseInt(config.humidity_data_max),
+    min:parseInt(config.humidity_data_min),
     gethex:(value)=>{
       const valuestring = `${value}`;
       const sz = valuestring.split(".");
@@ -90,10 +91,10 @@ const simulatordata = {
     }
   },
   "rainfall" : {
-    offset:45,
-    length:2,
-    max:50,
-    min:20,
+    offset:parseInt(config.rainfall_data_offset),
+    length:parseInt(config.rainfall_data_length),
+    max:parseInt(config.rainfall_data_max),
+    min:parseInt(config.rainfall_data_min),
     gethex:(value)=>{
       const buf0 = Buffer.allocUnsafe(2);
       buf0.writeInt16LE(value, 0);
@@ -107,10 +108,10 @@ const simulatordata = {
     }
   },
   "temperature" :{//CS215
-    offset:33,
-    length:2,
-    max:50,
-    min:20,
+    offset:parseInt(config.temperature_data_offset),
+    length:parseInt(config.temperature_data_length),
+    max:parseInt(config.temperature_data_max),
+    min:parseInt(config.temperature_data_min),
     gethex:(value)=>{
       const valuestring = `${value}`;
       const sz = valuestring.split(".");
@@ -311,7 +312,8 @@ const replaceAt = (payload,index, replacement)=> {
 
 simulatordata.gethex1 = (value)=>{
   const buf0 = Buffer.allocUnsafe(1);
-  buf0.writeInt8(value, 0);
+  debug(`value->${value}`)
+  buf0.writeUInt8(value, 0);
   const hex0 = buf0.toString('hex');
   return hex0;
 },
@@ -335,6 +337,30 @@ simulatordata.parsevalue2 = (hexstring)=>{
   return value;
 }
 
+simulatordata.getbufcmd1reply = ({cmd},{HeartbeatInterval,ServerTime})=>{
+  let header = '594700010000000453B832C50037010207';
+  let lengthhex = simulatordata.gethex2(8);//固定8个字节
+  debug(`cmd->${cmd}`)
+  cmd = 0x80+cmd;
+  let cmdhex = simulatordata.gethex1(cmd);
+  header = replaceAt(header,12*2,lengthhex);
+  header = replaceAt(header,15*2,cmdhex);
+  let payload = '0000000053B01D39';//for HeartbeatInterval & ServerTime
+  return `${header}${payload}`;
+}
+
+simulatordata.getbufcmd23reply = ({cmd},{OperationResult})=>{
+  let header = '594700010000000F53B01D3D000401826B0000';
+  let lengthhex = simulatordata.gethex2(4);//固定4个字节
+  debug(`cmd->${cmd}`)
+  cmd = 0x80+cmd;
+  let cmdhex = simulatordata.gethex1(cmd);
+  header = replaceAt(header,12*2,lengthhex);
+  header = replaceAt(header,15*2,cmdhex);
+  let payload = '0000';//OperationResult
+  return `${header}${payload}`;
+}
+
 simulatordata.getheader = ({gwid,length,cmd})=>{
   let header = '594700010000000453B832C50037010207';
   let gwidhex = simulatordata.gethex2(gwid);
@@ -347,7 +373,7 @@ simulatordata.getheader = ({gwid,length,cmd})=>{
   return header;
 }
 
-simulatordata.getbufcmd1 = ({pressure,winddirection,humidity,rainfall,temperature})=>{
+simulatordata.getbufcmd1 = ({pressure,winddirection,humidity,rainfall,temperature,windspeed})=>{
   let payload = '427E000B7D3100000100000033818600';
   payload+='00DE09E10A660B030BFC002E056606AC';
   payload+='071538306004050607FC030015000000';
@@ -355,6 +381,9 @@ simulatordata.getbufcmd1 = ({pressure,winddirection,humidity,rainfall,temperatur
   debug(`payload-->${payload.length}`);
   const pressurehex = simulatordata.pressure.gethex(pressure);
   payload = replaceAt(payload,simulatordata.pressure.offset*2,pressurehex);
+
+  const windspeedhex = simulatordata.windspeed.gethex(windspeed);
+  payload = replaceAt(payload,simulatordata.windspeed.offset*2,windspeedhex);
 
   const winddirectionhex = simulatordata.winddirection.gethex(winddirection);
   payload = replaceAt(payload,simulatordata.winddirection.offset*2,winddirectionhex);
