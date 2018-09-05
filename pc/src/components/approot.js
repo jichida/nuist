@@ -12,6 +12,9 @@ import Forecast from './forecast';
 import Index from './index/';
 import MapPage from './map';
 import Mappub from './index/mappub.js';
+import ChartHumidity  from './realtime/charts_humidity';
+import ChartPressure  from './realtime/charts_pressure';
+import ChartTemperatureRainfall  from './realtime/charts_temperaturerainfall';
 
 class AppMap extends React.Component {
     render (){
@@ -58,6 +61,9 @@ class AppRoot extends React.Component {
       return (
               <div className="container">
                 <Switch>
+                  <Route exact path="/chart1" component={ChartHumidity} />
+                  <Route exact path="/chart2" component={ChartPressure} />
+                  <Route exact path="/chart3" component={ChartTemperatureRainfall} />
                   <Route exact path="/" component={Index} />
                   <Route exact path="/adminlogin" component={Login} />
                   <Route exact path="/deployment" component={Deployment} />
