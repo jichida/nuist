@@ -55,12 +55,11 @@ const mapStateToProps = () => {
           {
               name:'湿度',
               type:'gauge',
-              center : ['25%', '55%'],    // 默认全局居中
+              center : ['20%', '20%'],      // 默认全局居中
               radius : '30%',
               min:0,
-              max:7,
-              endAngle:45,
-              splitNumber:7,
+              max:100,
+              splitNumber:5,
               axisLine: {            // 坐标轴线
                   lineStyle: {       // 属性lineStyle控制线条样式
                       color: [[0.29, 'lime'],[0.86, '#1e90ff'],[1, '#ff4500']],
@@ -115,15 +114,15 @@ const mapStateToProps = () => {
                   borderColor: '#fff',
                   shadowColor : '#fff', //默认透明
                   shadowBlur: 5,
-                  width: 80,
-                  height:30,
-                  offsetCenter: [25, '20%'],       // x, y，单位px
+                  width: 200,
+                  height:100,
+                  offsetCenter: [0, '50%'],     // x, y，单位px
                   textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                       fontWeight: 'bolder',
                       color: '#fff'
                   }
               },
-              data:[{value: 1.5, name: 'x1000 r/min'}]
+              data:[{value: 56, name: '湿度(%)'}]
           },
       ]
     };

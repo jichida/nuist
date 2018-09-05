@@ -119,7 +119,7 @@ const mapStateToProps = () => {
                     color: '#fff'
                 }
             },
-            data:[{value: 40, name: 'km/h'}]
+            data:[{value: 101.325, name: 'kPa'}]
         },
       ]
     };
