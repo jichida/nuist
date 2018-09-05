@@ -234,30 +234,32 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
   }
 
   const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
-    const allmarks = markCluster.getMarkers();
-    lodashmap(allmarks,(mark)=>{
-      const {type,key} = mark.getExtData();
-      if(type === 'device'){
-        const deviceitem = g_devicesdb[key];
-        const deviceitemnew = g_devicesdb_updated[deviceitem._id];
-        if(!!deviceitemnew){
-          if(!!deviceitemnew.Longitude){
-            const pos = new window.AMap.LngLat(deviceitemnew.Longitude,deviceitemnew.Latitude);
-            mark.setPosition(pos);
-            const newIcon = new window.AMap.Icon({
-               size: new window.AMap.Size(24, 24),
-               imageSize: new window.AMap.Size(16, 24),  //图标大小
-               image: getimageicon(deviceitemnew,SettingOfflineMinutes,viewtype),
-               imageOffset: new window.AMap.Pixel(0, 0),
-           });
-            mark.setIcon(newIcon);
-          }
-          else{
-            markCluster.removeMarker(mark);
+    if(!!markCluster){
+      const allmarks = markCluster.getMarkers();
+      lodashmap(allmarks,(mark)=>{
+        const {type,key} = mark.getExtData();
+        if(type === 'device'){
+          const deviceitem = g_devicesdb[key];
+          const deviceitemnew = g_devicesdb_updated[deviceitem._id];
+          if(!!deviceitemnew){
+            if(!!deviceitemnew.Longitude){
+              const pos = new window.AMap.LngLat(deviceitemnew.Longitude,deviceitemnew.Latitude);
+              mark.setPosition(pos);
+              const newIcon = new window.AMap.Icon({
+                 size: new window.AMap.Size(24, 24),
+                 imageSize: new window.AMap.Size(16, 24),  //图标大小
+                 image: getimageicon(deviceitemnew,SettingOfflineMinutes,viewtype),
+                 imageOffset: new window.AMap.Pixel(0, 0),
+             });
+              mark.setIcon(newIcon);
+            }
+            else{
+              markCluster.removeMarker(mark);
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
 
   const getMarkCluster_showMarks = ({isshow,SettingOfflineMinutes,g_devicesdb,viewtype,gateways})=>{
