@@ -625,6 +625,17 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           let g_devicesdb_updated = {};
           g_devicesdb_updated[deviceitem._id] = deviceitem;
           getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
+
+          const {usersettings} = yield select((state)=>{
+            const {usersettings} = state.userlogin;
+            return {usersettings};
+          });
+          const indexdeviceid = get(usersettings,'indexdeviceid','');
+          if(!!infoWindow && deviceitem._id === indexdeviceid){//如果正在弹窗并且是选中的item，则更新弹窗内容{
+            // debugger;
+            const {content} = getpopinfowindowstyle(deviceitem,viewtype);
+            infoWindow.setContent(content);
+          }
         });
 
           //ui_mycarselcurdevice_request
