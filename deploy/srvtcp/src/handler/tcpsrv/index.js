@@ -4,7 +4,8 @@ const debug = require('debug')('srvtcp:data')
 const getbuf = require('./protocol');
 const winston = require('../../log/log.js');
 const util = require('../../util/util.js');
-
+const PubSub = require('pubsub-js');
+const moment = require('moment');
 // const mongoose = require('mongoose');
 
 const magiclen=2;
@@ -127,6 +128,15 @@ starttcpsrv = (settings)=> {
                            if(!err){
                              if(!!result.resultdata){
                                //<----publish data==========
+                               if(cmd === 2){
+                                 const publishdata = {
+                                   "DeviceId" :`${deviceId}`,
+                                   realtimedata:result.resultdata
+                                 }
+                                 publishdata.realtimedata.datatime = moment().format('YYYY-MM-DD HH:mm:ss');
+                                 PubSub.publish(`nuistdata`,publishdata);
+                               }
+
                                debug(`get data--->${JSON.stringify(result.resultdata)}`);
                              }
 

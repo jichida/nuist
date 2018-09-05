@@ -3,6 +3,8 @@ const tcpsrv = require('./src/handler/tcpsrv');
 const mongoose     = require('mongoose');
 const debug = require('debug')('srvtcp:app');
 const winston = require('./src/log/log.js');
+const PubSub = require('pubsub-js');
+const redis = require('./src/redis/index.js');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongodburl,{
@@ -22,3 +24,10 @@ mongoose.connection.on("connected",function(){
   debug("mongoose connect sucess");
   tcpsrv.starttcpsrv();
 })
+
+
+PubSub.subscribe(`nuistdata`, ( msg, data )=>{
+    debug(`-->用户订阅消息:${msg}`);
+    debug(`-->用户订阅数据:${JSON.stringify(data)}`);
+    redis.publish('nuistiotdata_realtimedata',data);
+});
