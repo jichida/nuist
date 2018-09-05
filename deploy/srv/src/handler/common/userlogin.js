@@ -8,6 +8,7 @@ const uuid = require('uuid');
 const _ = require('lodash');
 const moment = require('moment');
 const PubSub = require('pubsub-js');
+const getdevicesids = require('../getdevicesids');
 
 let userloginsuccess =(user,callback)=>{
     //主动推送一些数据什么的
@@ -26,10 +27,15 @@ const subscriberuser = (user,ctx)=>{
   //设置订阅设备消息
   PubSub.unsubscribe( ctx.userDeviceSubscriber );
 
-  const subscriberdeviceids = _.get(user,'usersettings.subscriberdeviceids',[]);
-  _.map(subscriberdeviceids,(DeviceId)=>{
-    PubSub.subscribe(`push.device.${DeviceId}`,ctx.userDeviceSubscriber);
+  getdevicesids(ctx.userid,(deviceIds)=>{
+    _.map(deviceIds,(DeviceId)=>{
+      PubSub.subscribe(`push.device.${DeviceId}`,ctx.userDeviceSubscriber);
+    });
   });
+  // const subscriberdeviceids = _.get(user,'usersettings.subscriberdeviceids',[]);
+  // _.map(subscriberdeviceids,(DeviceId)=>{
+  //   PubSub.subscribe(`push.device.${DeviceId}`,ctx.userDeviceSubscriber);
+  // });
 }
 
 let getdatafromuser =(user)=>{

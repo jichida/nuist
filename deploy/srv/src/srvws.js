@@ -1,9 +1,12 @@
+const _  = require('lodash');
 const winston = require('./log/log.js');
 const config = require('./config.js');
 const handleuserpc = require('./handler/pc/index.js');
 const handleuserapp = require('./handler/app/index.js');
 const PubSub = require('pubsub-js');
 const usersubfn = require('./handler/socketsubscribe');
+const getdevicesids = require('./handler/getdevicesids');
+const debug = require('debug')('appsrv:srvws');
 
 const startwebsocketsrv = (http)=>{
   let io = require('socket.io')(http);
@@ -13,6 +16,13 @@ const startwebsocketsrv = (http)=>{
 
     let ctx = {};//for each connection
     usersubfn(socket,ctx);
+
+    getdevicesids(ctx.userid,(deviceIds)=>{
+      debug(`--->${JSON.stringify(deviceIds)}`);
+      _.map(deviceIds,(DeviceId)=>{
+        PubSub.subscribe(`push.device.${DeviceId}`,ctx.userDeviceSubscriber);
+      });
+    });
     //ctx.tokensubscribe = PubSub.subscribe('allmsg', ctx.userSubscriber);
 
     socket.on('pc',(payload)=>{

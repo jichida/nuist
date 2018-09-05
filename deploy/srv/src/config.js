@@ -21,7 +21,7 @@ const config =  {
   maxDistance:3,
   authexptime:120,//验证码有效期，2分钟
   loginuserexptime:60*60*24*30,//用户登录有效期,30天
-  mongodburl:process.env.MONGO_URL || 'mongodb://localhost/daba'//'mongodb://dabauser:daba159@api.nuistiot.com/daba',
+  mongodburl:process.env.MONGO_URL || 'mongodb://dabauser:daba159@api.nuistiot.com/daba'//'mongodb://dabauser:daba159@api.nuistiot.com/daba',
 };
 
 

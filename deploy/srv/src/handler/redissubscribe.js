@@ -45,7 +45,7 @@ const handlermsg_realtimedata = (devicedata)=>{
       if(!err && !!newdevice){
         handlermsg_historydevice(newdevice);
 
-        PubSub.publish(`push.device.${newdevice._id}`,newdevice);
+        PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
 
         alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
           _.map(resultalarmmatch,(al)=>{
