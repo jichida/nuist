@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import "./index.css";
+// import "./index.css";
 import Header from "../header";
+import AbstractBar from "../abstract";
+import HistoryDataBar from "../history_data";
 import Login from "./login.js";
 import Weather from "./weather";
 import Swiper from "./swiper";
@@ -47,30 +49,38 @@ class App extends React.Component {
   render() {
     const {ispoppwd,loginsuccess} = this.props;
     return (
-      <div className="indexPage">
+      <div className="index-page root-page">
         <Header />
-        <div className="content">
-        	<div className="indextit">欢迎访问大坝智能监控系统</div>
-        	<div className="cont">
-				<div className="left">
-					<Login />
-					<Weather />
-				</div>
-				<div className="center">
-					<Swiper />
-					<div id='mapidplaceholder' style={{height:'300px',width:'550px'}}/>
-				</div>
-				<div className="right">
-					<Monitoring />
-					<Investigation />
-				</div>
-			</div>
-			<DataChart />
-			<ProductList />
+        <div className="dashboard">
+          <AbstractBar />
+          <main></main>
+          <HistoryDataBar />
         </div>
-        {ispoppwd && loginsuccess && <Changepwd />}
-        <Footer />
-    </div>
+      </div>
+    //   <div className="indexPage">
+    //     <Header />
+    //     <div className="content">
+    //     	<div className="indextit">欢迎访问大坝智能监控系统</div>
+    //     	<div className="cont">
+		// 		<div className="left">
+		// 			<Login />
+		// 			<Weather />
+		// 		</div>
+		// 		<div className="center">
+		// 			<Swiper />
+		// 			<div id='mapidplaceholder' style={{height:'300px',width:'550px'}}/>
+		// 		</div>
+		// 		<div className="right">
+		// 			<Monitoring />
+		// 			<Investigation />
+		// 		</div>
+		// 	</div>
+		// 	<DataChart />
+		// 	<ProductList />
+    //     </div>
+    //     {ispoppwd && loginsuccess && <Changepwd />}
+    //     <Footer />
+    // </div>
     );
   }
 }

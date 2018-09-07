@@ -2,8 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
-import "./style.css";
-import Headimg from "../../img/1.jpg";
+import Logo from "../../img/logo.png";
 import {set_uiapp} from '../../actions';
 
 let resizetimecontent = null;
@@ -88,17 +87,24 @@ class App extends React.Component {
 
     });
     return (
-      <div className="header">
-      	 <div className="head" style={{width:"100%", overflow : "hidden"}}>
-			     <img alt="" src={Headimg} />
-      	 </div>
-      	 <div className="headnav">
-      	 	<div className="nav">
-				        {lnkscompents}
-                <span><a href='http://admin.nuistiot.com/index.html#/login' target="blank">后台管理</a></span>
-			     </div>
-      	 </div>
-      </div>
+      <header className="site-header">
+        <img className="logo" src={ Logo } />
+        <nav>
+          {lnkscompents}
+        </nav>
+        <img className="bg-pic" src="https://goss.vcg.com/creative/vcg/800/version23/VCG41200353215-001.jpg" />
+      </header>
+      // <div className="header">
+      // 	 <div className="head" style={{width:"100%", overflow : "hidden"}}>
+			//      <img alt="" src={Headimg} />
+      // 	 </div>
+      // 	 <div className="headnav">
+      // 	 	<div className="nav">
+			// 	        {lnkscompents}
+      //           <span><a href='http://admin.nuistiot.com/index.html#/login' target="blank">后台管理</a></span>
+			//      </div>
+      // 	 </div>
+      // </div>
     );
   }
 }

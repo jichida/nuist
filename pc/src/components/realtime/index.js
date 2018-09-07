@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import "./index.css";
 import Header from "../header";
+import AbstractBar from "../abstract";
+import HistoryDataBar from "../history_data";
 import Footer from "../footer";
 import NodeSel from '../nodesel';
 import Meter from "./meter";
@@ -34,36 +35,45 @@ class App extends React.Component {
         const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
         const {fields,fieldslist_brief} = viewtype;
         return (
-            <div className="indexPage">
-                <Header />
-                <div className="content">
-                <div className="indextit">欢迎访问大坝智能监控系统</div>
-                <div className="cont">
-                <div className="left">
-                <div className="tit">节点列表</div>
-                <NodeSel />
-            </div>
-            <div className="center_right">
-                  <div className="tt">
-                      节点数据
-                    </div>
-                    { !!curdevice && <Meter curdevice={curdevice} viewtype={viewtype}/> }
-                    { !!curdevice && <Filler curdevice={curdevice} viewtype={viewtype}/> }
-                    { !!curdevice && <List curdevice={curdevice}  viewtype={viewtype}/>}
-                    {
-                      <ReportContainer 
-                        splitcount={1}
-                        fieldslist_brief={fieldslist_brief}
-                        ticktimestring={ticktimestringlist}
-                        fields={fields}
-                        retlist={retlist}
-                              />
-                    }
-                  </div>
-                </div>
-            </div>
-            <Footer />
-            </div>
+          <div className="realtime-page root-page">
+              <Header />
+              <div className="dashboard">
+              <AbstractBar />
+              <main></main>
+              <HistoryDataBar />
+              </div>
+          </div>
+
+            // <div className="indexPage">
+            //     <Header />
+            //     <div className="content">
+            //     <div className="indextit">欢迎访问大坝智能监控系统</div>
+            //     <div className="cont">
+            //     <div className="left">
+            //     <div className="tit">节点列表</div>
+            //     <NodeSel />
+            // </div>
+            // <div className="center_right">
+            //       <div className="tt">
+            //           节点数据
+            //         </div>
+            //         { !!curdevice && <Meter curdevice={curdevice} viewtype={viewtype}/> }
+            //         { !!curdevice && <Filler curdevice={curdevice} viewtype={viewtype}/> }
+            //         { !!curdevice && <List curdevice={curdevice}  viewtype={viewtype}/>}
+            //         {
+            //           <ReportContainer 
+            //             splitcount={1}
+            //             fieldslist_brief={fieldslist_brief}
+            //             ticktimestring={ticktimestringlist}
+            //             fields={fields}
+            //             retlist={retlist}
+            //                   />
+            //         }
+            //       </div>
+            //     </div>
+            // </div>
+            // <Footer />
+            // </div>
           );
     }
 }

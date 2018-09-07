@@ -11,19 +11,15 @@ import {history} from './store';
 
 import AppRoot from '../components/approot.js';
 
-let Root = (props)=>
-    (
-
-            <Provider store={store}>
-                <div>
-                    <ConnectedRouter history={history}>
-                        <Route path="/" component={AppRoot}/>
-                    </ConnectedRouter>
-                    <DevTools />
-                </div>
-            </Provider>
-
-    );
-
+let Root = ( props ) => (
+    <Provider store={ store }>
+    <div>
+        <ConnectedRouter history={ history }>
+            <Route path="/" component={ AppRoot } />
+        </ConnectedRouter>
+        <DevTools />
+    </div>
+    </Provider>
+);
 
 export default Root;

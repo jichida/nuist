@@ -16,6 +16,8 @@ import ChartHumidity  from './realtime/charts_humidity';
 import ChartPressure  from './realtime/charts_pressure';
 import ChartTemperatureRainfall  from './realtime/charts_temperaturerainfall';
 
+import "../layout/global.css";
+
 class AppMap extends React.Component {
     render (){
         const {mapstyle:style4map} = this.props;
