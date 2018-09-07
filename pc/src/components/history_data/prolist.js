@@ -19,18 +19,18 @@ class App extends React.Component {
   render() {
     const {productlist,products,ispopproductinfo} = this.props;
     return (
-      <div className="prolist">
-        <ul>
+			<div className="bor_con">
+					<h2 className="title">
+						<img src="images/cpzs.png" alt=""/><span>产品展示</span>
+					</h2>
+        	<ul className="prolist">
 					{
 						lodashmap((productlist),(pid)=>{
 							const product = products[pid];
 							if(!!product){
 								return (<li key={pid} onClick={()=>{this.onClickPopProductInfo(product)}}>
-									<div className="l">
-										<div className="pro"><img alt="" src={product.picurl} /></div>
-										<div className="tt">{product.name}</div>
-									</div>
-								</li>);
+											<p>{product.name}</p><img src="images/img5.png" alt=""/>
+									</li>);
 							}
 						})
 					}
