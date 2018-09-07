@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import Header from "../header";
 import AbstractBar from "../abstract";
 import HistoryDataBar from "../history_data";
-import Login from "./login.js";
-import Weather from "./weather";
-import Swiper from "./swiper";
-
-import Monitoring from "./monitoring";
-import Investigation from "./investigation";
-import DataChart from './datachart';
-import ProductList from './prolist';
-import Footer from "../footer";
-import Changepwd from "./pwd.js";
+// import Login from "./login.js";
+// import Weather from "./weather";
+// import Swiper from "./swiper";
+//
+// // import Monitoring from "./monitoring";
+// // import Investigation from "./investigation";
+// import DataChart from './datachart';
+// import ProductList from './prolist';
+// import Footer from "../footer";
+// import Changepwd from "./pwd.js";
 
 import {
   ui_notifyresizeformap,
@@ -54,26 +54,26 @@ class App extends React.Component {
         <div className="w_1220">
           <AbstractBar />
 
-          <div class="center_con">
-            <div class="map_con border">
-              <img src="images/img2.png" width="100%" />
+          <div className="center_con">
+            <div className="map_con border">
+              <div id='mapidplaceholder' style={{height:'300px'}}/>
             </div>
-            <div class="bor_con">
-                <h2 class="title">
-                  <img src="images/lssj.png" />
+            <div className="bor_con">
+                <h2 className="title">
+                  <img src="images/lssj.png" alt=""/>
                   <span>历史数据</span>
-                  <div class="title_tab">
-                    <span class="active">温度</span>
+                  <div className="title_tab">
+                    <span className="active">温度</span>
                     <span>湿度</span>
                     <span>气压</span>
                     <span>雨量</span>
                     <span>温度</span>
                   </div>
                 </h2>
-                <div class="curve_box"><img src="images/img3.png" width="100%" /></div>
+                <div className="curve_box"><img src="images/img3.png" width="100%" alt=""/></div>
             </div>
           </div>
-          
+
           <HistoryDataBar />
         </div>
       </div>

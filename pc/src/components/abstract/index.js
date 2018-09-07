@@ -1,17 +1,19 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Investigation from "./investigation";
+import Monitoring from "./monitoring";
 
 class App extends React.Component {
   render() {
     return (
       	<div className="left_con">
             <div className="weather left_bg">
-                <img src="images/tianqi.png" />
-                <span>晴天 2℃～8℃ <br />今天(周三) </span>
+                <img src="images/tianqi.png" alt=""/>
+                <span>晴天 25℃～28℃ <br />今天(周一) </span>
             </div>
             <div className="real_time">
-                <h2 className="title"><img src="images/add.png" /><span>账号密码登录</span></h2>
+                <h2 className="title"><img src="images/add.png" alt=""/><span>账号密码登录</span></h2>
                 <div className="left_bg ">
                     <div className="login_box">
                         <label><span>账号</span><input type="text" name="" className="login_input" placeholder="输入账号" /></label>
@@ -21,7 +23,7 @@ class App extends React.Component {
                 </div>
             </div>
             <div className="real_time">
-                <h2 className="title"><img src="images/add.png" /><span>实时监控</span><em>盘城新居</em></h2>
+                <h2 className="title"><img src="images/add.png" alt=""/><span>实时监控</span><em>盘城新居</em></h2>
                 <div className="left_bg">
                     <p>温度:24℃ </p>
                     <p> 雨量:531mm</p>
@@ -33,7 +35,7 @@ class App extends React.Component {
                 </div>
             </div>
             <div className="real_time">
-                <h2 className="title"><img src="images/add.png" /><span>在线调查</span></h2>
+                <h2 className="title"><img src="images/add.png" alt=""/><span>在线调查</span></h2>
                 <div className="left_bg">
                     <div className="label_check">
                         <label><input type="radio" name="radio1" className="weui-check" checked="checked" />A 很棒</label>

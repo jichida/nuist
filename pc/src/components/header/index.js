@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
-import Logo from "../../img/logo.png";
+// import Logo from "../../img/logo.png";
 import {set_uiapp} from '../../actions';
 
 let resizetimecontent = null;
@@ -89,7 +89,7 @@ class App extends React.Component {
     return (
       <div className="head_top w_1220">
         <div className="head_img">
-            <img src="images/logo.png" className="logo" />
+            <img src="images/logo.png" className="logo" alt=""/>
             <ul className="headnav">
                 {lnkscompents}
             </ul>

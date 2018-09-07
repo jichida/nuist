@@ -9,7 +9,7 @@ import {
 
 import ImageSel from '../../img/sele_sel.png';
 import ImageSelNo from '../../img/selel.png';
-import "./investigation.css";
+// import "./investigation.css";
 
 class App extends React.Component {
   constructor(props) {  
@@ -58,42 +58,41 @@ class App extends React.Component {
     const isfilled = lodashget(curvote,'isfilled',false);
     const {selectedoption} = this.state;
     return (
-      <div className="investigation_indexPage">
-        <div className="tit">
-          <span>在线调查</span>
-        </div>
-        <div className="investigationli">
-           <div className="t">{lodashget(curvote,'name','')}</div>
-           <div className="li">
-             {
-               lodashmap(lodashget(curvote,'answeroptions',[]),(option,index)=>{
-                 if(selectedoption === option.optionname){
-                   return (<a className="sele sel" key={index} onClick={()=>{
+      <div className="real_time">
+          <h2 className="title"><img src="images/add.png" alt=""/><span>在线调查</span></h2>
+          <div className="left_bg">
+             <div className="t">{lodashget(curvote,'name','')}</div>
+             <div className="li">
+               {
+                 lodashmap(lodashget(curvote,'answeroptions',[]),(option,index)=>{
+                   if(selectedoption === option.optionname){
+                     return (<a className="sele sel" key={index} onClick={()=>{
+                       if(!isfilled){
+                         this.onClickOption(option.optionname)
+                       }
+                     }} style={{
+                       backgroundImage: `url(${ImageSel})`,
+                     }}><span>{option.optionname}</span><span>{option.answername}</span></a>);
+                   }
+                   return (<a className="sele" key={index} onClick={()=>{
                      if(!isfilled){
                        this.onClickOption(option.optionname)
                      }
-                   }} style={{
-                     backgroundImage: `url(${ImageSel})`,
-                   }}><span>{option.optionname}</span><span>{option.answername}</span></a>);
-                 }
-                 return (<a className="sele" key={index} onClick={()=>{
-                   if(!isfilled){
-                     this.onClickOption(option.optionname)
-                   }
-                 }}
-                 style={{
-                   backgroundImage: `url(${ImageSelNo})`,
-                 }}
-                 ><span>{option.optionname}</span><span>{option.answername}</span></a>)
-               })
-             }
-            
-           </div>
-		   <div className="btn">
-              <button onClick={this.onClickAdd.bind(this)}>提交</button>
-              <button onClick={this.onClickOther.bind(this)}>换一批</button>
-            </div>
-        </div>
+                   }}
+                   style={{
+                     backgroundImage: `url(${ImageSelNo})`,
+                   }}
+                   ><span>{option.optionname}</span><span>{option.answername}</span></a>)
+                 })
+               }
+
+             </div>
+  		       <div className="btn">
+                <button onClick={this.onClickAdd.bind(this)}>提交</button>
+                <button onClick={this.onClickOther.bind(this)}>换一批</button>
+              </div>
+          </div>
+
       </div>
     );
   }
