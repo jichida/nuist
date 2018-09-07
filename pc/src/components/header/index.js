@@ -74,26 +74,34 @@ class App extends React.Component {
     lodashmap(lnks,(link,index)=>{
       if(index === selectedindex){
         lnkscompents.push(
-          <span key={index} className="sel">{link.name}</span>
+          // <span key={index} className="sel">{link.name}</span>
+          <li className="active" key={index} onClick={()=>{ this.onClickIndex(index,link.url); }}><a>{link.name}<i></i></a></li>
         )
       }//activeClassName="sel"
       else{
         lnkscompents.push(
-          <span key={index} onClick={()=>{
-            this.onClickIndex(index,link.url);
-          }}>{link.name}</span>
+          // <span key={index} onClick={()=>{ this.onClickIndex(index,link.url); }}>{link.name}</span>
+          <li key={index}  onClick={()=>{ this.onClickIndex(index,link.url); }}><a>{link.name}</a></li>
         )
       }
 
     });
     return (
-      <header className="site-header">
-        <img className="logo" src={ Logo } />
-        <nav>
-          {lnkscompents}
-        </nav>
-        <img className="bg-pic" src="https://goss.vcg.com/creative/vcg/800/version23/VCG41200353215-001.jpg" />
-      </header>
+      <div className="head_top w_1220">
+        <div className="head_img">
+            <img src="images/logo.png" className="logo" />
+            <ul className="headnav">
+                {lnkscompents}
+            </ul>
+        </div>
+      </div>
+      // <header className="site-header">
+        // <img className="logo" src={ Logo } />
+        // <nav>
+          // {lnkscompents}
+        // </nav>
+        // <img className="bg-pic" src="https://goss.vcg.com/creative/vcg/800/version23/VCG41200353215-001.jpg" />
+      // </header>
       // <div className="header">
       // 	 <div className="head" style={{width:"100%", overflow : "hidden"}}>
 			//      <img alt="" src={Headimg} />

@@ -51,9 +51,29 @@ class App extends React.Component {
     return (
       <div className="index-page root-page">
         <Header />
-        <div className="dashboard">
+        <div className="w_1220">
           <AbstractBar />
-          <main></main>
+
+          <div class="center_con">
+            <div class="map_con border">
+              <img src="images/img2.png" width="100%" />
+            </div>
+            <div class="bor_con">
+                <h2 class="title">
+                  <img src="images/lssj.png" />
+                  <span>历史数据</span>
+                  <div class="title_tab">
+                    <span class="active">温度</span>
+                    <span>湿度</span>
+                    <span>气压</span>
+                    <span>雨量</span>
+                    <span>温度</span>
+                  </div>
+                </h2>
+                <div class="curve_box"><img src="images/img3.png" width="100%" /></div>
+            </div>
+          </div>
+          
           <HistoryDataBar />
         </div>
       </div>
