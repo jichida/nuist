@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from "../header";
 import AbstractBar from "../abstract";
 import HistoryDataBar from "../history_data";
+import ChartsHistory from '../history/charts_history.js';
 // import Login from "./login.js";
 // import Weather from "./weather";
 // import Swiper from "./swiper";
@@ -70,7 +71,9 @@ class App extends React.Component {
                     <span>温度</span>
                   </div>
                 </h2>
-                <div className="curve_box"><img src="images/img3.png" width="100%" alt=""/></div>
+                <div className="curve_box">
+                  <ChartsHistory />
+                </div>
             </div>
           </div>
 
