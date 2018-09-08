@@ -59,7 +59,10 @@ class App extends React.Component {
     const {selectedoption} = this.state;
     return (
       <div className="real_time">
-          <h2 className="title"><img src="images/add.png" alt=""/><span>在线调查</span></h2>
+        <header>
+          <img src="images/add.png" alt=""/>
+          <span>在线调查</span>
+        </header>
           <div className="left_bg">
              <div className="t">{lodashget(curvote,'name','')}</div>
              <div className="li">

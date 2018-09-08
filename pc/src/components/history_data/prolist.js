@@ -29,7 +29,7 @@ class App extends React.Component {
 							const product = products[pid];
 							if(!!product){
 								return (<li key={pid} onClick={()=>{this.onClickPopProductInfo(product)}}>
-											<p>{product.name}</p><img src={product.picurl}  alt=""/>
+											<p>{product.name}</p><img src="images/img5.png" alt=""/>
 									</li>);
 							}
 						})

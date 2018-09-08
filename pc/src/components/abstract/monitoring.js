@@ -26,14 +26,18 @@ const DeviceInfoDetailList = (props)=>{
 								showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
 							}
 							return (
-								<p key={fieldname}>
-									{`${fieldsprops.showname}`}:{showvalue}{`${lodashget(fieldsprops,'unit','')}`}
-								</p>
+								<div key={fieldname}>
+									<span>{`${fieldsprops.showname}`}：</span>
+									<span>{showvalue}{`${lodashget(fieldsprops,'unit','')}`}</span>
+								</div>
 							);
 						}
 					})
 				}
-			  <p>更新时间：{curdevice.updated_at}</p>
+			  <div>
+					<span>更新时间：</span>
+					<span>{curdevice.updated_at}</span>
+				</div>
 			</div>);
 }
 
@@ -49,19 +53,22 @@ class App extends React.Component {
     }
     const name = lodashget(curdevice,'name','');
     return (
-      <div className="monitoring_indexPage">
-        <div className="tit">
-          <span>实时监控</span>
-          <span>
-            <Dropdown  overlay={getMenu({devicelist,devices,onMenuClick:
+      <div className="monitoring">
+				<header>
+					<img src="images/add.png" alt=""/>
+					<span>实时监控</span>
+					<Dropdown 
+						overlay={getMenu({devicelist,devices,onMenuClick:
 							(e)=>{
 								this.onMenuClick(e.key)
 							}
-						})} placement="bottomLeft">
-              <Button style={{ marginLeft: 8 }}>{name}<Icon type="down" /></Button>
-            </Dropdown>
-          </span>
-        </div>
+						})}
+						placement="bottomLeft"
+					>
+            <Button>{name}<Icon type="down" /></Button>
+          </Dropdown>
+				</header>
+
 				<DeviceInfoDetailList curdevice={curdevice} viewtype={viewtype} />
       </div>
     );

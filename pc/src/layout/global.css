@@ -1,3 +1,15 @@
+/* 通用样式设定 */
+a {
+  color: initial;
+}
+/* ----- */
+
+/* 地图定位修复 */
+.commonmap {
+  position: absolute;
+}
+/* ----- */
+
 /* 通用页面框架样式 */
 .root-page {
   min-width: 1280px;
@@ -26,23 +38,26 @@
   }
 
   .site-header > .logo {
-    width: 240px;
+    width: 200px;
     margin-right: 2em;
   }
 
-  .site-header > nav > span {
-    margin: 0 1em;
-    padding: .5em 0;
-    font-size: 14px;
-    cursor: pointer;
-
-    border-bottom: 2px solid transparent;
-
-    transition: .5s;
+  .site-header > nav > li {
+    display: inline-block;
+    margin: 0 .5em;
+    padding: .5em .5em;
+    font-size: 16px;
   }
 
-  .site-header > nav > span:hover {
-    border-bottom: 2px solid #000;
+  .site-header > nav > li.active > span {
+    width: 60%;
+    height: 2px;
+
+    margin: auto;
+    margin-top: 8px;
+
+    display: block;
+    background: #000;
   }
 
   .site-header > .bg-pic {
@@ -71,10 +86,120 @@ main {
 }
   /* 摘要信息栏样式 */
   .abstract-bar {
-    width: 200px;
+    width: 240px;
     height: 100%;
     background: #273C4F;
+    font-size: 12px;
+    padding: 0 1em;
+    color: rgb(131, 161, 199);
   }
+    /* 天气摘要样式 */
+    .abstract-bar > .weather {
+      display: flex;
+      align-items: center;
+      padding: 1em 0;
+      border-bottom: 1px solid #0002;
+    }
+    .abstract-bar > .weather > img {
+      margin-right: 1em;
+    }
+    .abstract-bar > .weather > div > span {
+      display: inline-block;
+      
+    }
+    /* ----- */
+
+    /* 摘要栏登陆样式 */
+    .abstract-bar > .login {
+      width: 100%;
+      padding: 1em 0;
+      border-bottom: 1px solid #0002;
+      font-size: 12px;
+    }
+    .abstract-bar > .login > header {
+      display: flex;
+      align-items: center;
+    }
+    .abstract-bar > .login > header > img {
+      margin-right: 1em;
+    }
+    .abstract-bar > .login > .input-area {
+      margin: 1em 0;
+      background: #374C5F;
+    }
+    .abstract-bar > .login > .input-area > label {
+      padding: .5em 0;
+      margin: 0 1em;
+      display: block;
+      /* display: flex; */
+    }
+    .abstract-bar > .login > .input-area > label:first-child {
+      border-bottom: 1px solid #0002;
+    }
+    .abstract-bar > .login > .input-area > label > span {
+      display: inline-block;
+    }
+    .abstract-bar > .login > .input-area > label > input {
+      width: 100px;
+      background: transparent;
+      margin-left: 1em;
+    }
+    .abstract-bar > .login > .login-btn {
+      background: #374C5F;
+      padding: .5em 0;
+    }
+    .abstract-bar input::-webkit-input-placeholder {
+      color: rgb(131, 161, 199);
+    }
+    /* ----- */
+    /* 实时监控样式 */
+    .abstract-bar > .monitoring {
+      border-bottom: 1px solid #0002;
+    }
+    .abstract-bar > .monitoring > header {
+      display: flex;
+      align-items: center;
+      padding: 1em 0;
+    }
+    .abstract-bar > .monitoring > header > img {
+      margin-right: 1em;
+    }
+    .abstract-bar > .monitoring > header > button {
+      background: transparent;
+      border: 0;
+      font-size: 12px;
+      color: orangered;
+      padding: 0;
+      margin-left: 1em;
+    }
+    .abstract-bar > .monitoring > div > div {
+      margin: .5em 0;
+      display: flex;
+    }
+    .abstract-bar > .monitoring > div > div > span:first-child {
+      flex: 1;
+    }
+    .abstract-bar > .monitoring > div > div > span:last-child {
+      flex: 2.5;
+    }
+    /* ----- */
+    /* 在线调查样式 */
+    .abstract-bar > .real_time {
+      font-size: 12px;
+    }
+    .abstract-bar > .real_time > header {
+      display: flex;
+      align-items: center;
+      padding: 1em 0;
+    }
+    .abstract-bar > .real_time > header > img {
+      margin-right: 1em;
+    }
+    .abstract-bar > .real_time > .left_bg {
+      padding: 0;
+    }
+    /* ----- */
+  /* ----- */
 
   /* 历史数据样式 */
   .history-data {
@@ -86,6 +211,15 @@ main {
   .history-data > header {
     background: #eee;
     padding: .5em;
+  }
+
+  .history-data > div > .data_box > div {
+    margin: auto;
+    zoom: .65;
+
+    /* display: flex;
+    flex-flow: column;
+    align-items: center; */
   }
 
 /* ----- */

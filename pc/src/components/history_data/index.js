@@ -9,7 +9,7 @@ import ProductList from './prolist';
 class App extends React.Component {
   render() {
     return (
-      	<div className="right_con huadong">
+      	<div className="history-data">
             <div className="bor_con">
                 <h2 className="title"><img src="images/sjjc.png" alt=""/>
                   <span>数据检测</span>

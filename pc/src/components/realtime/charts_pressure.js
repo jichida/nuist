@@ -37,7 +37,7 @@ class Page extends Component {
     return (
           <ReactEcharts
             option={this.props.option}
-            style={{height: '500px', width: '500px'}}
+            style={{height: '240px', width: '240px'}}
             className='react_for_echarts' />
     );
   }
@@ -59,7 +59,7 @@ const mapStateToProps = () => {
                 min: 0,
                 max: 220,
                 splitNumber: 11,
-                radius: '50%',
+                radius: '100%',
                 axisLine: {            // 坐标轴线
                     lineStyle: {       // 属性lineStyle控制线条样式
                         width: 10

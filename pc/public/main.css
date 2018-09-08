@@ -124,12 +124,6 @@ body {
     display: flex;
 }
 
-.logo {
-    position: absolute;
-    left: 10px;
-    top: 0px
-}
-
 .headnav {
     width: 100%;
     line-height: 100px;
@@ -175,17 +169,17 @@ body {
     padding: 15px;
 }
 
-.weather {
+/* .weather {
     font-size: 14px;
     position: relative;
     padding-left: 80px;
-}
+} */
 
-.weather img {
+/* .weather img {
     position: absolute;
     left: 15px;
     top: 10px
-}
+} */
 
 .title {
     padding: 10px 15px 15px;
