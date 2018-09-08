@@ -58,7 +58,7 @@ class App extends React.Component {
                     <div className="right_con rhuadong">
                         <ChartsRealtime />
     <div className="bor_con border_top">
-    <h2 className="title"><img src="images/lis.png" /><span>历史数据</span></h2>
+    <h2 className="title"><img src="images/lis.png" alt=""/><span>历史数据</span></h2>
     <HistoryBar showflag="1"/>
     <div /> </div>
 

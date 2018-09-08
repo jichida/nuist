@@ -74,7 +74,9 @@ const mapStateToProps = (state,props) => {
                  switch (v + '') {
                      case '0' : return '小';
                      case '1' : return '雨量';
-                     case '2' : return '大';
+                     case '2' :
+                     default:
+                      return '大';
                  }
              }
          },
@@ -118,7 +120,9 @@ const mapStateToProps = (state,props) => {
                  switch (v + '') {
                      case '0' : return '低';
                      case '1' : return '温度';
-                     case '2' : return '高';
+                     case '2' :
+                     default:
+                     return '高';
                  }
              }
          },

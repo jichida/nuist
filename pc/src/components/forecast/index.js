@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import "./index.css";
-import Jtimg from "../../img/jt.png";
+// import Jtimg from "../../img/jt.png";
 import Header from "../header";
-import AbstractBar from "../abstract";
-import HistoryDataBar from "../history_data";
-import Footer from "../footer";
+// import AbstractBar from "../abstract";
+// import HistoryDataBar from "../history_data";
+// import Footer from "../footer";
 import NodeSel from '../nodesel';
-import lodashget from 'lodash.get';
-import ReportContainer from "../history/reportcontainer.js";
-import ChartsRealtime from '../history_data/chartsrealtime';
-//import Wximg from "../../img/wx_icon.jpg";
-// import Tdimg from "../../img/tp_d.jpg";
-import ChartsHistory from '../history/charts_history_container.js';
+// import lodashget from 'lodash.get';
+// import ReportContainer from "../history/reportcontainer.js";
+// import ChartsRealtime from '../history_data/chartsrealtime';
+// //import Wximg from "../../img/wx_icon.jpg";
+// // import Tdimg from "../../img/tp_d.jpg";
+// import ChartsHistory from '../history/charts_history_container.js';
 import HistoryBar from '../history/historybar';
 import List from "./list.js";
 import {
@@ -32,16 +32,16 @@ class App extends React.Component {
       // this.props.dispatch(getrealtimealarmlist_request({}));
     }
     render() {
-      const {devices,usersettings,historydevices,viewtype} = this.props;
+      const {devices,usersettings} = this.props;
       const indexdeviceid = usersettings.indexdeviceid;
       const curdevice = devices[indexdeviceid];
       if(!curdevice){
         return <div>无设备</div>
       }
-      const retlist = lodashget(historydevices,`${curdevice._id}`,[]);
+      // const retlist = lodashget(historydevices,`${curdevice._id}`,[]);
 
-      const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
-      const {fields,fieldslist_brief} = viewtype;
+      // const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
+      // const {fields,fieldslist_brief} = viewtype;
         return (
           <div className="deployment-page root-page">
               <Header />

@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from "../header";
-import AbstractBar from "../abstract";
+// import AbstractBar from "../abstract";
 import HistoryBar from '../history/historybar';
-import Footer from "../footer";
+// import Footer from "../footer";
 import NodeSel from '../nodesel';
-import Meter from "./meter";
+// import Meter from "./meter";
 import List from "../history/list.js";
-import Filler from "../history/filler.js";
-import ChartsHistory from '../history/charts_history_container.js';
-import ReportContainer from "../history/reportcontainer.js";
+// import Filler from "../history/filler.js";
+// import ChartsHistory from '../history/charts_history_container.js';
+// import ReportContainer from "../history/reportcontainer.js";
 import ChartsRealtime from '../history_data/chartsrealtime';
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
@@ -26,16 +26,16 @@ class App extends React.Component {
     }
 
     render() {
-        const {devices,usersettings,historydevices,viewtype} = this.props;
+        const {devices,usersettings} = this.props;
         const indexdeviceid = usersettings.indexdeviceid;
         const curdevice = devices[indexdeviceid];
         if(!curdevice){
           return <div>无设备</div>
         }
-        const retlist = lodashget(historydevices,`${curdevice._id}`,[]);
+        // const retlist = lodashget(historydevices,`${curdevice._id}`,[]);
 
-        const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
-        const {fields,fieldslist_brief} = viewtype;
+        // const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
+        // const {fields,fieldslist_brief} = viewtype;
         return (
           <div className="deployment-page root-page">
               <Header />

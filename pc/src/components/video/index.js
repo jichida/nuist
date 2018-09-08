@@ -2,11 +2,11 @@ import React from 'react';
 import "./index.css";
 import Header from "../header";
 import ChartsRealtime from '../history_data/chartsrealtime';
-import AbstractBar from "../abstract";
+// import AbstractBar from "../abstract";
 import HistoryBar from '../history/historybar';
-import Footer from "../footer";
-import Upimg from "../../img/jta.png";
-import Downimg from "../../img/jtb.png";
+// import Footer from "../footer";
+// import Upimg from "../../img/jta.png";
+// import Downimg from "../../img/jtb.png";
 import Spimg from "../../img/spimg.jpg";
 import Spxqimg from "../../img/spimg1.jpg";
 import NodeSel from '../nodesel';
@@ -33,7 +33,7 @@ class App extends React.Component {
             <div className=" box_box" style={{position: 'relative'}}> <img alt="" src={Spxqimg} style={{width:'100%',height:'400px'}} />
 <div className="jk_bg">
 <div className="jz_box">
-<img src="images/jz.gif" />
+<img src="images/jz.gif" alt=""/>
     <p>正在加载，请稍后</p>
 </div>
 </div>
