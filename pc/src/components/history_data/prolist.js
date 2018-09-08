@@ -35,7 +35,7 @@ class App extends React.Component {
 						})
 					}
         </ul>
-
+				 { ispopproductinfo && <Info curproduct={this.state.curproduct}/>}
       </div>
     );
   }
