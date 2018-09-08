@@ -19,10 +19,10 @@
           "windspeed_data_max":9,
           "humidity_data_min":45,
           "humidity_data_max":50,
-          "rainfall_data_min":100,
-          "rainfall_data_max":110,
-          "temperature_data_min":33,
-          "temperature_data_max":35
+          "rainfall_data_min":0,
+          "rainfall_data_max":100,
+          "temperature_data_min":10,
+          "temperature_data_max":28
         },
         "node-args": "--nouse-idle-notification --gc_global --max-old-space-size=80960 --max-new-space-size=80960"
       }
