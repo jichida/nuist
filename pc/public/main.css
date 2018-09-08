@@ -331,6 +331,28 @@ body {
   height: 890px; }
   .center_con .box_box {
     padding: 20px; }
+    .center_con .box_box .jk_bg {
+      padding: 12px;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      top: 20px;
+      bottom: 10px;
+      text-align: center; }
+      .center_con .box_box .jk_bg .jz_box {
+        margin: 25% auto;
+        width: 400px;
+        height: 400px;
+        font-size: 14px;
+        color: #fff;
+        text-align: center; }
+        .center_con .box_box .jk_bg .jz_box img {
+          margin: 106px;
+          height: 98px;
+          margin: 0px auto 15px; }
 
 .center_box {
   height: 890px; }

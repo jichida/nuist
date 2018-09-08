@@ -30,7 +30,14 @@ class App extends React.Component {
         <div className="spjk_box">
             <div className="spjk_left">
             <h2>正在监控  南京宣武门广场</h2>
-            <div className=" box_box"> <img alt="" src={Spxqimg} style={{width:'100%',height:'400px'}} /></div>
+            <div className=" box_box" style={{position: 'relative'}}> <img alt="" src={Spxqimg} style={{width:'100%',height:'400px'}} />
+<div className="jk_bg">
+<div className="jz_box">
+<img src="images/jz.gif" />
+    <p>正在加载，请稍后</p>
+</div>
+</div>
+</div>
             </div>
             <div className="spjk_right">
             <ul>
