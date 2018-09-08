@@ -15,14 +15,21 @@ import ChartsHistory from '../history/charts_history_container.js';
 // import ProductList from './prolist';
 // import Footer from "../footer";
 import Changepwd from "./pwd.js";
-
+import lodashmap from 'lodash.map';
 import {
   ui_notifyresizeformap,
   ui_setmapstyle
 } from '../../actions';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selfield:''
+    };
+  }
   componentDidMount(){
+
     const setmapstyle = (delay)=>{
       // window.setTimeout(()=>{
         this.props.dispatch(ui_notifyresizeformap({
@@ -48,7 +55,16 @@ class App extends React.Component {
     });
   }
   render() {
-    const {ispoppwd,loginsuccess} = this.props;
+    const {ispoppwd,loginsuccess,viewtype} = this.props;
+    const {fields} = viewtype;
+
+    let selfield = this.state.selfield;
+    lodashmap(fields,(v,k)=>{
+      if(!selfield){
+        selfield = k;
+      }
+    })
+
     return (
       <div className="index-page root-page">
         <Header />
@@ -64,20 +80,26 @@ class App extends React.Component {
                   <img src="images/lssj.png" alt=""/>
                   <span>历史数据</span>
                   <div className="title_tab">
-                    <span className="active">温度</span>
-                    <span>湿度</span>
-                    <span>气压</span>
-                    <span>雨量</span>
-                    <span>风力</span>
+                    {
+                      lodashmap(fields,(v,k)=>{
+                        if(k === selfield){
+                          return (<span key={k} className="active">{v.showname}</span>);
+                        }
+                        return (<span key={k} onClick={()=>{
+                          this.setState({selfield:k})
+                        }
+                        }>{v.showname}</span>);
+                      })
+                    }
                   </div>
                 </h2>
                 <div className="curve_box">
-                  <ChartsHistory />
+                  <ChartsHistory selfield={selfield}/>
                 </div>
             </div>
           </div>
 
-          <HistoryDataBar />
+          <HistoryDataBar curfield={selfield}/>
         </div>
         {ispoppwd && loginsuccess && <Changepwd />}
       </div>
@@ -110,7 +132,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({app:{ispoppwd,mapstyle},
-	userlogin:{loginsuccess}}) => {
-    return {ispoppwd,loginsuccess,mapstyle};
+	userlogin:{loginsuccess},device:{viewtype}}) => {
+    return {ispoppwd,loginsuccess,mapstyle,viewtype};
 }
 export default connect(mapStateToProps)(App);

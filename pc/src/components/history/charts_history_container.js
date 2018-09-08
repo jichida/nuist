@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import ChartHistory from "./charts_history";
+import ChartHistory from "./charts_area_history";
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
 import moment from 'moment';
@@ -50,17 +50,19 @@ class App extends React.Component {
     }
 
   	render() {
-      const {curdevice,viewtype,retlist} = this.props;
-      if(!curdevice){
+      const {curdevice,viewtype,retlist,selfield} = this.props;
+      const {fields} = viewtype;
+      const curfield = selfield;
+      if(!curdevice || !fields[curfield]){
         return <div />
       }
       const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
-      const {fields,fieldslist_brief} = viewtype;
+
 			return (
             <ChartHistory
-              fieldslist_brief={fieldslist_brief}
+              curfield={curfield}
               ticktimestring={ticktimestringlist}
-              fields={fields}
+              curfieldname={fields[curfield].showname}
               retlist={retlist}
                     />
 	    );
