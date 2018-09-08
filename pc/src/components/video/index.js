@@ -3,7 +3,7 @@ import "./index.css";
 import Header from "../header";
 import ChartsRealtime from '../history_data/chartsrealtime';
 import AbstractBar from "../abstract";
-import HistoryDataBar from "../history_data";
+import HistoryBar from '../history/historybar';
 import Footer from "../footer";
 import Upimg from "../../img/jta.png";
 import Downimg from "../../img/jtb.png";
@@ -72,17 +72,12 @@ class App extends React.Component {
 
          </div>
   </div>
-    
+
                   <div className="right_con rhuadong">
                       <ChartsRealtime />
     <div className="bor_con border_top">
-    <h2 className="title"><img src="images/lis.png" /><span>历史数据</span></h2>
-<ul className="curve_lis">
-    <li>
-    <h2>历史风向曲线</h2>
-    <img src="images/tup1.png" style={{width:'100%'}} />
-</li>
-</ul>
+    <h2 className="title"><img src="images/lis.png" alt=""/><span>历史数据</span></h2>
+<HistoryBar showflag="1"/>
 <div /> </div>
                       <div />
                   </div>

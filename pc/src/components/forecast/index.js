@@ -13,6 +13,7 @@ import ChartsRealtime from '../history_data/chartsrealtime';
 //import Wximg from "../../img/wx_icon.jpg";
 // import Tdimg from "../../img/tp_d.jpg";
 import ChartsHistory from '../history/charts_history_container.js';
+import HistoryBar from '../history/historybar';
 import List from "./list.js";
 import {
   // set_uiapp,
@@ -61,19 +62,8 @@ class App extends React.Component {
                   </div>
                   <div className="right_con rhuadong">
             <div className="bor_con">
-            <h2 className="title"><img src="images/lis.png" /><span>历史数据</span></h2>
-        <ul className="curve_lis">
-            <li>
-            <h2>历史风向曲线</h2>
-            <ChartsHistory />
-            </li><li>
-            <h2>历史湿度曲线</h2>
-            <ChartsHistory />
-            </li><li>
-            <h2>历史风力曲线</h2>
-            <ChartsHistory />
-            </li>
-                </ul>
+            <h2 className="title"><img src="images/lis.png" alt=""/><span>历史数据</span></h2>
+            <HistoryBar showflag="all"/>
             <div /> </div>
                   </div>
 
