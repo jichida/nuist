@@ -14,7 +14,7 @@ import ChartsHistory from '../history/charts_history_container.js';
 // import DataChart from './datachart';
 // import ProductList from './prolist';
 // import Footer from "../footer";
-// import Changepwd from "./pwd.js";
+import Changepwd from "./pwd.js";
 
 import {
   ui_notifyresizeformap,
@@ -79,6 +79,7 @@ class App extends React.Component {
 
           <HistoryDataBar />
         </div>
+        {ispoppwd && loginsuccess && <Changepwd />}
       </div>
     //   <div className="indexPage">
     //     <Header />

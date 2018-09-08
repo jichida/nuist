@@ -11,37 +11,41 @@ import "./login.css";
 
 export class PageForm extends React.Component {
     render(){
-        const { handleSubmit,onClickLogin,pristine,submitting } = this.props;
+        const { handleSubmit,onClickLogin,} = this.props;
         return (
           <Form
   						className="loginForm"
   						onSubmit={handleSubmit(onClickLogin)}
   						>
-            <div className="loginForm">
-                <div className="li">
-                  <Field
-      								name="username"
-      								id="username"
-                      component="input"
-      								placeholder="请输入您的账号"
-      								type="text"
-      						/>
-
+                <div className="left_box">
+                    <div className="login_box">
+                        <label>
+                          <span>账号</span>
+                          <Field
+                              name="username"
+                              id="username"
+                              component="input"
+                              placeholder="输入账号"
+                              type="text"
+                              className="login_input"
+                          />
+                        </label>
+                        <label>
+                          <span>密码</span>
+                          <Field
+                              name="password"
+                              id="password"
+                              component="input"
+                              placeholder="输入密码"
+                              type="password"
+                              className="login_input"
+                          />
+                        </label>
+                    </div>
+                    <span
+                      className="btn_button"
+                    onClick={handleSubmit(onClickLogin)}>立即登录</span>
                 </div>
-                <div className="li">
-                  <Field
-      								name="password"
-      								id="password"
-                      component="input"
-      								placeholder="请输入您的密码"
-      								type="password"
-      						/>
-                </div>
-                <div className="li submitBtn">
-                  <button disabled={pristine || submitting}
-                  onClick={handleSubmit(onClickLogin)}>登录</button>
-                </div>
-            </div>
             </Form>
         )
     }
@@ -91,12 +95,7 @@ class Page extends React.Component {
     const {loginsuccess,username} = userlogin;
     if(!loginsuccess){
       return (
-        <div className="loginPage">
-          <div className="tit">用户登录</div>
-          <div className="loginform">
-             <PageForm onClickLogin={this.onClickLogin}/>
-          </div>
-        </div>
+        <PageForm onClickLogin={this.onClickLogin}/>
       );
     }
     return (<div className="xjl_loginh">
@@ -108,7 +107,6 @@ class Page extends React.Component {
 	       <span onClick={this.onClickLogout}>退出登录</span>
       </div>
 	  </div>)
-
 	  ;
   }
 }

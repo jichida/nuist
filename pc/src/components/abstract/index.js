@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Investigation from "./investigation";
 import Monitoring from "./monitoring";
+import Login from "../index/login.js";
 
 class App extends React.Component {
   render() {
@@ -14,13 +15,8 @@ class App extends React.Component {
             </div>
             <div className="real_time">
                 <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>账号密码登录</span></h2>
-                <div className="left_box">
-                    <div className="login_box">
-                        <label><span>账号</span><input type="text" name="" className="login_input" placeholder="输入账号" /></label>
-                        <label><span>密码</span><input type="text" name="" className="login_input" placeholder="输入密码" /></label>
-                    </div>
-                    <span className="btn_button">立即登录</span>
-                </div>
+                <Login />
+
             </div>
             <Monitoring />
             <Investigation />
@@ -35,7 +31,7 @@ const mapStateToProps = ({app:{selectedindex}}) => {
     return {selectedindex};
 }
 export default connect(mapStateToProps)(APP2);
-// 
+//
 // <div className="real_time">
 //     <h2 className="title"><img src="images/add.png" alt=""/><span>实时监控</span><em>盘城新居</em></h2>
 //     <div className="left_bg">
