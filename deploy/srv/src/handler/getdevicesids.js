@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const DBModels = require('../db/models');
 const mongoose = require('mongoose');
-const debug = require('debug')('appsrv:deviceids');
+const debug = require('debug')('appsrv:test');
 const getDeviceIds = (gwgroups,callbackfn)=>{
   let gwids = [];
   _.map(gwgroups,(gwgroup)=>{
@@ -10,7 +10,7 @@ const getDeviceIds = (gwgroups,callbackfn)=>{
       gwids.push(mongoose.Types.ObjectId(gwid));
     });
   });
-  debug(`get gwids --->${JSON.stringify(gwids)}`);
+  // debug(`get gwids --->${JSON.stringify(gwids)}`);
   const deviceModel = DBModels.DeviceModel;
   deviceModel.find({gatewayid:{
     $in:gwids
@@ -29,7 +29,9 @@ const getDeviceIds = (gwgroups,callbackfn)=>{
   });
 }
 const getdevicesids = (userid,callbackfn)=>{
-  if(!!userid){//登录用户
+  // debug(`getdevicesids--->${userid}`);
+  if(!!userid && `${userid}` !== `null`){//登录用户
+    // debug(`find user:${userid}`);
     const dbModel = DBModels.UserModel;
     dbModel.findOne({ _id: userid })
       .populate([
@@ -59,6 +61,7 @@ const getdevicesids = (userid,callbackfn)=>{
         }
     ]).lean().exec((err, systemconfig)=> {
       const gwgroups = _.get(systemconfig,'gatewaygroups',[]);
+      // debug(`find gwgroups->${JSON.stringify(gwgroups)}`);
       getDeviceIds(gwgroups,callbackfn);
     });
   }

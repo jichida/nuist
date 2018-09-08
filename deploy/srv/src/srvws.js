@@ -7,6 +7,9 @@ const PubSub = require('pubsub-js');
 const usersubfn = require('./handler/socketsubscribe');
 const getdevicesids = require('./handler/getdevicesids');
 const debug = require('debug')('appsrv:srvws');
+const srvsystem = require('./srvsystem.js');
+const userlogin = require('./handler/common/userlogin');
+const uuid = require('uuid');
 
 const startwebsocketsrv = (http)=>{
   let io = require('socket.io')(http);
@@ -14,16 +17,14 @@ const startwebsocketsrv = (http)=>{
   io.on('connection', (socket)=>{
     //console.log('a user connected');
 
-    let ctx = {};//for each connection
+    let ctx = {
+      userid:null,
+      connectid:uuid.v4(),
+    };//for each connection
     usersubfn(socket,ctx);
+    userlogin.subscriberuser(ctx);
+    srvsystem.loginuser_add(ctx.userid,ctx.connectid);
 
-    getdevicesids(ctx.userid,(deviceIds)=>{
-      debug(`--->${JSON.stringify(deviceIds)}`);
-      _.map(deviceIds,(DeviceId)=>{
-        PubSub.subscribe(`push.device.${DeviceId}`,ctx.userDeviceSubscriber);
-      });
-    });
-    //ctx.tokensubscribe = PubSub.subscribe('allmsg', ctx.userSubscriber);
 
     socket.on('pc',(payload)=>{
       if(!ctx.usertype){

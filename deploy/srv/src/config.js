@@ -20,6 +20,7 @@ const config =  {
   maxAge:86400000,
   maxDistance:3,
   authexptime:120,//验证码有效期，2分钟
+  pushdevicetopic:'pushdevicet',
   loginuserexptime:60*60*24*30,//用户登录有效期,30天
   mongodburl:process.env.MONGO_URL || 'mongodb://dabauser:daba159@api.nuistiot.com/daba'//'mongodb://dabauser:daba159@api.nuistiot.com/daba',
 };
