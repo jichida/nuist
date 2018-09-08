@@ -321,7 +321,8 @@ body {
     margin-right: 10px;
     background-color: rgba(247, 247, 247, 0.1);
     border-radius: 4px;
-    padding: 5px; }
+    padding: 5px;
+    text-align: center; }
   .btn button:last-child {
     margin-right: 0px; }
 
@@ -333,7 +334,7 @@ body {
     padding: 20px; }
     .center_con .box_box .jk_bg {
       padding: 12px;
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: black;
       border-radius: 8px;
       margin-bottom: 10px;
       position: absolute;
@@ -343,7 +344,7 @@ body {
       bottom: 10px;
       text-align: center; }
       .center_con .box_box .jk_bg .jz_box {
-        margin: 25% auto;
+        margin: 12% auto;
         width: 400px;
         height: 400px;
         font-size: 14px;
@@ -353,6 +354,22 @@ body {
           margin: 106px;
           height: 98px;
           margin: 0px auto 15px; }
+
+.closediv img {
+  margin: auto; }
+
+.xjl_loginh {
+  padding: 20px;
+  height: auto;
+  overflow: hidden; }
+  .xjl_loginh .xjl_loginbtn span {
+    width: 90px;
+    float: left;
+    margin-right: 10px;
+    background-color: rgba(247, 247, 247, 0.1);
+    border-radius: 4px;
+    padding: 0px;
+    text-align: center; }
 
 .center_box {
   height: 890px; }
