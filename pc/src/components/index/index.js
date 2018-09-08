@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from "../header";
 import AbstractBar from "../abstract";
 import HistoryDataBar from "../history_data";
-import ChartsHistory from '../history/charts_history.js';
+import ChartsHistory from '../history/charts_history_container.js';
 // import Login from "./login.js";
 // import Weather from "./weather";
 // import Swiper from "./swiper";

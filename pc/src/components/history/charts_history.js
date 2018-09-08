@@ -43,10 +43,10 @@ class Page extends Component {
 }
 const mapStateToProps = ({},props) => {
   const {fieldslist_brief,ticktimestring,fields,retlist} = props;
-  console.log(fieldslist_brief);
-  console.log(ticktimestring);
-  console.log(fields);
-  console.log(retlist);
+  // console.log(fieldslist_brief);
+  // console.log(ticktimestring);
+  // console.log(fields);
+  // console.log(retlist);
 
   const option = {
     tooltip: {
@@ -79,7 +79,7 @@ const mapStateToProps = ({},props) => {
             name: '水量',
             min: 0,
             max: 250,
-            interval: 50,
+            interval: 25,
             axisLabel: {
                 formatter: '{value} ml'
             }
@@ -88,8 +88,8 @@ const mapStateToProps = ({},props) => {
             type: 'value',
             name: '温度',
             min: 0,
-            max: 25,
-            interval: 5,
+            max: 50,
+            interval: 10,
             axisLabel: {
                 formatter: '{value} °C'
             }

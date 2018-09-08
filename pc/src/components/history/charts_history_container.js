@@ -3,16 +3,32 @@ import { connect } from 'react-redux';
 import ChartHistory from "./charts_history";
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
+import moment from 'moment';
 import {
   gethistorydevicelist_request
 } from '../../actions';
+
 class App extends React.Component {
+  timeTicket = null;
+
   componentDidMount () {
     this.onClickQuery(this.props);
+    this.timeTicket = setInterval( ()=> {
+      this.onClickQuery(this.props);
+    }, 3000);
   }
+  componentWillUnmount() {
+    if (!!this.timeTicket) {
+      clearInterval(this.timeTicket);
+    }
+  };
   onClickQuery = (props)=>{
-    const {periodquery,curdevice,viewtype} = props;
-    const {periodname,starttime,endtime} = periodquery;
+    const {curdevice,viewtype} = props;
+    // const {periodname,starttime,endtime} = periodquery;
+    const periodname = 'minutely';// monthly weekly daily hourly minutely
+    const starttime = moment().subtract(10, 'minutes').format('YYYY-MM-DD HH:mm:00');//moment().format('YYYY-MM-DD HH:mm:ss'),
+    const endtime = moment().format('YYYY-MM-DD HH:mm:00');
+
     if(!!curdevice){
       this.props.dispatch(gethistorydevicelist_request({
         _id:curdevice._id,
