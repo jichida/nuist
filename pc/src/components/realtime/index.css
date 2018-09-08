@@ -91,13 +91,30 @@
 
 .meterchart .chartli {
     width: 100px;
-    text-align: center; display:inline-block; float:left; margin:40px 20px
+    text-align: center;
+    display: inline-block;
+    float: left;
+    margin: 40px 20px
 }
-.windcontrolc{width: 20%;
+
+.windcontrolc {
+    width: 20%;
     height: 100%;
-     float:left; margin-right:40px}
-.windcontrolc span.m10{ margin-top:10px; display:block; text-align:center}
-.meterchart .chartli span.m10{ margin-top:10px; display:block}
+    float: left;
+    margin-right: 40px
+}
+
+.windcontrolc span.m10 {
+    margin-top: 10px;
+    display: block;
+    text-align: center
+}
+
+.meterchart .chartli span.m10 {
+    margin-top: 10px;
+    display: block
+}
+
 .meter .title {
     text-align: center;
     font-size: 16px;
@@ -115,7 +132,8 @@
 
 .windcontrol {
     position: relative;
-    width: 100%; height:175px
+    width: 100%;
+    height: 175px
 }
 
 .windcontrol .wind1,
@@ -223,7 +241,8 @@
 
 .monitorfiller>div {
     font-size: 14px;
-    flex-grow: 1; text-align: center;
+    flex-grow: 1;
+    text-align: center;
 }
 
 .monitorfiller>div.l {
@@ -242,7 +261,8 @@
     -webkit-align-items: center;
     -moz-justify-content: center;
     -webkit-justify-content: center;
-    justify-content: center; width:200px
+    justify-content: center;
+    width: 200px
 }
 
 .monitorfiller>div.d span {
@@ -301,9 +321,24 @@
     transform: translateY(-50%);
     left: 0;
     margin: 0;
-    color: rgba(0, 0, 0, 0.65);
+    /* color: rgba(0, 0, 0, 0.65); */
 }
 
-.monitordatba{ text-align:center; padding:10px;    color: #0164b5;}
-.monitordatba span{ display:inline-block; vertical-align:middle; margin-right:5px}
-.monitordatba img{ width:12px; height:12px;display:inline-block; vertical-align:middle;}
+.monitordatba {
+    text-align: center;
+    padding: 10px;
+    color: #0164b5;
+}
+
+.monitordatba span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px
+}
+
+.monitordatba img {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    vertical-align: middle;
+}

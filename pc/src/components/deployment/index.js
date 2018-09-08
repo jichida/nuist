@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import "./index.css";
 import Header from "../header";
-import AbstractBar from "../abstract";
-import HistoryDataBar from "../history_data";
-import Footer from "../footer";
+import ChartsRealtime from '../history_data/chartsrealtime';
+// import HistoryDataBar from "../history_data";
+// import Footer from "../footer";
 
 import {
   ui_notifyresizeformap,
@@ -42,11 +42,37 @@ class App extends React.Component {
         return (
             <div className="deployment-page root-page">
                 <Header />
-                <div className="dashboard">
-                <AbstractBar />
-                <main></main>
-                <HistoryDataBar />
-                </div>
+                <div className="w_1220">
+        <div className="left_con left_con_bg">
+        <div className="real_time">
+        <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>实时监控</span></h2>
+                  <NodeSel />
+    </div>
+    </div>
+
+    <div className="center_con">
+        <div className="bor_con center_box">
+        <h2 className="title"><img src="images/jied.png"  alt=""/><span>节点拓扑</span></h2>
+    <div className="map_con" style={{marginBottom:'0px'}}><div id='mapidplaceholder' style={{height:'814px',width:'100%'}}/></div>
+        </div>
+                    </div>
+                    <div className="right_con rhuadong">
+                        <ChartsRealtime />
+    <div className="bor_con border_top">
+    <h2 className="title"><img src="images/lis.png" /><span>历史数据</span></h2>
+<ul className="curve_lis">
+    <li>
+    <h2>历史风向曲线</h2>
+    <img src="images/tup1.png" style={{width:'100%'}} />
+    </li>
+    </ul>
+    <div /> </div>
+
+                        <div />
+                    </div>
+
+        </div>
+
             </div>
         //     <div className="indexPage">
         //     <Header />

@@ -19,7 +19,7 @@ class App extends React.Component {
   render() {
     const {productlist,products,ispopproductinfo} = this.props;
     return (
-			<div className="bor_con">
+			<div className="bor_con border_top">
 					<h2 className="title">
 						<img src="images/cpzs.png" alt=""/><span>产品展示</span>
 					</h2>
@@ -29,13 +29,13 @@ class App extends React.Component {
 							const product = products[pid];
 							if(!!product){
 								return (<li key={pid} onClick={()=>{this.onClickPopProductInfo(product)}}>
-											<p>{product.name}</p><img src="images/img5.png" alt=""/>
+											<p>{product.name}</p><img src={product.picurl}  alt=""/>
 									</li>);
 							}
 						})
 					}
         </ul>
-		  { ispopproductinfo && <Info curproduct={this.state.curproduct}/>}
+
       </div>
     );
   }

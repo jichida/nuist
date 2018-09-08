@@ -59,13 +59,10 @@ class App extends React.Component {
     const {selectedoption} = this.state;
     return (
       <div className="real_time">
-        <header>
-          <img src="images/add.png" alt=""/>
-          <span>在线调查</span>
-        </header>
-          <div className="left_bg">
+          <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>在线调查</span></h2>
+          <div className="left_box zxdc_box huadong">
              <div className="t">{lodashget(curvote,'name','')}</div>
-             <div className="li">
+             <div className="label_check">
                {
                  lodashmap(lodashget(curvote,'answeroptions',[]),(option,index)=>{
                    if(selectedoption === option.optionname){

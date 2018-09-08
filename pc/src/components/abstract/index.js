@@ -7,27 +7,20 @@ import Monitoring from "./monitoring";
 class App extends React.Component {
   render() {
     return (
-      	<div className="abstract-bar">
+      	<div className="left_con huadong">
             <div className="weather">
                 <img src="images/tianqi.png" alt=""/>
-                <div>
-                    <span>晴天 25℃～28℃</span>
-                    <span>今天（周一）</span>
-                </div>
+                <span>晴天 25℃～28℃ <br />今天(周一) </span>
             </div>
-
-            <div className="login">
-                <header>
-                    <img src="images/add.png" alt=""/>
-                    <span>账号密码登录</span>
-                </header>
-
-                <div className="input-area">
-                    <label><span>账号：</span><input placeholder="输入账号" /></label>
-                    <label><span>密码：</span><input placeholder="输入密码" /></label>
+            <div className="real_time">
+                <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>账号密码登录</span></h2>
+                <div className="left_box">
+                    <div className="login_box">
+                        <label><span>账号</span><input type="text" name="" className="login_input" placeholder="输入账号" /></label>
+                        <label><span>密码</span><input type="text" name="" className="login_input" placeholder="输入密码" /></label>
+                    </div>
+                    <span className="btn_button">立即登录</span>
                 </div>
-
-                <div className="login-btn">立即登陆</div>
             </div>
             <Monitoring />
             <Investigation />

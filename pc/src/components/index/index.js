@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+// import "./index.css";
 import Header from "../header";
 import AbstractBar from "../abstract";
 import HistoryDataBar from "../history_data";
-import "../../layout/index.css";
+import ChartsHistory from '../history/charts_history_container.js';
 // import Login from "./login.js";
 // import Weather from "./weather";
 // import Swiper from "./swiper";
@@ -51,30 +52,58 @@ class App extends React.Component {
     return (
       <div className="index-page root-page">
         <Header />
-        <div className="dashboard">
+        <div className="w_1220">
           <AbstractBar />
-          <main>
-            <div>
-              <div id='mapidplaceholder' style={{width:'100%', height:'300px'}}/>
+
+          <div className="center_con">
+            <div className="map_con border">
+              <div id='mapidplaceholder' style={{height:'400px'}}/>
             </div>
-            <div className="history-data-form">
-              <h2 className="title">
-                <img src="images/lssj.png" alt=""/>
-                <span>历史数据</span>
-                <div className="title_tab">
-                  <span className="active">温度</span>
-                  <span>湿度</span>
-                  <span>气压</span>
-                  <span>雨量</span>
-                  <span>温度</span>
+            <div className="bor_con con_height">
+                <h2 className="title">
+                  <img src="images/lssj.png" alt=""/>
+                  <span>历史数据</span>
+                  <div className="title_tab">
+                    <span className="active">温度</span>
+                    <span>湿度</span>
+                    <span>气压</span>
+                    <span>雨量</span>
+                    <span>风力</span>
+                  </div>
+                </h2>
+                <div className="curve_box">
+                  <ChartsHistory />
                 </div>
-              </h2>
-              <div className="curve_box"><img src="images/img3.png" width="100%" alt=""/></div>
             </div>
-          </main>
+          </div>
+
           <HistoryDataBar />
         </div>
       </div>
+    //   <div className="indexPage">
+    //     <Header />
+    //     <div className="content">
+    //     	<div className="indextit">欢迎访问大坝智能监控系统</div>
+    //     	<div className="cont">
+		// 		<div className="left">
+		// 			<Login />
+		// 			<Weather />
+		// 		</div>
+		// 		<div className="center">
+		// 			<Swiper />
+		// 			<div id='mapidplaceholder' style={{height:'300px',width:'550px'}}/>
+		// 		</div>
+		// 		<div className="right">
+		// 			<Monitoring />
+		// 			<Investigation />
+		// 		</div>
+		// 	</div>
+		// 	<DataChart />
+		// 	<ProductList />
+    //     </div>
+    //     {ispoppwd && loginsuccess && <Changepwd />}
+    //     <Footer />
+    // </div>
     );
   }
 }

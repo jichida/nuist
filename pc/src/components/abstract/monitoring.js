@@ -16,7 +16,7 @@ import {getCoureName} from '../../util';
 const DeviceInfoDetailList = (props)=>{
 	const {curdevice,viewtype} = props;
 	const {fieldslist_brief,fields} = viewtype;
-	return (<div className="monitoringli">
+	return (<div>
 				{
 					lodashmap(fieldslist_brief,(fieldname)=>{
 						const fieldsprops = fields[fieldname];
@@ -26,18 +26,14 @@ const DeviceInfoDetailList = (props)=>{
 								showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
 							}
 							return (
-								<div key={fieldname}>
-									<span>{`${fieldsprops.showname}`}：</span>
-									<span>{showvalue}{`${lodashget(fieldsprops,'unit','')}`}</span>
-								</div>
+								<p key={fieldname}>
+									{`${fieldsprops.showname}`}:{showvalue}{`${lodashget(fieldsprops,'unit','')}`}
+								</p>
 							);
 						}
 					})
 				}
-			  <div>
-					<span>更新时间：</span>
-					<span>{curdevice.updated_at}</span>
-				</div>
+			  <p>更新时间：{curdevice.updated_at}</p>
 			</div>);
 }
 
@@ -53,23 +49,20 @@ class App extends React.Component {
     }
     const name = lodashget(curdevice,'name','');
     return (
-      <div className="monitoring">
-				<header>
-					<img src="images/add.png" alt=""/>
-					<span>实时监控</span>
-					<Dropdown 
-						overlay={getMenu({devicelist,devices,onMenuClick:
+      <div className="real_time">
+        <h2 className="title left_bg">
+		  <img src="images/add.png" alt=""/><span>实时监控</span>
+          <em>
+            <Dropdown  overlay={getMenu({devicelist,devices,onMenuClick:
 							(e)=>{
 								this.onMenuClick(e.key)
 							}
-						})}
-						placement="bottomLeft"
-					>
-            <Button>{name}<Icon type="down" /></Button>
-          </Dropdown>
-				</header>
-
-				<DeviceInfoDetailList curdevice={curdevice} viewtype={viewtype} />
+						})} placement="bottomLeft">
+              <Button style={{ marginLeft: 8 }}>{name}<Icon type="down" /></Button>
+            </Dropdown>
+          </em>
+        </h2>
+				<div className="left_box"><DeviceInfoDetailList curdevice={curdevice} viewtype={viewtype} /></div>
       </div>
     );
   }

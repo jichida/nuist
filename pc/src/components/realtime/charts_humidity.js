@@ -36,7 +36,7 @@ class Page extends Component {
     return (
           <ReactEcharts
             option={this.props.option}
-            style={{height: '240px', width: '240px'}}
+            style={{height: '400px', width: '400px'}}
             className='react_for_echarts' />
     );
   }
@@ -58,7 +58,7 @@ const mapStateToProps = () => {
               min: 0,
               max: 220,
               splitNumber: 11,
-              radius: '100%',
+              radius: '50%',
               axisLine: {            // 坐标轴线
                   lineStyle: {       // 属性lineStyle控制线条样式
                       width: 10
@@ -89,7 +89,7 @@ const mapStateToProps = () => {
               title : {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                   fontWeight: 'bolder',
-                  fontSize: 14,
+                  fontSize: 20,
                   fontStyle: 'italic'
               },
               detail : {
@@ -100,24 +100,23 @@ const mapStateToProps = () => {
                       return ('00' + value[0]).slice(-2)
                           + '.' + (value[1] + '00').slice(0, 2);
                   },
-                  fontWeight: '',
-                  fontSize: 16,
-                  borderRadius: 0,
+                  fontWeight: 'bolder',
+                  borderRadius: 3,
                   backgroundColor: '#444',
                   borderColor: '#aaa',
-                  shadowBlur: 0,
+                  shadowBlur: 5,
                   shadowColor: '#333',
                   shadowOffsetX: 0,
-                  shadowOffsetY: 0,
-                  borderWidth: 1,
+                  shadowOffsetY: 3,
+                  borderWidth: 2,
                   textBorderColor: '#000',
-                  textBorderWidth: 0,
-                  textShadowBlur: 0,
+                  textBorderWidth: 2,
+                  textShadowBlur: 2,
                   textShadowColor: '#fff',
                   textShadowOffsetX: 0,
                   textShadowOffsetY: 0,
                   fontFamily: 'Arial',
-                  width: 50,
+                  width: 100,
                   color: '#eee',
                   rich: {}
               },

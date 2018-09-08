@@ -24,26 +24,27 @@ class App extends React.Component {
 				const indexdeviceid = usersettings.indexdeviceid;
         return (
           <div>
-          <dl className="dl_bg">
-            <dt>ID</dt>
-            <dd><span>节点名</span><span>区域<img alt="" src={Jtimg} /></span></dd>
-          </dl>
-          <div className="h_625 scroll_bar">
+
+          <div className="left_box left_height huadong">
+        <dl className="dl_bg">
+        <dd>ID</dd>
+        <dd>节点名</dd><dd>区域<img alt="" src={Jtimg}  style={{display:'inline-block'}}/ ></dd>
+        </dl>
             {
               lodashmap(devicelist,(did,index)=>{
                 const curdevice = devices[did];
                 if(did === indexdeviceid){
                   return (
                     <dl key={index} className="sel">
-                        <dt>{lodashget(curdevice,'DeviceId','')}</dt>
-                        <dd><span>{lodashget(curdevice,'name','')}</span><span>{lodashget(curdevice,'city','')}</span></dd>
+                        <dd>{lodashget(curdevice,'DeviceId','')}</dd>
+                        <dd>{lodashget(curdevice,'name','')}</dd><dd>{lodashget(curdevice,'city','')}</dd>
                     </dl>
                   )
                 }
                 return (
                   <dl key={index} onClick={()=>{this.selectdevice(did)}}>
-                      <dt>{lodashget(curdevice,'DeviceId','')}</dt>
-                      <dd><span>{lodashget(curdevice,'name','')}</span><span>{lodashget(curdevice,'city','')}</span></dd>
+                      <dd>{lodashget(curdevice,'DeviceId','')}</dd>
+                      <dd>{lodashget(curdevice,'name','')}</dd><dd>{lodashget(curdevice,'city','')}</dd>
                   </dl>
                 )
               })

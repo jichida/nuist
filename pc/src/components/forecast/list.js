@@ -19,7 +19,7 @@ class App extends React.Component {
       const {ralist,realtimealarms,devices} = this.props;
 
 	    return (
-	      	<div className="warninglist">
+	      	<div className="sjyj_box rhuadong">
 	        	<ul>
               {
 								lodashmap(ralist,(rid,index)=>{
@@ -34,15 +34,15 @@ class App extends React.Component {
                       const updatetime = lodashget(realtimealarm,'UpdateTime','');
                       const addressname = lodashget(curdevice,'addressname','');
                       return ( <li key={rid}>
-                      	        			<div>
+                      	        			<div className="sjyj_li">
                       	        				<div className="tit">{`${content}-${mapkeystring[type]}(${value})`}</div>
                       	        				<div className="cont">
                       								<p><span>{`${devicename}`} - {`${devicelocationname}`}</span></p>
-                                      <p><span> {`${updatetime}`}</span></p>
+                                                    <p><span> {`${updatetime}`}</span></p>
                       								<p>地址：{`${addressname}`}</p>
                       	        				</div>
+<span className="num">{getindexstring(index+1,2)}</span>
                       	        			</div>
-                      	        			<span className="num">{getindexstring(index+1,2)}</span>
                       	        		</li>);
                     }
                   })

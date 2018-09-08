@@ -8,8 +8,9 @@ import NodeSel from '../nodesel';
 import Meter from "./meter";
 import List from "../history/list.js";
 import Filler from "../history/filler.js";
+import ChartsHistory from '../history/charts_history_container.js';
 import ReportContainer from "../history/reportcontainer.js";
-
+import ChartsRealtime from '../history_data/chartsrealtime';
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
 import {set_uiapp} from '../../actions';
@@ -35,13 +36,83 @@ class App extends React.Component {
         const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
         const {fields,fieldslist_brief} = viewtype;
         return (
-          <div className="realtime-page root-page">
+          <div className="deployment-page root-page">
               <Header />
-              <div className="dashboard">
-              <AbstractBar />
-              <main></main>
-              <HistoryDataBar />
-              </div>
+              <div className="w_1220">
+      <div className="left_con left_con_bg">
+      <div className="real_time">
+      <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>实时监控</span></h2>
+                <NodeSel />
+  </div>
+  </div>
+
+  <div className="center_con">
+      <div className="center_box">
+
+      <ChartsRealtime /> <div className="bor_con" style={{marginTop: '10px'}}>
+      <h2 className="title"><img src="images/jied.png"  alt=""/>
+      <span>历史数据</span></h2>
+
+                    <div className="curve_box data_list_box rhuadong">
+<dl class="bg">
+<dd>温度</dd>
+<dd>雨量</dd>
+<dd>风向</dd>
+<dd>湿度</dd>
+<dd>风力</dd>
+<dd>气压</dd>
+<dd>时间</dd>
+</dl>
+<dl>
+<dd>温度</dd>
+<dd>雨量</dd>
+<dd>风向</dd>
+<dd>湿度</dd>
+<dd>风力</dd>
+<dd>气压</dd>
+<dd>时间</dd>
+</dl>
+<dl>
+<dd>温度</dd>
+<dd>雨量</dd>
+<dd>风向</dd>
+<dd>湿度</dd>
+<dd>风力</dd>
+<dd>气压</dd>
+<dd>时间</dd>
+</dl>
+<dl>
+<dd>温度</dd>
+<dd>雨量</dd>
+<dd>风向</dd>
+<dd>湿度</dd>
+<dd>风力</dd>
+<dd>气压</dd>
+<dd>时间</dd>
+</dl>
+</div>
+      </div> </div>
+                  </div>
+                  <div className="right_con rhuadong">
+            <div className="bor_con">
+            <h2 className="title"><img src="images/lis.png" /><span>历史数据</span></h2>
+        <ul className="curve_lis">
+            <li>
+            <h2>历史风向曲线</h2>
+            <ChartsHistory />
+            </li><li>
+            <h2>历史湿度曲线</h2>
+            <ChartsHistory />
+            </li><li>
+            <h2>历史风力曲线</h2>
+            <ChartsHistory />
+            </li>
+            </ul>
+            <div /> </div>
+            </div>
+
+      </div>
+
           </div>
 
             // <div className="indexPage">
@@ -61,7 +132,7 @@ class App extends React.Component {
             //         { !!curdevice && <Filler curdevice={curdevice} viewtype={viewtype}/> }
             //         { !!curdevice && <List curdevice={curdevice}  viewtype={viewtype}/>}
             //         {
-            //           <ReportContainer 
+            //           <ReportContainer
             //             splitcount={1}
             //             fieldslist_brief={fieldslist_brief}
             //             ticktimestring={ticktimestringlist}

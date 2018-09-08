@@ -1,6 +1,7 @@
 import React from 'react';
 import "./index.css";
 import Header from "../header";
+import ChartsRealtime from '../history_data/chartsrealtime';
 import AbstractBar from "../abstract";
 import HistoryDataBar from "../history_data";
 import Footer from "../footer";
@@ -13,14 +14,75 @@ import NodeSel from '../nodesel';
 class App extends React.Component {
     render() {
         return (
-            <div className="video-page root-page">
-                <Header />
-                <div className="dashboard">
-                <AbstractBar />
-                <main></main>
-                <HistoryDataBar />
-                </div>
+          <div className="deployment-page root-page">
+              <Header />
+              <div className="w_1220">
+      <div className="left_con left_con_bg">
+      <div className="real_time">
+      <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>实时监控</span></h2>
+                <NodeSel />
+  </div>
+  </div>
+
+  <div className="center_con">
+      <div className="bor_con center_box">
+      <h2 className="title"><img src="images/jied.png"  alt=""/><span>节点拓扑</span></h2>
+        <div className="spjk_box">
+            <div className="spjk_left">
+            <h2>正在监控  南京宣武门广场</h2>
+            <div className=" box_box"> <img alt="" src={Spxqimg} style={{width:'100%',height:'400px'}} /></div>
             </div>
+            <div className="spjk_right">
+            <ul>
+            <li>
+            <div className="spjk_li"> <img alt="" src={Spimg} style={{width:'100%'}}/>
+            <p>胡佛大坝</p>
+            </div>
+            </li>
+<li>
+<div className="spjk_li"> <img alt="" src={Spimg} style={{width:'100%'}}/>
+<p>胡佛大坝</p>
+</div>
+</li>
+<li>
+<div className="spjk_li"> <img alt="" src={Spimg} style={{width:'100%'}}/>
+<p>胡佛大坝</p>
+</div>
+</li>
+<li>
+<div className="spjk_li"> <img alt="" src={Spimg} style={{width:'100%'}}/>
+<p>胡佛大坝</p>
+</div>
+</li>
+<li>
+<div className="spjk_li"> <img alt="" src={Spimg} style={{width:'100%'}}/>
+<p>胡佛大坝</p>
+</div>
+</li>
+            </ul>
+            </div>
+            </div>
+
+         </div>
+  </div>
+    
+                  <div className="right_con rhuadong">
+                      <ChartsRealtime />
+    <div className="bor_con border_top">
+    <h2 className="title"><img src="images/lis.png" /><span>历史数据</span></h2>
+<ul className="curve_lis">
+    <li>
+    <h2>历史风向曲线</h2>
+    <img src="images/tup1.png" style={{width:'100%'}} />
+</li>
+</ul>
+<div /> </div>
+                      <div />
+                  </div>
+
+      </div>
+
+          </div>
 
         //     <div className="indexPage">
         //     <Header />
