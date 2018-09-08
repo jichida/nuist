@@ -31,7 +31,7 @@ const handlermsg_alarmdata = (alarmdata)=>{
     debug(err);
     debug(`result->${JSON.stringify(result)}`);
     if(!err && !!result){
-      PubSub.publish(`push.devicealarm.${result._id}`,result);
+      PubSub.publish(`push.devicealarm.${result.DeviceId}`,result);
     }
   });
 };
@@ -45,11 +45,11 @@ const handlermsg_realtimedata = (devicedata)=>{
       if(!err && !!newdevice){
         handlermsg_historydevice(newdevice);
 
-        PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
+        // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
 
         alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
           _.map(resultalarmmatch,(al)=>{
-            console.log(al);
+            // console.log(al);
             al.DeviceId = devicedata.DeviceId;
             al.did = newdevice._id;
             handlermsg_alarmdata(al);
