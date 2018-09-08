@@ -9,22 +9,22 @@ import {getCoureName} from '../../util';
 
 const TitleC = (props)=>{
 	const {fieldslist_brief,fields} = props;
-	return (<div className="tit">
+	return (<dl className="bg">
 				{
 					lodashmap(fieldslist_brief,(fieldname)=>{
 						const fieldsprops = fields[fieldname];
 						if(!!fieldsprops){
-							return (<span key={fieldname}>{`${fieldsprops.showname}`}</span>);
+							return (<dd key={fieldname}>{`${fieldsprops.showname}`}</dd>);
 						}
 					})
 				}
-				<span>时间</span>
-			</div>);
+				<dd>时间</dd>
+			</dl>);
 }
 
 const TitleD = (props)=>{
 	const {curdevice,fieldslist_brief,fields,vs} = props;
-	return (<li>
+	return (<dl>
 				{
 					lodashmap(fieldslist_brief,(fieldname)=>{
 						const fieldsprops = fields[fieldname];
@@ -33,14 +33,14 @@ const TitleD = (props)=>{
 							if(fieldname === 'winddirection'){
 								showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
 							}
-							return (<span  key={fieldname}>{showvalue}
+							return (<dd  key={fieldname}>{showvalue}
 								{`${lodashget(fieldsprops,'unit','')}`}
-							</span>);
+							</dd>);
 						}
 					})
 				}
-				  <span className="small">{vs}</span>
-			</li>);
+				  <dd className="small">{vs}</dd>
+			</dl>);
 }
 
 class App extends React.Component {
@@ -53,7 +53,7 @@ class App extends React.Component {
 	    return (
 	      	<div className="monitordata">
 	      		<TitleC fields={fields} fieldslist_brief={fieldslist_brief} />
-	        	<ul>
+
               {
                 lodashmap(ticktimestringlist,(vs,index)=>{
 									const v = {};
@@ -68,7 +68,7 @@ class App extends React.Component {
 									return (<TitleD key={index} fields={fields} fieldslist_brief={fieldslist_brief} vs={vs} curdevice={curdevice}/>);
   							})
               }
-	        	</ul>
+
 
 	      	</div>
 

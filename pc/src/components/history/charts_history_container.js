@@ -15,7 +15,7 @@ class App extends React.Component {
     this.onClickQuery(this.props);
     this.timeTicket = setInterval( ()=> {
       this.onClickQuery(this.props);
-    }, 3000);
+    }, 30000);
   }
   componentWillUnmount() {
     if (!!this.timeTicket) {

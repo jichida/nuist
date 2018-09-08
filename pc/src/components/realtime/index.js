@@ -13,6 +13,7 @@ import ReportContainer from "../history/reportcontainer.js";
 import ChartsRealtime from '../history_data/chartsrealtime';
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
+
 import {set_uiapp} from '../../actions';
 
 class App extends React.Component {
@@ -54,48 +55,14 @@ class App extends React.Component {
       <span>历史数据</span></h2>
 
                     <div className="curve_box data_list_box rhuadong">
-<dl className="bg">
-<dd>温度</dd>
-<dd>雨量</dd>
-<dd>风向</dd>
-<dd>湿度</dd>
-<dd>风力</dd>
-<dd>气压</dd>
-<dd>时间</dd>
-</dl>
-<dl>
-<dd>温度</dd>
-<dd>雨量</dd>
-<dd>风向</dd>
-<dd>湿度</dd>
-<dd>风力</dd>
-<dd>气压</dd>
-<dd>时间</dd>
-</dl>
-<dl>
-<dd>温度</dd>
-<dd>雨量</dd>
-<dd>风向</dd>
-<dd>湿度</dd>
-<dd>风力</dd>
-<dd>气压</dd>
-<dd>时间</dd>
-</dl>
-<dl>
-<dd>温度</dd>
-<dd>雨量</dd>
-<dd>风向</dd>
-<dd>湿度</dd>
-<dd>风力</dd>
-<dd>气压</dd>
-<dd>时间</dd>
-</dl>
-</div>
-      </div> </div>
+                      <List curdevice={curdevice}/>
+                    </div>
+                  </div>
+                 </div>
                   </div>
                   <div className="right_con rhuadong">
             <div className="bor_con">
-            <h2 className="title"><img src="images/lis.png" /><span>历史数据</span></h2>
+            <h2 className="title"><img src="images/lis.png" alt=""/><span>历史数据</span></h2>
         <ul className="curve_lis">
             <li>
             <h2>历史风向曲线</h2>
