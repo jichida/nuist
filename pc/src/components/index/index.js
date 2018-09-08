@@ -99,7 +99,7 @@ class App extends React.Component {
             </div>
           </div>
 
-          <HistoryDataBar curfield={selfield}/>
+          <HistoryDataBar />
         </div>
         {ispoppwd && loginsuccess && <Changepwd />}
       </div>

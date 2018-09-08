@@ -41,7 +41,7 @@ class Page extends Component {
     );
   }
 }
-const mapStateToProps = ({},props) => {
+const mapStateToProps = (state,props) => {
   const {fieldslist_brief,ticktimestring,fields,retlist} = props;
   // console.log(fieldslist_brief);
   // console.log(ticktimestring);
