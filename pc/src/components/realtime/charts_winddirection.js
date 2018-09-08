@@ -22,13 +22,14 @@ const Windcontrol = (props)=>{
   const windspeed = lodashget(curdevice,'realtimedata.windspeed',0);
   const degree_windspeed = 360-windspeed/12*360+degree_point;//风力 win1
   return (
-    <div className="windcontrolc">
-      <div className="windcontrol">
-  			<img alt="" style={getstyleimage1(degree_windspeed)} src={Wind1} className="wind1" />
-  			<img alt="" style={getstyleimage1(degree_winddirection)}  src={Wind3} className="wind3" />
-  			<img alt="" style={getstyleimage1(degree_point)}  src={Wind2} className="wind2" />
-			</div>
-		</div>);
+      <div className="windcontrolc">
+        <div className="windcontrol">
+    			<img alt="" style={getstyleimage1(degree_windspeed)} src={Wind1} className="wind1" />
+    			<img alt="" style={getstyleimage1(degree_winddirection)}  src={Wind3} className="wind3" />
+    			<img alt="" style={getstyleimage1(degree_point)}  src={Wind2} className="wind2" />
+  			</div>
+  		</div>
+    );
 }
 
 export default Windcontrol;

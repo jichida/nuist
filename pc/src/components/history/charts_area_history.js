@@ -2,37 +2,43 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts';
-
+import lodashget from 'lodash.get';
 class Page extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   // this.state = this.getInitialState();
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    let needrender = false;
+    if(!needrender)
+    {
+      const nextData = lodashget(nextProps,'option.title.text','');
+      const curData = lodashget(this.props,'option.title.text','');
+      if( nextData !== curData ){
+          needrender = true;
+      }
+    }
 
-  //
-  // timeTicket = null;
-  // getInitialState = () => ({option: this.getOption()});
-  //
-  // componentDidMount() {
-  //   if (this.timeTicket) {
-  //     clearInterval(this.timeTicket);
-  //   }
-  //   this.timeTicket = setInterval(() => {
-  //     const option = cloneDeep(this.state.option);
-  //     option.series[0].data[0].value = (Math.random()*100).toFixed(2) - 0;
-  //     option.series[1].data[0].value = (Math.random()*7).toFixed(2) - 0;
-  //     option.series[2].data[0].value = (Math.random()*2).toFixed(2) - 0;
-  //     option.series[3].data[0].value = (Math.random()*2).toFixed(2) - 0;
-  //     this.setState({option: option});
-  //   }, 1000);
-  // };
-  //
-  // componentWillUnmount() {
-  //   if (this.timeTicket) {
-  //     clearInterval(this.timeTicket);
-  //   }
-  // };
+    if(!needrender)
+    {
+      const nextData = lodashget(nextProps,'option.xAxis.data',[]);
+      const curData = lodashget(this.props,'option.xAxis.data',[]);
+      if( nextData.length === curData.length ){
+        if(JSON.stringify(nextData) !== JSON.stringify(curData)){
+          needrender = true;
+        }
+      }
+    }
 
+    if(!needrender)
+    {
+      const nextData = lodashget(nextProps,'option.series[0].data',[]);
+      const curData = lodashget(this.props,'option.series[0].data',[]);
+      if( nextData.length === curData.length ){
+        if(JSON.stringify(nextData) === JSON.stringify(curData)){
+          needrender = true;
+        }
+      }
+    }
+
+    return needrender;//render
+  }
   render() {
     return (
           <ReactEcharts

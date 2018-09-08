@@ -54,7 +54,7 @@ class App extends React.Component {
       <span>历史数据</span></h2>
 
                     <div className="curve_box data_list_box rhuadong">
-<dl class="bg">
+<dl className="bg">
 <dd>温度</dd>
 <dd>雨量</dd>
 <dd>风向</dd>
