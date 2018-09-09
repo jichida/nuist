@@ -93,7 +93,7 @@ const mapStateToProps = (state,props) => {
           {
               name: '降雨量(mm)',
               nameLocation: 'start',
-              max: 5,
+              max: 100,
               type: 'value',
               inverse: true
           }
