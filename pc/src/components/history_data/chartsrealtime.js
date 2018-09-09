@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import lodashget from 'lodash.get';
 import ChartHumidity  from '../realtime/charts_humidity';
 import ChartPressure  from '../realtime/charts_pressure';
@@ -15,7 +16,7 @@ const ChartsRealtime = (props)=>{
     let showvalue_rainfall = lodashget(curdevice,`realtimedata.rainfall`);
     let showvalue_temperature = lodashget(curdevice,`realtimedata.temperature`);
     let realTimePage = props.pageType || false;
-    if(shownum==2){
+    if(shownum === 2){
         //showvalue_humidity=false;
         showvalue_pressure=false;
         showvalue_rainfall=false;
@@ -24,7 +25,10 @@ const ChartsRealtime = (props)=>{
   return (<div className="bor_con">
       <h2 className="title"><img src="images/sjjc.png" alt=""/>
         <span>数据检测</span>
-        <div class="title_tab"><span class="time">更多</span></div>
+        <div className="title_tab"><span className="time" onClick={()=>{
+          props.history.replace('/realtime');
+        }
+        }>更多</span></div>
       </h2>
       <div className="data_box vertical">
         { //realTimePage
@@ -54,6 +58,7 @@ const ChartsRealtime = (props)=>{
 
 }
 
+const APP =  withRouter(ChartsRealtime);
 const mapStateToProps = ({device:{devicelist,devices},userlogin:{usersettings}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
@@ -67,4 +72,4 @@ const mapStateToProps = ({device:{devicelist,devices},userlogin:{usersettings}})
 		}
     return {curdevice};
 }
-export default connect(mapStateToProps)(ChartsRealtime);
+export default connect(mapStateToProps)(APP);
