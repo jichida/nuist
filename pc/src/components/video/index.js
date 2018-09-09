@@ -29,12 +29,12 @@ class App extends React.Component {
       <h2 className="title"><img src="images/jied.png"  alt=""/><span>节点拓扑</span></h2>
         <div className="spjk_box">
             <div className="spjk_left">
-            <h2>正在监控  南京宣武门广场</h2>
+            <h2>正在监控  青龙峡大坝</h2>
             <div className=" box_box" style={{position: 'relative'}}> <img alt="" src={Spxqimg} style={{width:'100%',height:'400px'}} />
 <div className="jk_bg">
 <div className="jz_box">
 <img src="images/jz.gif" alt=""/>
-    <p>正在加载，请稍后</p>
+    <p>“加载视频”</p><p>“正在搜索摄像头”</p>
 </div>
 </div>
 </div>
@@ -43,7 +43,7 @@ class App extends React.Component {
             <ul>
             <li>
             <div className="spjk_li"> <img alt="" src={Spimg} style={{width:'100%'}}/>
-            <p>胡佛大坝</p>
+            <p>青龙峡大坝</p>
             </div>
             </li>
 <li>

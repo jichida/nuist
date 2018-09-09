@@ -20,7 +20,7 @@ const Windcontrol = (props)=>{
   const degree_winddirection = 0;//方向 win3
   const degree_point = lodashget(curdevice,'realtimedata.winddirection',0);//指针 win2
   const windspeed = lodashget(curdevice,'realtimedata.windspeed',0);
-  const degree_windspeed = 360-windspeed/12*360+degree_point;//风力 win1
+  const degree_windspeed = 300-windspeed/12*300+degree_point;//风力 win1
   return (
       <div className="windcontrolc">
         <div className="windcontrol">

@@ -50,7 +50,7 @@ class App extends React.Component {
     </div>
 
     <div className="center_con">
-        <div className="bor_con center_box">
+        <div className="bor_con center_box rhuadong">
         <h2 className="title"><img src="images/jied.png"  alt=""/><span>节点拓扑</span></h2>
     <div className="map_con" style={{marginBottom:'0px'}}><div id='mapidplaceholder' style={{height:'814px',width:'100%'}}/></div>
         </div>
