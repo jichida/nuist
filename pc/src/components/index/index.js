@@ -99,7 +99,7 @@ class App extends React.Component {
             </div>
           </div>
 
-          <HistoryDataBar />
+          <HistoryDataBar shownum={2}/>
         </div>
         {ispoppwd && loginsuccess && <Changepwd />}
         { ispopproductinfo && <Info curproduct={this.state.curproduct}/>}

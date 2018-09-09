@@ -51,24 +51,83 @@ class Page extends Component {
 const mapStateToProps = (state,props) => {
   const {ticktimestring,retlist,curfield,curfieldname} = props;
   const option = {
-      title: {
-          left: 'center',
+      title : {
           text: curfieldname,
+          x: 'center',
+          align: 'right'
       },
-      xAxis: {
-          type: 'category',
-          data: ticktimestring
+      grid: {
+          bottom: 80
       },
-      yAxis: {
-          type: 'value'
+      toolbox: {
+
       },
-      series: [{
-          data: retlist[curfield],
-          type: 'bar'
-      }]
+      tooltip : {
+          trigger: 'axis',
+          axisPointer: {
+              type: 'cross',
+              animation: false,
+              label: {
+                  backgroundColor: '#505765'
+              }
+          }
+      },
+      legend: {
+          data:['降雨量'],
+          x: 'left'
+      },
+      dataZoom: [
+      ],
+      xAxis : [
+          {
+              type : 'category',
+              boundaryGap : false,
+              axisLine: {onZero: false},
+              data : ticktimestring,
+          }
+      ],
+      yAxis: [
+          {
+
+          },
+          {
+              name: '降雨量(mm)',
+              nameLocation: 'start',
+              max: 5,
+              type: 'value',
+              inverse: true
+          }
+      ],
+      series: [
+
+          {
+              name:'降雨量',
+              type:'line',
+              yAxisIndex:1,
+              animation: false,
+              areaStyle: {
+                  normal: {}
+              },
+              lineStyle: {
+                  normal: {
+                      width: 1
+                  }
+              },
+              markArea: {
+                  silent: true,
+                  data: [[{
+                      xAxis: '2009/9/10\n7:00'
+                  }, {
+                      xAxis: '2009/9/20\n7:00'
+                  }]]
+              },
+              data: retlist[curfield],
+          }
+      ]
   };
 
- //  const option = {
+
+    //  const option = {
  //    tooltip: {
  //       trigger: 'axis',
  //       position: function (pt) {
