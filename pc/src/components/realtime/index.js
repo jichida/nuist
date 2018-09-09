@@ -10,6 +10,7 @@ import List from "../history/list.js";
 // import Filler from "../history/filler.js";
 // import ChartsHistory from '../history/charts_history_container.js';
 // import ReportContainer from "../history/reportcontainer.js";
+
 import ChartsRealtime from '../history_data/chartsrealtime';
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
@@ -63,6 +64,12 @@ class App extends React.Component {
                     <div className="curve_box data_list_box rhuadong">
                       <List curdevice={curdevice}/>
                     </div>
+                    <h2 className="title"><img src="images/chax.png"  alt=""/>
+                    <span>历史图表</span></h2>
+
+                                  <div className="curve_box data_list_box rhuadong">
+                                    <HistoryBar showflag="all"/>
+                                  </div>
                   </div>
                  </div>
                   </div>
