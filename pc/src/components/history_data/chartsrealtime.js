@@ -18,7 +18,7 @@ const ChartsRealtime = (props)=>{
       <h2 className="title"><img src="images/sjjc.png" alt=""/>
         <span>数据检测</span>
       </h2>
-      <div className="data_box">
+      <div className="data_box vertical">
        <ul>
            {!!showvalue_winddirection && !!showvalue_windspeed && <ChartWinddirection curdevice={curdevice} />}
            {!!showvalue_humidity && <li> <ChartHumidity humidity={showvalue_humidity}/></li>}

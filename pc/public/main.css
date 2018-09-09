@@ -402,13 +402,21 @@ body {
     float: left; }
   .center_con .data_box .react_for_echarts {
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 76%;
+    top: 66%;
     transform: translate(-50%, -50%); }
+    .center_con .data_box .react_for_echarts_nth2 {
+        position: absolute;
+        left: 127%;
+        top: 66%;
+        transform: translate(-50%, -50%); }
   .center_con .data_box .react_for_echarts_last {
     position: absolute;
-    left: -145%;
-    top: -170%; }
+    /*left: -145%;*/
+    /*top: -170%; */
+      left: -215%;
+      top: -291%;
+  }
 
 .right_con {
   background-color: #ffffff;
@@ -434,20 +442,27 @@ body {
     height: auto;
     overflow: hidden; }
     .right_con .data_box ul li {
-      width: 100%;
+      /*width: 100%;*/
       padding-right: 20px;
-      margin-bottom: 20px;
-      height: 180px;
+      /*margin-bottom: 20px;*/
+        margin: 0px -20px 20px -20px;
+      height: 230px;
+        border-top: 1px #ddd solid;
       position: relative; }
     .right_con .data_box .react_for_echarts {
       position: absolute;
       left: 50%;
-      top: 50%;
+      top: 60%;
       transform: translate(-50%, -50%); }
+    .right_con .data_box .react_for_echarts_nth2 {
+        position: absolute;
+        left: 50%;
+        top: 60%;
+        transform: translate(-50%, -50%); }
     .right_con .data_box .react_for_echarts_last {
       position: absolute;
-      left: -145%;
-      top: -170%; }
+      left: -125%;
+      top: -120%; }
 
 .huadong::-webkit-scrollbar {
   width: 4px;
@@ -557,14 +572,25 @@ body {
 
 /*# sourceMappingURL=main.css.map */
 
-.windcontrol {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  height: 400px;
-  zoom: .6;
-  margin: auto;
+.center_box .windcontrol {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 360px;
+    zoom: .6;
+    width: 50%;
+    margin: 0;
 }
+.windcontrol {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 360px;
+    zoom: .6;
+    /*width: 50%;*/
+    margin: auto;
+}
+
 
 .windcontrol img {
   position: absolute;

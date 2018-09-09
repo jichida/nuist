@@ -23,7 +23,7 @@ class Page extends Component {
           <ReactEcharts
             option={this.props.option}
             style={{height: '400px', width: '400px'}}
-            className='react_for_echarts' />
+            className='react_for_echarts_nth2' />
     );
   }
 }
@@ -36,6 +36,10 @@ const mapStateToProps = (state,props) => {
       toolbox: {
         show : false,
       },
+      grid:{
+        top:100,
+        bottom:'100px',
+      },
       series : [
             {
                 name:'大气压',
@@ -43,21 +47,31 @@ const mapStateToProps = (state,props) => {
                 z: 3,
                 min: 0,
                 max: 220,
+
                 splitNumber: 11,
-                radius: '50%',
+                radius: '45%',
                 axisLine: {            // 坐标轴线
                     lineStyle: {       // 属性lineStyle控制线条样式
-                        width: 10
+                        width: 10,
+                        shadowBlur: 0,
+                        color: [
+                          [0.2, '#06b393'],
+                          [0.8, '#2f5b84'],
+                          [1, '#a21a1a']
+                          // [0.2, '#1ec7ca'],
+                          // [0.8, '#56b0f1'],
+                          // [1, '#da797f']
+                        ]
                     }
                 },
                 axisTick: {            // 坐标轴小标记
-                    length: 15,        // 属性length控制线长
+                    length: -10,        // 属性length控制线长
                     lineStyle: {       // 属性lineStyle控制线条样式
                         color: 'auto'
                     }
                 },
                 splitLine: {           // 分隔线
-                    length: 20,         // 属性length控制线长
+                    length: -15,         // 属性length控制线长
                     lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
                         color: 'auto'
                     }
@@ -67,6 +81,7 @@ const mapStateToProps = (state,props) => {
                     borderRadius: 2,
                     color: '#eee',
                     padding: 3,
+                    distance:-25,
                     textShadowBlur: 2,
                     textShadowOffsetX: 1,
                     textShadowOffsetY: 1,
@@ -102,11 +117,12 @@ const mapStateToProps = (state,props) => {
                     textShadowOffsetX: 0,
                     textShadowOffsetY: 0,
                     fontFamily: 'Arial',
-                    width: 100,
+                    width: 60,
+                    fontSize:22,
                     color: '#eee',
                     rich: {}
                 },
-                data:[{value: props.pressure, name: 'kPa'}]
+                data:[{value: props.pressure, name: '气压'}]
             },
         ]
       };
