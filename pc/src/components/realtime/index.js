@@ -47,10 +47,10 @@ class App extends React.Component {
   </div>
   </div>
 
-  <div className="center_con">
-      <div className="center_box">
+  <div className="center_con center_mr0">
+      <div className="center_box ">
 
-      <ChartsRealtime /> <div className="bor_con" style={{marginTop: '10px'}}>
+      <ChartsRealtime /> <div className="bor_con border_top">
       <h2 className="title"><img src="images/jied.png"  alt=""/>
       <span>历史数据</span></h2>
 
@@ -60,16 +60,17 @@ class App extends React.Component {
                   </div>
                  </div>
                   </div>
-                  <div className="right_con rhuadong">
-            <div className="bor_con">
-            <h2 className="title"><img src="images/lis.png" alt=""/><span>历史数据</span></h2>
-            <HistoryBar showflag="all"/>
-            <div /> </div>
-            </div>
+
 
       </div>
 
           </div>
+    //<div className="right_con rhuadong">
+    //<div className="bor_con">
+    //<h2 className="title"><img src="images/lis.png" alt=""/><span>历史数据</span></h2>
+    //<HistoryBar showflag="all"/>
+    //<div /> </div>
+    //</div>
 
             // <div className="indexPage">
             //     <Header />
