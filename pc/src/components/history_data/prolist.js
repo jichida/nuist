@@ -2,20 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
 
-import {
-	set_uiapp,
-} from '../../actions';
+
 import "./prolist.css";
 
 class App extends React.Component {
-	constructor(props) {  
-        super(props);  
-        this.state = {curproduct:null};
-	} 
-	onClickPopProductInfo = (curproduct)=>{
-		this.setState({curproduct});
-		this.props.dispatch(set_uiapp({ispopproductinfo:true}));
-	}
+
+
   render() {
     const {productlist,products} = this.props;
     return (
@@ -28,7 +20,7 @@ class App extends React.Component {
 						lodashmap((productlist),(pid)=>{
 							const product = products[pid];
 							if(!!product){
-								return (<li key={pid} onClick={()=>{this.onClickPopProductInfo(product)}}>
+								return (<li key={pid} onClick={()=>{this.props.onClickPopProductInfo(product)}}>
 											<p>{product.name}</p><img src={product.picurl}  alt=""/>
 									</li>);
 							}

@@ -6,11 +6,11 @@ import ProductList from './prolist';
 
 class App extends React.Component {
   render() {
-      const {shownum} = this.props;
+      const {shownum,onClickPopProductInfo} = this.props;
     return (
       	<div className="right_con rhuadong">
             <ChartsRealtime shownum={shownum}/>
-            <ProductList />
+            <ProductList onClickPopProductInfo={onClickPopProductInfo}/>
         </div>
     )
   }

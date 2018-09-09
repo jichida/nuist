@@ -20,13 +20,21 @@ import {
   ui_notifyresizeformap,
   ui_setmapstyle
 } from '../../actions';
+import {
+	set_uiapp,
+} from '../../actions';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selfield:''
+      selfield:'',
+      curproduct:null
     };
+  }
+  onClickPopProductInfo = (curproduct)=>{
+    this.setState({curproduct});
+    this.props.dispatch(set_uiapp({ispopproductinfo:true}));
   }
   componentDidMount(){
 
@@ -99,7 +107,7 @@ class App extends React.Component {
             </div>
           </div>
 
-          <HistoryDataBar shownum={2}/>
+          <HistoryDataBar shownum={2} onClickPopProductInfo={this.onClickPopProductInfo}/>
         </div>
         {ispoppwd && loginsuccess && <Changepwd />}
         { ispopproductinfo && <Info curproduct={this.state.curproduct}/>}
