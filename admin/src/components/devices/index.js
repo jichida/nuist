@@ -59,6 +59,7 @@ const DeviceEdit = (props) => {
           <TextField label="节点ID" source="DeviceId"  />
           <TextInput label="节点名字" source="name"  validate={required} />
           <TextInput label="所属城市" source="city"  validate={required} />
+          <TextInput label="地址" source="addressname" />
           <TextInput label="所属城市首字母" source="cityindex"  validate={required} />
           <TextInput label="所在区域" source="locationname"  />
           <ReferenceInput label="网关ID" source="gatewayid" reference="gateway" allowEmpty>
@@ -104,6 +105,7 @@ const DeviceList = (props) => (
         <TextField source="name" />
       </ReferenceField>
       <TextField label="所在区域" source="locationname"/>
+      <TextField label="所在地址" source="addressname"/>
       <EditButton />
     </Datagrid>
   </List>

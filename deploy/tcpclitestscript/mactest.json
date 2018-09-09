@@ -1,0 +1,30 @@
+{
+  "apps" : [
+      {
+        "name": "tc",
+        "script": "/Users/wangxiaoqing/Downloads/work/nuist/deploy/testtcp/index.js",
+        "env": {
+          "NODE_ENV": "production",
+          "DEBUG":"*",
+          "DEBUG_COLORS":"1",
+          "deviceid":3,
+          "targetip":"127.0.0.1",
+          "sendpinginterval":10000,
+          "senddatainterval":300,
+          "pressure_data_min":21,
+          "pressure_data_max":22,
+          "winddirection_data_min":271,
+          "winddirection_data_max":273,
+          "windspeed_data_min":0,
+          "windspeed_data_max":10,
+          "humidity_data_min":0,
+          "humidity_data_max":100,
+          "rainfall_data_min":0,
+          "rainfall_data_max":10,
+          "temperature_data_min":10,
+          "temperature_data_max":20
+        },
+        "node-args": "--nouse-idle-notification --gc_global --max-old-space-size=80960 --max-new-space-size=80960"
+      }
+  ]
+}
