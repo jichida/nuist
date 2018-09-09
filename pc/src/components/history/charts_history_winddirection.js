@@ -65,7 +65,7 @@ const mapStateToProps = (state,props) => {
           data: retlist[curfield],
           coordinateSystem: 'polar',
           name: 'A',
-          stack: 'a'
+          stack: 'a',
       }],
   };
 

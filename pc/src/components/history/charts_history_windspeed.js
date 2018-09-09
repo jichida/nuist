@@ -68,7 +68,12 @@ const mapStateToProps = (state,props) => {
       },
       series: [{
           data: retlist[curfield],
-          type: 'line'
+          type: 'line',
+          itemStyle: {
+                           normal: {
+                                 color: 'rgb(134, 184, 243)'
+                           }
+                         },
       }]
   };
  //  const option = {

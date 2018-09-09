@@ -24,6 +24,7 @@ const ChartsRealtime = (props)=>{
   return (<div className="bor_con">
       <h2 className="title"><img src="images/sjjc.png" alt=""/>
         <span>数据检测</span>
+        <div class="title_tab"><span class="time">更多</span></div>
       </h2>
       <div className="data_box vertical">
         { //realTimePage
