@@ -595,3 +595,24 @@ body {
 .windcontrol img {
   position: absolute;
 }
+
+.proinfo {
+  width: 100%;
+  margin-top: 128px;
+  position: absolute;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.proinfo > div {
+  border: 2px solid #273c4f;
+  background: #5d7792;
+}
+.proinfo .close {
+  width: 64px;
+  margin: 1em auto;
+}
+body {
+  height: auto !important;
+}

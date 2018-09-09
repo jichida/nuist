@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
-import Info from './info';
+
 import {
 	set_uiapp,
 } from '../../actions';
@@ -17,7 +17,7 @@ class App extends React.Component {
 		this.props.dispatch(set_uiapp({ispopproductinfo:true}));
 	}
   render() {
-    const {productlist,products,ispopproductinfo} = this.props;
+    const {productlist,products} = this.props;
     return (
 			<div className="bor_con border_top">
 					<h2 className="title">
@@ -35,13 +35,13 @@ class App extends React.Component {
 						})
 					}
         </ul>
-				 { ispopproductinfo && <Info curproduct={this.state.curproduct}/>}
+
       </div>
     );
   }
 }
 
-const mapStateToProps = ({product:{productlist,products},app:{ispopproductinfo}}) => {
-    return {productlist,products,ispopproductinfo};
+const mapStateToProps = ({product:{productlist,products}}) => {
+    return {productlist,products};
 }
 export default connect(mapStateToProps)(App);

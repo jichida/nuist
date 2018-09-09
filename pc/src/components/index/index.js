@@ -8,7 +8,7 @@ import ChartsHistory from '../history/charts_history_container.js';
 // import Login from "./login.js";
 // import Weather from "./weather";
 // import Swiper from "./swiper";
-//
+import Info from '../history_data/info';
 // // import Monitoring from "./monitoring";
 // // import Investigation from "./investigation";
 // import DataChart from './datachart';
@@ -55,7 +55,7 @@ class App extends React.Component {
     });
   }
   render() {
-    const {ispoppwd,loginsuccess,viewtype} = this.props;
+    const {ispoppwd,ispopproductinfo,loginsuccess,viewtype} = this.props;
     const {fields} = viewtype;
 
     let selfield = this.state.selfield;
@@ -102,6 +102,7 @@ class App extends React.Component {
           <HistoryDataBar />
         </div>
         {ispoppwd && loginsuccess && <Changepwd />}
+        { ispopproductinfo && <Info curproduct={this.state.curproduct}/>}
       </div>
     //   <div className="indexPage">
     //     <Header />
@@ -131,8 +132,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({app:{ispoppwd,mapstyle},
+const mapStateToProps = ({app:{ispoppwd,ispopproductinfo,mapstyle},
 	userlogin:{loginsuccess},device:{viewtype}}) => {
-    return {ispoppwd,loginsuccess,mapstyle,viewtype};
+    return {ispoppwd,ispopproductinfo,loginsuccess,mapstyle,viewtype};
 }
 export default connect(mapStateToProps)(App);
