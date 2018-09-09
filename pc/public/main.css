@@ -312,9 +312,10 @@ body {
 }
 
 .title .title_tab span.time {
-    padding: 8px 0px;
     background-color: transparent;
     color: #999;
+    font-size: 14px;
+    margin-right: 0px
 }
 
 .title .title_tab span {
@@ -564,7 +565,7 @@ body {
     /*left: -145%;*/
     /*top: -170%; */
     /*left: -25%;*/
-    top: -45%;
+    top: -47%;
 }
 
 .right_con {
@@ -846,4 +847,16 @@ ul li .num {
 
 body {
     height: auto !important;
+}
+
+@media screen and (max-device-width: 1440px) {
+    .center_box .windcontrol img {
+        width: 220px
+    }
+}
+
+@media screen and (max-device-width: 1680px) {
+    .center_box .windcontrol img {
+        width: 370px
+    }
 }
