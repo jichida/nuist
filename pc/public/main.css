@@ -546,18 +546,17 @@ body {
   padding: 20px;
   height: 806px;
   overflow-y: scroll; }
-  .sjyj_box ul li {
-    width: 33.33%;
-    float: left; }
     .sjyj_box ul li .sjyj_li {
       margin-left: 20px;
-      text-align: center;
       margin-bottom: 20px;
       border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 20px 20px 20px 80px;
+      border-radius: 100px 0px 0px 100px;
+      padding: 20px 20px 20px 100px;
       text-align: left;
-      position: relative; }
+      position: relative;
+box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    }
+    ul li .num{ left: 20px!important}
       .sjyj_box ul li .sjyj_li h2 {
         font-size: 18px; }
       .sjyj_box ul li .sjyj_li p,
@@ -567,11 +566,9 @@ body {
       .sjyj_box ul li .sjyj_li p {
         font-size: 12px;
         color: #666; }
-  .sjyj_box li:nth-child(3n+1) .sjyj_li {
-    margin-left: 0px; }
 
 /*# sourceMappingURL=main.css.map */
-
+.center_mr0{ margin-right: 0px}
 .center_box .windcontrol {
     display: flex;
     justify-content: center;

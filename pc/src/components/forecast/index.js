@@ -53,19 +53,19 @@ class App extends React.Component {
   </div>
   </div>
 
-  <div className="center_con">
+  <div className="center_con center_mr0">
       <div className="bor_con center_box">
       <h2 className="title"><img src="images/jied.png"  alt=""/>
       <span>综合警报</span></h2>
       <List />
       </div>
                   </div>
-                  <div className="right_con rhuadong">
+                  {/* <div className="right_con rhuadong">
             <div className="bor_con">
             <h2 className="title"><img src="images/lis.png" alt=""/><span>历史数据</span></h2>
             <HistoryBar showflag="all"/>
             <div /> </div>
-                  </div>
+                  </div> */}
 
       </div>
 
