@@ -20,7 +20,7 @@ const ChartsRealtime = (props)=>{
       </h2>
       <div className="data_box">
        <ul>
-           {false && !!showvalue_winddirection && !!showvalue_windspeed && <ChartWinddirection curdevice={curdevice} />}
+           {!!showvalue_winddirection && !!showvalue_windspeed && <ChartWinddirection curdevice={curdevice} />}
            {!!showvalue_humidity && <li> <ChartHumidity humidity={showvalue_humidity}/></li>}
            {!!showvalue_pressure && <li> <ChartPressure pressure={showvalue_pressure}/></li>}
            {!!showvalue_rainfall && !!showvalue_temperature &&

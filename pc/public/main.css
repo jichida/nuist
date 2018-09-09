@@ -146,7 +146,7 @@ body {
   left: 0px;
   top: 0px;
   bottom: 0px;
-  z-index: 9999;
+  z-index: 0;
   height: 890px; }
   .left_con .left_bg {
     background-color: #2f435b;
@@ -556,3 +556,16 @@ body {
     margin-left: 0px; }
 
 /*# sourceMappingURL=main.css.map */
+
+.windcontrol {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 400px;
+  zoom: .6;
+  margin: auto;
+}
+
+.windcontrol img {
+  position: absolute;
+}
