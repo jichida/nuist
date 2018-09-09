@@ -83,17 +83,17 @@ const mapStateToProps = (state,props) => {
            sampling: 'average',
            itemStyle: {
                normal: {
-                   color: 'rgb(81, 179, 200)'
+                   color: 'rgb(254, 124, 105)'
                }
            },
            areaStyle: {
                normal: {
                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                        offset: 0,
-                       color: 'rgb(119, 151, 164)'
+                       color: 'rgb(255, 235, 231)'
                    }, {
                        offset: 1,
-                       color: 'rgb(49, 90, 130)'
+                       color: 'rgb(255, 246, 245)'
                    }])
                }
            },

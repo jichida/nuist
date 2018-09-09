@@ -687,8 +687,6 @@ body {
 
 .data_list_box {
     padding: 20px;
-    height: 526px;
-    overflow-y: scroll;
 }
 
 .data_list_box dl {
@@ -761,7 +759,7 @@ body {
     padding: 20px 20px 20px 100px;
     text-align: left;
     position: relative;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
 }
 
 ul li .num {

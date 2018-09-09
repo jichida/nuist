@@ -7,14 +7,20 @@ import ChartTemperatureRainfall  from '../realtime/charts_temperaturerainfall';
 import ChartWinddirection from '../realtime/charts_winddirection';
 
 const ChartsRealtime = (props)=>{
-  const {curdevice} = props;
-  const showvalue_winddirection = lodashget(curdevice,`realtimedata.winddirection`);
-  const showvalue_windspeed = lodashget(curdevice,`realtimedata.windspeed`);
-  const showvalue_humidity = lodashget(curdevice,`realtimedata.humidity`);
-  const showvalue_pressure = lodashget(curdevice,`realtimedata.pressure`);
-  const showvalue_rainfall = lodashget(curdevice,`realtimedata.rainfall`);
-  const showvalue_temperature = lodashget(curdevice,`realtimedata.temperature`);
-  const realTimePage = props.pageType || false;
+  const {curdevice,shownum} = props;
+  let showvalue_winddirection = lodashget(curdevice,`realtimedata.winddirection`);
+    let showvalue_windspeed = lodashget(curdevice,`realtimedata.windspeed`);
+    let showvalue_humidity = lodashget(curdevice,`realtimedata.humidity`);
+    let showvalue_pressure = lodashget(curdevice,`realtimedata.pressure`);
+    let showvalue_rainfall = lodashget(curdevice,`realtimedata.rainfall`);
+    let showvalue_temperature = lodashget(curdevice,`realtimedata.temperature`);
+    let realTimePage = props.pageType || false;
+    if(shownum==2){
+        //showvalue_humidity=false;
+        showvalue_pressure=false;
+        showvalue_rainfall=false;
+        showvalue_temperature=false;
+    }
   return (<div className="bor_con">
       <h2 className="title"><img src="images/sjjc.png" alt=""/>
         <span>数据检测</span>

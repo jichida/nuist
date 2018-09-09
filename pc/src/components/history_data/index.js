@@ -6,9 +6,10 @@ import ProductList from './prolist';
 
 class App extends React.Component {
   render() {
+      const {shownum} = this.props;
     return (
       	<div className="right_con rhuadong">
-            <ChartsRealtime />
+            <ChartsRealtime shownum={shownum}/>
             <ProductList />
         </div>
     )
