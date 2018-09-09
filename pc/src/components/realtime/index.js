@@ -17,6 +17,12 @@ import lodashget from 'lodash.get';
 import {set_uiapp} from '../../actions';
 
 class App extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        page: 'realtime'
+      };
+    }
     componentDidMount() {
       if(lodashget(this.props,'match.params.id','') !== ''){
         this.props.dispatch(set_uiapp({
@@ -50,7 +56,7 @@ class App extends React.Component {
   <div className="center_con">
       <div className="center_box">
 
-      <ChartsRealtime /> <div className="bor_con" style={{marginTop: '10px'}}>
+      <ChartsRealtime pageType={this.state.page}/> <div className="bor_con" style={{marginTop: '10px'}}>
       <h2 className="title"><img src="images/jied.png"  alt=""/>
       <span>历史数据</span></h2>
 

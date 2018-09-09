@@ -32,7 +32,7 @@ class Page extends Component {
     return (
           <ReactEcharts
             option={this.props.option}
-            style={{height: '800px', width: '800px'}}
+            style={{height: '400px', width: '400px'}}
             className='react_for_echarts_last' />
     );
   }
@@ -50,8 +50,8 @@ const mapStateToProps = (state,props) => {
         {
           name: '雨量',
           type: 'gauge',
-          center: ['77%', '50%'],    // 默认全局居中
-          radius: '24%',
+          // center: ['77%', '50%'],    // 默认全局居中
+          radius: '45%',
           min: 0,
           max: 100,
           startAngle: 155,
@@ -122,8 +122,8 @@ const mapStateToProps = (state,props) => {
         {
           name: '温度',
           type: 'gauge',
-          center : ['77%', '50%'],    // 默认全局居中
-          radius : '24%',
+          // center : ['77%', '50%'],    // 默认全局居中
+          radius : '45%',
           min: 0,
           max: 40,
           startAngle: 335,
