@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import ChartHistory from "./charts_area_history";
+import ChartHistory from "./charts_history_container_charttype";
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
 import moment from 'moment';

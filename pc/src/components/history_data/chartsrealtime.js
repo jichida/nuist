@@ -14,19 +14,34 @@ const ChartsRealtime = (props)=>{
   const showvalue_pressure = lodashget(curdevice,`realtimedata.pressure`);
   const showvalue_rainfall = lodashget(curdevice,`realtimedata.rainfall`);
   const showvalue_temperature = lodashget(curdevice,`realtimedata.temperature`);
+  const realTimePage = props.pageType || false;
   return (<div className="bor_con">
       <h2 className="title"><img src="images/sjjc.png" alt=""/>
         <span>数据检测</span>
       </h2>
       <div className="data_box vertical">
-       <ul>
-           {!!showvalue_winddirection && !!showvalue_windspeed && <ChartWinddirection curdevice={curdevice} />}
-           {!!showvalue_humidity && <li> <ChartHumidity humidity={showvalue_humidity}/></li>}
-           {!!showvalue_pressure && <li> <ChartPressure pressure={showvalue_pressure}/></li>}
-           {!!showvalue_rainfall && !!showvalue_temperature &&
-             <li> <ChartTemperatureRainfall rainfall={showvalue_rainfall} temperature={showvalue_temperature}/></li>
-           }
-      </ul>
+        { //realTimePage
+          !!realTimePage && <div style={{'flex-flow': 'row wrap','display': 'flex'}}>
+            {!!showvalue_winddirection && !!showvalue_windspeed && <div className='windcontrol1' ><ChartWinddirection curdevice={curdevice} /></div>}
+            {!!showvalue_rainfall && !!showvalue_temperature &&
+            <div className='windcontrol1' > <ChartTemperatureRainfall rainfall={showvalue_rainfall} temperature={showvalue_temperature}/></div>
+            }
+            {!!showvalue_humidity && <div className='windcontrol1' > <ChartHumidity humidity={showvalue_humidity}/></div>}
+            {!!showvalue_pressure && <div className='windcontrol1' > <ChartPressure pressure={showvalue_pressure}/></div>}
+
+          </div>
+        }
+        {
+            !!!realTimePage && <ul>
+            {!!showvalue_winddirection && !!showvalue_windspeed && <ChartWinddirection curdevice={curdevice} />}
+            {!!showvalue_humidity && <li> <ChartHumidity humidity={showvalue_humidity}/></li>}
+            {!!showvalue_pressure && <li> <ChartPressure pressure={showvalue_pressure}/></li>}
+            {!!showvalue_rainfall && !!showvalue_temperature &&
+            <li> <ChartTemperatureRainfall rainfall={showvalue_rainfall} temperature={showvalue_temperature}/></li>
+            }
+          </ul>
+        }
+
       </div>
   </div>);
 
