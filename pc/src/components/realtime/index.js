@@ -48,7 +48,7 @@ class App extends React.Component {
               <div className="w_1220">
       <div className="left_con left_con_bg">
       <div className="real_time">
-      <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>实时监控</span></h2>
+      <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>节点列表</span></h2>
                 <NodeSel />
   </div>
   </div>
@@ -57,7 +57,7 @@ class App extends React.Component {
       <div className="center_box rhuadong">
 
       <ChartsRealtime pageType={this.state.page}/> <div className="bor_con border_top">
-      <h2 className="title"><img src="images/jied.png"  alt=""/>
+      <h2 className="title"><img src="images/chax.png"  alt=""/>
       <span>历史数据</span></h2>
 
                     <div className="curve_box data_list_box rhuadong">

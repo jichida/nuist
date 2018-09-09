@@ -48,14 +48,14 @@ class App extends React.Component {
               <div className="w_1220">
       <div className="left_con left_con_bg">
       <div className="real_time">
-      <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>实时监控</span></h2>
+      <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>节点列表</span></h2>
                 <NodeSel />
   </div>
   </div>
 
   <div className="center_con center_mr0">
       <div className="bor_con center_box">
-      <h2 className="title"><img src="images/jied.png"  alt=""/>
+      <h2 className="title"><img src="images/jb.png"  alt=""/>
       <span>综合警报</span></h2>
       <List />
       </div>

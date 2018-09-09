@@ -19,14 +19,14 @@ class App extends React.Component {
               <div className="w_1220">
       <div className="left_con left_con_bg">
       <div className="real_time">
-      <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>实时监控</span></h2>
+      <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>节点列表</span></h2>
                 <NodeSel />
   </div>
   </div>
 
   <div className="center_con">
       <div className="bor_con center_box">
-      <h2 className="title"><img src="images/jied.png"  alt=""/><span>节点拓扑</span></h2>
+      <h2 className="title"><img src="images/jko.png"  alt=""/><span>实时监控</span></h2>
         <div className="spjk_box">
             <div className="spjk_left">
             <h2>正在监控  青龙峡大坝</h2>
@@ -42,28 +42,28 @@ class App extends React.Component {
             <div className="spjk_right">
             <ul>
             <li>
-            <div className="spjk_li"> <img alt="" src={Spimg} style={{width:'100%'}}/>
+            <div className="spjk_li"> <img alt="" src="images/1.jpg" style={{width:'100%'}}/>
             <p>青龙峡大坝</p>
             </div>
             </li>
 <li>
-<div className="spjk_li"> <img alt="" src={Spimg} style={{width:'100%'}}/>
+<div className="spjk_li"> <img alt="" src="images/2.jpg" style={{width:'100%'}}/>
 <p>胡佛大坝</p>
 </div>
 </li>
 <li>
-<div className="spjk_li"> <img alt="" src={Spimg} style={{width:'100%'}}/>
-<p>胡佛大坝</p>
+<div className="spjk_li"> <img alt="" src="images/3.jpg" style={{width:'100%'}}/>
+<p>锦屏大坝</p>
 </div>
 </li>
 <li>
-<div className="spjk_li"> <img alt="" src={Spimg} style={{width:'100%'}}/>
-<p>胡佛大坝</p>
+<div className="spjk_li"> <img alt="" src="images/4.jpg" style={{width:'100%'}}/>
+<p>向家坝</p>
 </div>
 </li>
 <li>
-<div className="spjk_li"> <img alt="" src={Spimg} style={{width:'100%'}}/>
-<p>胡佛大坝</p>
+<div className="spjk_li"> <img alt="" src="images/5.jpg" style={{width:'100%'}}/>
+<p>雅砻江</p>
 </div>
 </li>
             </ul>
