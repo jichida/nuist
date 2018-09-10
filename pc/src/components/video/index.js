@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import "./index.css";
 import Header from "../header";
 import ChartsRealtime from '../history_data/chartsrealtime';
 // import AbstractBar from "../abstract";
+import {Dropdown,Button,Icon} from 'antd';
+import getMenu from '../abstract/dropdownselmenu_device';
 import HistoryBar from '../history/historybar';
 // import Footer from "../footer";
 // import Upimg from "../../img/jta.png";
@@ -10,9 +13,16 @@ import HistoryBar from '../history/historybar';
 import Spimg from "../../img/spimg.jpg";
 import Spxqimg from "../../img/spimg1.jpg";
 import NodeSel from '../nodesel';
+import lodashget from 'lodash.get';
 
 class App extends React.Component {
     render() {
+      const {devices,gateways,usersettings} = this.props;
+      const indexgatewayid = usersettings.indexgatewayid;
+      const curgateway = lodashget(gateways,`${indexgatewayid}`);
+      if(!curgateway){
+        return <div>未选择网关</div>
+      }
         return (
           <div className="deployment-page root-page">
               <Header />
@@ -26,7 +36,9 @@ class App extends React.Component {
 
   <div className="center_con">
       <div className="bor_con center_box">
-      <h2 className="title"><img src="images/jko.png"  alt=""/><span>实时监控</span></h2>
+      <h2 className="title"><img src="images/jko.png"  alt=""/><span>实时监控</span>
+
+    </h2>
         <div className="spjk_box">
             <div className="spjk_left">
             <h2>正在监控  青龙峡大坝</h2>
@@ -134,4 +146,8 @@ class App extends React.Component {
     }
 }
 
-export default App;
+const mapStateToProps = ({device,userlogin}) => {
+    const {gateways,devicelist,devices,viewtype} = device;
+    return {gateways,devicelist,devices,viewtype,usersettings:userlogin.usersettings};
+}
+export default connect(mapStateToProps)(App);

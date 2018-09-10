@@ -19,6 +19,8 @@ import {
   setvote_result,
   changepwd_result,
   set_uiapp,
+  ui_seldropdowndevice,
+  ui_selgateway,
   saveusersettings_result,
   ui_notifyresizeformap,
   ui_setmapstyle,
@@ -27,10 +29,63 @@ import {
 // import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 // import map from 'lodash.map';
 import lodashget from 'lodash.get';
+import lodashmap from 'lodash.map';
 import config from '../env/config.js';
 import {getdomposition} from '../util/index';
 
 export function* wsrecvsagaflow() {
+  yield takeLatest(`${ui_seldropdowndevice}`,function*(action){
+    //若第一次usersettings里面字段为空，则设置
+      const deviceid = action.payload;
+
+      let usersettings = yield select((state)=>{
+        const usersettings = lodashget(state,'userlogin.usersettings',{
+          indexdeviceid:'',
+          warninglevel:'',
+          subscriberdeviceids : []
+        });
+        return usersettings;
+      });
+
+
+      usersettings.indexdeviceid = deviceid;
+
+      yield put(saveusersettings_result(usersettings));
+  });
+
+
+  yield takeLatest(`${ui_selgateway}`,function*(action){
+    //若第一次usersettings里面字段为空，则设置
+      const gatewayid = action.payload;
+      const devices = yield select((state)=>{
+        const {devices} = state.device;
+        return devices;
+      });
+
+      let usersettings = yield select((state)=>{
+        const usersettings = lodashget(state,'userlogin.usersettings',{
+          indexdeviceid:'',
+          warninglevel:'',
+          subscriberdeviceids : []
+        });
+        return usersettings;
+      });
+      let seldeviceid;
+      if(lodashget(devices,`${usersettings.indexdeviceid}.gatewayid`) === gatewayid){
+        seldeviceid = usersettings.indexdeviceid;
+      }
+      lodashmap(devices,(device)=>{
+        if(!seldeviceid && device.gatewayid === gatewayid){
+          seldeviceid = device._id;
+        }
+      });
+
+      usersettings.indexdeviceid = seldeviceid;
+      usersettings.indexgatewayid = gatewayid;
+      yield put(saveusersettings_result(usersettings));
+  });
+
+
   yield takeLatest(`${getgatewaylist_result_4reducer}`,function*(action){
     //若第一次usersettings里面字段为空，则设置
     const {list} = action.payload;
@@ -43,9 +98,9 @@ export function* wsrecvsagaflow() {
         });
         return usersettings;
       });
-
       if(usersettings.indexdeviceid === ''){
         usersettings.indexdeviceid = list[0]._id;
+        usersettings.indexgatewayid = lodashget(list[0],'gatewayid._id');
         yield put(saveusersettings_result(usersettings));
       }
     }

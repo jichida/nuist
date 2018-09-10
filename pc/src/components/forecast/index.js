@@ -3,17 +3,19 @@ import { connect } from 'react-redux';
 import "./index.css";
 // import Jtimg from "../../img/jt.png";
 import Header from "../header";
+import SeldropdownDevice from '../abstract/seldroplistdevice';
 // import AbstractBar from "../abstract";
 // import HistoryDataBar from "../history_data";
 // import Footer from "../footer";
 import NodeSel from '../nodesel';
+
 // import lodashget from 'lodash.get';
 // import ReportContainer from "../history/reportcontainer.js";
 // import ChartsRealtime from '../history_data/chartsrealtime';
 // //import Wximg from "../../img/wx_icon.jpg";
 // // import Tdimg from "../../img/tp_d.jpg";
 // import ChartsHistory from '../history/charts_history_container.js';
-import HistoryBar from '../history/historybar';
+// import HistoryBar from '../history/historybar';
 import List from "./list.js";
 import {
   // set_uiapp,
@@ -21,6 +23,7 @@ import {
   ui_stopalarm
   // getrealtimealarmlist_request
 } from '../../actions';
+import lodashget from 'lodash.get';
 
 class App extends React.Component {
     componentDidMount () {
@@ -32,11 +35,11 @@ class App extends React.Component {
       // this.props.dispatch(getrealtimealarmlist_request({}));
     }
     render() {
-      const {devices,usersettings} = this.props;
-      const indexdeviceid = usersettings.indexdeviceid;
-      const curdevice = devices[indexdeviceid];
-      if(!curdevice){
-        return <div>无设备</div>
+      const {devices,gateways,usersettings} = this.props;
+      const indexgatewayid = usersettings.indexgatewayid;
+      const curgateway = lodashget(gateways,`${indexgatewayid}`);
+      if(!curgateway){
+        return <div>未选择网关</div>
       }
       // const retlist = lodashget(historydevices,`${curdevice._id}`,[]);
 
@@ -56,7 +59,9 @@ class App extends React.Component {
   <div className="center_con center_mr0">
       <div className="bor_con center_box">
       <h2 className="title"><img src="images/jb.png"  alt=""/>
-      <span>综合警报</span></h2>
+      <span>综合警报</span>
+      <SeldropdownDevice />
+    </h2>
       <List />
       </div>
                   </div>
@@ -91,7 +96,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({device,userlogin,historydevice:{historydevices}}) => {
-    const {devicelist,devices,viewtype} = device;
-    return {devicelist,devices,viewtype,historydevices,usersettings:userlogin.usersettings};
+    const {gateways,devicelist,devices,viewtype} = device;
+    return {gateways,devicelist,devices,viewtype,historydevices,usersettings:userlogin.usersettings};
 }
 export default connect(mapStateToProps)(App);

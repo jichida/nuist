@@ -5,14 +5,15 @@ import lodashget from 'lodash.get';
 import Jtimg from "../../img/jt.png";
 import "./index.css";
 import {
-	ui_mycar_selcurdevice
+	// ui_mycar_selcurdevice,
+	ui_selgateway
 } from '../../actions';
 
 class App extends React.Component {
-    selectdevice = (did)=>{
-			const {devices} = this.props;
-			if(!!devices[did]){
-				this.props.dispatch(ui_mycar_selcurdevice(did));
+    selectgateway = (gid)=>{
+			const {gateways} = this.props;
+			if(!!gateways[gid]){
+				this.props.dispatch(ui_selgateway(gid));
 			}
 
       // const usersettings = this.props.usersettings;
@@ -20,32 +21,30 @@ class App extends React.Component {
       // this.props.dispatch(saveusersettings_request(usersettings));
     }
     render() {
-        const {devicelist,devices,usersettings} = this.props;
-				const indexdeviceid = usersettings.indexdeviceid;
+        const {indexgatewayid,gateways }= this.props;
+				// debugger;
         return (
           <div>
-
           <div className="left_box left_height huadong">
         <dl className="dl_bg">
         <dd>ID</dd>
-        <dd>节点名</dd>
+        <dd>网关名</dd>
 				<dd>区域<img alt="" src={Jtimg}  style={{display:'inline-block'}}/ ></dd>
         </dl>
             {
-              lodashmap(devicelist,(did,index)=>{
-                const curdevice = devices[did];
-                if(did === indexdeviceid){
+              lodashmap(gateways,(gateway,gid)=>{
+                if(indexgatewayid === gid){
                   return (
-                    <dl key={index} className="sel">
-                        <dd>{lodashget(curdevice,'DeviceId','')}</dd>
-                        <dd>{lodashget(curdevice,'name','')}</dd><dd>{lodashget(curdevice,'locationname','')}</dd>
+                    <dl key={gid} className="sel">
+                        <dd>{lodashget(gateway,'GatewayId','')}</dd>
+                        <dd>{lodashget(gateway,'name','')}</dd><dd>{lodashget(gateway,'locationname','')}</dd>
                     </dl>
                   )
                 }
                 return (
-                  <dl key={index} onClick={()=>{this.selectdevice(did)}}>
-                      <dd>{lodashget(curdevice,'DeviceId','')}</dd>
-                      <dd>{lodashget(curdevice,'name','')}</dd><dd>{lodashget(curdevice,'locationname','')}</dd>
+                  <dl key={gid} onClick={()=>{this.selectgateway(gid)}}>
+                      <dd>{lodashget(gateway,'GatewayId','')}</dd>
+                      <dd>{lodashget(gateway,'name','')}</dd><dd>{lodashget(gateway,'locationname','')}</dd>
                   </dl>
                 )
               })
@@ -57,8 +56,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({device,userlogin}) => {
-    const {devicelist,devices} = device;
-
-    return {devicelist,devices,usersettings:userlogin.usersettings};
+    const {gateways} = device;
+		const indexgatewayid = userlogin.usersettings.indexgatewayid;
+    return {gateways,indexgatewayid};
 }
 export default connect(mapStateToProps)(App);

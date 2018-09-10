@@ -621,7 +621,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
             const {devices,viewtype,gateways} = state.device;
             return {g_devicesdb:devices,gateways,viewtype};
           });
-          console.log(`devicelist->${JSON.stringify(devicelist)}`);
+          // console.log(`devicelist->${JSON.stringify(devicelist)}`);
           for( i=0;i<devicelist.length;i++){
             g_devicesdb[devicelist[i]._id] = devicelist[i];
           }
@@ -633,7 +633,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           for( i=0;i<devicelist.length;i++){
             g_devicesdb_updated[devicelist[i]._id] = devicelist[i];
           }
-          console.log(`${JSON.stringify(g_devicesdb_updated)}`);
+          // console.log(`${JSON.stringify(g_devicesdb_updated)}`);
           getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
 
           const {usersettings} = yield select((state)=>{
@@ -643,8 +643,8 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           const indexdeviceid = get(usersettings,'indexdeviceid','');
 
           for( i=0;i<devicelist.length;i++){
-            console.log(`${devicelist[i]._id}==>${devicelist[i]._id === indexdeviceid}`);
-      
+            // console.log(`${devicelist[i]._id}==>${devicelist[i]._id === indexdeviceid}`);
+
             if(!!infoWindow && devicelist[i]._id === indexdeviceid){//如果正在弹窗并且是选中的item，则更新弹窗内容{
               const {content} = getpopinfowindowstyle(devicelist[i],viewtype);
               infoWindow.setContent(content);

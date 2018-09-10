@@ -4,6 +4,7 @@ import {
     login_result,
     logout_result,
     saveusersettings_result,
+
 } from '../actions';
 import config from '../env/config';
 
@@ -14,6 +15,7 @@ const initial = {
     token: '',
     avatar : "",
     usersettings : {
+      indexgatewayid:'',
       indexdeviceid:'',
       warninglevel:'',
       subscriberdeviceids : []

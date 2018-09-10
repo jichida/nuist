@@ -43,7 +43,7 @@ class App extends React.Component {
 		this.props.dispatch(ui_mycar_selcurdevice(did));
   }
   render() {
-    const {curdevice,devicelist,devices,viewtype} = this.props;
+    const {gateways,curdevice,devicelist,devices,viewtype} = this.props;
     if(!curdevice){
       return <div />
     }
@@ -53,12 +53,12 @@ class App extends React.Component {
         <h2 className="title left_bg">
 		  <img src="images/add.png" alt=""/><span>实时监控</span>
           <em>
-            <Dropdown  overlay={getMenu({devicelist,devices,onMenuClick:
+            <Dropdown  overlay={getMenu({gateways,devicelist,devices,onMenuClick:
 							(e)=>{
 								this.onMenuClick(e.key)
 							}
 						})} placement="bottomLeft">
-              <Button style={{ marginLeft: 8 }}>{name}<Icon type="down" /></Button>
+              <Button style={{ marginLeft: 8 }}>{gateways[curdevice.gatewayid].name}<Icon type="down" /></Button>
             </Dropdown>
           </em>
         </h2>
@@ -68,7 +68,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({device:{devicelist,devices,viewtype},userlogin:{usersettings}}) => {
+const mapStateToProps = ({device:{devicelist,devices,viewtype,gateways},userlogin:{usersettings}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
@@ -79,6 +79,6 @@ const mapStateToProps = ({device:{devicelist,devices,viewtype},userlogin:{userse
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {curdevice,devicelist,devices,usersettings,viewtype};
+    return {curdevice,devicelist,devices,usersettings,viewtype,gateways};
 }
 export default connect(mapStateToProps)(App);

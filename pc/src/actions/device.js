@@ -7,7 +7,7 @@ export const getgatewaylist_result_4reducer = createAction('getgatewaylist_resul
 export const getrealtimealarmlist_request = createAction('getrealtimealarmlist_request');
 export const getrealtimealarmlist_result = createAction('getrealtimealarmlist_result');
 
-export const serverpush_alarm =  createAction('serverpush_alarm');
+
 export const serverpush_device =  createAction('serverpush_device');
 export const serverpush_gateway =  createAction('serverpush_gateway');
 export const serverpush_device_list = createAction('serverpush_device_list');

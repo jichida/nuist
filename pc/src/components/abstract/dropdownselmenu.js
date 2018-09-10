@@ -5,23 +5,24 @@ import lodashmap from 'lodash.map';
 import Menu from 'antd/lib/menu';
 const SubMenu = Menu.SubMenu;
 
-const getMenu = ({devicelist,devices,onMenuClick} )=>{
+const getMenu = ({devicelist,gateways,devices,onMenuClick} )=>{
   return  (
     <Menu onClick={onMenuClick}>
       {
-        lodashmap(devicelist,(did)=>{
-          const curdevice = devices[did];
-          if(!!curdevice){
+        lodashmap(gateways,(gateway,gid)=>{
+
             return (
-                  <SubMenu  key={did} title={lodashget(curdevice,'name','')}>
+                  <SubMenu  key={gid} title={lodashget(gateway,'name','')}>
                     {
                        lodashmap(devicelist,(did)=>{
                           const curdevice = devices[did];
-                          return (<Menu.Item>{lodashget(curdevice,'name','')}</Menu.Item>)
+                          if(curdevice.gatewayid === gid){
+                            return (<Menu.Item key={did}>{lodashget(curdevice,'name','')}</Menu.Item>)
+                          }
                        })
                     }
                   </SubMenu>);
-          }
+
         })
       }
     </Menu>
