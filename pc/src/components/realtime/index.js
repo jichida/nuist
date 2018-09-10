@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Popover } from 'antd';
 import Header from "../header";
 // import AbstractBar from "../abstract";
 import HistoryBar from '../history/historybar';
@@ -7,6 +8,7 @@ import HistoryBar from '../history/historybar';
 import NodeSel from '../nodesel';
 // import Meter from "./meter";
 import List from "../history/list.js";
+import QueryPage from '../history/querypage.js';
 // import Filler from "../history/filler.js";
 // import ChartsHistory from '../history/charts_history_container.js';
 // import ReportContainer from "../history/reportcontainer.js";
@@ -21,7 +23,8 @@ class App extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        page: 'realtime'
+        page: 'realtime',
+        visible: false,
       };
     }
     componentDidMount() {
@@ -31,7 +34,15 @@ class App extends React.Component {
         }));
       }
     }
+    hide = () => {
+      this.setState({
+        visible: false,
+      });
+    }
 
+    handleVisibleChange = (visible) => {
+      this.setState({ visible });
+    }
     render() {
         const {devices,usersettings} = this.props;
         const indexdeviceid = usersettings.indexdeviceid;
@@ -64,8 +75,16 @@ class App extends React.Component {
                     <div className="curve_box data_list_box rhuadong">
                       <List curdevice={curdevice}/>
                     </div>
+                    <Popover
+                      content={<QueryPage />}
+                      title="Title"
+                      trigger="click"
+                      visible={this.state.visible}
+                      onVisibleChange={this.handleVisibleChange}
+                    >
                     <h2 className="title"><img src="images/chax.png"  alt=""/>
                     <span>历史图表</span></h2>
+                    </Popover>
 
                                   <div className="curve_box data_list_box rhuadong">
                                     <HistoryBar showflag="all"/>

@@ -3,6 +3,7 @@ import React from 'react';
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
 import Menu from 'antd/lib/menu';
+const SubMenu = Menu.SubMenu;
 
 const getMenu = ({devicelist,devices,onMenuClick} )=>{
   return  (
@@ -12,9 +13,14 @@ const getMenu = ({devicelist,devices,onMenuClick} )=>{
           const curdevice = devices[did];
           if(!!curdevice){
             return (
-                  <Menu.Item key={did}>
-                      {lodashget(curdevice,'name','')}
-                    </Menu.Item>);
+                  <SubMenu  key={did} title={lodashget(curdevice,'name','')}>
+                    {
+                       lodashmap(devicelist,(did)=>{
+                          const curdevice = devices[did];
+                          return (<Menu.Item>{lodashget(curdevice,'name','')}</Menu.Item>)
+                       })
+                    }
+                  </SubMenu>);
           }
         })
       }
