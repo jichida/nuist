@@ -70,7 +70,7 @@ class App extends React.Component {
   <div className="center_con center_mr0">
       <div className="center_box rhuadong">
 
-      <ChartsRealtime pageType={this.state.page}/> <div className="bor_con border_top">
+      <ChartsRealtime pageType={this.state.page} shownum={10}/> <div className="bor_con border_top">
       <h2 className="title"><img src="images/chax.png"  alt=""/>
       <span>历史数据</span></h2>
 

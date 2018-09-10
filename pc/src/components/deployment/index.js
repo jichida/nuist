@@ -56,7 +56,7 @@ class App extends React.Component {
         </div>
                     </div>
                     <div className="right_con rhuadong">
-                        <ChartsRealtime />
+                        <ChartsRealtime shownum={10}/>
     <div className="bor_con border_top">
     <h2 className="title"><img src="images/lis.png" alt=""/><span>历史数据</span>
     <div className="title_tab"><span className="time" onClick={()=>{
