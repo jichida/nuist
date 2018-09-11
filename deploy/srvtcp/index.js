@@ -66,5 +66,5 @@ PubSub.subscribe(`nuistdata`, ( msg, data )=>{
 
     debug(`-->发布数据:${JSON.stringify(data)}`);
 
-    redis.publish('nuistiotdata_realtimedata',data);
+    redis.publish('nuistiotdata_realtimedata_redis',data);
 });

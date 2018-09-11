@@ -22,8 +22,7 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
 
     const deviceidhex = ZigbeeData.substr(ddh.deviceid.offset*2,ddh.deviceid.length*2);
     debug(`节点ID为:${deviceidhex}`);
-    const deviceid = ddh.deviceid.parsevalue(deviceidhex);
-    debug(`节点ID为:${deviceid}`);
+    const deviceid = deviceidhex.toUpperCase();
 
     const pressurehex = ZigbeeData.substr(ddh.pressure.offset*2,ddh.pressure.length*2);
     const pressure = ddh.pressure.parsevalue(pressurehex);

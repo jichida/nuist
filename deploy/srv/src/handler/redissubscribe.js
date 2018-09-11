@@ -56,8 +56,8 @@ const handlermsg_realtimedata = (devicedata)=>{
   getgatewayid((gwid)=>{
     if(!!gwid){
       const deviceModel = DBModels.DeviceModel;
-      deviceModel.findOneAndUpdate({DeviceId:devicedata.DeviceId,gatewayid:gwid},
-        {$set:{DevicId:devicedata.DeviceId,
+      deviceModel.findOneAndUpdate({DeviceId:devicedata.deviceid,gatewayid:gwid},
+        {$set:{DevicId:devicedata.deviceid,
           gatewayid:gwid,
           realtimedata:devicedata.realtimedata,}},{new:true,upsert:true}).
         lean().exec((err,newdevice)=>{
@@ -69,7 +69,7 @@ const handlermsg_realtimedata = (devicedata)=>{
             alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
               _.map(resultalarmmatch,(al)=>{
                 // console.log(al);
-                al.DeviceId = devicedata.DeviceId;
+                al.DeviceId = devicedata.deviceid;
                 al.did = newdevice._id;
                 handlermsg_alarmdata(al);
               });
@@ -87,7 +87,11 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
   getgatewayid(devicedata.gwid,(gatewayid)=>{
     if(!!gatewayid){
       const deviceModel = DBModels.DeviceModel;
-      deviceModel.findOneAndUpdate({DeviceId:devicedata.DeviceId,gatewayid},{$set:{realtimedata:devicedata.realtimedata}},{new:true,upsert:true}).
+      deviceModel.findOneAndUpdate({DeviceId:devicedata.deviceid,gatewayid},{$set:{
+        DeviceId:devicedata.deviceid,
+        gatewayid,
+        realtimedata:devicedata.realtimedata
+      }},{new:true,upsert:true}).
         lean().exec((err,newdevice)=>{
           //<----------
           if(!err && !!newdevice){
@@ -110,4 +114,4 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
   })
 }
 
-exports.handlermsg_realtimedata = handlermsg_realtimedata;
+exports.handlermsg_realtimedata_redis = handlermsg_realtimedata_redis;
