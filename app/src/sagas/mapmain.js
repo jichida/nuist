@@ -18,7 +18,7 @@ import {
   mapmain_drawgatewaypath,
   getgatewaylist_result,
   getgatewaylist_result_4reducer,
-  serverpush_device,
+  serverpush_device_list,
   serverpush_gateway
   } from '../actions';
 import config from '../env/config.js';
@@ -234,30 +234,32 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
   }
 
   const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
-    const allmarks = markCluster.getMarkers();
-    lodashmap(allmarks,(mark)=>{
-      const {type,key} = mark.getExtData();
-      if(type === 'device'){
-        const deviceitem = g_devicesdb[key];
-        const deviceitemnew = g_devicesdb_updated[deviceitem._id];
-        if(!!deviceitemnew){
-          if(!!deviceitemnew.Longitude){
-            const pos = new window.AMap.LngLat(deviceitemnew.Longitude,deviceitemnew.Latitude);
-            mark.setPosition(pos);
-            const newIcon = new window.AMap.Icon({
-               size: new window.AMap.Size(24, 24),
-               imageSize: new window.AMap.Size(16, 24),  //图标大小
-               image: getimageicon(deviceitemnew,SettingOfflineMinutes,viewtype),
-               imageOffset: new window.AMap.Pixel(0, 0),
-           });
-            mark.setIcon(newIcon);
-          }
-          else{
-            markCluster.removeMarker(mark);
+    if(!!markCluster){
+      const allmarks = markCluster.getMarkers();
+      lodashmap(allmarks,(mark)=>{
+        const {type,key} = mark.getExtData();
+        if(type === 'device'){
+          const deviceitem = g_devicesdb[key];
+          const deviceitemnew = g_devicesdb_updated[deviceitem._id];
+          if(!!deviceitemnew){
+            if(!!deviceitemnew.Longitude){
+              const pos = new window.AMap.LngLat(deviceitemnew.Longitude,deviceitemnew.Latitude);
+              mark.setPosition(pos);
+              const newIcon = new window.AMap.Icon({
+                 size: new window.AMap.Size(24, 24),
+                 imageSize: new window.AMap.Size(16, 24),  //图标大小
+                 image: getimageicon(deviceitemnew,SettingOfflineMinutes,viewtype),
+                 imageOffset: new window.AMap.Pixel(0, 0),
+             });
+              mark.setIcon(newIcon);
+            }
+            else{
+              markCluster.removeMarker(mark);
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
 
   const getMarkCluster_showMarks = ({isshow,SettingOfflineMinutes,g_devicesdb,viewtype,gateways})=>{
@@ -612,19 +614,42 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
         });
 
-        yield takeLatest(`${serverpush_device}`, function*(action) {
-          const {payload:deviceitem} = action;
+        yield takeLatest(`${serverpush_device_list}`, function*(action) {
+          const {payload:{devicelist}} = action;
+          let i = 0;
           const {g_devicesdb,gateways,viewtype} = yield select((state)=>{
             const {devices,viewtype,gateways} = state.device;
             return {g_devicesdb:devices,gateways,viewtype};
           });
-          g_devicesdb[deviceitem._id] = deviceitem;
+          console.log(`devicelist->${JSON.stringify(devicelist)}`);
+          for( i=0;i<devicelist.length;i++){
+            g_devicesdb[devicelist[i]._id] = devicelist[i];
+          }
+
           const SettingOfflineMinutes =yield select((state)=>{
             return get(state,'app.SettingOfflineMinutes',20);
           });
           let g_devicesdb_updated = {};
-          g_devicesdb_updated[deviceitem._id] = deviceitem;
+          for( i=0;i<devicelist.length;i++){
+            g_devicesdb_updated[devicelist[i]._id] = devicelist[i];
+          }
+          console.log(`${JSON.stringify(g_devicesdb_updated)}`);
           getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
+
+          const {usersettings} = yield select((state)=>{
+            const {usersettings} = state.userlogin;
+            return {usersettings};
+          });
+          const indexdeviceid = get(usersettings,'indexdeviceid','');
+
+          for( i=0;i<devicelist.length;i++){
+            console.log(`${devicelist[i]._id}==>${devicelist[i]._id === indexdeviceid}`);
+      
+            if(!!infoWindow && devicelist[i]._id === indexdeviceid){//如果正在弹窗并且是选中的item，则更新弹窗内容{
+              const {content} = getpopinfowindowstyle(devicelist[i],viewtype);
+              infoWindow.setContent(content);
+            }
+          }
         });
 
           //ui_mycarselcurdevice_request

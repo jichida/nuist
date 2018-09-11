@@ -31,10 +31,11 @@ const handlermsg_alarmdata = (alarmdata)=>{
     debug(err);
     debug(`result->${JSON.stringify(result)}`);
     if(!err && !!result){
-      PubSub.publish(`push.devicealarm.${result._id}`,result);
+      PubSub.publish(`push.devicealarm.${result.DeviceId}`,result);
     }
   });
 };
+
 
 //=======
 const getgatewayid  = (GatewayId,(callbackfn)=>{
@@ -44,6 +45,27 @@ const getgatewayid  = (GatewayId,(callbackfn)=>{
       let gwid;
       if!err && !!result){
         gwid = result._id;
+
+const handlermsg_realtimedata = (devicedata)=>{
+  debug(`handlermsg_realtimedata===>${JSON.stringify(devicedata)}`)
+  const deviceModel = DBModels.DeviceModel;
+  deviceModel.findOneAndUpdate({DeviceId:devicedata.DeviceId},{$set:{realtimedata:devicedata.realtimedata}},{new:true,upsert:true}).
+    lean().exec((err,newdevice)=>{
+      //<----------
+      if(!err && !!newdevice){
+        handlermsg_historydevice(newdevice);
+
+        // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
+
+        alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
+          _.map(resultalarmmatch,(al)=>{
+            // console.log(al);
+            al.DeviceId = devicedata.DeviceId;
+            al.did = newdevice._id;
+            handlermsg_alarmdata(al);
+          });
+        });
+
       }
       callbackfn(gwid);
   });

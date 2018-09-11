@@ -9,10 +9,10 @@ const _ = require('lodash');
 const moment = require('moment');
 const PubSub = require('pubsub-js');
 const getdevicesids = require('../getdevicesids');
+const srvsystem = require('../../srvsystem.js');
 
 let userloginsuccess =(user,callback)=>{
     //主动推送一些数据什么的
-
     //写入登录日志
   //   let loginlogModel = DBModels.UserLogModel;
   //   let loginlogentity = new loginlogModel({
@@ -23,13 +23,15 @@ let userloginsuccess =(user,callback)=>{
   //  });
 };
 
-const subscriberuser = (user,ctx)=>{
+const subscriberuser = (ctx)=>{
   //设置订阅设备消息
   PubSub.unsubscribe( ctx.userDeviceSubscriber );
 
+  PubSub.subscribe(`${config.pushdevicetopic}.${ctx.userid}.${ctx.connectid}`,ctx.userDeviceSubscriber);
   getdevicesids(ctx.userid,(deviceIds)=>{
     _.map(deviceIds,(DeviceId)=>{
-      PubSub.subscribe(`push.device.${DeviceId}`,ctx.userDeviceSubscriber);
+      PubSub.subscribe(`push.devicealarm.${DeviceId}`,ctx.userDeviceSubscriber);
+      // PubSub.subscribe(`push.device.${DeviceId}`,ctx.userDeviceSubscriber);
     });
   });
   // const subscriberdeviceids = _.get(user,'usersettings.subscriberdeviceids',[]);
@@ -75,7 +77,9 @@ let setloginsuccess = (ctx,user,callback)=>{
 
     userloginsuccess(user,callback);
 
-    subscriberuser(user,ctx);
+    srvsystem.loginuser_remove(null,ctx.connectid);
+    subscriberuser(ctx);
+    srvsystem.loginuser_add(ctx.userid,ctx.connectid);
 
 };
 
@@ -90,7 +94,7 @@ exports.saveusersettings = (actiondata,ctx,callback)=>{
             cmd:'saveusersettings_result',
             payload:{usersettings:usernew.usersettings}
           });
-          subscriberuser(usernew,ctx);
+          // subscriberuser(usernew,ctx);
       }
       else{
         callback({
@@ -188,7 +192,6 @@ exports.loginwithtoken = (actiondata,ctx,callback)=>{
         }
       });
 
-    //  PubSub.publish(userid, {msg:'allriders',data:'bbbb',topic:'name'});
   } catch (e) {
     //console.log("invalied token===>" + JSON.stringify(actiondata.token));
     //console.log("invalied token===>" + JSON.stringify(e));
@@ -200,11 +203,14 @@ exports.loginwithtoken = (actiondata,ctx,callback)=>{
 
 }
 
-
+exports.subscriberuser = subscriberuser;
 //==============================
 exports.logout = (actiondata,ctx,callback)=>{
+  srvsystem.loginuser_remove(ctx.userid,ctx.connectid);
+  ctx.userid = null;
+  subscriberuser(ctx);
+  srvsystem.loginuser_add(ctx.userid,ctx.connectid);
 
-  delete ctx.userid;
   callback({
     cmd:'logout_result',
     payload:{}
