@@ -1,7 +1,7 @@
 {
   "apps" : [
       {
-        "name": "tct015",
+        "name": "tct130",
         "script": "/root/nuist/deploy/testtcp/index.js",
         "env": {
           "NODE_ENV": "production",
