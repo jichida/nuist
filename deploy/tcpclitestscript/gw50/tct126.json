@@ -1,0 +1,30 @@
+{
+  "apps" : [
+      {
+        "name": "tct126",
+        "script": "/root/nuist/deploy/testtcp/index.js",
+        "env": {
+          "NODE_ENV": "production",
+          "DEBUG_COLORS":"1",
+          "logdir":"/root/nuist/deploy/dist/log",
+          "DEBUG_COLORS":"1",
+          "gwid":126,
+          "sendpinginterval":10000,
+          "senddatainterval":60000,
+          "pressure_data_min":20,
+          "pressure_data_max":40,
+          "winddirection_data_min":0,
+          "winddirection_data_max":360,
+          "windspeed_data_min":0,
+          "windspeed_data_max":10,
+          "humidity_data_min":0,
+          "humidity_data_max":50,
+          "rainfall_data_min":0,
+          "rainfall_data_max":100,
+          "temperature_data_min":0,
+          "temperature_data_max":45
+        },
+        "node-args": "--nouse-idle-notification --gc_global --max-old-space-size=80960 --max-new-space-size=80960"
+      }
+  ]
+}

@@ -7,13 +7,13 @@ const port = parseInt(config.targetport);//目标端口
 let timerInterval;
 let timerTimeout;
 
-const typeofdeviceid = typeof process.env.deviceid;
-debug(`typeofdeviceid->${typeofdeviceid}`)
-debug(`----------->${parseInt(config.deviceid)}->${parseInt(config.senddatainterval)}`);
+const typeofgwid = typeof process.env.gwid;
+debug(`typeofdeviceid->${typeofgwid}`)
+debug(`----------->${parseInt(config.gwid)}->${parseInt(config.senddatainterval)}`);
 
 const client= net.connect({port:port,host:ip},()=>{
   const sendcmd1 = ()=>{
-    const bufhex = sd.getdatahex1(parseInt(config.deviceid));
+    const bufhex = sd.getdatahex1(parseInt(config.gwid));
     const buf_cmd1 = Buffer.from(bufhex,'hex');
     client.write(buf_cmd1);
   }
@@ -27,7 +27,7 @@ const client= net.connect({port:port,host:ip},()=>{
 client.on('data',(data)=>{
   console.log(`接收到数据为${data.toString('hex')}`);
   timerTimeout = setTimeout(()=>{
-    const bufhex = sd.getdatahex2(parseInt(config.deviceid));
+    const bufhex = sd.getdatahex2(parseInt(config.gwid));
     const buf_cmd2 = Buffer.from(bufhex,'hex');
     client.write(buf_cmd2);
     clearTimeout(timerTimeout);

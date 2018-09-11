@@ -7,7 +7,6 @@ const config =  {
     port: process.env.srvredis_port|| 6379,
   },
   listenport:process.env.listenport ||50000,
-  mongodburl:process.env.MONGO_URL || 'mongodb://dabauser:daba159@api.nuistiot.com/daba',//'mongodb://dabauser:daba159@api.nuistiot.com/daba',
   pressure_data_offset:process.env.pressure_data_offset || '41',
   pressure_data_length:process.env.pressure_data_length || '4',
   pressure_data_min:process.env.pressure_data_min || '20',
