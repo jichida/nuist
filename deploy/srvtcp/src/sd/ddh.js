@@ -1,4 +1,5 @@
 const debug = require('debug')('testtcp:parse');
+const config = require('../config.js');
 const simulatordata = {
   "deviceid":{
     offset:8,

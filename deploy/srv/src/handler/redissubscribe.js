@@ -40,8 +40,14 @@ const handlermsg_alarmdata = (alarmdata)=>{
 
 //=======
 const getgatewayid  = (GatewayId,callbackfn)=>{
+  debug(`GatewayId===>${GatewayId}`)
   const gwModel = DBModels.GatewayModel;
-  gwModel.findOneAndUpdate({GatewayId},{$set:{GatewayId}},{new:true,upsert:true}).
+  gwModel.findOneAndUpdate({GatewayId},{
+    $setOnInsert:{
+      GatewayId,
+      name:`网关${GatewayId}`
+    }
+  },{new:true,upsert:true}).
     lean().exec((err,result)=>{
       let gwid;
       if(!err && !!result){
@@ -51,15 +57,26 @@ const getgatewayid  = (GatewayId,callbackfn)=>{
     });
 };
 
-const handlermsg_realtimedata = (devicedata)=>{
-  debug(`handlermsg_realtimedata===>${JSON.stringify(devicedata)}`)
-  getgatewayid((gwid)=>{
+const handlermsg_realtimedata_redis = (devicedata)=>{
+
+  getgatewayid(devicedata.gwid,(gwid)=>{
     if(!!gwid){
       const deviceModel = DBModels.DeviceModel;
-      deviceModel.findOneAndUpdate({DeviceId:devicedata.deviceid,gatewayid:gwid},
-        {$set:{DevicId:devicedata.deviceid,
-          gatewayid:gwid,
-          realtimedata:devicedata.realtimedata,}},{new:true,upsert:true}).
+      debug(`gwid===>${gwid},deviceid=>${devicedata.deviceid}`)
+
+      deviceModel.findOneAndUpdate({
+        DeviceId:devicedata.deviceid,
+        gatewayid:gwid},
+        {
+          $set:{
+            realtimedata:devicedata.realtimedata
+          },
+          $setOnInsert:{
+            DevicId:devicedata.deviceid,
+            gatewayid:gwid,
+            name:`节点${devicedata.deviceid}`,
+          }
+        },{new:true,upsert:true}).
         lean().exec((err,newdevice)=>{
           //<----------
           if(!err && !!newdevice){
@@ -76,42 +93,10 @@ const handlermsg_realtimedata = (devicedata)=>{
             });
 
           }
-          callbackfn(gwid);
       });
     }
   });
 }
 
-const handlermsg_realtimedata_redis = (devicedata)=>{
-  debug(`handlermsg_realtimedata_redis===>${JSON.stringify(devicedata)}`);
-  getgatewayid(devicedata.gwid,(gatewayid)=>{
-    if(!!gatewayid){
-      const deviceModel = DBModels.DeviceModel;
-      deviceModel.findOneAndUpdate({DeviceId:devicedata.deviceid,gatewayid},{$set:{
-        DeviceId:devicedata.deviceid,
-        gatewayid,
-        realtimedata:devicedata.realtimedata
-      }},{new:true,upsert:true}).
-        lean().exec((err,newdevice)=>{
-          //<----------
-          if(!err && !!newdevice){
-            handlermsg_historydevice(newdevice);
-
-            // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
-            //不用publish了
-
-            alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
-              _.map(resultalarmmatch,(al)=>{
-                console.log(al);
-                al.DeviceId = devicedata.DeviceId;
-                al.did = newdevice._id;
-                handlermsg_alarmdata(al);
-              });
-            });
-          }
-      });
-    }
-  })
-}
 
 exports.handlermsg_realtimedata_redis = handlermsg_realtimedata_redis;
