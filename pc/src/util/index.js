@@ -68,56 +68,61 @@ export const getindexstring = (index,length)=>{
   }
   return index;
 }
-
-const getdeviceLatlng = (deviceId,devices)=>{
-  return new window.AMap.LngLat(devices[deviceId].Longitude,devices[deviceId].Latitude);
-}
-
-const getshortestpath = (baseDeviceId,restpath,devices)=>{
-  let selectedDeviceId;
-  let retpath = [];
-  if(restpath.length > 0){
-     const p1 = getdeviceLatlng(baseDeviceId,devices);
-     let p2 = getdeviceLatlng(restpath[0],devices);
-     selectedDeviceId = restpath[0];
-     let shortestlength = window.AMap.GeometryUtil.distance(p1,p2);
-     for(let i=1;i<restpath.length;i++){
-       p2 = getdeviceLatlng(restpath[i],devices);
-       let distance = window.AMap.GeometryUtil.distance(p1,p2);
-       if(shortestlength > distance){
-          shortestlength = distance;
-          selectedDeviceId = restpath[i];
-       }
-     }
-  }
-
-  for(let i = 0; i <restpath.length;i++){
-    if(restpath[i] !== selectedDeviceId){
-      retpath.push(restpath[i]);
-    }
-  }
-  return {
-    selectedDeviceId,
-    retpath
-  };
-}
+//
+// const getdeviceLatlng = (deviceId,devices)=>{
+//   if(!!devices[deviceId].Longitude){
+//     return new window.AMap.LngLat(devices[deviceId].Longitude,devices[deviceId].Latitude);
+//   }
+//   return;
+// }
+//
+//
+// const getshortestpath = (baseDeviceId,restpath,devices)=>{
+//   let selectedDeviceId;
+//   let retpath = [];
+//   if(restpath.length > 0){
+//      const p1 = getdeviceLatlng(baseDeviceId,devices);
+//      let p2 = getdeviceLatlng(restpath[0],devices);
+//      selectedDeviceId = restpath[0];
+//      let shortestlength = window.AMap.GeometryUtil.distance(p1,p2);
+//      for(let i=1;i<restpath.length;i++){
+//        p2 = getdeviceLatlng(restpath[i],devices);
+//        let distance = window.AMap.GeometryUtil.distance(p1,p2);
+//        if(shortestlength > distance){
+//           shortestlength = distance;
+//           selectedDeviceId = restpath[i];
+//        }
+//      }
+//   }
+//
+//   for(let i = 0; i <restpath.length;i++){
+//     if(restpath[i] !== selectedDeviceId){
+//       retpath.push(restpath[i]);
+//     }
+//   }
+//   return {
+//     selectedDeviceId,
+//     retpath
+//   };
+// }
 
 export const lodashshuffle_gwpath = (devicepath,devices)=>{
   let retpath = [];
   const startpath = lodashshuffle(devicepath);
-  if(startpath.length > 0){
-    retpath.push(startpath[0]);
-  }
-  let restpath = [];
-  for(let i=1;i<startpath.length;i++){
-    restpath.push(startpath[i]);
-  }
-
-  while(restpath.length > 0){
-     const result = getshortestpath(retpath[retpath.length-1],restpath,devices);
-     retpath.push(result.selectedDeviceId);
-     restpath = result.retpath;
-  }
+  retpath = startpath;
+  // if(startpath.length > 0){
+  //   retpath.push(startpath[0]);
+  // }
+  // let restpath = [];
+  // for(let i=1;i<startpath.length;i++){
+  //   restpath.push(startpath[i]);
+  // }
+  //
+  // while(restpath.length > 0){
+  //    const result = getshortestpath(retpath[retpath.length-1],restpath,devices);
+  //    retpath.push(result.selectedDeviceId);
+  //    restpath = result.retpath;
+  // }
 
   return retpath;
 }
