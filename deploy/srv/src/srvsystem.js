@@ -122,7 +122,7 @@ const job=()=>{
     // createadmin();
     dbinit();
     // startsrv_devpush(config);
-    redis.setSubscribeHandler('nuistiotdata_realtimedata',handlermsg.handlermsg_realtimedata_redis);
+    redis.setSubscribeHandler('nuistiotdata_realtimedata_redis',handlermsg.handlermsg_realtimedata_redis);
 
     intervalCheckDevice();
 };

@@ -11,8 +11,8 @@ const startup = ()=>{
 
 
     client_sub.on('ready', function () {
-        client_sub.subscribe('nuistiotdata_realtimedata');
-        client_sub.subscribe('nuistiotdata_realtimealarm');
+        client_sub.subscribe('nuistiotdata_realtimedata_redis');
+        client_sub.subscribe('nuistiotdata_realtimealarm_redis');
     });
 
     client_sub.on('message', (channel, message)=> {
