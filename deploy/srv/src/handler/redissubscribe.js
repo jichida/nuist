@@ -22,6 +22,7 @@ const handlermsg_historydevice = (devicedata)=>{
     debug(`result->${JSON.stringify(result)}`);
   });
 };
+
 const handlermsg_alarmdata = (alarmdata)=>{
   alarmdata.UpdateTime = moment().format('YYYY-MM-DD HH:mm:ss');
   const dbModel = DBModels.RealtimeAlarmRawModel;
@@ -38,38 +39,48 @@ const handlermsg_alarmdata = (alarmdata)=>{
 
 
 //=======
-const getgatewayid  = (GatewayId,(callbackfn)=>{
+const getgatewayid  = (GatewayId,callbackfn)=>{
   const gwModel = DBModels.GatewayModel;
   gwModel.findOneAndUpdate({GatewayId},{$set:{GatewayId}},{new:true,upsert:true}).
     lean().exec((err,result)=>{
       let gwid;
-      if!err && !!result){
+      if(!err && !!result){
         gwid = result._id;
+      }
+      callbackfn(gwid);
+    });
+};
 
 const handlermsg_realtimedata = (devicedata)=>{
   debug(`handlermsg_realtimedata===>${JSON.stringify(devicedata)}`)
-  const deviceModel = DBModels.DeviceModel;
-  deviceModel.findOneAndUpdate({DeviceId:devicedata.DeviceId},{$set:{realtimedata:devicedata.realtimedata}},{new:true,upsert:true}).
-    lean().exec((err,newdevice)=>{
-      //<----------
-      if(!err && !!newdevice){
-        handlermsg_historydevice(newdevice);
+  getgatewayid((gwid)=>{
+    if(!!gwid){
+      const deviceModel = DBModels.DeviceModel;
+      deviceModel.findOneAndUpdate({DeviceId:devicedata.DeviceId,gatewayid:gwid},
+        {$set:{DevicId:devicedata.DeviceId,
+          gatewayid:gwid,
+          realtimedata:devicedata.realtimedata,}},{new:true,upsert:true}).
+        lean().exec((err,newdevice)=>{
+          //<----------
+          if(!err && !!newdevice){
+            handlermsg_historydevice(newdevice);
+            // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
 
-        // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
+            alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
+              _.map(resultalarmmatch,(al)=>{
+                // console.log(al);
+                al.DeviceId = devicedata.DeviceId;
+                al.did = newdevice._id;
+                handlermsg_alarmdata(al);
+              });
+            });
 
-        alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
-          _.map(resultalarmmatch,(al)=>{
-            // console.log(al);
-            al.DeviceId = devicedata.DeviceId;
-            al.did = newdevice._id;
-            handlermsg_alarmdata(al);
-          });
-        });
-
-      }
-      callbackfn(gwid);
+          }
+          callbackfn(gwid);
+      });
+    }
   });
-});
+}
 
 const handlermsg_realtimedata_redis = (devicedata)=>{
   debug(`handlermsg_realtimedata_redis===>${JSON.stringify(devicedata)}`);
@@ -97,10 +108,6 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
       });
     }
   })
-
 }
-
-
-
 
 exports.handlermsg_realtimedata = handlermsg_realtimedata;
