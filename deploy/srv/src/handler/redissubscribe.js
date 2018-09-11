@@ -36,27 +36,46 @@ const handlermsg_alarmdata = (alarmdata)=>{
   });
 };
 
-const handlermsg_realtimedata = (devicedata)=>{
-  debug(`handlermsg_realtimedata===>${JSON.stringify(devicedata)}`)
-  const deviceModel = DBModels.DeviceModel;
-  deviceModel.findOneAndUpdate({DeviceId:devicedata.DeviceId},{$set:{realtimedata:devicedata.realtimedata}},{new:true,upsert:true}).
-    lean().exec((err,newdevice)=>{
-      //<----------
-      if(!err && !!newdevice){
-        handlermsg_historydevice(newdevice);
-
-        PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
-
-        alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
-          _.map(resultalarmmatch,(al)=>{
-            console.log(al);
-            al.DeviceId = devicedata.DeviceId;
-            al.did = newdevice._id;
-            handlermsg_alarmdata(al);
-          });
-        });
+//=======
+const getgatewayid  = (GatewayId,(callbackfn)=>{
+  const gwModel = DBModels.GatewayModel;
+  gwModel.findOneAndUpdate({GatewayId},{$set:{GatewayId}},{new:true,upsert:true}).
+    lean().exec((err,result)=>{
+      let gwid;
+      if!err && !!result){
+        gwid = result._id;
       }
+      callbackfn(gwid);
   });
+});
+
+const handlermsg_realtimedata_redis = (devicedata)=>{
+  debug(`handlermsg_realtimedata_redis===>${JSON.stringify(devicedata)}`);
+  getgatewayid(devicedata.gwid,(gatewayid)=>{
+    if(!!gatewayid){
+      const deviceModel = DBModels.DeviceModel;
+      deviceModel.findOneAndUpdate({DeviceId:devicedata.DeviceId,gatewayid},{$set:{realtimedata:devicedata.realtimedata}},{new:true,upsert:true}).
+        lean().exec((err,newdevice)=>{
+          //<----------
+          if(!err && !!newdevice){
+            handlermsg_historydevice(newdevice);
+
+            // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
+            //不用publish了
+
+            alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
+              _.map(resultalarmmatch,(al)=>{
+                console.log(al);
+                al.DeviceId = devicedata.DeviceId;
+                al.did = newdevice._id;
+                handlermsg_alarmdata(al);
+              });
+            });
+          }
+      });
+    }
+  })
+
 }
 
 

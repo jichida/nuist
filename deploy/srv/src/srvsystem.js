@@ -51,7 +51,7 @@ const job=()=>{
     // createadmin();
     dbinit();
     // startsrv_devpush(config);
-    redis.setSubscribeHandler('nuistiotdata_realtimedata',handlermsg.handlermsg_realtimedata);
+    redis.setSubscribeHandler('nuistiotdata_realtimedata',handlermsg.handlermsg_realtimedata_redis);
 
     // schedule.scheduleJob('0 0 * * *', ()=>{
       //每天0点更新优惠券过期信息
