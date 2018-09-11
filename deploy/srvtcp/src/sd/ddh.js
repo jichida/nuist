@@ -21,10 +21,10 @@ const simulatordata = {
     }
   },
   "pressure":{//压力<----PTB210
-    offset:41,
-    length:4,
-    max:50,
-    min:20,
+    offset:parseInt(config.pressure_data_offset),
+    length:parseInt(config.pressure_data_length),
+    max:parseInt(config.pressure_data_max),
+    min:parseInt(config.pressure_data_min),
     gethex:(value)=>{
       const valuestring = `${value}`;
       const sz = valuestring.split(".");
@@ -49,10 +49,10 @@ const simulatordata = {
     }
   },
   "winddirection":{//风向
-    offset:17,
-    length:2,
-    max:360,
-    min:0,
+    offset:parseInt(config.winddirection_data_offset),
+    length:parseInt(config.winddirection_data_length),
+    max:parseInt(config.winddirection_data_max),
+    min:parseInt(config.winddirection_data_min),
     gethex:(value)=>{
       const buf0 = Buffer.allocUnsafe(2);
       buf0.writeInt16LE(value, 0);
@@ -66,10 +66,10 @@ const simulatordata = {
     }
   },
   "windspeed":{//风速
-    offset:47,
-    length:2,
-    max:50,
-    min:20,
+    offset:parseInt(config.windspeed_data_offset),
+    length:parseInt(config.windspeed_data_length),
+    max:parseInt(config.windspeed_data_max),
+    min:parseInt(config.windspeed_data_min),
     gethex:(value)=>{
       const buf0 = Buffer.allocUnsafe(2);
       buf0.writeInt16LE(value, 0);
@@ -83,10 +83,10 @@ const simulatordata = {
     }
   },
   "humidity" :{//CS215
-    offset:35,
-    length:2,
-    max:50,
-    min:20,
+    offset:parseInt(config.humidity_data_offset),
+    length:parseInt(config.humidity_data_length),
+    max:parseInt(config.humidity_data_max),
+    min:parseInt(config.humidity_data_min),
     gethex:(value)=>{
       const valuestring = `${value}`;
       const sz = valuestring.split(".");
@@ -110,10 +110,10 @@ const simulatordata = {
     }
   },
   "rainfall" : {
-    offset:45,
-    length:2,
-    max:50,
-    min:20,
+    offset:parseInt(config.rainfall_data_offset),
+    length:parseInt(config.rainfall_data_length),
+    max:parseInt(config.rainfall_data_max),
+    min:parseInt(config.rainfall_data_min),
     gethex:(value)=>{
       const buf0 = Buffer.allocUnsafe(2);
       buf0.writeInt16LE(value, 0);
@@ -127,10 +127,10 @@ const simulatordata = {
     }
   },
   "temperature" :{//CS215
-    offset:33,
-    length:2,
-    max:50,
-    min:20,
+    offset:parseInt(config.temperature_data_offset),
+    length:parseInt(config.temperature_data_length),
+    max:parseInt(config.temperature_data_max),
+    min:parseInt(config.temperature_data_min),
     gethex:(value)=>{
       const valuestring = `${value}`;
       const sz = valuestring.split(".");
@@ -392,12 +392,15 @@ simulatordata.getheader = ({gwid,length,cmd})=>{
   return header;
 }
 
-simulatordata.getbufcmd1 = ({pressure,winddirection,humidity,rainfall,temperature,windspeed})=>{
+simulatordata.getbufcmd1 = ({deviceid,pressure,winddirection,humidity,rainfall,temperature,windspeed})=>{
   let payload = '427E000B7D3100000100000033818600';
   payload+='00DE09E10A660B030BFC002E056606AC';
   payload+='071538306004050607FC030015000000';
   payload+='002B18D0050001299D';
   debug(`payload-->${payload.length}`);
+  const deviceidhex = simulatordata.deviceid.gethex(deviceid);
+  payload = replaceAt(payload,simulatordata.deviceid.offset*2,deviceidhex);
+
   const pressurehex = simulatordata.pressure.gethex(pressure);
   payload = replaceAt(payload,simulatordata.pressure.offset*2,pressurehex);
 
