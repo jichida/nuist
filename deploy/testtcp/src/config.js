@@ -36,4 +36,7 @@ const config = {
   temperature_data_max:process.env.temperature_data_max || '100',
 
 };
+
+
+
 module.exports = config;

@@ -39,7 +39,7 @@ const loginuser_remove = (userid,connectid)=>{
 
 
 const checkDevice = (lasttime,callbackfn)=>{
-  debug(`start check device:${lasttime},lastdeviceid:${lastdeviceid},lasttime_result:${lasttime_result}`);
+  // debug(`start check device:${lasttime},lastdeviceid:${lastdeviceid},lasttime_result:${lasttime_result}`);
 
   const deviceModel = DBModels.DeviceModel;
   deviceModel.find({
@@ -96,7 +96,7 @@ const do_interval = ()=>{
   checkDevice(lasttime,(err,result)=>{
     lasttime_result = moment().format('YYYY-MM-DD HH:mm:ss');
     if(!err && !!result){
-      debug(`check list----->${result.length}`);
+      // debug(`check list----->${result.length}`);
       _.map(result,(device)=>{
         lasttime = _.get(device,'realtimedata.datatime',lasttime_result);
         lastdeviceid = device._id;
@@ -122,7 +122,7 @@ const job=()=>{
     // createadmin();
     dbinit();
     // startsrv_devpush(config);
-    redis.setSubscribeHandler('nuistiotdata_realtimedata',handlermsg.handlermsg_realtimedata);
+    redis.setSubscribeHandler('nuistiotdata_realtimedata_redis',handlermsg.handlermsg_realtimedata_redis);
 
     intervalCheckDevice();
 };

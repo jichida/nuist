@@ -1,8 +1,35 @@
 const redis = require("redis");
 const config = require('../config.js');
 
-const  client_pub = redis.createClient(config.srvredis);
-const  client_sub = redis.createClient(config.srvredis);
+let  client_pub;
+let  client_sub;
+
+const startup = ()=>{
+  if(config.issendtoredis){
+    client_pub = redis.createClient(config.srvredis);
+    client_sub = redis.createClient(config.srvredis);
+
+
+    client_sub.on('ready', function () {
+        client_sub.subscribe('nuistiotdata_realtimedata_redis');
+        client_sub.subscribe('nuistiotdata_realtimealarm_redis');
+    });
+
+    client_sub.on('message', (channel, message)=> {
+        const handler = handlerfnmap[channel];
+        if(!!handler){
+          let msg = message;
+          try{
+            msg = JSON.parse(message);
+          }
+          catch(e){
+
+          }
+          handler(msg);
+        }
+    });
+  }
+}
 
 const handlerfnmap = {};
 const setSubscribeHandler = (channel,handlerfn)=>{
@@ -10,27 +37,12 @@ const setSubscribeHandler = (channel,handlerfn)=>{
 }
 
 const publish = (channel,message)=>{
-  client_pub.publish(channel,JSON.stringify(message));
+  if(config.issendtoredis){
+    client_pub.publish(channel,JSON.stringify(message));
+  }
 }
 
-client_sub.on('ready', function () {
-    client_sub.subscribe('nuistiotdata_realtimedata');
-    client_sub.subscribe('nuistiotdata_realtimealarm');
-});
-
-client_sub.on('message', (channel, message)=> {
-    const handler = handlerfnmap[channel];
-    if(!!handler){
-      let msg = message;
-      try{
-        msg = JSON.parse(message);
-      }
-      catch(e){
-
-      }
-      handler(msg);
-    }
-});
 
 exports.setSubscribeHandler = setSubscribeHandler;
 exports.publish = publish;
+exports.startup = startup;

@@ -37,7 +37,9 @@ const getdatahex1 = (DeviceId)=>{
   return `${headerhex}`;
 }
 
-const getdatahex2 = (DeviceId)=>{
+const getdatahex2 = (gwid)=>{
+  const deviceid = _.random(handler.deviceid.min, handler.deviceid.max);//气压
+
   const pressure = _.random(handler.pressure.min, handler.pressure.max);//气压
   const winddirection = _.random(handler.winddirection.min, handler.winddirection.max);//风向
   const humidity = _.random(handler.humidity.min, handler.humidity.max);//温度
@@ -45,9 +47,9 @@ const getdatahex2 = (DeviceId)=>{
   const temperature = _.random(handler.temperature.min, handler.temperature.max);//温度
   const windspeed = _.random(handler.windspeed.min, handler.windspeed.max);//分速
 
-  const hexpayload = handler.getbufcmd1({pressure,winddirection,humidity,rainfall,temperature,windspeed});
+  const hexpayload = handler.getbufcmd1({deviceid,pressure,winddirection,humidity,rainfall,temperature,windspeed});
   debug(`hex->\n${hexpayload}`)
-  const headerhex = handler.getheader({gwid:DeviceId,length:hexpayload.length/2,cmd:2});
+  const headerhex = handler.getheader({gwid,length:hexpayload.length/2,cmd:2});
   debug(`headerhex->\n${headerhex}`);
   return `${headerhex}${hexpayload}`;
 }

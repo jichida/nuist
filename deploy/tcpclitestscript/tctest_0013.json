@@ -1,14 +1,14 @@
 {
   "apps" : [
       {
-        "name": "tc0010",
+        "name": "tc0013",
         "script": "/root/nuist/deploy/testtcp/index.js",
         "env": {
           "NODE_ENV": "production",
           "DEBUG_COLORS":"1",
           "logdir":"/root/nuist/deploy/dist/log",
           "DEBUG_COLORS":"1",
-          "deviceid":16,
+          "deviceid":19,
           "sendpinginterval":10000,
           "senddatainterval":60000,
           "pressure_data_min":20,

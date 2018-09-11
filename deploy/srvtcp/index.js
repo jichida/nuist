@@ -24,6 +24,7 @@ winston.getlog().info(`appversion:${config.appversion},mongodburl:${config.mongo
 
 mongoose.connection.on("connected",function(){
   debug("mongoose connect sucess");
+  redis.startup();
   tcpsrv.starttcpsrv();
 })
 
@@ -65,5 +66,5 @@ PubSub.subscribe(`nuistdata`, ( msg, data )=>{
 
     debug(`-->发布数据:${JSON.stringify(data)}`);
 
-    redis.publish('nuistiotdata_realtimedata',data);
+    redis.publish('nuistiotdata_realtimedata_redis',data);
 });
