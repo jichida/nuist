@@ -1,6 +1,7 @@
 const config =  {
-  appversion:'1.0.0(build0828)',
+  appversion:'1.0.0(build0911)',
   logdir:process.env.logdir ||'../../dist/log',
+  issendtoredis:process.env.issendtoredis==='false'?false:true,
   srvredis:{
     host:process.env.srvredis_host||'api.nuistiot.com',
     port: process.env.srvredis_port|| 6379,

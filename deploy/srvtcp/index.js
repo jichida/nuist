@@ -24,6 +24,7 @@ winston.getlog().info(`appversion:${config.appversion},mongodburl:${config.mongo
 
 mongoose.connection.on("connected",function(){
   debug("mongoose connect sucess");
+  redis.startup();
   tcpsrv.starttcpsrv();
 })
 
