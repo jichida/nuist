@@ -3,25 +3,27 @@ import { connect } from 'react-redux';
 import ChartHistory from "./charts_history_container_charttype";
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
-import moment from 'moment';
+// import moment from 'moment';
 import {
-  gethistorydevicelist_request
+  querypage_set_condition_sendsrv
 } from '../../actions';
 
 class App extends React.Component {
   timeTicket = null;
 
-  // componentDidMount () {
-  //   this.onClickQuery(this.props);
-  //   this.timeTicket = setInterval( ()=> {
-  //     this.onClickQuery(this.props);
-  //   }, 30000);
-  // }
-  // componentWillUnmount() {
-  //   if (!!this.timeTicket) {
-  //     clearInterval(this.timeTicket);
-  //   }
-  // };
+  componentDidMount () {
+    // this.onClickQuery(this.props);
+    this.props.dispatch(querypage_set_condition_sendsrv({}));
+    this.timeTicket = setInterval( ()=> {
+      this.props.dispatch(querypage_set_condition_sendsrv({}));
+      // this.onClickQuery(this.props);
+    }, 30000);
+  }
+  componentWillUnmount() {
+    if (!!this.timeTicket) {
+      clearInterval(this.timeTicket);
+    }
+  };
   // onClickQuery = (props)=>{
   //   const {curdevice,viewtype} = props;
   //   // const {periodname,starttime,endtime} = periodquery;
@@ -45,9 +47,22 @@ class App extends React.Component {
       const newcurdeviceid = lodashget(nextProps,'curdevice._id');
       if(oldcurdeviceid !== newcurdeviceid){
         //chang curdevice
-        // this.onClickQuery(nextProps);
+        this.props.dispatch(querypage_set_condition_sendsrv({}));
       }
     }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //   let needrender = false;
+    //   if(!needrender)
+    //   {
+    //     const nextData = lodashget(nextProps,'curdevice._id','');
+    //     const curData = lodashget(this.props,'curdevice._id','');
+    //     if( nextData !== curData ){
+    //         needrender = true;
+    //     }
+    //   }
+    //   return needrender;//render
+    // }
 
   	render() {
       const {curdevice,viewtype,retlist,selfield} = this.props;
@@ -57,9 +72,10 @@ class App extends React.Component {
         return <div />
       }
       const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
-
+      console.log(`render chart history,:${ticktimestringlist.length},curdevice:${curdevice._id},curfield:${curfield}`)
 			return (
             <ChartHistory
+              _id={curdevice._id}
               curfield={curfield}
               ticktimestring={ticktimestringlist}
               curfieldname={fields[curfield].showname}

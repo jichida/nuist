@@ -11,8 +11,8 @@ const initial = {
     historydevice: {
         periodquery:{
           periodname:'minutely',// monthly weekly daily hourly minutely
-          starttime:moment().subtract(10, 'minutes').format('YYYY-MM-DD HH:mm:00'),//moment().format('YYYY-MM-DD HH:mm:ss'),
-          endtime:moment().format('YYYY-MM-DD HH:mm:00'),
+          starttime:moment().subtract(360, 'minutes').format('YYYY-MM-DD HH:mm:00'),//moment().format('YYYY-MM-DD HH:mm:ss'),
+          endtime:moment().format('YYYY-MM-DD 23:59:59'),
           seltype:1,
           isdateopen:false,
           showFormat:'YYYY/MM/DD hh',

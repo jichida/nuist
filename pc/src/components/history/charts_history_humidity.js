@@ -6,6 +6,13 @@ import lodashget from 'lodash.get';
 class Page extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     let needrender = false;
+    if(!needrender){
+      const nextData = lodashget(nextProps,'_id','');
+      const curData = lodashget(this.props,'_id','');
+      if( nextData !== curData ){
+          needrender = true;
+      }
+    }
     if(!needrender)
     {
       const nextData = lodashget(nextProps,'option.title.text','');
@@ -24,6 +31,9 @@ class Page extends Component {
           needrender = true;
         }
       }
+      else{
+        needrender = true;
+      }
     }
 
     if(!needrender)
@@ -34,6 +44,9 @@ class Page extends Component {
         if(JSON.stringify(nextData) === JSON.stringify(curData)){
           needrender = true;
         }
+      }
+      else{
+        needrender = true;
       }
     }
 

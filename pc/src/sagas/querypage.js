@@ -5,7 +5,7 @@ import {
   ui_historydevicequeryselect,
   gethistorydevicelist_request
 } from '../actions';
-import moment from 'moment';
+// import moment from 'moment';
 import {parse} from '../util/datemath';
 
 export function* querypageflow(){//仅执行一次

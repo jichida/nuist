@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactEcharts from 'echarts-for-react';
-import echarts from 'echarts';
+// import echarts from 'echarts';
 import lodashget from 'lodash.get';
 class Page extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     let needrender = false;
+    if(!needrender){
+      const nextData = lodashget(nextProps,'_id','');
+      const curData = lodashget(this.props,'_id','');
+      if( nextData !== curData ){
+          needrender = true;
+      }
+    }
     if(!needrender)
     {
       const nextData = lodashget(nextProps,'option.title.text','');
@@ -23,6 +30,9 @@ class Page extends Component {
         if(JSON.stringify(nextData) !== JSON.stringify(curData)){
           needrender = true;
         }
+        else{
+          needrender = true;
+        }
       }
     }
 
@@ -32,6 +42,9 @@ class Page extends Component {
       const curData = lodashget(this.props,'option.series[0].data',[]);
       if( nextData.length === curData.length ){
         if(JSON.stringify(nextData) === JSON.stringify(curData)){
+          needrender = true;
+        }
+        else{
           needrender = true;
         }
       }
