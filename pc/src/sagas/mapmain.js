@@ -716,7 +716,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
               lodashmap(gateways,(gw)=>{
                 if(!gw.devicepath){
-                  gw.devicepath = lodashshuffle_gwpath(gw.devicepath,g_devicesdb);
+                  gw.devicepath = gw.devicelist;
                   setshuffledevices(gw.devicepath);
                 }
               });
