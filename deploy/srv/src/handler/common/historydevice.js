@@ -13,22 +13,22 @@ const getlimitstarttime = (periodname,endtime,starttime)=>{
   //如果小时,最多1天
   //如果分钟,最多1小时
   let starttimeleast = starttime;
-  if(periodname === 'monthly'){
-    starttimeleast = moment(endtime).subtract(12, 'months').format('YYYY-MM-DD 00:00:00');
-  }
-  else if(periodname === 'weekly'){
-    starttimeleast = moment(endtime).subtract(3, 'months').format('YYYY-MM-DD 00:00:00');
-  }
-  else if(periodname === 'daily'){
-    starttimeleast = moment(endtime).subtract(15, 'days').format('YYYY-MM-DD 00:00:00');
-  }
-  else if(periodname === 'hourly'){
-    starttimeleast = moment(endtime).subtract(24, 'hours').format('YYYY-MM-DD HH:00:00');
-  }
-  else if(periodname === 'minutely'){
-    starttimeleast = moment(endtime).subtract(1, 'hours').format('YYYY-MM-DD HH:mm:00');
-  }
-  starttimeleast = starttimeleast > starttime?starttimeleast:starttime;
+  // if(periodname === 'monthly'){
+  //   starttimeleast = moment(endtime).subtract(12, 'months').format('YYYY-MM-DD 00:00:00');
+  // }
+  // else if(periodname === 'weekly'){
+  //   starttimeleast = moment(endtime).subtract(3, 'months').format('YYYY-MM-DD 00:00:00');
+  // }
+  // else if(periodname === 'daily'){
+  //   starttimeleast = moment(endtime).subtract(15, 'days').format('YYYY-MM-DD 00:00:00');
+  // }
+  // else if(periodname === 'hourly'){
+  //   starttimeleast = moment(endtime).subtract(24, 'hours').format('YYYY-MM-DD HH:00:00');
+  // }
+  // else if(periodname === 'minutely'){
+  //   starttimeleast = moment(endtime).subtract(1, 'hours').format('YYYY-MM-DD HH:mm:00');
+  // }
+  // starttimeleast = starttimeleast > starttime?starttimeleast:starttime;
   return starttimeleast;
 }
 
@@ -84,11 +84,11 @@ exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
     //如果小时,最多1天
     //如果分钟,最多1小时
     const starttimeleast = getlimitstarttime(periodname,endtime,starttime);
-    debug(`get--->${JSON.stringify({starttimeleast,starttimeleast})}`);
+    debug(`starttimeleast:${starttimeleast}--->deviceid:${_id},periodname:${periodname},starttime:${starttime},endtime:${endtime}`);
 
     const MAX_NUMBER = 100;
     const maxcount = periodname === 'weekly'?MAX_NUMBER*7:MAX_NUMBER;
-
+    debug(`max record number:${maxcount}`);
     const historydeviceModel = DBModels.HistoryDeviceModel;
 
     const aggregate_groupobj =
@@ -160,6 +160,9 @@ exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
             // listret.pressure.push(_.toNumber(v.pressure.toFixed(1)));
           }
 
+          _.map(listret,(v,k)=>{
+            listret[k] = listret[k].reverse();
+          });
           const payload = {
             _id,
             listret

@@ -36,7 +36,7 @@ export function* querypageflow(){//仅执行一次
     const endtime = endtime_m.format('YYYY-MM-DD HH:mm:ss');
     console.log(`starttime:${starttime},endtime:${endtime}`);
     // endtime:${endtime.format('YYYY-MM-DD HH:mm:ss')}`);
-    const periodname = 'hourly';
+    const periodname = 'minutely';
     yield put(ui_historydevicequeryselect({periodname,starttime,endtime}));
     yield put(querypage_set_condition_sendsrv({}));
 	// {from: "now-6M", to: "now", display: "Last 6 months", section: 0, active: false}
