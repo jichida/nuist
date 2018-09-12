@@ -15,9 +15,14 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
   else if(cmd === 0x02){
     const hexreply = ddh.getbufcmd23reply({cmd},{OperationResult:0});
     const buf_cmd2 = Buffer.from(hexreply,'hex');
+    //节点的ID是数据（以0x42开头）的第9个字节. 悉知
 
     const ZigbeeData = bodybuf.toString('hex');//
     debug(`getcmd2====>${ZigbeeData}`);
+
+    const deviceidhex = ZigbeeData.substr(ddh.deviceid.offset*2,ddh.deviceid.length*2);
+    debug(`节点ID为:${deviceidhex}`);
+    const deviceid = deviceidhex.toUpperCase();
 
     const pressurehex = ZigbeeData.substr(ddh.pressure.offset*2,ddh.pressure.length*2);
     const pressure = ddh.pressure.parsevalue(pressurehex);
@@ -85,6 +90,7 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
     // }
     callbackfn(null,{
       cmd,
+      deviceid,
       resultdata:jsonData,
       replybuf:buf_cmd2
     });

@@ -1,7 +1,7 @@
 const config = {
   targetip: process.env.targetip || '127.0.0.1',
   targetport: process.env.targetport || '50000',
-  deviceid:process.env.deviceid || '2',
+  gwid:process.env.gwid || '2',
   senddatainterval:process.env.senddatainterval || '6000',
   sendpinginterval:process.env.sendpinginterval || '30000',
 
@@ -36,4 +36,7 @@ const config = {
   temperature_data_max:process.env.temperature_data_max || '100',
 
 };
+
+
+
 module.exports = config;

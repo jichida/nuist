@@ -1,11 +1,13 @@
 const redis = require("redis");
 const config = require('../config.js');
+const debug = require('debug')('appsrv:redis');
 
 const  client_pub = redis.createClient(config.srvredis);
 const  client_sub = redis.createClient(config.srvredis);
 
 const handlerfnmap = {};
 const setSubscribeHandler = (channel,handlerfn)=>{
+
   handlerfnmap[channel] = handlerfn;
 }
 
@@ -14,11 +16,12 @@ const publish = (channel,message)=>{
 }
 
 client_sub.on('ready', function () {
-    client_sub.subscribe('nuistiotdata_realtimedata');
-    client_sub.subscribe('nuistiotdata_realtimealarm');
+    client_sub.subscribe('nuistiotdata_realtimedata_redis');
+    client_sub.subscribe('nuistiotdata_realtimealarm_redis');
 });
 
 client_sub.on('message', (channel, message)=> {
+
     const handler = handlerfnmap[channel];
     if(!!handler){
       let msg = message;
@@ -29,6 +32,9 @@ client_sub.on('message', (channel, message)=> {
 
       }
       handler(msg);
+    }
+    else{
+      debug(`can not on message->${channel}`);
     }
 });
 

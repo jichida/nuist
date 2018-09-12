@@ -101,12 +101,12 @@ starttcpsrv = (settings)=> {
                  let newbufid = Buffer.allocUnsafe(idlen);
                  console.log(`recvbuf1:${recvbuf.toString('hex')}`);
                  recvbuf.copy(newbufid, 0, idoffset, idoffset+idlen);
-                 let deviceId = newbufid.toString('hex');//mac地址
+                 let gwid = newbufid.toString('hex');//
                  //转为大写
-                 deviceId = deviceId.toUpperCase();
+                 gwid = gwid.toUpperCase();
                  if(!curid){
-                   curid = deviceId;
-                   tcpsocksmap.set(deviceId,{
+                   curid = gwid;
+                   tcpsocksmap.set(gwid,{
                        socket,
                        remoteip
                       }
@@ -114,8 +114,8 @@ starttcpsrv = (settings)=> {
                  }
                  const cmd = recvbuf[cmdoffset];
 
-                 debug(`获取到id:${deviceId},命令号:${cmd},长度:${datalen}`);
-                 winston.getlog().info(`获取到id:${deviceId},命令号:${cmd},长度:${datalen}`);
+                 debug(`获取到id:${gwid},命令号:${cmd},长度:${datalen}`);
+                 winston.getlog().info(`获取到id:${gwid},命令号:${cmd},长度:${datalen}`);
                  let newbuflen = data_headlen + datalen;
                  if(recvbuf.length >= newbuflen){
                        //parse data.
@@ -130,7 +130,8 @@ starttcpsrv = (settings)=> {
                                //<----publish data==========
                                if(cmd === 2){
                                  const publishdata = {
-                                   "DeviceId" :`${deviceId}`,
+                                   "gwid" :`${gwid}`,
+                                   "deviceid":`${result.deviceid}`,
                                    realtimedata:result.resultdata
                                  }
                                  publishdata.realtimedata.datatime = moment().format('YYYY-MM-DD HH:mm:ss');

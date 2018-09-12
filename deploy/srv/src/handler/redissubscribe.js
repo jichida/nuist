@@ -22,6 +22,7 @@ const handlermsg_historydevice = (devicedata)=>{
     debug(`result->${JSON.stringify(result)}`);
   });
 };
+
 const handlermsg_alarmdata = (alarmdata)=>{
   alarmdata.UpdateTime = moment().format('YYYY-MM-DD HH:mm:ss');
   const dbModel = DBModels.RealtimeAlarmRawModel;
@@ -36,30 +37,79 @@ const handlermsg_alarmdata = (alarmdata)=>{
   });
 };
 
-const handlermsg_realtimedata = (devicedata)=>{
-  debug(`handlermsg_realtimedata===>${JSON.stringify(devicedata)}`)
-  const deviceModel = DBModels.DeviceModel;
-  deviceModel.findOneAndUpdate({DeviceId:devicedata.DeviceId},{$set:{realtimedata:devicedata.realtimedata}},{new:true,upsert:true}).
-    lean().exec((err,newdevice)=>{
-      //<----------
-      if(!err && !!newdevice){
-        handlermsg_historydevice(newdevice);
 
-        // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
-
-        alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
-          _.map(resultalarmmatch,(al)=>{
-            // console.log(al);
-            al.DeviceId = devicedata.DeviceId;
-            al.did = newdevice._id;
-            handlermsg_alarmdata(al);
-          });
-        });
+//=======
+const getgatewayid  = (GatewayId,callbackfn)=>{
+  debug(`GatewayId===>${GatewayId}`)
+  const gwModel = DBModels.GatewayModel;
+  gwModel.findOneAndUpdate({GatewayId},{
+    $set:{
+      "updated_at" : moment().format('YYYY-MM-DD HH:mm:ss'),
+    },
+    $setOnInsert:{
+      GatewayId,
+      name:`网关${GatewayId}`,
+      "Longitude" : 118.716673851,
+      "Latitude" : 32.2023251564,
+      "locationname" : "南京浦口",
+      "city" : "南京",
+      "cityindex" : "N",
+      "created_at" : moment().format('YYYY-MM-DD HH:mm:ss'),
+    }
+  },{new:true,upsert:true}).
+    lean().exec((err,result)=>{
+      let gwid;
+      if(!err && !!result){
+        gwid = result._id;
       }
-  });
+      callbackfn(gwid);
+    });
+};
+
+const handlermsg_realtimedata_redis = (devicedata)=>{
+  if(!!devicedata.gwid){
+    if(devicedata.gwid.length === 4){
+      getgatewayid(devicedata.gwid,(gwid)=>{
+        if(!!gwid){
+          const deviceModel = DBModels.DeviceModel;
+          debug(`gwid===>${gwid},deviceid=>${devicedata.deviceid}`)
+
+          deviceModel.findOneAndUpdate({
+            DeviceId:devicedata.deviceid,
+            gatewayid:gwid},
+            {
+              $set:{
+                realtimedata:devicedata.realtimedata
+              },
+              $setOnInsert:{
+                DevicId:devicedata.deviceid,
+                gatewayid:gwid,
+                name:`节点${devicedata.gwid}${devicedata.deviceid}`,
+              }
+            },{new:true,upsert:true}).
+            lean().exec((err,newdevice)=>{
+              //<----------
+              if(!err && !!newdevice){
+                handlermsg_historydevice(newdevice);
+                // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
+
+                alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
+                  _.map(resultalarmmatch,(al)=>{
+                    // console.log(al);
+                    al.DeviceId = devicedata.deviceid;
+                    al.did = newdevice._id;
+                    handlermsg_alarmdata(al);
+                  });
+                });
+
+              }
+          });
+        }
+      });
+    }
+  }
+
 }
 
 
-
-
-exports.handlermsg_realtimedata = handlermsg_realtimedata;
+exports.handlermsg_realtimedata_redis = handlermsg_realtimedata_redis;

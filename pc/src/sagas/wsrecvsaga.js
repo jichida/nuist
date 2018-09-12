@@ -10,6 +10,7 @@ import {
 
   getgatewaylist_request,
   getgatewaylist_result_4reducer,
+  ui_selectgateway4draw,
 
   ui_startalarm,
   ui_stopalarm,
@@ -83,6 +84,8 @@ export function* wsrecvsagaflow() {
       usersettings.indexdeviceid = seldeviceid;
       usersettings.indexgatewayid = gatewayid;
       yield put(saveusersettings_result(usersettings));
+
+      yield put(ui_selectgateway4draw(gatewayid));
   });
 
 
