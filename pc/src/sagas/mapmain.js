@@ -577,7 +577,10 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
               });
 
               lodashmap(gateways,(gw)=>{
-                setshuffledevices(gw.devicepath);
+                if(!gw.devicepath){
+                  gw.devicepath = lodashshuffle_gwpath(gw.devicepath,g_devicesdb);
+                  setshuffledevices(gw.devicepath);
+                }
               });
               // const data = [];
               // lodashmap(devicelistresult,(deviceitem)=>{

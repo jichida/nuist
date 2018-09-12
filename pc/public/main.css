@@ -848,7 +848,79 @@ ul li .num {
 body {
     height: auto !important;
 }
+.bounced_box {
+    width: 1000px;
+    height: auto;
+    overflow: hidden;
+    background-color: #fff;
+}
 
+.bounced_box h2 {
+    font-size: 16px;
+    padding: 15px 0px;
+}
+
+.bounced_left {
+    width: 40%;
+    float: left;
+    padding: 40px;
+}
+
+.bounced_left ul li {
+    display: block;
+    margin: 10px 0px;
+}
+
+.bounced_left ul li p {
+    margin-bottom: 15px !important;
+    display: block;
+}
+
+.bounced_left ul li input {
+    width: 70%;
+    padding: 0px 15px;
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    height: 48px;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd
+}
+
+.bounced_left ul li .btn_span_button {
+    padding: 10px;
+    background-color: #f15f2c;
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    height: 48px;
+    line-height: 28px;
+    border-radius: 4px;
+    color: #fff
+}
+
+.bounced_left ul li .btn_span_button img {
+    width: 20px;
+    height: 20px;
+    margin: 4px auto;
+}
+
+.bounced_right {
+    width: 60%;
+    float: right;
+    padding: 40px;
+}
+
+.bounced_right dl {
+    width: 33.33%;
+    float: left;
+}
+
+.bounced_right dl dd {
+    padding: 10px 0px;
+    font-size: 14px
+}
 @media screen and (max-device-width: 1440px) {
     .center_box .windcontrol img {
         width: 220px
