@@ -11,41 +11,41 @@ import {
 class App extends React.Component {
   timeTicket = null;
 
-  componentDidMount () {
-    this.onClickQuery(this.props);
-    this.timeTicket = setInterval( ()=> {
-      this.onClickQuery(this.props);
-    }, 30000);
-  }
-  componentWillUnmount() {
-    if (!!this.timeTicket) {
-      clearInterval(this.timeTicket);
-    }
-  };
-  onClickQuery = (props)=>{
-    const {curdevice,viewtype} = props;
-    // const {periodname,starttime,endtime} = periodquery;
-    const periodname = 'minutely';// monthly weekly daily hourly minutely
-    const starttime = moment().subtract(10, 'minutes').format('YYYY-MM-DD HH:mm:00');//moment().format('YYYY-MM-DD HH:mm:ss'),
-    const endtime = moment().format('YYYY-MM-DD HH:mm:00');
-
-    if(!!curdevice){
-      this.props.dispatch(gethistorydevicelist_request({
-        _id:curdevice._id,
-        periodname,
-        starttime,
-        endtime,
-        fieldslist:viewtype.fieldslist_brief,
-      }));
-    }
-  }
+  // componentDidMount () {
+  //   this.onClickQuery(this.props);
+  //   this.timeTicket = setInterval( ()=> {
+  //     this.onClickQuery(this.props);
+  //   }, 30000);
+  // }
+  // componentWillUnmount() {
+  //   if (!!this.timeTicket) {
+  //     clearInterval(this.timeTicket);
+  //   }
+  // };
+  // onClickQuery = (props)=>{
+  //   const {curdevice,viewtype} = props;
+  //   // const {periodname,starttime,endtime} = periodquery;
+  //   const periodname = 'minutely';// monthly weekly daily hourly minutely
+  //   const starttime = moment().subtract(10, 'minutes').format('YYYY-MM-DD HH:mm:00');//moment().format('YYYY-MM-DD HH:mm:ss'),
+  //   const endtime = moment().format('YYYY-MM-DD HH:mm:00');
+  //
+  //   if(!!curdevice){
+  //     this.props.dispatch(gethistorydevicelist_request({
+  //       _id:curdevice._id,
+  //       periodname,
+  //       starttime,
+  //       endtime,
+  //       fieldslist:viewtype.fieldslist_brief,
+  //     }));
+  //   }
+  // }
 
   componentWillReceiveProps (nextProps) {
       const oldcurdeviceid = lodashget(this.props,'curdevice._id');
       const newcurdeviceid = lodashget(nextProps,'curdevice._id');
       if(oldcurdeviceid !== newcurdeviceid){
         //chang curdevice
-        this.onClickQuery(nextProps);
+        // this.onClickQuery(nextProps);
       }
     }
 

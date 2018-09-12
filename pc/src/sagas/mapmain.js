@@ -184,7 +184,7 @@ let myPath;
 let data;
 const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
    myPath = lineArrayList[0].path;
-   console.log(myPath);
+   // console.log(myPath);
    data = [{
                 name: lineArrayList[0].name,
                 path: myPath.slice(0, 1)
@@ -216,7 +216,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
                  data[0].path = myPath.slice(0, endIdx + 1);
                  gpathSimplifierIns.setData(data); //延展路径
 
-                 console.log(data);
+                 // console.log(data);
                  //重新建立一个巡航器
                  gnav = gpathSimplifierIns.createPathNavigator(0, {
                      //loop: true, //循环播放
@@ -276,6 +276,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
   const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways,indexgatewayid)=>{
     let markers = [];
     const gw = gateways[indexgatewayid];
+    if(!!gw){
           lodashmap(gw.devicelist,(deviceid)=>{
             const item = g_devicesdb[deviceid];
       if(!!item){//AMap.LngLat(lng:Number,lat:Number)
@@ -329,6 +330,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
     console.log(`markers===>${markers.length}`)
     markCluster.setMarkers(markers);
+    }
   }
 
   const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
@@ -768,7 +770,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
                   const pz = getRandomLocation(curgw.Latitude, curgw.Longitude, 3000);
                   curdevice.Longitude = pz[0];
                   curdevice.Latitude = pz[1];
-          }
+                }
                 else{
                   continue;
                 }
@@ -865,7 +867,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
         });
           const usersettings = yield select((state)=>{
             return state.userlogin.usersettings;
-      });
+          });
           const indexgatewayid = usersettings.indexgatewayid;
           let out = {};
           out[indexgatewayid] = gateways[indexgatewayid];

@@ -17,6 +17,7 @@ const QueryPage = (props)=>{
 		}
 	}
 	return <TimePicker onChangeTime={onChangeTime}/>
+
 	// const {fieldslist_brief,fields,dispatch} = props;
 	// const c1 = [
 	// 	{name:'最近2天',key:''},

@@ -109,7 +109,7 @@ exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
           $avg: `$realtimedata.${fieldname}`
       })
     });
-    console.log(aggregate_groupobj);
+    debug(aggregate_groupobj);
 
     historydeviceModel.aggregate([
       {
