@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import Exit from "../../img/22.png";
-import lodashmap from 'lodash.map';
-import lodashget from 'lodash.get';
-import {getCoureName} from '../../util';
+// // import Exit from "../../img/22.png";
+// import lodashmap from 'lodash.map';
+// import lodashget from 'lodash.get';
+// import {getCoureName} from '../../util';
 // import jt2 from "../../img/jt.png";
 import {querypage_set_condition} from '../../actions';
 import TimePicker from '../explore/TimePicker';
@@ -91,5 +91,4 @@ const QueryPage = (props)=>{
   //       </div>);
 }
 
-
-export default QueryPage;
+export default connect()(QueryPage);

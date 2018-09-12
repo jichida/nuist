@@ -98,7 +98,7 @@ class App extends React.Component {
                 <h2 className="title">
                   <img src="images/lssj.png" alt=""/>
                   <span>  <Popover
-                      content={<QueryPage dispatch={this.props.dispatch}/>}
+                      content={<QueryPage />}
                       title="Title"
                       trigger="click"
                       visible={this.state.visible}
