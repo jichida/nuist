@@ -86,7 +86,7 @@ exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
     const starttimeleast = getlimitstarttime(periodname,endtime,starttime);
     debug(`get--->${JSON.stringify({starttimeleast,starttimeleast})}`);
 
-    const MAX_NUMBER = 8;
+    const MAX_NUMBER = 100;
     const maxcount = periodname === 'weekly'?MAX_NUMBER*7:MAX_NUMBER;
 
     const historydeviceModel = DBModels.HistoryDeviceModel;
