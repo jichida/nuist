@@ -29,16 +29,23 @@ export function* querypageflow(){//仅执行一次
 
 
   yield takeLatest(`${querypage_set_condition}`, function*(action) {
-    const payload = action.payload;
-    const starttime_m = parse(payload.from);
-    const endtime_m = parse(payload.to);
+    const {sel,type} = action.payload;
+
+    const starttime_m = parse(sel.from);
+    const endtime_m = parse(sel.to);
     const starttime = starttime_m.format('YYYY-MM-DD HH:mm:ss');
     const endtime = endtime_m.format('YYYY-MM-DD HH:mm:ss');
     console.log(`starttime:${starttime},endtime:${endtime}`);
     // endtime:${endtime.format('YYYY-MM-DD HH:mm:ss')}`);
-    const periodname = 'minutely';
-    yield put(ui_historydevicequeryselect({periodname,starttime,endtime}));
-    yield put(querypage_set_condition_sendsrv({}));
+    if(type === 'history'){
+      const periodname = 'minutely';
+      yield put(ui_historydevicequeryselect({periodname,starttime,endtime}));
+      yield put(querypage_set_condition_sendsrv({}));
+    }
+    else if(type === 'alarm'){
+      //查询历史报警
+    }
+
 	// {from: "now-6M", to: "now", display: "Last 6 months", section: 0, active: false}
     // console.log(payload);
     // const {periodquery,curdevice,viewtype} = props;

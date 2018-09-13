@@ -8,12 +8,12 @@ import { connect } from 'react-redux';
 import {querypage_set_condition} from '../../actions';
 import TimePicker from '../explore/TimePicker';
 const QueryPage = (props)=>{
-	const {dispatch} = props;
+	const {dispatch,type} = props;
 	const onChangeTime = (v)=>{
 		// {from: "now-6M", to: "now", display: "Last 6 months", section: 0, active: false}
 		console.log(v)
 		if(!!dispatch){
-			dispatch(querypage_set_condition(v));
+			dispatch(querypage_set_condition({sel:v,type}));
 		}
 	}
 	return <TimePicker onChangeTime={onChangeTime}/>

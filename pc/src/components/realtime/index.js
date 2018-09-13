@@ -78,7 +78,7 @@ class App extends React.Component {
                       <List curdevice={curdevice}/>
                     </div>
                     <Popover
-                      content={<QueryPage />}
+                      content={<QueryPage type="history"/>}
                       title="Title"
                       trigger="click"
                       visible={this.state.visible}
