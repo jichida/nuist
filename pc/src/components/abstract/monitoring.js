@@ -33,7 +33,7 @@ const DeviceInfoDetailList = (props)=>{
 						}
 					})
 				}
-			  <p>更新时间：{curdevice.updated_at}</p>
+			  <p>更新时间：{lodashget(curdevice,`realtimedata.datatime`,'未获取')}</p>
 			</div>);
 }
 
@@ -47,7 +47,7 @@ class App extends React.Component {
     if(!curdevice){
       return <div />
     }
-    const name = lodashget(curdevice,'name','');
+    // const name = lodashget(curdevice,'name','');
     return (
       <div className="real_time">
         <h2 className="title left_bg">

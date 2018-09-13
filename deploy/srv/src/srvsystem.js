@@ -124,7 +124,7 @@ const job=()=>{
     // startsrv_devpush(config);
     redis.setSubscribeHandler('nuistiotdata_realtimedata_redis',handlermsg.handlermsg_realtimedata_redis);
 
-    intervalCheckDevice();
+    // intervalCheckDevice();
 };
 
 exports.job = job;

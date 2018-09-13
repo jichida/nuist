@@ -18,7 +18,7 @@ import HistoryDeviceIcon from 'material-ui/svg-icons/action/history';//历史节
 export default [
         { name: 'systemconfig', icon: <SystemconfigIcon /> ,adminonly:false},
         { name: 'product', icon: <ProductIcon /> ,adminonly:false},
-        { name: 'onlineresearch', icon: <OnlineResearchIcon /> ,adminonly:false},
+        // { name: 'onlineresearch', icon: <OnlineResearchIcon /> ,adminonly:false},
         { name: 'device', icon: <DeviceIcon />,adminonly:false },
         { name: 'gateway', icon: <DeviceIcon />,adminonly:false },
         { name: 'viewtype', icon: <DeviceIcon />,adminonly:false },

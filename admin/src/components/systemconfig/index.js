@@ -42,7 +42,7 @@ const SystemconfigCreateTitle = ({ record }) => {
        <Create {...props} title={<SystemconfigCreateTitle />} >
        <TabbedForm>
          <FormTab label="系统设置">
-           <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
+           {/* <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" /> */}
            <ReferenceInput label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
              <SelectInput optionText="name" />
            </ReferenceInput>
@@ -61,7 +61,7 @@ const SystemconfigCreateTitle = ({ record }) => {
     <EditPage {...props} title={<SystemconfigTitle />}>
       <TabbedForm>
         <FormTab label="系统设置">
-          <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
+          {/* <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" /> */}
           <ReferenceInput label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
             <SelectInput optionText="name" />
           </ReferenceInput>
