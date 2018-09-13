@@ -53,18 +53,18 @@ class App extends React.Component {
 
 const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},device:{devices},app:{uialarmshowall},userlogin:{usersettings}}) => {
     let alllist = [];
-    const curid = lodashget(usersettings,'indexdeviceid');
-    if(!!devices[curid]){
-        lodashmap(realtimealarmlist,(rid)=>{
-          const curdeviceid = lodashget(realtimealarms[rid],'did');
-          if(curid === curdeviceid){
-            alllist.push(rid);
-          }
-        });
-    }
-    else{
+    // const curid = lodashget(usersettings,'indexdeviceid');
+    // if(!!devices[curid]){
+    //     lodashmap(realtimealarmlist,(rid)=>{
+    //       const curdeviceid = lodashget(realtimealarms[rid],'did');
+    //       if(curid === curdeviceid){
+    //         alllist.push(rid);
+    //       }
+    //     });
+    // }
+    // else{
       alllist = realtimealarmlist;
-    }
+    // }
     // if(uialarmshowall){
     //   alllist = realtimealarmlist;
     // }

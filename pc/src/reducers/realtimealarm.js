@@ -16,7 +16,7 @@ const realtimealarm = createReducer({
   [getrealtimealarmlist_result]:(state,payload)=>{
       const {list} = payload;
       const realtimealarmlist = [];
-      const realtimealarms = {...state.realtimealarms};
+      const realtimealarms = {};
       lodashmap(list,(realtimealarm)=>{
         realtimealarmlist.push(realtimealarm._id);
         realtimealarms[realtimealarm._id] = realtimealarm;

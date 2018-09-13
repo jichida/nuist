@@ -7,7 +7,7 @@ import HistoryBar from '../history/historybar';
 // import Footer from "../footer";
 import NodeSel from '../nodesel';
 // import Meter from "./meter";
-import List from "../history/list.js";
+// import List from "../history/list.js";
 import QueryPage from '../history/querypage.js';
 
 

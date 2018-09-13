@@ -177,7 +177,13 @@ export function* wsrecvsagaflow() {
   yield takeLatest(`${ui_startalarm}`,function*(action) {
     let isstopped = false;
     while(!isstopped){
-      yield put(getrealtimealarmlist_request({}));
+      //选中一个默认节点
+      const {usersettings} = yield select((state)=>{
+        const {usersettings} = state.userlogin;
+        return {usersettings};
+      });
+      const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
+      yield put(getrealtimealarmlist_request({query:{did:indexdeviceid}}));
       const { stop } = yield race({
           stop: take(`${ui_stopalarm}`),
           result: take(`${getrealtimealarmlist_result}`),

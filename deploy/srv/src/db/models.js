@@ -127,12 +127,15 @@ const RoleModel =mongoose.model('role',  RoleSchema);
 
 //原始信息
 const RealtimeAlarmRawSchema= new Schema({
+  did:{ type: Schema.Types.ObjectId, ref: 'device' },
 }, { strict: false });
 RealtimeAlarmRawSchema.plugin(mongoosePaginate);
 const RealtimeAlarmRawModel =mongoose.model('realtimealarmraw',  RealtimeAlarmRawSchema);
 
 //设备历史信息
 const HistoryDeviceSchema = new Schema({
+  gatewayid:{ type: Schema.Types.ObjectId, ref: 'gateway' },
+  did:{ type: Schema.Types.ObjectId, ref: 'device' },
 }, { strict: false });
 HistoryDeviceSchema.plugin(mongoosePaginate);
 const HistoryDeviceModel =mongoose.model('historydevice',  HistoryDeviceSchema);
