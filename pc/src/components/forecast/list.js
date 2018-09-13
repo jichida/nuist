@@ -35,9 +35,9 @@ class App extends React.Component {
                       const addressname = lodashget(curdevice,'addressname','');
                       return ( <li key={rid}>
                       	        			<div className="sjyj_li">
-                      	        				<div className="tit">{`${content}-${mapkeystring[type]}(${value})`} <span>{`${devicename}`} - {`${devicelocationname}`}</span> <span> {`${updatetime}`}</span> <span>地址：{`${addressname}`}</span></div>
+                      	        				<div className="tit">{`${content}-${mapkeystring[type]}(${value})`}
+                                          <span>{`${devicename}`}  {`${devicelocationname}`}</span> <span> {`${updatetime}`}</span> <span>{`${addressname}`}</span></div>
                       	        				<div className="cont">
-
                       	        				</div>
 <span className="num">{getindexstring(index+1,2)}</span>
                       	        			</div>
