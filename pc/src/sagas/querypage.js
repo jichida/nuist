@@ -7,6 +7,7 @@ import {
 } from '../actions';
 // import moment from 'moment';
 import * as dateMath from '../util/datemath';
+import lodashget from 'lodash.get';
 
 export function* querypageflow(){//仅执行一次
   yield takeLatest(`${querypage_set_condition_sendsrv}`, function*(action) {
@@ -15,15 +16,17 @@ export function* querypageflow(){//仅执行一次
       const deviceid = usersettings.indexdeviceid;
       return {periodquery,viewtype,deviceid};
     });
-
-    const {periodname,starttime,endtime} = periodquery;
-    yield put(gethistorydevicelist_request({
-      fieldslist:viewtype.fieldslist_brief,
-      _id:deviceid,
-      periodname,
-      starttime,
-      endtime
-    }));
+    const fieldslist_brief = lodashget(viewtype,'fieldslist_brief',[]);
+    if(fieldslist_brief.length > 0){
+      const {periodname,starttime,endtime} = periodquery;
+      yield put(gethistorydevicelist_request({
+        fieldslist:fieldslist_brief,
+        _id:deviceid,
+        periodname,
+        starttime,
+        endtime
+      }));
+    }
   });
 
 
@@ -37,7 +40,7 @@ export function* querypageflow(){//仅执行一次
     const endtime = endtime_m.format('YYYY-MM-DD HH:mm:ss');
     console.log(`starttime:${starttime},endtime:${endtime}`);
     // endtime:${endtime.format('YYYY-MM-DD HH:mm:ss')}`);
-    if(type === 'history'){
+    if(type === 'historychart'){
       const periodname = 'minutely';
       yield put(ui_historydevicequeryselect({periodname,starttime,endtime}));
       yield put(querypage_set_condition_sendsrv({}));

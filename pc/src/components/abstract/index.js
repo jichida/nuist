@@ -1,17 +1,18 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Investigation from "./investigation";
+// import Investigation from "./investigation";
 import Monitoring from "./monitoring";
 import Login from "../index/login.js";
-
+import moment from 'moment';
 class App extends React.Component {
   render() {
+    const _dayTxtList = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
     return (
       	<div className="left_con huadong">
             <div className="weather">
                 <img src="images/tianqi.png" alt=""/>
-                <span>晴天 25℃～28℃ <br />今天(周一) </span>
+                <span>晴天 25℃～28℃ <br />今天({_dayTxtList[moment().day()]}) </span>
             </div>
             <div className="real_time">
                 <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>账号密码登录</span></h2>
@@ -19,7 +20,6 @@ class App extends React.Component {
 
             </div>
             <Monitoring />
-            <Investigation />
 
         </div>
     )

@@ -69,33 +69,25 @@ class App extends React.Component {
 
   <div className="center_con center_mr0">
       <div className="center_box rhuadong">
+      <ChartsRealtime pageType={this.state.page} shownum={10}/>
+      <div className="bor_con border_top">
+          <h2 className="title"><img src="images/chax.png"  alt=""/>
+          <span>历史图表</span>
+          <span>
+            <QueryPage type="historychart"/>
+          </span>
+          <span onClick={()=>{
+            this.props.history.replace('/realtimehistory')
+          }}>更多历史数据(居右)</span>
 
-      <ChartsRealtime pageType={this.state.page} shownum={10}/> <div className="bor_con border_top">
-      <h2 className="title"><img src="images/chax.png"  alt=""/>
-      <span>历史数据</span></h2>
-
-                    <div className="curve_box data_list_box rhuadong">
-                      <List curdevice={curdevice}/>
-                    </div>
-
-                    <h2 className="title"><img src="images/chax.png"  alt=""/>
-                    <span>历史图表</span>
-                    <span>
-                      <QueryPage type="history"/>
-                    </span>
-                    </h2>
-
-
-                                  <div className="curve_box data_list_box rhuadong">
-                                    <HistoryBar showflag="all"/>
-                                  </div>
-                  </div>
-                 </div>
-                  </div>
-
-
+          </h2>
+        <div className="curve_box data_list_box rhuadong">
+          <HistoryBar showflag="all"/>
+        </div>
+        </div>
+       </div>
+        </div>
       </div>
-
           </div>
 //    <div className="right_con rhuadong">
 //    <div className="bor_con">

@@ -99,7 +99,7 @@ class App extends React.Component {
                   <img src="images/lssj.png" alt=""/>
                   <span>
                     历史数据</span>
-                      <span><QueryPage type="history"/></span>
+                      <span><QueryPage type="historychart"/></span>
                   <div className="title_tab">
                     {
                       lodashmap(fields,(v,k)=>{
