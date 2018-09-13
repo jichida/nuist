@@ -14,12 +14,12 @@ exports.getrealtimealarmlist =  (actiondata,ctx,callback)=>{
   //   if(!query.DeviceId){
   //     query.DeviceId = {'$in':deviceIds};
   //   }
-    debug(`getrealtimealarmlist query--->`);
-    debug(query);
+    // debug(`getrealtimealarmlist query--->`);
+    // debug(query);
     const queryexec = realtimealarmrawModel.find(query).lean().sort({UpdateTime:-1}).limit(100);
     queryexec.exec((err,list)=>{
-        debug(err);
-        debug(list);
+        // debug(err);
+        // debug(list.length);
         if(!err && !!list){
             callback({
               cmd:'getrealtimealarmlist_result',

@@ -53,7 +53,13 @@ export function* querypageflow(){//仅执行一次
         return {usersettings};
       });
       const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
-      yield put(getrealtimealarmlist_request({query:{did:indexdeviceid}}));
+      yield put(getrealtimealarmlist_request({query:{
+        did:indexdeviceid,
+        UpdateTime:{
+            $gte:starttime,
+            $lte:endtime
+        }
+      }}));
     }
 
 	// {from: "now-6M", to: "now", display: "Last 6 months", section: 0, active: false}

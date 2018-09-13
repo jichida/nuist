@@ -8,7 +8,7 @@ import SeldropdownDevice from '../abstract/seldroplistdevice';
 // import HistoryDataBar from "../history_data";
 // import Footer from "../footer";
 import NodeSel from '../nodesel';
-
+import QueryPage from '../history/querypage.js';
 // import lodashget from 'lodash.get';
 // import ReportContainer from "../history/reportcontainer.js";
 // import ChartsRealtime from '../history_data/chartsrealtime';
@@ -60,6 +60,9 @@ class App extends React.Component {
       <div className="bor_con center_box">
       <h2 className="title"><img src="images/jb.png"  alt=""/>
       <span>综合警报</span>
+      <span>
+        <QueryPage type="alarm"/>
+      </span>
       <SeldropdownDevice />
     </h2>
       <List />
