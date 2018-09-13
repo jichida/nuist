@@ -8,7 +8,7 @@ import ChartsHistory from '../history/charts_history_container.js';
 // import Login from "./login.js";
 // import Weather from "./weather";
 // import Swiper from "./swiper";
-import { Popover } from 'antd';
+// import { Popover } from 'antd';
 import QueryPage from '../history/querypage.js';
 import Info from '../history_data/info';
 // // import Monitoring from "./monitoring";
@@ -97,14 +97,9 @@ class App extends React.Component {
             <div className="bor_con con_height">
                 <h2 className="title">
                   <img src="images/lssj.png" alt=""/>
-                  <span>  <Popover
-                      content={<QueryPage type="history"/>}
-                      title="Title"
-                      trigger="click"
-                      visible={this.state.visible}
-                      onVisibleChange={this.handleVisibleChange}
-                    >
-                    历史数据</Popover></span>
+                  <span>
+                    历史数据</span>
+                      <span><QueryPage type="history"/></span>
                   <div className="title_tab">
                     {
                       lodashmap(fields,(v,k)=>{

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Popover } from 'antd';
+// import { Popover } from 'antd';
 import Header from "../header";
 // import AbstractBar from "../abstract";
 import HistoryBar from '../history/historybar';
@@ -77,16 +77,14 @@ class App extends React.Component {
                     <div className="curve_box data_list_box rhuadong">
                       <List curdevice={curdevice}/>
                     </div>
-                    <Popover
-                      content={<QueryPage type="history"/>}
-                      title="Title"
-                      trigger="click"
-                      visible={this.state.visible}
-                      onVisibleChange={this.handleVisibleChange}
-                    >
+
                     <h2 className="title"><img src="images/chax.png"  alt=""/>
-                    <span>历史图表</span></h2>
-                    </Popover>
+                    <span>历史图表</span>
+                    <span>
+                      <QueryPage type="history"/>
+                    </span>
+                    </h2>
+
 
                                   <div className="curve_box data_list_box rhuadong">
                                     <HistoryBar showflag="all"/>
