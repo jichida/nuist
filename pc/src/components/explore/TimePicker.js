@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
-import './timepicker.css';
+// import './timepicker.css';
 import * as dateMath from '../../util/datemath';
 import * as rangeUtil from '../../util/rangeutil';
 
@@ -159,6 +159,9 @@ export default class TimePicker extends PureComponent<any, any> {
       return null;
     }
     const timeOptions = this.getTimeOptions();
+    // const {SelDate,SelDateProps} = this.props;
+
+    // const DatePickerInner = this.props.DatePickerInner;
     return (
       <div ref={this.dropdownRef} className="gf-timepicker-dropdown">
         <div className="gf-timepicker-absolute-section">
@@ -167,24 +170,24 @@ export default class TimePicker extends PureComponent<any, any> {
           <label className="small">从:</label>
           <div className="gf-form-inline">
             <div className="gf-form max-width-28">
-              <input
-                type="text"
-                className="gf-form-input input-large timepicker-from"
-                value={fromRaw}
-                onChange={this.handleChangeFrom}
-              />
+
+              {React.cloneElement(this.props.children, {
+                 value: fromRaw,
+                 onChange:this.handleChangeFrom,
+                 roundUp:false,
+                })}
+
             </div>
           </div>
 
           <label className="small">到:</label>
           <div className="gf-form-inline">
             <div className="gf-form max-width-28">
-              <input
-                type="text"
-                className="gf-form-input input-large timepicker-to"
-                value={toRaw}
-                onChange={this.handleChangeTo}
-              />
+              {React.cloneElement(this.props.children, {
+                value: toRaw,
+                onChange:this.handleChangeTo,
+                roundUp:true
+               })}
             </div>
           </div>
 

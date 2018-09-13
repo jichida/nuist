@@ -59,7 +59,7 @@ const rangeOptions = [
   { from: 'now-5y', to: 'now', display: '三年内', section: 0 },
 ];
 
-const absoluteFormat = 'MMM D, YYYY HH:mm:ss';
+const absoluteFormat = 'YYYY-MM-DD HH:mm:ss';
 
 const rangeIndex = {};
 _.each(rangeOptions, frame => {
@@ -115,15 +115,15 @@ export function describeTextRange(expr: any) {
     const amount = parseInt(parts[2], 10);
     const span = spans[unit];
     if (span) {
-      opt.display = isLast ? 'Last ' : 'Next ';
+      opt.display = isLast ? '最近 ' : '下 ';
       opt.display += amount + ' ' + span.display;
       opt.section = span.section;
       if (amount > 1) {
-        opt.display += 's';
+        // opt.display += 's';
       }
     }
   } else {
-    opt.display = opt.from + ' to ' + opt.to;
+    opt.display = opt.from + ' 到 ' + opt.to;
     opt.invalid = true;
   }
 
@@ -137,17 +137,17 @@ export function describeTimeRange(range) {
   }
 
   if (moment.isMoment(range.from) && moment.isMoment(range.to)) {
-    return formatDate(range.from) + ' to ' + formatDate(range.to);
+    return formatDate(range.from) + ' 到 ' + formatDate(range.to);
   }
 
   if (moment.isMoment(range.from)) {
     const toMoment = dateMath.parse(range.to, true);
-    return formatDate(range.from) + ' to ' + toMoment.fromNow();
+    return formatDate(range.from) + ' 到 ' + toMoment.fromNow();
   }
 
   if (moment.isMoment(range.to)) {
     const from = dateMath.parse(range.from, false);
-    return from.fromNow() + ' to ' + formatDate(range.to);
+    return from.fromNow() + ' 到 ' + formatDate(range.to);
   }
 
   if (range.to.toString() === 'now') {
@@ -155,5 +155,5 @@ export function describeTimeRange(range) {
     return res.display;
   }
 
-  return range.from.toString() + ' to ' + range.to.toString();
+  return range.from.toString() + ' 到 ' + range.to.toString();
 }

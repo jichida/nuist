@@ -1,12 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import * as dateMath from '../../util/datemath';
 // // import Exit from "../../img/22.png";
 // import lodashmap from 'lodash.map';
 // import lodashget from 'lodash.get';
 // import {getCoureName} from '../../util';
 // import jt2 from "../../img/jt.png";
+import { DatePicker } from 'antd';
+import locale from 'antd/lib/date-picker/locale/zh_CN';
+
 import {querypage_set_condition} from '../../actions';
 import TimePicker from '../explore/TimePicker';
+
+const DatePickerWrap = (props)=>{
+	const {value,roundUp,onChange,...rest} = props;
+	const valueK = dateMath.parse(value, roundUp);
+	const onChangeK = (v)=>{
+		const e = {
+			target:{
+				value:v
+			}
+		}
+		// console.log(v);
+		onChange(e);
+	}
+	return <DatePicker value={valueK} onChange={onChangeK} {...rest} />
+}
+
 const QueryPage = (props)=>{
 	const {dispatch,type} = props;
 	const onChangeTime = (v)=>{
@@ -16,7 +36,14 @@ const QueryPage = (props)=>{
 			dispatch(querypage_set_condition({sel:v,type}));
 		}
 	}
-	return <TimePicker onChangeTime={onChangeTime}/>
+
+	return <TimePicker onChangeTime={onChangeTime}>
+					<DatePickerWrap showTime
+						locale={locale}
+						format="YYYY-MM-DD HH:mm:ss"
+						placeholder="选择时间"/>
+				 </TimePicker>
+
 
 	// const {fieldslist_brief,fields,dispatch} = props;
 	// const c1 = [

@@ -6,7 +6,7 @@ import {
   gethistorydevicelist_request
 } from '../actions';
 // import moment from 'moment';
-import {parse} from '../util/datemath';
+import * as dateMath from '../util/datemath';
 
 export function* querypageflow(){//仅执行一次
   yield takeLatest(`${querypage_set_condition_sendsrv}`, function*(action) {
@@ -31,8 +31,8 @@ export function* querypageflow(){//仅执行一次
   yield takeLatest(`${querypage_set_condition}`, function*(action) {
     const {sel,type} = action.payload;
 
-    const starttime_m = parse(sel.from);
-    const endtime_m = parse(sel.to);
+    const starttime_m = dateMath.parse(sel.from,false);
+    const endtime_m = dateMath.parse(sel.to,true);
     const starttime = starttime_m.format('YYYY-MM-DD HH:mm:ss');
     const endtime = endtime_m.format('YYYY-MM-DD HH:mm:ss');
     console.log(`starttime:${starttime},endtime:${endtime}`);
