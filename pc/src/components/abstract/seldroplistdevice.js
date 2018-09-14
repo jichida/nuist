@@ -32,7 +32,7 @@ class App extends React.Component {
           <Select
           showSearch
           value={lodashget(curdevice,'_id','')}
-
+style={{ width: 140 }}
           placeholder="选择一个节点"
           optionFilterProp="children"
           onChange={(v)=>this.handleChange(v)}

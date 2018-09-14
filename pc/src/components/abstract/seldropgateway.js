@@ -30,6 +30,7 @@ class App extends React.Component {
           <Select
           showSearch
           value={lodashget(curgateway,'_id','')}
+          style={{ width: 108 }}
           placeholder="选择一个网关"
           optionFilterProp="children"
           onChange={(v)=>this.handleChange(v)}

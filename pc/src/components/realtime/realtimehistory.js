@@ -65,21 +65,23 @@ class App extends React.Component {
 
   <div className="center_con center_mr0">
       <div className="center_box rhuadong">
+        <div className="bor_con border_top">
       <h2 className="title"><img src="images/chax.png"  alt=""/>
       <span>历史数据</span>
-      <span>
+      <span className="tt">
         <QueryPage type="historydata"/>
       </span>
+            <div className="title_tab">
       <span onClick={()=>{
         this.props.history.replace('/realtime')
-      }}>返回(居右)</span>
+      }}>返回</span></div>
     </h2>
-                    <div className="curve_box data_list_box rhuadong">
+                   <div className="curve_box data_list_box rhuadong">
                       <List curdevice={curdevice}/>
                     </div>
                   </div>
-                 </div>
-                  </div>
+                 </div></div>
+</div>
 
           </div>
 //    <div className="right_con rhuadong">
