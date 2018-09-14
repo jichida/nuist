@@ -329,8 +329,10 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
           //化纤
             let out = {};
-            out[indexgatewayid] = gw
-            store.dispatch(mapmain_drawgatewaypath({gateways:out,g_devicesdb}));
+            if(!!gw){
+              out[indexgatewayid] = gw
+              store.dispatch(mapmain_drawgatewaypath({gateways:out,g_devicesdb}));          
+            }
         }
 
     console.log(`markers===>${markers.length}`)
@@ -875,7 +877,10 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           });
           const indexgatewayid = usersettings.indexgatewayid;
           let out = {};
-          out[indexgatewayid] = gateways[indexgatewayid];
+          if(!!gateways[indexgatewayid]){
+            out[indexgatewayid] = gateways[indexgatewayid];
+          }
+
           yield put(mapmain_drawgatewaypath({
             gateways:out,
             g_devicesdb}));

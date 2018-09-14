@@ -1,5 +1,6 @@
 import { select,put,call,take,takeLatest,cancel,fork,} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
+import {getRandomLocation} from './geo.js';
 import get from 'lodash.get';
 import lodashmap from 'lodash.map';
 import {lodashshuffle_gwpath,getdevicestatus,setshuffledevices} from '../util';
@@ -18,6 +19,7 @@ import {
   mapmain_drawgatewaypath,
   getgatewaylist_result,
   getgatewaylist_result_4reducer,
+  ui_selectgateway4draw,
   serverpush_device_list,
   serverpush_gateway
   } from '../actions';
@@ -30,6 +32,7 @@ let infoWindow;
 
 //=====数据部分=====
 let markCluster;
+let endIdx;
 let CachedlineArrayList = [];
 let gpathSimplifierIns,gPathSimplifier;
 const Create_PathSimplifier = (callbackfn)=>{
@@ -42,42 +45,71 @@ const Create_PathSimplifier = (callbackfn)=>{
           alert('当前环境不支持 Canvas！');
           return;
       }
-
-          //启动页面
-          //创建组件实例
       tmppathSimplifierIns = new PathSimplifier({
               zIndex: 100,
+                autoSetFitView: false,
               map: window.amapmain, //所属的地图实例
+
               getPath: function(pathData, pathIndex) {
-                  //返回轨迹数据中的节点坐标信息，[AMap.LngLat, AMap.LngLat...] 或者 [[lng|number,lat|number],...]
+
                   return pathData.path;
               },
-              autoSetFitView:false,
               getHoverTitle: function(pathData, pathIndex, pointIndex) {
-                  //返回鼠标悬停时显示的信息
+
                   if (pointIndex >= 0) {
-                      //鼠标悬停在某个轨迹节点上
-                      return pathData.name + '，点:' + pointIndex + '/' + pathData.path.length;
+                        //point
+                        return pathData.name + '，点：' + pointIndex + '/' + pathData.path.length;
                   }
-                  //鼠标悬停在节点之间的连线上
+
                   return pathData.name + '，点数量' + pathData.path.length;
               },
               renderOptions: {
-                  //轨迹线的样式
-                  pathLineStyle: {
-                      strokeStyle: 'red',
-                      lineWidth: 5,
-                      dirArrowStyle: true
+
+                    renderAllPointsIfNumberBelow: 100 //绘制路线节点，如不需要可设置为-1
                   }
-              }
           });
-          console.log(`created--->gpathSimplifierIns--->gPathSimplifier`)
           resolve({
             gpathSimplifierIns:tmppathSimplifierIns,
             gPathSimplifier:tmpPathSimplifier
-          })
     });
+
   });
+      });
+          //启动页面
+          //创建组件实例
+  //     tmppathSimplifierIns = new PathSimplifier({
+  //             zIndex: 100,
+  //             map: window.amapmain, //所属的地图实例
+  //             getPath: function(pathData, pathIndex) {
+  //                 //返回轨迹数据中的节点坐标信息，[AMap.LngLat, AMap.LngLat...] 或者 [[lng|number,lat|number],...]
+  //                 return pathData.path;
+  //             },
+  //             autoSetFitView:false,
+  //             getHoverTitle: function(pathData, pathIndex, pointIndex) {
+  //                 //返回鼠标悬停时显示的信息
+  //                 if (pointIndex >= 0) {
+  //                     //鼠标悬停在某个轨迹节点上
+  //                     return pathData.name + '，点:' + pointIndex + '/' + pathData.path.length;
+  //                 }
+  //                 //鼠标悬停在节点之间的连线上
+  //                 return pathData.name + '，点数量' + pathData.path.length;
+  //             },
+  //             renderOptions: {
+  //                 //轨迹线的样式
+  //                 pathLineStyle: {
+  //                     strokeStyle: 'red',
+  //                     lineWidth: 5,
+  //                     dirArrowStyle: true
+  //                 }
+  //             }
+  //         });
+  //         console.log(`created--->gpathSimplifierIns--->gPathSimplifier`)
+  //         resolve({
+  //           gpathSimplifierIns:tmppathSimplifierIns,
+  //           gPathSimplifier:tmpPathSimplifier
+  //         })
+  //   });
+  // });
 }
 
 
@@ -104,11 +136,11 @@ const Create_PathSimplifier = (callbackfn)=>{
     });
   }
 
-  const getMarkCluster_recreateMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
+  const getMarkCluster_recreateMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways,indexgatewayid)=>{
     if(markCluster.getMarkers().length > 0){
       markCluster.clearMarkers();
     }
-    getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
+    getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways,indexgatewayid);
   }
 
 const isEqualArray = (array1,array2)=>{
@@ -130,13 +162,18 @@ const getGatewayPath = (gateways,g_devicesdb)=>{
   let lineArrayList = [];
   lodashmap(gateways,(gw)=>{
     let lineArr = [];
-    lodashmap(gw.devicepath,(did)=>{
-      const item = g_devicesdb[did];
-      const firstLetter = getdevicestatus(did);
-      if(!!item && firstLetter==='N'){
-        lineArr.push([item.Longitude,item.Latitude]);
-      }
-    });
+    if(!gw.devicepath){
+      gw.devicepath = gw.devicelist;
+    }
+    if(!!gw.devicepath){
+      lodashmap(gw.devicepath,(did)=>{
+        const item = g_devicesdb[did];
+        const firstLetter = getdevicestatus(did);
+        if(!!item && firstLetter==='N'){
+          lineArr.push([item.Longitude,item.Latitude]);
+        }
+      });
+    }
     lineArr.push([gw.Longitude,gw.Latitude]);
     lineArrayList.push({
        name:gw.name,
@@ -146,40 +183,107 @@ const getGatewayPath = (gateways,g_devicesdb)=>{
   return lineArrayList;
 };
 
-let navgz = []; ;
+let navgz = [];
+let gnav;
+let myPath;
+let data;
 const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
+   myPath = lineArrayList[0].path;
+   // console.log(myPath);
+   data = [{
+                name: lineArrayList[0].name,
+                path: myPath.slice(0, 1)
+            }];
+
   return new Promise((resolve,reject) => {
+    endIdx = 0;
+    if(!!gnav){
+      gnav.stop();
+      gnav.destroy();
+    }
+    gpathSimplifierIns.setData(data); //延展路径
+    gnav = gpathSimplifierIns.createPathNavigator(0, {
+             loop: true, //循环播放
+             speed: 1000 //巡航速度，单位千米/小时
+         });
 
-        for(let i = 0; i < navgz.length; i++){
-          navgz[i].stop();
-          navgz[i].destroy();
+         const expandPath = ()=> {
+             const doExpand = ()=> {
+                 endIdx++;
+                 if (endIdx >= myPath.length) {
+                     return false;
         }
-        navgz = [];
 
-        gpathSimplifierIns.setData(lineArrayList);
-        //创建一个巡航器
-        for(let i = 0 ;i < lineArrayList.length ;i ++){
-          const navg0 = gpathSimplifierIns.createPathNavigator(i, //关联第1条轨迹
-              {
-                  loop: true, //循环播放
-                  speed: 1000
+                 var cursor = gnav.getCursor().clone(), //保存巡航器的位置
+                     status = gnav.getNaviStatus();
+
+
+                 data[0].path = myPath.slice(0, endIdx + 1);
+                 gpathSimplifierIns.setData(data); //延展路径
+
+                 // console.log(data);
+                 //重新建立一个巡航器
+                 gnav = gpathSimplifierIns.createPathNavigator(0, {
+                     //loop: true, //循环播放
+                     speed: 600000 //巡航速度，单位千米/小时
               });
 
-          navgz.push(navg0);
-        }
-        for(let i = 0; i < navgz.length; i++){
-          navgz[i].start();
+                 if (status !== 'stop') {
+                     gnav.start();
         }
 
-        console.log(`drawgGatewayPath`)
+                 //恢复巡航器的位置
+                 if (cursor.idx >= 0) {
+                     gnav.moveToPoint(cursor.idx, cursor.tail);
+        }
+
+                 return true;
+             }
+
+             if (doExpand()) {
+                 setTimeout(expandPath, 1000);
+             }
+         }
+
+
+         gnav.start();
+
+         expandPath();
         resolve();
     });
+        // for(let i = 0; i < navgz.length; i++){
+        //   navgz[i].stop();
+        //   navgz[i].destroy();
+        // }
+        // navgz = [];
+        //
+        // gpathSimplifierIns.setData(lineArrayList);
+        // //创建一个巡航器
+        // for(let i = 0 ;i < lineArrayList.length ;i ++){
+        //   const navg0 = gpathSimplifierIns.createPathNavigator(i, //关联第1条轨迹
+        //       {
+        //           loop: true, //循环播放
+        //           speed: 1000
+        //       });
+        //
+        //   navgz.push(navg0);
+        // }
+        // for(let i = 0; i < navgz.length; i++){
+        //   navgz[i].start();
+        // }
+        //
+        // console.log(`drawgGatewayPath`)
+        // resolve();
+    // });
 
 }
 
-  const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
+  const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways,indexgatewayid)=>{
     let markers = [];
-    lodashmap(g_devicesdb,(item,key)=>{
+    const gw = gateways[indexgatewayid];
+    if(!!gw){
+          lodashmap(gw.devicelist,(deviceid)=>{
+            const item = g_devicesdb[deviceid];
       if(!!item){//AMap.LngLat(lng:Number,lat:Number)
           const pos = new window.AMap.LngLat(item.Longitude,item.Latitude);
           const marker = new window.AMap.Marker({
@@ -193,7 +297,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
              angle:get(item,'angle',0),
             //  content: '<div style="background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
              offset: new window.AMap.Pixel(-12,-24),//-113, -140
-             extData:{type:'device',key}
+                   extData:{type:'device',deviceid}
           });
           marker.on('click',()=>{
             //console.log(`click marker ${key}`);
@@ -205,7 +309,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
         }
     });
 
-    lodashmap(gateways,(item,key)=>{
+        const item = gw;
       if(!!item){//AMap.LngLat(lng:Number,lat:Number)
           const pos = new window.AMap.LngLat(item.Longitude,item.Latitude);
           const marker = new window.AMap.Marker({
@@ -219,18 +323,21 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
              angle:get(item,'angle',0),
             //  content: '<div style="background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
              offset: new window.AMap.Pixel(-12,-32),//-113, -140
-             extData:{type:'gateway',key}
+               extData:{type:'gateway',indexgatewayid}
           });
           markers.push(marker);
 
           //化纤
-          store.dispatch(mapmain_drawgatewaypath({gateways,g_devicesdb}));
+            let out = {};
+            if(!!gw){
+              out[indexgatewayid] = gw
+              store.dispatch(mapmain_drawgatewaypath({gateways:out,g_devicesdb}));          
+            }
         }
-    });
+
     console.log(`markers===>${markers.length}`)
     markCluster.setMarkers(markers);
-
-
+    }
   }
 
   const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
@@ -238,7 +345,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
       const allmarks = markCluster.getMarkers();
       lodashmap(allmarks,(mark)=>{
         const {type,key} = mark.getExtData();
-        if(type === 'device'){
+        if(type === 'device' && !!g_devicesdb[key]){
           const deviceitem = g_devicesdb[key];
           const deviceitemnew = g_devicesdb_updated[deviceitem._id];
           if(!!deviceitemnew){
@@ -477,6 +584,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
       //销毁地图
       yield takeLatest(`${carmapshow_destorymap}`, function*(action_destorymap) {
+        try{
         let {payload:{divmapid}} = action_destorymap;
         const destorymap = (divmapid)=>{
           return new Promise((resolve) => {
@@ -489,7 +597,10 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           });
         }
         yield call(destorymap,divmapid);
-
+        }
+        catch(e){
+          console.log(e);
+        }
       });
 
       //单个设备弹框
@@ -564,20 +675,59 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
       //     console.log(e);
       //   }
       // });
+        yield takeLatest(`${ui_selectgateway4draw}`, function*(action) {
+          try{
+            let {payload} = action;
+            const indexgatewayid = payload;
+            const {g_devicesdb,viewtype,gateways} = yield select((state)=>{
+              const {devices,viewtype,gateways} = state.device;
+              return {g_devicesdb:devices,viewtype,gateways};
+            });
+            //等待地图创建
+            while(!markCluster){
+              yield delay(500);
+            }
 
+            const SettingOfflineMinutes =yield select((state)=>{
+              return get(state,'app.SettingOfflineMinutes',20);
+            });
+            getMarkCluster_recreateMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways,indexgatewayid);
+            yield call(getMarkCluster_showMarks,{isshow:true,SettingOfflineMinutes,g_devicesdb,viewtype,gateways});
+          }
+          catch(e){
+            console.log(e);
+          }
+        });
 
         yield takeLatest(`${getgatewaylist_result}`, function*(deviceresult) {
           let {payload} = deviceresult;
           try{
+
               yield put.resolve(getgatewaylist_result_4reducer(payload));
 
-              const {g_devicesdb,viewtype,gateways} = yield select((state)=>{
+              const {g_devicesdb,gateways} = yield select((state)=>{
                 const {devices,viewtype,gateways} = state.device;
                 return {g_devicesdb:devices,viewtype,gateways};
               });
 
+              lodashmap(g_devicesdb,(curdevice)=>{
+                const curgw = gateways[curdevice.gatewayid];
+                let devicelist = curgw.devicelist || [];
+                devicelist.push(curdevice._id);
+                curgw.devicelist = devicelist;
+                //getRandomLocation
+                if(!curdevice.Longitude){
+                  const pz = getRandomLocation(curgw.Latitude, curgw.Longitude, 3000);
+                  curdevice.Longitude = pz[0];
+                  curdevice.Latitude = pz[1];
+                }
+              });
+
               lodashmap(gateways,(gw)=>{
-                setshuffledevices(gw.devicepath);
+                if(!gw.devicepath){
+                  gw.devicepath = gw.devicelist;
+                  setshuffledevices(gw.devicepath);
+                }
               });
               // const data = [];
               // lodashmap(devicelistresult,(deviceitem)=>{
@@ -587,16 +737,6 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
               //   g_devicesdb[deviceitem.DeviceId] = deviceitem;
               // });
 
-              //等待地图创建
-              while(!markCluster){
-                yield delay(500);
-              }
-
-              const SettingOfflineMinutes =yield select((state)=>{
-                return get(state,'app.SettingOfflineMinutes',20);
-              });
-              getMarkCluster_recreateMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
-              yield call(getMarkCluster_showMarks,{isshow:true,SettingOfflineMinutes,g_devicesdb,viewtype,gateways});
 
               //选中一个默认节点
               const {usersettings} = yield select((state)=>{
@@ -604,9 +744,14 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
                 return {usersettings};
               });
               const indexdeviceid = get(usersettings,'indexdeviceid','');
+              const indexgatewayid = get(usersettings,'indexgatewayid','');
+              yield put(ui_selectgateway4draw(indexgatewayid));
+
               if(!!g_devicesdb[indexdeviceid]){
                 yield put(ui_mycar_selcurdevice(indexdeviceid));
               }
+
+
             }
             catch(e){
               console.log(e);
@@ -614,17 +759,31 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
         });
 
+        //serverpush_device_list需要顺带gateways
         yield takeLatest(`${serverpush_device_list}`, function*(action) {
+          try{
           const {payload:{devicelist}} = action;
           let i = 0;
           const {g_devicesdb,gateways,viewtype} = yield select((state)=>{
             const {devices,viewtype,gateways} = state.device;
             return {g_devicesdb:devices,gateways,viewtype};
           });
-          console.log(`devicelist->${JSON.stringify(devicelist)}`);
+          // console.log(`devicelist->${JSON.stringify(devicelist)}`);
           for( i=0;i<devicelist.length;i++){
-            g_devicesdb[devicelist[i]._id] = devicelist[i];
-          }
+              let curdevice = devicelist[i];
+              if(!curdevice.Longitude){
+                const curgw = gateways[curdevice.gatewayid];
+                if(!!curgw){
+                  const pz = getRandomLocation(curgw.Latitude, curgw.Longitude, 3000);
+                  curdevice.Longitude = pz[0];
+                  curdevice.Latitude = pz[1];
+                }
+                else{
+                  continue;
+                }
+              }
+              g_devicesdb[devicelist[i]._id] = curdevice;
+            }
 
           const SettingOfflineMinutes =yield select((state)=>{
             return get(state,'app.SettingOfflineMinutes',20);
@@ -633,7 +792,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           for( i=0;i<devicelist.length;i++){
             g_devicesdb_updated[devicelist[i]._id] = devicelist[i];
           }
-          console.log(`${JSON.stringify(g_devicesdb_updated)}`);
+          // console.log(`${JSON.stringify(g_devicesdb_updated)}`);
           getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
 
           const {usersettings} = yield select((state)=>{
@@ -643,12 +802,16 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           const indexdeviceid = get(usersettings,'indexdeviceid','');
 
           for( i=0;i<devicelist.length;i++){
-            console.log(`${devicelist[i]._id}==>${devicelist[i]._id === indexdeviceid}`);
-      
+            // console.log(`${devicelist[i]._id}==>${devicelist[i]._id === indexdeviceid}`);
+
             if(!!infoWindow && devicelist[i]._id === indexdeviceid){//如果正在弹窗并且是选中的item，则更新弹窗内容{
               const {content} = getpopinfowindowstyle(devicelist[i],viewtype);
               infoWindow.setContent(content);
             }
+          }
+          }
+          catch(e){
+            console.log(e);
           }
         });
 
@@ -683,6 +846,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           });
 
       yield takeLatest(`${mapmain_drawgatewaypath}`, function*(action) {
+        try{
         const {gateways,g_devicesdb} = action.payload;
         const lineArrayList = getGatewayPath(gateways,g_devicesdb);
         if(!isEqualArray(lineArrayList,CachedlineArrayList)){
@@ -694,16 +858,36 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           }
           yield call(drawgGatewayPath,lineArrayList,{gpathSimplifierIns,gPathSimplifier});
         }
+        }
+        catch(e){
+          console.log(e);
+        }
       });
 
       yield takeLatest(`${serverpush_gateway}`, function*(action) {
+        try{
         const {gateways} = action.payload;
         const {g_devicesdb} = yield select((state)=>{
           return {
             g_devicesdb:state.device.devices
           }
         });
-        yield put(mapmain_drawgatewaypath({gateways,g_devicesdb}));
+          const usersettings = yield select((state)=>{
+            return state.userlogin.usersettings;
+          });
+          const indexgatewayid = usersettings.indexgatewayid;
+          let out = {};
+          if(!!gateways[indexgatewayid]){
+            out[indexgatewayid] = gateways[indexgatewayid];
+          }
+
+          yield put(mapmain_drawgatewaypath({
+            gateways:out,
+            g_devicesdb}));
+          }
+          catch(e){
+            console.log(e);
+          }
       });
 
       //<------模拟
@@ -717,8 +901,13 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
               }
             });
             lodashmap(gateways,(gw)=>{
-              gw.devicepath = lodashshuffle_gwpath(gw.devicepath,devices);
-              setshuffledevices(gw.devicepath);
+              if(!gw.devicepath){
+                gw.devicepath = gw.devicelist;
+              }
+              if(!!gw.devicepath){
+                gw.devicepath = lodashshuffle_gwpath(gw.devicepath,devices);
+                setshuffledevices(gw.devicepath);
+              }
             });
             //---------------------------------------------
             //更新所有图标

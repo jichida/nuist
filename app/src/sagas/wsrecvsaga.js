@@ -1,4 +1,4 @@
-import { put,call,takeLatest,take,race,select,} from 'redux-saga/effects';
+import { put,takeLatest,select,} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
   common_err,
@@ -10,15 +10,14 @@ import {
 
   getgatewaylist_request,
   getgatewaylist_result_4reducer,
-
-  ui_startalarm,
-  ui_stopalarm,
-  getrealtimealarmlist_request,
-  getrealtimealarmlist_result,
+  ui_selectgateway4draw,
+  ui_resetalarm,
 
   setvote_result,
   changepwd_result,
   set_uiapp,
+  ui_seldropdowndevice,
+  ui_selgateway,
   saveusersettings_result,
   ui_notifyresizeformap,
   ui_setmapstyle,
@@ -27,10 +26,76 @@ import {
 // import { goBack } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 // import map from 'lodash.map';
 import lodashget from 'lodash.get';
+import lodashmap from 'lodash.map';
 import config from '../env/config.js';
 import {getdomposition} from '../util/index';
 
 export function* wsrecvsagaflow() {
+  yield takeLatest(`${ui_seldropdowndevice}`,function*(action){
+    //若第一次usersettings里面字段为空，则设置
+      const {type,value} = action.payload;
+      const deviceid = value;
+
+      let usersettings = yield select((state)=>{
+        const usersettings = lodashget(state,'userlogin.usersettings',{
+          indexdeviceid:'',
+          warninglevel:'',
+          subscriberdeviceids : []
+        });
+        return usersettings;
+      });
+
+
+      usersettings.indexdeviceid = deviceid;
+
+      yield put(saveusersettings_result({usersettings}));
+
+      if(type === 'historychart'){
+        //ui auto
+      }
+      else if(type==='alarm'){
+        yield put(ui_resetalarm({}));
+      }
+  });
+
+
+  yield takeLatest(`${ui_selgateway}`,function*(action){
+    //若第一次usersettings里面字段为空，则设置
+      const {type,value} = action.payload;
+      const gatewayid = value;
+      debugger;
+      const devices = yield select((state)=>{
+        const {devices} = state.device;
+        return devices;
+      });
+
+      let usersettings = yield select((state)=>{
+        const usersettings = lodashget(state,'userlogin.usersettings',{
+          indexdeviceid:'',
+          warninglevel:'',
+          subscriberdeviceids : []
+        });
+        return usersettings;
+      });
+      let seldeviceid;
+      if(lodashget(devices,`${usersettings.indexdeviceid}.gatewayid`) === gatewayid){
+        seldeviceid = usersettings.indexdeviceid;
+      }
+      lodashmap(devices,(device)=>{
+        if(!seldeviceid && device.gatewayid === gatewayid){
+          seldeviceid = device._id;
+        }
+      });
+
+      usersettings.indexdeviceid = seldeviceid;
+      usersettings.indexgatewayid = gatewayid;
+      // debugger;
+      yield put(saveusersettings_result({usersettings}));
+
+      yield put(ui_selectgateway4draw(gatewayid));
+  });
+
+
   yield takeLatest(`${getgatewaylist_result_4reducer}`,function*(action){
     //若第一次usersettings里面字段为空，则设置
     const {list} = action.payload;
@@ -43,10 +108,10 @@ export function* wsrecvsagaflow() {
         });
         return usersettings;
       });
-
       if(usersettings.indexdeviceid === ''){
         usersettings.indexdeviceid = list[0]._id;
-        yield put(saveusersettings_result(usersettings));
+        usersettings.indexgatewayid = lodashget(list[0],'gatewayid._id');
+        yield put(saveusersettings_result({usersettings}));
       }
     }
   });
@@ -116,26 +181,7 @@ export function* wsrecvsagaflow() {
       }}));
   });
 
-  yield takeLatest(`${ui_startalarm}`,function*(action) {
-    let isstopped = false;
-    while(!isstopped){
-      yield put(getrealtimealarmlist_request({}));
-      const { stop } = yield race({
-          stop: take(`${ui_stopalarm}`),
-          result: take(`${getrealtimealarmlist_result}`),
-          timeout: call(delay, 10000)
-      });
-      isstopped = !!stop;
-      if(isstopped){
-        break;
-      }
-      const { stop2 } = yield race({
-          stop2: take(`${ui_stopalarm}`),
-          timeout2: call(delay, 5000)
-      });
-      isstopped = !!stop2;
-    }
-  });
+
 
   yield takeLatest(`${logout_result}`, function*(action) {
       yield put(getgatewaylist_request({}));

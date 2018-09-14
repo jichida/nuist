@@ -17,3 +17,5 @@ export const mapmain_clusterMarkerClick = createAction('mapmain_clusterMarkerCli
 
 export const mapmain_showpopinfo = createAction('mapmain_showpopinfo');
 export const mapmain_showpopinfo_list = createAction('mapmain_showpopinfo_list');
+
+export const ui_selectgateway4draw = createAction('ui_selectgateway4draw');

@@ -44,15 +44,14 @@ import {
 //接收的对应关系
 let recvmessagetoresultpair = {
   'gethistorydevicelist_result':gethistorydevicelist_result,
-  'serverpush_device':serverpush_device,
+  // 'serverpush_device':serverpush_device,
   'serverpush_device_list':serverpush_device_list,
-  'serverpush_device_alarm':serverpush_device_alarm,
+  // 'serverpush_device_alarm':serverpush_device_alarm,
   'setvote_result':setvote_result,
   'getproductlist_result':getproductlist_result,
   'getvotelist_result':getvotelist_result,
 
   'saveusersettings_result':saveusersettings_result,
-  'serverpush_alarm':serverpush_alarm,
 
   'getsystemconfig_result':getsystemconfig_result,
 

@@ -4,7 +4,7 @@ import {wsflow} from './api.ws.js';
 import {createmapmainflow} from './mapmain';
 import {wsrecvsagaflow} from './wsrecvsaga';
 import {jpushflow} from './jpushflow';
-
+import {querypageflow} from './querypage';
 import {socketflow} from './socketflow';
 import {uiflow} from './ui';
 import config from '../env/config.js';
@@ -17,7 +17,7 @@ export default function* rootSaga() {
     yield fork(createmapmainflow);
     yield fork(wsflow);
     yield fork(socketflow);
-
+    yield fork(querypageflow);
     yield fork(uiflow);
     yield fork(wsrecvsagaflow);
     // yield fork(createsagacallbackflow);
