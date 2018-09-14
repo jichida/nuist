@@ -141,7 +141,7 @@ exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
       });
 
       if(!err && !!result){
-          const maxcountcur = maxcount > result.length?result.length:maxcount;
+          const maxcountcur = result.length;
           for(let i=0 ;i<maxcountcur;i++){
             const v = result[i];
             listret.ticktime.push(v._id.ticktime);

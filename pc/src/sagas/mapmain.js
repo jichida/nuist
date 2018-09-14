@@ -17,6 +17,8 @@ import {
   saveusersettings_request,
   mapmain_showpopinfo,
   mapmain_drawgatewaypath,
+  getdevicelist_request,
+  getdevicelist_result,
   getgatewaylist_result,
   getgatewaylist_result_4reducer,
   ui_selectgateway4draw,
@@ -394,7 +396,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
     }
   }
 
-  const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
+  const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype)=>{
     if(!!markCluster){
       const allmarks = markCluster.getMarkers();
       lodashmap(allmarks,(mark)=>{
@@ -847,7 +849,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
             g_devicesdb_updated[devicelist[i]._id] = devicelist[i];
           }
           // console.log(`${JSON.stringify(g_devicesdb_updated)}`);
-          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
+          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype);
 
           const {usersettings} = yield select((state)=>{
             const {usersettings} = state.userlogin;
@@ -920,11 +922,10 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
       yield takeLatest(`${serverpush_gateway}`, function*(action) {
         try{
-        const {gateways} = action.payload;
-        const {g_devicesdb} = yield select((state)=>{
-          return {
-            g_devicesdb:state.device.devices
-          }
+        
+        const {g_devicesdb,gateways} = yield select((state)=>{
+          const {g_devicesdb,gateways}  = state.device;
+          return {g_devicesdb,gateways};
         });
           const usersettings = yield select((state)=>{
             return state.userlogin.usersettings;
@@ -944,38 +945,73 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           }
       });
 
+      yield takeLatest(`${getdevicelist_result}`, function*(action) {
+        let {payload} = action;
+        try{
+          const {list} = payload;
+          // //更新所有图标
+          const {g_devicesdb,viewtype} = yield select((state)=>{
+            const {devices,viewtype} = state.device;
+            return {g_devicesdb:devices,viewtype};
+          });
+          const SettingOfflineMinutes =yield select((state)=>{
+            return get(state,'app.SettingOfflineMinutes',20);
+          });
+          let g_devicesdb_updated = {};
+
+          for(let i = 0 ;i < list.length;i++){
+            g_devicesdb_updated[list[i]._id] = list[i];
+          }
+          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype);
+          //---------------------------------------------
+          yield put(serverpush_gateway({}));
+        }
+        catch(e){
+          console.log(e);
+        }
+      });
       //<------模拟
       yield fork(function*(){
         while (true) {
             yield call(delay, 30000);
-            let {gateways,devices} = yield select((state)=>{
-              return {
-                gateways:state.device.gateways,
-                devices:state.device.devices
+            //发送当前 getdevicelist_request
+            const usersettings = yield select((state)=>{
+              return state.userlogin.usersettings;
+            });
+            const indexgatewayid = usersettings.indexgatewayid;
+            yield put(getdevicelist_request({
+              query:{
+                "gatewayid":indexgatewayid
               }
-            });
-            lodashmap(gateways,(gw)=>{
-              if(!gw.devicepath){
-                gw.devicepath = gw.devicelist;
-              }
-              if(!!gw.devicepath){
-                gw.devicepath = lodashshuffle_gwpath(gw.devicepath,devices);
-                setshuffledevices(gw.devicepath);
-              }
-            });
-            //---------------------------------------------
-            //更新所有图标
-            const {g_devicesdb,viewtype} = yield select((state)=>{
-              const {devices,viewtype,gateways} = state.device;
-              return {g_devicesdb:devices,gateways,viewtype};
-            });
-            const SettingOfflineMinutes =yield select((state)=>{
-              return get(state,'app.SettingOfflineMinutes',20);
-            });
-            let g_devicesdb_updated = g_devicesdb;
-            getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
-            //---------------------------------------------
-            yield put(serverpush_gateway({gateways}));
+           }));
+            // let {gateways,devices} = yield select((state)=>{
+            //   return {
+            //     gateways:state.device.gateways,
+            //     devices:state.device.devices
+            //   }
+            // });
+            // lodashmap(gateways,(gw)=>{
+            //   if(!gw.devicepath){
+            //     gw.devicepath = gw.devicelist;
+            //   }
+            //   if(!!gw.devicepath){
+            //     gw.devicepath = lodashshuffle_gwpath(gw.devicepath,devices);
+            //     setshuffledevices(gw.devicepath);
+            //   }
+            // });
+            // //---------------------------------------------
+            // //更新所有图标
+            // const {g_devicesdb,viewtype} = yield select((state)=>{
+            //   const {devices,viewtype,gateways} = state.device;
+            //   return {g_devicesdb:devices,gateways,viewtype};
+            // });
+            // const SettingOfflineMinutes =yield select((state)=>{
+            //   return get(state,'app.SettingOfflineMinutes',20);
+            // });
+            // let g_devicesdb_updated = g_devicesdb;
+            // getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
+            // //---------------------------------------------
+            // yield put(serverpush_gateway({gateways}));
         }
       });
 

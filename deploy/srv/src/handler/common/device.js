@@ -16,13 +16,11 @@ exports.getdevicelist = (actiondata,ctx,callback)=>{
     if(!query.DeviceId){
       query.DeviceId = {'$in':deviceIds};
     }
+    debug(query);
     const queryexec = deviceModel.find(query).select(fields)
-      .populate([
-        {
-          path:'devicetype',
-          model: 'devicetype',
-      }]).lean();
+      .lean();
     queryexec.exec((err,list)=>{
+      debug(list)
       if(!err){
         callback({
           cmd:'getdevicelist_result',

@@ -13,6 +13,9 @@ export const serverpush_gateway =  createAction('serverpush_gateway');
 export const serverpush_device_list = createAction('serverpush_device_list');
 export const serverpush_device_alarm = createAction('serverpush_device_alarm');
 
+export const getdevicelist_request = createAction('getdevicelist_request');
+export const getdevicelist_result = createAction('getdevicelist_result');
+
 export const gethistorydevicelist_request  = createAction('gethistorydevicelist_request');
 export const gethistorydevicelist_result = createAction('gethistorydevicelist_result');
 //定时查询报警信息
