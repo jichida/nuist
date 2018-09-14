@@ -158,29 +158,80 @@ const isEqualArray = (array1,array2)=>{
   }
   return isequal;
 }
-const getGatewayPath = (gateways,g_devicesdb)=>{
+
+const getCurGatewayPath = (curgw,curdevicesdb)=>{
+  //当前网关&联系的所有设备
   let lineArrayList = [];
-  lodashmap(gateways,(gw)=>{
-    let lineArr = [];
-    if(!gw.devicepath){
-      gw.devicepath = gw.devicelist;
+
+  let device2id_db = {};
+  // let matcheddevice = {};
+  lodashmap(curdevicesdb,(cur)=>{
+    device2id_db[cur.DeviceId] = cur;
+  });
+
+  lodashmap(curdevicesdb,(cur)=>{
+    let curArray = [];
+    curArray.push([cur.Longitude,cur.Latitude]);
+    let nextdevice = device2id_db[cur.nextdeviceid];
+    let i = 0;
+    while(!!nextdevice){
+      i = i + 1;
+      console.log(`curdeviceid:${nextdevice.DeviceId},nextdevice->${nextdevice.nextdeviceid},${i}`);
+
+      curArray.push([nextdevice.Longitude,nextdevice.Latitude]);
+      nextdevice = device2id_db[nextdevice.nextdeviceid];
+      if(i > 5){
+        break;
+      }
     }
-    if(!!gw.devicepath){
-      lodashmap(gw.devicepath,(did)=>{
-        const item = g_devicesdb[did];
-        const firstLetter = getdevicestatus(did);
-        if(!!item && firstLetter==='N'){
-          lineArr.push([item.Longitude,item.Latitude]);
-        }
-      });
-    }
-    lineArr.push([gw.Longitude,gw.Latitude]);
+    curArray.push([curgw.Longitude,curgw.Latitude]);
     lineArrayList.push({
-       name:gw.name,
-       path:lineArr
+       name:curgw.name,
+       path:curArray
      });
   });
+
   return lineArrayList;
+}
+const getGatewayPath = (gateways,g_devicesdb)=>{
+  //输入：一个网关／所有设备
+  let curgw;
+  let curdevicesdb = {};
+  lodashmap(gateways,(gw)=>{
+    lodashmap(g_devicesdb,(curdevice)=>{
+      if(curdevice.gatewayid === gw._id){
+        curdevicesdb[curdevice._id] = curdevice;
+      }
+    });
+    curgw = gw;
+  });
+  let lineArrayList = [];
+  if(!!curgw){
+    lineArrayList = getCurGatewayPath(curgw,curdevicesdb);
+  }
+  return lineArrayList;
+  // let lineArrayList = [];
+  // lodashmap(gateways,(gw)=>{
+  //   let lineArr = [];
+  //   if(!gw.devicepath){
+  //     gw.devicepath = gw.devicelist;
+  //   }
+  //   if(!!gw.devicepath){
+  //     lodashmap(gw.devicepath,(did)=>{
+  //       const item = g_devicesdb[did];
+  //       const firstLetter = getdevicestatus(did);
+  //       if(!!item && firstLetter==='N'){
+  //         lineArr.push([item.Longitude,item.Latitude]);
+  //       }
+  //     });
+  //   }
+  //   lineArr.push([gw.Longitude,gw.Latitude]);
+  //   lineArrayList.push({
+  //      name:gw.name,
+  //      path:lineArr
+  //    });
+  // });
+  // return lineArrayList;
 };
 
 let navgz = [];
@@ -331,7 +382,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
             let out = {};
             if(!!gw){
               out[indexgatewayid] = gw
-              store.dispatch(mapmain_drawgatewaypath({gateways:out,g_devicesdb}));          
+              store.dispatch(mapmain_drawgatewaypath({gateways:out,g_devicesdb}));
             }
         }
 
