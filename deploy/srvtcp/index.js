@@ -7,6 +7,8 @@ const PubSub = require('pubsub-js');
 const redis = require('./src/redis/index.js');
 const moment = require('moment');
 const _ = require('lodash');
+const ddh = require('./src/sd/ddh');
+
 winston.initLog();
 winston.getlog().info(`appversion:${config.appversion}`);
 
@@ -49,7 +51,10 @@ PubSub.subscribe(`nuistdata`, ( msg, data )=>{
         _.set(data,`realtimedata.${k}`,v);
       }
     });
-
+    if(_.random(0,4) > 1){
+      const nextdeviceid = _.random(parseInt(config.deviceid_data_min), parseInt(config.deviceid_data_max));
+      data.nextdeviceid = ddh.deviceid.gethex(nextdeviceid);
+    }
 
     debug(`-->发布数据:${JSON.stringify(data)}`);
 

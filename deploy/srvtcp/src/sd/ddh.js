@@ -4,8 +4,8 @@ const simulatordata = {
   "deviceid":{
     offset:8,
     length:1,
-    max:200,
-    min:100,
+    max:parseInt(config.deviceid_data_max),
+    min:parseInt(config.deviceid_data_min),
     gethex:(value)=>{
       const valuestring = `${value}`;
       const buf0 = Buffer.allocUnsafe(1);

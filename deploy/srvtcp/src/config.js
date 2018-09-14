@@ -7,6 +7,9 @@ const config =  {
     port: process.env.srvredis_port|| 6379,
   },
   listenport:process.env.listenport ||50000,
+  deviceid_data_max:process.env.deviceid_data_max || '200',
+  deviceid_data_min:process.env.deviceid_data_min || '100',
+
   pressure_data_offset:process.env.pressure_data_offset || '41',
   pressure_data_length:process.env.pressure_data_length || '4',
   pressure_data_min:process.env.pressure_data_min || '20',

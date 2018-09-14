@@ -4,7 +4,7 @@ const moment = require('moment');
 const DBModels = require('../db/models.js');
 const mongoose  = require('mongoose');
 const alarmrule = require('../alarmrule');
-
+const geo = require('../util/geo');
 const debug = require('debug')('appsrv:redismsg')
 
 // appsrv:redismsg handlermsg_realtimealarm===>{"value":11,"type":"windspeed","level":"高","content":"10级以上大风","DeviceId":"LH001"} +1ms
@@ -18,8 +18,7 @@ const handlermsg_historydevice = (devicedata)=>{
   const dbModel = DBModels.HistoryDeviceModel;
   const entity = new dbModel(devicedatanew);
   entity.save((err,result)=>{
-    debug(err);
-    debug(`result->${JSON.stringify(result)}`);
+
   });
 };
 
@@ -29,8 +28,6 @@ const handlermsg_alarmdata = (alarmdata)=>{
 
   const entity = new dbModel(alarmdata);
   entity.save((err,result)=>{
-    debug(err);
-    debug(`result->${JSON.stringify(result)}`);
     if(!err && !!result){
       PubSub.publish(`push.devicealarm.${result.DeviceId}`,result);
     }
@@ -58,35 +55,62 @@ const getgatewayid  = (GatewayId,callbackfn)=>{
     }
   },{new:true,upsert:true}).
     lean().exec((err,result)=>{
-      let gwid;
+      let gwid,Longitude,Latitude;
       if(!err && !!result){
         gwid = result._id;
+        Longitude = result.Longitude;
+        Latitude = result.Latitude;
       }
-      callbackfn(gwid);
+      callbackfn({gwid,Longitude,Latitude});
     });
 };
 
 const handlermsg_realtimedata_redis = (devicedata)=>{
+  // debug(devicedata);
   if(!!devicedata.gwid){
     if(devicedata.gwid.length === 4){
-      getgatewayid(devicedata.gwid,(gwid)=>{
+      getgatewayid(devicedata.gwid,({gwid,Longitude,Latitude})=>{
         if(!!gwid){
+          const DeviceGeoSz = geo.getRandomLocation(Latitude,Longitude,5000);
           const deviceModel = DBModels.DeviceModel;
-          debug(`gwid===>${gwid},deviceid=>${devicedata.deviceid}`)
-
-          deviceModel.findOneAndUpdate({
-            DeviceId:devicedata.deviceid,
-            gatewayid:gwid},
-            {
+          debug(`gwid===>${gwid},deviceid=>${devicedata.deviceid},nextdeviceid->${devicedata.nextdeviceid}`)
+          let updated_data;
+          if(!!devicedata.nextdeviceid){
+            updated_data = {
               $set:{
-                realtimedata:devicedata.realtimedata
+                realtimedata:devicedata.realtimedata,
+                nextdeviceid:devicedata.nextdeviceid,
+                Longitude:DeviceGeoSz[0],//product环境中需要将这两行代码移动到下面$setOnInsert中
+                Latitude:DeviceGeoSz[1],
               },
               $setOnInsert:{
-                DevicId:devicedata.deviceid,
+                DeviceId:devicedata.deviceid,
                 gatewayid:gwid,
                 name:`节点${devicedata.gwid}${devicedata.deviceid}`,
               }
-            },{new:true,upsert:true}).
+            };
+          }
+          else{
+            updated_data = {
+              $unset:{
+                nextdeviceid:""
+              },
+              $set:{
+                realtimedata:devicedata.realtimedata,
+                Longitude:DeviceGeoSz[0],//product环境中需要将这两行代码移动到下面$setOnInsert中
+                Latitude:DeviceGeoSz[1],
+              },
+              $setOnInsert:{
+                DeviceId:devicedata.deviceid,
+                gatewayid:gwid,
+                name:`节点${devicedata.gwid}${devicedata.deviceid}`,
+              }
+            };
+          }
+          deviceModel.findOneAndUpdate({
+            DeviceId:devicedata.deviceid,
+            gatewayid:gwid},
+            updated_data,{new:true,upsert:true}).
             lean().exec((err,newdevice)=>{
               //<----------
               if(!err && !!newdevice){

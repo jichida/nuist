@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "DEBUG=appsrv:alarm srvredis_host=afn.i2u.top MONGO_URL=mongodb://dabauser:daba159@api.nuistiot.com/daba node index"
+    "start": "DEBUG=appsrv:redismsg srvredis_host=afn.i2u.top MONGO_URL=mongodb://dabauser:daba159@api.nuistiot.com/daba node index"
   },
   "author": "",
   "license": "ISC",
