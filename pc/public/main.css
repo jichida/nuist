@@ -240,7 +240,9 @@ body {
     color: #83a1c7;
 }
 .bor_con .title{ position: relative;}
-.bor_con .title span.tt{ margin-left: 10px; display: inline-block; vertical-align: middle; color: #5d7792}
+.bor_con .title span.tt{ margin-left: 15px; display: inline-block; vertical-align: middle; color: #5d7792}
+.bor_con .title span.tt img{ margin-right: 0px}
+.bor_con .title span.tt span{ display: inline-block; vertical-align: middle; margin-left: 5px;    line-height: 24px;}
 .left_con .t {
     font-size: 16px;
 }

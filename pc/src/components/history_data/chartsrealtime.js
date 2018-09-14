@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import lodashget from 'lodash.get';
-// import {Dropdown,Button,Icon} from 'antd';
+import Progress  from 'antd/lib/progress';
 import SeldropdownDevice from '../abstract/seldroplistdevice';
 import ChartHumidity  from '../realtime/charts_humidity';
 import ChartPressure  from '../realtime/charts_pressure';
@@ -15,8 +15,8 @@ const ProgressCtrl = (props)=>{
   const {curdevice,fieldname,fieldsprops,index} = props;
   return (
     <div className={`chartli chart${index}`}>
-      <ChartHumidity type="circle" percent={100} width={70} format={percent => `${lodashget(curdevice,`realtimedata.${fieldname}`,'')}`} />
-      <span className="m10">{`${fieldsprops.showname}`}({`${lodashget(fieldsprops,'unit','')}`})</span>
+      <Progress type="circle" percent={100} width={70} format={percent => `${lodashget(curdevice,`realtimedata.${fieldname}`,'')}`} />
+      <span>{`${fieldsprops.showname}`}</span>
     </div>
   )
 }
