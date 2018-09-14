@@ -23,9 +23,11 @@ class App extends React.Component {
     render() {
         const {indexgatewayid,gateways }= this.props;
 				// debugger;
+				const innerheight2 = window.innerHeight;
+				console.log(`innerheight->${innerheight2-156-38}`)
         return (
           <div>
-          <div className="left_box huadong" style={{height:' 540px', overflowY:' scroll'}}>
+          <div className="left_box huadong" style={{height:`${innerheight2}px`, overflowY:' scroll'}}>
         <dl className="dl_bg">
         <dd>ID</dd>
         <dd>网关名</dd>
