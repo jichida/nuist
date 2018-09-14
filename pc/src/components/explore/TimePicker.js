@@ -233,7 +233,7 @@ export default class TimePicker extends PureComponent<any, any> {
           </button>
           <button className="btn navbar-button gf-timepicker-nav-btn" onClick={this.handleClickPicker}>
             <i className="fa fa-clock-o" />
-            <span className="timepicker-rangestring">{rangeString}</span>
+    <img src="images/ss_icon.png" alt=""/><span>高级搜索：</span><span className="timepicker-rangestring">{rangeString}</span>
             {isUtc ? <span className="gf-timepicker-utc">UTC</span> : null}
             {refreshInterval ? <span className="text-warning">&nbsp; Refresh every {refreshInterval}</span> : null}
           </button>

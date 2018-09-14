@@ -37,13 +37,13 @@ const QueryPage = (props)=>{
 		}
 	}
 
-	return <span><img src="images/ss_icon.png" alt=""/><span>高级搜索：</span><span>
+	return (
 <TimePicker onChangeTime={onChangeTime}>
 					<DatePickerWrap showTime
 						locale={locale}
 						format="YYYY-MM-DD HH:mm:ss"
 						placeholder="选择时间"/>
-				 </TimePicker></span></span>
+				 </TimePicker>);
 
 
 	// const {fieldslist_brief,fields,dispatch} = props;
