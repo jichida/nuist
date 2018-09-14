@@ -45,7 +45,7 @@ select {
     outline: none;
     resize: none;
 }
-
+button{ cursor: pointer;background: transparent; margin-top: 0px !important;}
 input[disabled],
 select[disabled],
 textarea[disabled],
@@ -214,10 +214,10 @@ body {
     padding-left: 5px
 }
 
-.left_con .left_height {
-    height: 540px;
-    overflow-y: scroll;
-}
+/*.left_con .left_height {*/
+    /*height: 540px;*/
+    /*overflow-y: scroll;*/
+/*}*/
 
 .left_con .weather {
     font-size: 14px;
@@ -239,7 +239,10 @@ body {
 .left_con .title span {
     color: #83a1c7;
 }
-
+.bor_con .title{ position: relative;}
+.bor_con .title span.tt{ margin-left: 15px; display: inline-block; vertical-align: middle; color: #5d7792}
+.bor_con .title span.tt img{ margin-right: 0px}
+.bor_con .title span.tt span{ display: inline-block; vertical-align: middle; margin-left: 5px;    line-height: 24px;}
 .left_con .t {
     font-size: 16px;
 }
@@ -293,12 +296,13 @@ body {
     float: right;
 }
 
-.title em span {
-    font-size: 13px;
-    color: #f44e22 !important;
-    margin-top: -3px;
-}
-
+/*.title em span {*/
+    /*font-size: 13px;*/
+    /*color: #f44e22 !important;*/
+/*}*/
+.sele_em .ant-select-selection{background-color:rgba(247, 247, 247, 0.1);;
+    border-radius: 4px;
+    border: 1px solid rgba(247, 247, 247, 0.1); color: #fff;}
 .title em .ant-btn {
     background-color: transparent;
     border: 0px;
@@ -575,7 +579,7 @@ body {
     right: 0px;
     top: 0px;
     bottom: 0px;
-    z-index: 9999;
+    z-index: 999;
     height: 890px;
     overflow-y: scroll;
 }
@@ -932,3 +936,151 @@ body {
         width: 370px
     }
 }
+
+
+.gf-timepicker-dropdown {
+    position: absolute;
+    top: 55px; left: 0px;
+    right: 0;padding: 20px 20px; z-index: 999; height: auto;overflow: hidden; background-color: #fff;box-shadow: 0 10px 30px 0 #ababab;
+}
+.gf-timepicker-absolute-section {
+    width: 290px;
+    float: left;
+    padding: 0 10px;
+}
+.section-heading {
+    font-size: 1.1rem;
+    margin-bottom: .6rem !important;    font-weight: 400;
+    line-height: 1.1;
+    color: #333;
+}
+
+.gf-timepicker-relative-section {
+    padding: 0 20px 0 30px;
+    min-height: 237px;
+    float: left;
+}
+
+.gf-timepicker-relative-section ul {
+    list-style: none;
+    float: left;
+    margin: 0 30px 10px 0 !important;
+}
+.gf-timepicker-relative-section ul li {
+    line-height: 22px; font-size: 13px;
+}
+.gf-form-inline {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+}
+.gf-form {
+    margin-bottom: 3px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: left;
+    position: relative;
+}
+
+.max-width-28 {
+    max-width: 27.8rem!important;
+}
+.gf-form-input {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    margin-right: 3px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #d8d9da; border: 1px solid #ddd;
+    background-image: none;
+    background-clip: padding-box;
+    border-radius: 0 3px 3px 0;
+    box-shadow: inset 1px 0 0.3rem 0 hsla(0,0%,59%,.1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.gf-form-inline .gf-form+.gf-form {
+    margin-right: 3px;
+}
+.gf-form-btn {
+    padding: 8px 10px;
+    margin-right: 3px;
+    line-height: 18px;
+    font-size: 12px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+}
+
+.btn-primary {
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.1);
+    background-color: #e45602;
+    background-image: linear-gradient(180deg,#f60,#bc3e06);
+    background-repeat: repeat-x;
+    border-color: #f60;
+}
+.gf-form .btn {
+    display: inline-block;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: none;
+    padding: .7rem 1rem;
+    font-size: 13px;
+    border-radius: 2px; margin-top: 15px !important;
+}
+.gf-timepicker-absolute-section select {
+    width: 183px;
+    margin-bottom: 0;
+}
+.gf-form-btn {
+    padding: 8px 10px;
+    margin-right: 3px;
+    line-height: 18px;
+    font-size: 12px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+}
+
+.btn-secondary {
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.1);
+    background-color: #273c4f;
+    background-image: linear-gradient(180deg,#273c4f,#273c4f);
+    background-repeat: repeat-x;
+    border-color: #005f81;
+}
+.small, small {
+    font-size: 12px;
+    font-weight: 400;color: #666;
+}
+
+.proinfo>div{ background-color:  transparent;text-align: center; border: 0px}
+.infocontenasta{ background-color: #fff;box-shadow: 0 10px 30px 0 #ababab;padding: 20px; }
