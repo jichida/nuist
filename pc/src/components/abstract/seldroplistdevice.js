@@ -2,48 +2,62 @@ import React from "react";
 // import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import lodashget from 'lodash.get';
-import {Dropdown,Button,Icon} from 'antd';
-import getMenu from './dropdownselmenu_device';
+import { Select } from 'antd';
+import lodashmap from 'lodash.map';
+
 import {ui_seldropdowndevice} from '../../actions';
 
+const Option = Select.Option;
+
 class App extends React.Component {
-  onMenuClick(deviceid){
-    this.props.dispatch(ui_seldropdowndevice(deviceid));
-  }
-  render() {
-    const {gateways,devices,curdevice} = this.props;
-    if(!curdevice){
-      return (<div>无选择设备</div>);
+
+  handleChange(value) {
+    console.log(`selected devices ${value}`);
+    const {devices} = this.props;
+    if(!!devices[value]){
+      this.props.dispatch(ui_seldropdowndevice({value,type:this.props.type}));
     }
+  }
+
+  render() {
+    const {curdevice,devices,indexgatewayid} = this.props;
+    let options = [];
+    lodashmap(devices,(v)=>{
+      if(indexgatewayid === v.gatewayid){
+        options.push(<Option key={v._id} value={`${v._id}`}>{v.name}</Option>);
+      }
+    });
     return (
-      <em>
-        <Dropdown  overlay={getMenu({indexgatewayid:curdevice.gatewayid,
-          gateways,
-          devices,
-          onMenuClick:
-            (e)=>{
-              this.onMenuClick(e.key)
-            }
-        })} placement="bottomLeft">
-          <Button style={{ marginLeft: 8 }}>{curdevice.name}<Icon type="down" /></Button>
-        </Dropdown>
+        <em>
+          <Select
+          showSearch
+          value={lodashget(curdevice,'_id','')}
+
+          placeholder="选择一个节点"
+          optionFilterProp="children"
+          onChange={(v)=>this.handleChange(v)}
+          filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+        >
+        {options}
+        </Select>
       </em>
     )
   }
 }
 
 const mapStateToProps = ({device:{gateways,viewtype,devicelist,devices},userlogin:{usersettings}}) => {
-		let curdevice;
-		let curdeviceid = lodashget(usersettings,'indexdeviceid');
-		if(!!curdeviceid){
-			curdevice = devices[curdeviceid];
-		}
-		if(!curdevice){
-			if(devicelist.length > 0){
-				curdevice = devices[devicelist[0]];
-			}
-		}
-    return {gateways,devices,viewtype,curdevice,usersettings};
+  let curdevice;
+  let curdeviceid = lodashget(usersettings,'indexdeviceid');
+  let indexgatewayid = lodashget(usersettings,'indexgatewayid');
+  if(!!curdeviceid){
+    curdevice = devices[curdeviceid];
+  }
+  if(!curdevice){
+    if(devicelist.length > 0){
+      curdevice = devices[devicelist[0]];
+    }
+  }
+  return {curdevice,devices,indexgatewayid};
 }
 
 export default connect(mapStateToProps)(App);

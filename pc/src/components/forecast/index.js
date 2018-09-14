@@ -51,7 +51,7 @@ class App extends React.Component {
               <div className="w_1220">
       <div className="left_con left_con_bg">
       <div className="real_time">
-      <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>节点列表</span></h2>
+      <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>网关列表</span></h2>
                 <NodeSel />
   </div>
   </div>
@@ -60,21 +60,14 @@ class App extends React.Component {
       <div className="bor_con center_box">
       <h2 className="title"><img src="images/jb.png"  alt=""/>
       <span>综合警报</span>
-      <span>
+      <span className="tt">
         <QueryPage type="alarm"/>
       </span>
-      <SeldropdownDevice />
+      <SeldropdownDevice type="alarm"/>
     </h2>
       <List />
       </div>
-                  </div>
-                  {/* <div className="right_con rhuadong">
-            <div className="bor_con">
-            <h2 className="title"><img src="images/lis.png" alt=""/><span>历史数据</span></h2>
-            <HistoryBar showflag="all"/>
-            <div /> </div>
-                  </div> */}
-
+      </div>
       </div>
 
           </div>

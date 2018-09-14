@@ -13,7 +13,7 @@ class App extends React.Component {
     selectgateway = (gid)=>{
 			const {gateways} = this.props;
 			if(!!gateways[gid]){
-				this.props.dispatch(ui_selgateway(gid));
+				this.props.dispatch(ui_selgateway({value:gid}));
 			}
 
       // const usersettings = this.props.usersettings;
@@ -25,7 +25,7 @@ class App extends React.Component {
 				// debugger;
         return (
           <div>
-          <div className="left_box left_height huadong">
+          <div className="left_box huadong" style={{height:' 540px', overflowY:' scroll'}}>
         <dl className="dl_bg">
         <dd>ID</dd>
         <dd>网关名</dd>

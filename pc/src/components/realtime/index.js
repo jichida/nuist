@@ -73,12 +73,12 @@ class App extends React.Component {
       <div className="bor_con border_top">
           <h2 className="title"><img src="images/chax.png"  alt=""/>
           <span>历史图表</span>
-          <span>
+          <span  className="tt">
             <QueryPage type="historychart"/>
           </span>
-          <span onClick={()=>{
+          <div  className="title_tab" onClick={()=>{
             this.props.history.replace('/realtimehistory')
-          }}>更多历史数据(居右)</span>
+          }}><span>更多历史数据</span></div>
 
           </h2>
         <div className="curve_box data_list_box rhuadong">

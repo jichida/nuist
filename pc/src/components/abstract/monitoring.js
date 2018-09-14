@@ -7,7 +7,7 @@ import {
 	ui_mycar_selcurdevice
 } from '../../actions';
 import 'antd/dist/antd.css';
-import getMenu from './dropdownselmenu';
+import SelDropGateway from '../abstract/seldropgateway';
 import "./monitoring.css";
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
@@ -52,15 +52,7 @@ class App extends React.Component {
       <div className="real_time">
         <h2 className="title left_bg">
 		  <img src="images/add.png" alt=""/><span>实时监控</span>
-          <em>
-            <Dropdown  overlay={getMenu({gateways,devicelist,devices,onMenuClick:
-							(e)=>{
-								this.onMenuClick(e.key)
-							}
-						})} placement="bottomLeft">
-              <Button style={{ marginLeft: 8 }}>{gateways[curdevice.gatewayid].name}<Icon type="down" /></Button>
-            </Dropdown>
-          </em>
+          <SelDropGateway />
         </h2>
 				<div className="left_box"><DeviceInfoDetailList curdevice={curdevice} viewtype={viewtype} /></div>
       </div>

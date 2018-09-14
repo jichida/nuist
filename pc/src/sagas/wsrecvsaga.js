@@ -1,4 +1,4 @@
-import { put,call,takeLatest,take,race,select,} from 'redux-saga/effects';
+import { put,takeLatest,select,} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
   common_err,
@@ -11,11 +11,7 @@ import {
   getgatewaylist_request,
   getgatewaylist_result_4reducer,
   ui_selectgateway4draw,
-
-  ui_startalarm,
-  ui_stopalarm,
-  getrealtimealarmlist_request,
-  getrealtimealarmlist_result,
+  ui_resetalarm,
 
   setvote_result,
   changepwd_result,
@@ -37,7 +33,8 @@ import {getdomposition} from '../util/index';
 export function* wsrecvsagaflow() {
   yield takeLatest(`${ui_seldropdowndevice}`,function*(action){
     //若第一次usersettings里面字段为空，则设置
-      const deviceid = action.payload;
+      const {type,value} = action.payload;
+      const deviceid = value;
 
       let usersettings = yield select((state)=>{
         const usersettings = lodashget(state,'userlogin.usersettings',{
@@ -51,13 +48,22 @@ export function* wsrecvsagaflow() {
 
       usersettings.indexdeviceid = deviceid;
 
-      yield put(saveusersettings_result(usersettings));
+      yield put(saveusersettings_result({usersettings}));
+
+      if(type === 'historychart'){
+        //ui auto
+      }
+      else if(type==='alarm'){
+        yield put(ui_resetalarm({}));
+      }
   });
 
 
   yield takeLatest(`${ui_selgateway}`,function*(action){
     //若第一次usersettings里面字段为空，则设置
-      const gatewayid = action.payload;
+      const {type,value} = action.payload;
+      const gatewayid = value;
+      debugger;
       const devices = yield select((state)=>{
         const {devices} = state.device;
         return devices;
@@ -83,7 +89,8 @@ export function* wsrecvsagaflow() {
 
       usersettings.indexdeviceid = seldeviceid;
       usersettings.indexgatewayid = gatewayid;
-      yield put(saveusersettings_result(usersettings));
+      // debugger;
+      yield put(saveusersettings_result({usersettings}));
 
       yield put(ui_selectgateway4draw(gatewayid));
   });
@@ -104,7 +111,7 @@ export function* wsrecvsagaflow() {
       if(usersettings.indexdeviceid === ''){
         usersettings.indexdeviceid = list[0]._id;
         usersettings.indexgatewayid = lodashget(list[0],'gatewayid._id');
-        yield put(saveusersettings_result(usersettings));
+        yield put(saveusersettings_result({usersettings}));
       }
     }
   });
@@ -174,32 +181,7 @@ export function* wsrecvsagaflow() {
       }}));
   });
 
-  yield takeLatest(`${ui_startalarm}`,function*(action) {
-    let isstopped = false;
-    while(!isstopped){
-      //选中一个默认节点
-      const {usersettings} = yield select((state)=>{
-        const {usersettings} = state.userlogin;
-        return {usersettings};
-      });
-      const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
-      yield put(getrealtimealarmlist_request({query:{did:indexdeviceid}}));
-      const { stop } = yield race({
-          stop: take(`${ui_stopalarm}`),
-          result: take(`${getrealtimealarmlist_result}`),
-          timeout: call(delay, 10000)
-      });
-      isstopped = !!stop;
-      if(isstopped){
-        break;
-      }
-      const { stop2 } = yield race({
-          stop2: take(`${ui_stopalarm}`),
-          timeout2: call(delay, 5000)
-      });
-      isstopped = !!stop2;
-    }
-  });
+
 
   yield takeLatest(`${logout_result}`, function*(action) {
       yield put(getgatewaylist_request({}));

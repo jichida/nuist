@@ -18,5 +18,6 @@ export const gethistorydevicelist_result = createAction('gethistorydevicelist_re
 //定时查询报警信息
 export const ui_startalarm = createAction('ui_startalarm');
 export const ui_stopalarm = createAction('ui_stopalarm');
+export const ui_resetalarm = createAction('ui_resetalarm');
 //历史记录信息
 export const ui_historydevicequeryselect = createAction('ui_historydevicequeryselect');

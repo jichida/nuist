@@ -162,13 +162,18 @@ const getGatewayPath = (gateways,g_devicesdb)=>{
   let lineArrayList = [];
   lodashmap(gateways,(gw)=>{
     let lineArr = [];
-    lodashmap(gw.devicepath,(did)=>{
-      const item = g_devicesdb[did];
-      const firstLetter = getdevicestatus(did);
-      if(!!item && firstLetter==='N'){
-        lineArr.push([item.Longitude,item.Latitude]);
-      }
-    });
+    if(!gw.devicepath){
+      gw.devicepath = gw.devicelist;
+    }
+    if(!!gw.devicepath){
+      lodashmap(gw.devicepath,(did)=>{
+        const item = g_devicesdb[did];
+        const firstLetter = getdevicestatus(did);
+        if(!!item && firstLetter==='N'){
+          lineArr.push([item.Longitude,item.Latitude]);
+        }
+      });
+    }
     lineArr.push([gw.Longitude,gw.Latitude]);
     lineArrayList.push({
        name:gw.name,
@@ -698,7 +703,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
               yield put.resolve(getgatewaylist_result_4reducer(payload));
 
-              const {g_devicesdb,viewtype,gateways} = yield select((state)=>{
+              const {g_devicesdb,gateways} = yield select((state)=>{
                 const {devices,viewtype,gateways} = state.device;
                 return {g_devicesdb:devices,viewtype,gateways};
               });
@@ -891,8 +896,13 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
               }
             });
             lodashmap(gateways,(gw)=>{
-              gw.devicepath = lodashshuffle_gwpath(gw.devicepath,devices);
-              setshuffledevices(gw.devicepath);
+              if(!gw.devicepath){
+                gw.devicepath = gw.devicelist;
+              }
+              if(!!gw.devicepath){
+                gw.devicepath = lodashshuffle_gwpath(gw.devicepath,devices);
+                setshuffledevices(gw.devicepath);
+              }
             });
             //---------------------------------------------
             //更新所有图标
