@@ -15,6 +15,7 @@ import {
   // getrealtimealarmlist_request
 } from '../../actions';
 import PopcareSel from "../popcaresel";
+import QueryPage from '../explore/querypage';
 
 class App extends React.Component {
 
@@ -40,7 +41,11 @@ class App extends React.Component {
             <div className="warningPage">
                 <div className="head">
                     <div className="n"><span>{realtimealarmcount>99?'99+':`${realtimealarmcount}`}</span><span>条</span></div>
-                    <div className="c"><span>共有预警信息</span></div>
+                    <div className="c"><span>共有预警信息</span>
+                    <span className="tt">
+                      <QueryPage type="alarm"/>
+                    </span>
+                    </div>
                     {
         							!!curdevice && (
         								<div className="mainmap" style={{height: `${window.innerHeight-64}px`}}>

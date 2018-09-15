@@ -9,7 +9,7 @@ import List from "./list.js";
 // import Footer from "../footer";
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
-
+import QueryPage from '../explore/querypage';
 
 class App extends React.Component {
 
@@ -21,6 +21,9 @@ class App extends React.Component {
           return (
               <div className="monitorPage">
                   <Header history={this.props.history} title={`${lodashget(curdevice,'name','')}-${lodashget(curdevice,'locationname','')}`}/>
+                  <span className="tt">
+                    <QueryPage type="historychart"/>
+                  </span>
                   <List curdevice={curdevice} viewtype={viewtype}/>
               </div>
           );
