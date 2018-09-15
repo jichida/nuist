@@ -55,6 +55,7 @@ const simulatordata = {
     max:parseInt(config.winddirection_data_max),
     min:parseInt(config.winddirection_data_min),
     gethex:(value)=>{
+      let valueangel = value*40960/3600;
       const buf0 = Buffer.allocUnsafe(2);
       buf0.writeInt16LE(value, 0);
       const hex0 = buf0.toString('hex');
@@ -63,7 +64,13 @@ const simulatordata = {
     parsevalue:(hexstring)=>{
       const buf = Buffer.from(hexstring,'hex');
       const value =  buf.readInt16LE(0);
-      return value;
+      //     AD=0x09DE
+      // 角度 = AD * 3600 / 4096
+      // 单位： 0.1°
+      // e.g.
+      // AD = 0x63D * 3600 / 4096 = 140.3°
+      const angel = value*3600/40960;
+      return parseInt(angel);
     }
   },
   "windspeed":{//风速

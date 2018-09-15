@@ -5,6 +5,9 @@ const config = {
   senddatainterval:process.env.senddatainterval || '6000',
   sendpinginterval:process.env.sendpinginterval || '30000',
 
+  deviceid_data_max:process.env.deviceid_data_max || '200',
+  deviceid_data_min:process.env.deviceid_data_min || '100',
+
   pressure_data_offset:process.env.pressure_data_offset || '41',
   pressure_data_length:process.env.pressure_data_length || '4',
   pressure_data_min:process.env.pressure_data_min || '20',

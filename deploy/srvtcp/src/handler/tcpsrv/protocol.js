@@ -30,6 +30,7 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
 
     const winddirectionhex = ZigbeeData.substr(ddh.winddirection.offset*2,ddh.winddirection.length*2);
     const winddirection = ddh.winddirection.parsevalue(winddirectionhex);
+
     debug(`风向为:${winddirection}`);
 
     const windspeedhex = ZigbeeData.substr(ddh.windspeed.offset*2,ddh.windspeed.length*2);
