@@ -10,52 +10,71 @@ import Footer from "../footer";
 import lodashget from 'lodash.get';
 import PopcareSel from "../popcaresel";
 import {
-	saveusersettings_request,
-	ui_historydevicequeryselect
+	// saveusersettings_request,
+	// ui_historydevicequeryselect
 } from '../../actions';
+import lodashmap from 'lodash.map';
 
 class App extends React.Component {
 	componentDidMount() {
-				this.props.dispatch(ui_historydevicequeryselect({
-						periodname:'minutely',
-						starttime:moment().subtract(10, 'minutes').format('YYYY-MM-DD HH:mm:00'),//moment().format('YYYY-MM-DD HH:mm:ss'),
-						endtime:moment().format('YYYY-MM-DD HH:mm:00'),
-						seltype:0,
-						isdateopen:false,
-				}));
+				// this.props.dispatch(ui_historydevicequeryselect({
+				// 		periodname:'minutely',
+				// 		starttime:moment().subtract(10, 'minutes').format('YYYY-MM-DD HH:mm:00'),//moment().format('YYYY-MM-DD HH:mm:ss'),
+				// 		endtime:moment().format('YYYY-MM-DD HH:mm:00'),
+				// 		seltype:0,
+				// 		isdateopen:false,
+				// }));
 		}
 
-		onChangeCaresel = (value)=>{
-			let usersettings = this.props.usersettings;
-			usersettings.indexdeviceid = value;
-			this.props.dispatch(saveusersettings_request(usersettings));
+
+		onChangeCareselGateway = (value)=>{
+			// let usersettings = this.props.usersettings;
+			// usersettings.indexdeviceid = value;
+			// this.props.dispatch(saveusersettings_request(usersettings));
+		}
+		onChangeCareselDevice = (value)=>{
+
+			// const {devices} = this.props;
+			// if(!!devices[value]){
+			// 	this.props.dispatch(ui_mycar_selcurdevice(value));
+			// }
+
 		}
     render() {
-        const {ispopcaresel_single_datameter,curdevice,devicelist,devices,viewtype} = this.props;
+        const {ispopcaresel_single_index_gateway,
+					gateways,curgatewayid,viewtype,devices,devicelist} = this.props;
         return (
             <div className="datameterPage">
                 <Header title="数据监控" history={this.props.history} ishidereturn/>
-                { !!curdevice && <Filler curdevice={curdevice} viewtype={viewtype}/> }
+                <Filler gateways={gateways} curgatewayid={curgatewayid} viewtype={viewtype}/>
                 {/* { !!curdevice && <Meter curdevice={curdevice} viewtype={viewtype}/> } */}
-                <List history={this.props.history} devicelist={devicelist} devices={devices} viewtype={viewtype}/>
+                <List history={this.props.history} devicelist={devicelist}
+									 devices={devices} viewtype={viewtype}/>
                 <Footer history={this.props.history} sel={"datameter"} />
-                {ispopcaresel_single_datameter && <PopcareSel value={curdevice._id} onChange={this.onChangeCaresel}/>}
+								{ispopcaresel_single_index_gateway  && <PopcareSel value={curgatewayid} isgateway={true} onChange={this.onChangeCaresel}/>}
             </div>
         );
     }
 }
 
-const mapStateToProps = ({device:{devicelist,devices,viewtype},userlogin:{usersettings},app:{ispopcaresel_single_datameter}}) => {
+const mapStateToProps = ({device:{devices,gateways,viewtype},userlogin:{usersettings},
+	app:{ispopcaresel_single_index_gateway}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
+		let curgatewayid = lodashget(usersettings,'indexgatewayid');
+		let devicelist = [];
 		if(!!curdeviceid){
 			curdevice = devices[curdeviceid];
 		}
-		if(!curdevice){
-			if(devicelist.length > 0){
-				curdevice = devices[devicelist[0]];
-			}
+		if(!!gateways[curgatewayid]){
+			lodashmap(devices,(dv)=>{
+				if(dv.gatewayid === curgatewayid){
+					devicelist.push(dv._id);
+				}
+			})
 		}
-    return {curdevice,devicelist,devices,ispopcaresel_single_datameter,viewtype,usersettings};
+
+    return {curdevice,devicelist,devices,gateways,curgatewayid,
+			ispopcaresel_single_index_gateway,viewtype,usersettings};
 }
 export default connect(mapStateToProps)(App);

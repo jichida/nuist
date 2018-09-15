@@ -13,7 +13,7 @@ class App extends React.Component {
 
 	  constructor(props) {  
         super(props);  
-				const initvalue = !props.ismulti?[props.value]:props.value;
+				const initvalue = !props.ismulti?[props.curvalue]:props.curvalue;
 				this.state = {
 					cursel:initvalue || []
 				};
@@ -21,7 +21,8 @@ class App extends React.Component {
 		onClickClose =()=>{
 			this.props.dispatch(set_uiapp({
 				ispopcaresel_multi:false,
-				ispopcaresel_single_index:false,
+				ispopcaresel_single_index_gateway:false,
+				ispopcaresel_single_index_device:false,
 				ispopcaresel_single_datameter:false,
 				ispopcaresel_single_video:false
 			}));
@@ -29,7 +30,8 @@ class App extends React.Component {
 		onClickOK = ()=>{
 			this.props.dispatch(set_uiapp({
 				ispopcaresel_multi:false,
-				ispopcaresel_single_index:false,
+				ispopcaresel_single_index_gateway:false,
+				ispopcaresel_single_index_device:false,
 				ispopcaresel_single_datameter:false,
 				ispopcaresel_single_video:false
 			}));
@@ -44,23 +46,23 @@ class App extends React.Component {
 					}
 			}
 		}
-		onClickSel = (deviceid,isadd)=>{
+		onClickSel = (curid,isadd)=>{
 			let curselarray = this.state.cursel;
 			if(!this.props.ismulti){//单选
 				if(curselarray.length === 0){
-					curselarray.push(deviceid);
+					curselarray.push(curid);
 				}
 				else{
-					curselarray[0] = deviceid;
+					curselarray[0] = curid;
 				}
 			}
 			else{				//多选
 				if(isadd){
-					curselarray.push(deviceid);
+					curselarray.push(curid);
 					curselarray = lodashuniq(curselarray);
 				}
 				else{
-					curselarray = lodashpull(curselarray,deviceid);
+					curselarray = lodashpull(curselarray,curid);
 				}
 			}
 			this.setState({
@@ -68,50 +70,32 @@ class App extends React.Component {
 			});
 		}
 		render() {
-			const {mapc,mapcity,devices,ismulti} = this.props;
+			const {title,valuedbs,ismulti} = this.props;
 			const {cursel} = this.state;
 			const titleselected = !ismulti?'当前':'关注';
 	    return (
 	      	<div className="collectionlist">
 	         	<div className="editcollectionlist">
-						<div className="point"><span className="title">地点节点选择</span> <span className="close" onClick={this.onClickClose}></span></div>
+						<div className="point"><span className="title">{title}</span> <span className="close" onClick={this.onClickClose}></span></div>
 						<div onClick={this.onClickOK} className="btn">确定</div>
 						<div className="pointlist">
 							{
-								lodashmap(mapc,(citynamearray,cityindex)=>{
-									return (<div className="li" key={cityindex}>
-										<div className="t">{cityindex}</div>
-										<div className="p">
-											{
-												lodashmap(citynamearray,(cityname,citynameindex)=>{
-													const didlist = mapcity[cityname];
-													return (<div className="li2" key={citynameindex}>
-														<div className="p2">
-															<div className="t p2p">{cityname}</div>
-															{
-																lodashmap(didlist,(did)=>{
-																	let issel = !!lodashfind(cursel,(id)=>{return id === did;});
-																	const curdevice = devices[did];
-																	if(!!curdevice){
-																		if(issel){
-																			return (<div key={did} onClick={()=>this.onClickSel(did,false)} className="p2p issel"><img alt="" src={Point1} />
-																			<span className="n">{lodashget(curdevice,'name')}</span>
-																			<span className="tip">{titleselected}</span></div>)
-																		}
-																		else{
-																			return (<div key={did} onClick={()=>this.onClickSel(did,true)} className="p2p"><img alt="" src={Point1} />
-																			<span className="n">{lodashget(curdevice,'name')}</span>
-																		 </div>);
-																		}
-																	}
-																})
-															}
-														</div>
-													</div>);
-												})
-											}
-										</div>
-									</div>);
+								lodashmap(valuedbs,(v,k)=>{
+									const issel = k === cursel;
+									if(!!v){
+										if(issel){
+											return (<div key={k} onClick={()=>this.onClickSel(k,false)} className="p2p issel">
+												<img alt="" src={Point1} />
+											<span className="n">{lodashget(v,'name')}</span>
+											<span className="tip">{titleselected}</span></div>)
+										}
+										else{
+											return (<div key={k} onClick={()=>this.onClickSel(k,true)} className="p2p">
+												<img alt="" src={Point1} />
+											<span className="n">{lodashget(v,'name')}</span>
+										 </div>);
+										}
+									}
 								})
 							}
 						</div>
@@ -121,27 +105,11 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({device:{devicelist,devices}}) => {
-		const mapc = {};//{'N':['南京','南宁']}
-		const mapcity = {};//{'南京':[id,id2]}
-		lodashmap(devicelist,(did)=>{
-			const curdevice = devices[did];
-			if(!!curdevice){
-				const mapckey = lodashget(curdevice,'cityindex','其他');
-				const citykey = lodashget(curdevice,'city','南京');
-
-				let cityindexarray = lodashget(mapc,mapckey,[]);
-				cityindexarray.push(citykey);
-				cityindexarray = lodashuniq(cityindexarray);
-				mapc[mapckey] = cityindexarray;
-
-				let cityarray = lodashget(mapcity,citykey,[]);
-				cityarray.push(did);
-				mapcity[citykey] = cityarray;
-			}
-		});
-		console.log(mapc);
-		console.log(mapcity);
-    return {mapc,mapcity,devices};
+const mapStateToProps = ({device:{gateways,devices}},props) => {
+		let isgateway = props.isgateway;
+		let title = isgateway?'所有网关':'所有节点';
+		let curvalue = isgateway?gateways[props.value]:devices[props.value];
+		let valuedbs = isgateway?gateways:devices;
+    return {title,curvalue,valuedbs};
 }
 export default connect(mapStateToProps)(App);

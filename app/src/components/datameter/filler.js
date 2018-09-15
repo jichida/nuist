@@ -14,19 +14,21 @@ class App extends React.Component {
 			 this.props.history.push(`/${name}`);
 	 }
     onClickPopCareSel = ()=>{
-      this.props.dispatch(set_uiapp({ispopcaresel_single_datameter:true}));
+      this.props.dispatch(set_uiapp({ispopcaresel_single_index_gateway:true}));
     }
   	render() {
-      const {curdevice} = this.props;
-      if(!curdevice){
+      const {gateways,curgatewayid} = this.props;
+      if(!gateways[curgatewayid]){
         return (<div />);
       }
 	    return (
 	      	<div className="datamonitorfiller">
-		        <div onClick={this.onClickPopCareSel} className="fillerhead collect"><img alt="" src={Collect} /><span>我的关注</span></div>
-                <div  onClick={this.pushurl.bind(this, `deviceinfo/${curdevice._id}/0`)} className="fillerhead city"><img alt="" src={City} /><span>{lodashget(curdevice,'name')}</span></div>
-	        	<div  onClick={this.pushurl.bind(this, `deviceinfo/${curdevice._id}/0`)} className="fillerhead point"><img alt="" src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
-	      	</div>
+		        <div onClick={this.onClickPopCareSel} className="fillerhead collect">
+							<img alt="" src={Collect} />
+							<span>当前网关</span>
+							<span>{gateways[curgatewayid].name}</span>
+						</div>
+  	      </div>
 	    );
   	}
 }

@@ -107,20 +107,31 @@ class App extends React.Component {
 			}
 
 		}
-		onClickPopCareSel = ()=>{
-			this.props.dispatch(set_uiapp({ispopcaresel_single_index:true}));
+		onClickPopCareSelGateway = ()=>{
+			this.props.dispatch(set_uiapp({ispopcaresel_single_index_gateway:true}));
 		}
-		onChangeCaresel = (value)=>{
+		onClickPopCareSelDevice = ()=>{
+			this.props.dispatch(set_uiapp({ispopcaresel_single_index_device:true}));
+		}
+		onChangeCareselGateway = (value)=>{
+			// let usersettings = this.props.usersettings;
+			// usersettings.indexdeviceid = value;
+			// this.props.dispatch(saveusersettings_request(usersettings));
+		}
+		onChangeCareselDevice = (value)=>{
 
-			const {devices} = this.props;
-			if(!!devices[value]){
-				this.props.dispatch(ui_mycar_selcurdevice(value));
-			}
+			// const {devices} = this.props;
+			// if(!!devices[value]){
+			// 	this.props.dispatch(ui_mycar_selcurdevice(value));
+			// }
 
 		}
   	render() {
-			const {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,usersettings} = this.props;
+			const {ispopuserinfo,ispoppwd,ispopcare,
+				ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,
+				curdevice,curgateway,usersettings} = this.props;
 			const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
+			const indexgatewayid = lodashget(usersettings,'indexgatewayid','');
 	    return (
 	      	<div
 	      		className="indexPage"
@@ -138,8 +149,12 @@ class App extends React.Component {
 						{
 							!!curdevice && (
 								<div className="mainmap" style={{height: `${window.innerHeight-64}px`}}>
-			        		<div onClick={this.onClickPopCareSel} className="mapcanver city"><img alt="" src={City} /><span>{lodashget(curdevice,'name')}</span></div>
-			        		<div onClick={this.onClickPopCareSel} className="mapcanver point"><img alt="" src={Point} /><span>{lodashget(curdevice,'locationname')}</span></div>
+			        		<div onClick={this.onClickPopCareSelGateway} className="mapcanver city"><img alt="" src={City} />
+										<span>{lodashget(curgateway,'name')}</span>
+								</div>
+			        		<div onClick={this.onClickPopCareSelDevice} className="mapcanver point"><img alt="" src={Point} />
+										<span>{lodashget(curdevice,'name')}</span>
+									</div>
 			        		{/* <div className="maindata">
 											<BottomBannerData curdevice={curdevice} viewtype={viewtype} />
 			        		</div> */}
@@ -149,7 +164,8 @@ class App extends React.Component {
 	        	{ispopuserinfo  && <Usercenter /> }
 						{ispoppwd && <Changepwd />}
 						{ispopcare && <Collection />}
-						{ispopcaresel_single_index && <PopcareSel value={indexdeviceid} onChange={this.onChangeCaresel}/>}
+						{ispopcaresel_single_index_gateway  && <PopcareSel value={indexgatewayid} isgateway={true} onChange={this.onChangeCaresel}/>}
+						{ispopcaresel_single_index_device  && <PopcareSel value={indexdeviceid} isgateway={false} onChange={this.onChangeCaresel}/>}
 
 	        	<Footer history={this.props.history} sel={"index"} />
 	      	</div>
@@ -157,11 +173,18 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,mapstyle},
-	device:{devicelist,devices,viewtype},
+const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,
+	ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,
+	mapstyle},
+	device:{devicelist,devices,viewtype,gateways},
 	userlogin:{usersettings,loginsuccess}}) => {
-		let curdevice;
+
+		let curgateway,curdevice;
+		let indexgatewayid = lodashget(usersettings,'indexgatewayid');
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
+		if(!curgateway){
+			curgateway = gateways[indexgatewayid];
+		}
 		if(!!curdeviceid){
 			curdevice = devices[curdeviceid];
 		}
@@ -170,6 +193,8 @@ const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_sin
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {ispopuserinfo,ispoppwd,ispopcare,ispopcaresel_single_index,curdevice,loginsuccess,devices,usersettings,mapstyle,viewtype};
+    return {ispopuserinfo,curgateway,ispoppwd,ispopcare,
+			ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,
+			curdevice,loginsuccess,devices,usersettings,mapstyle,viewtype};
 }
 export default connect(mapStateToProps)(App);
