@@ -10,9 +10,13 @@ import List from "./list.js";
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
 import QueryPage from '../explore/querypage';
+import {querypage_set_condition_sendsrv} from '../../actions';
 
 class App extends React.Component {
-
+    componentDidMount () {
+      // this.onClickQuery(this.props);
+      this.props.dispatch(querypage_set_condition_sendsrv({}));
+    }
     render() {
         const {curdevice,viewtype} = this.props;
         if(!!curdevice){

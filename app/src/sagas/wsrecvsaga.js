@@ -50,7 +50,7 @@ export function* wsrecvsagaflow() {
       //ui_mycar_selcurdevice
       yield put(ui_mycar_selcurdevice(deviceid));
       // yield put(saveusersettings_result({usersettings}));
-      debugger;
+      // debugger;
 
       if(type === 'historychart'){
         //ui auto
