@@ -11,8 +11,9 @@ import lodashget from 'lodash.get';
 import {
   set_uiapp,
   ui_startalarm,
-  ui_stopalarm
-  // getrealtimealarmlist_request
+  ui_stopalarm,
+  ui_selgateway,
+  ui_seldropdowndevice
 } from '../../actions';
 import PopcareSel from "../popcaresel";
 import QueryPage from '../explore/querypage';
@@ -29,6 +30,14 @@ class App extends React.Component {
     }
     onClickShowAll = (uialarmshowall)=>{
       this.props.dispatch(set_uiapp({uialarmshowall}));
+    }
+    onChangeCareselGateway = (value)=>{
+      console.log(`onChangeCareselGateway->${value}`);
+      this.props.dispatch(ui_selgateway({value,type:'alarm'}));
+    }
+    onChangeCareselDevice = (value)=>{
+      console.log(`onChangeCareselDevice->${value}`);
+      this.props.dispatch(ui_seldropdowndevice({value,type:'alarm'}));
     }
     render() {
         const {realtimealarmcount} = this.props;
@@ -63,8 +72,8 @@ class App extends React.Component {
         						}
                 </div>
                 <List />
-                {ispopcaresel_single_index_gateway  && <PopcareSel value={indexgatewayid} isgateway={true} onChange={this.onChangeCaresel}/>}
-                {ispopcaresel_single_index_device  && <PopcareSel value={indexdeviceid} isgateway={false} onChange={this.onChangeCaresel}/>}
+                {ispopcaresel_single_index_gateway  && <PopcareSel value={indexgatewayid} isgateway={true} onChange={this.onChangeCareselGateway}/>}
+                {ispopcaresel_single_index_device  && <PopcareSel value={indexdeviceid} isgateway={false} onChange={this.onChangeCareselDevice}/>}
                 <Footer history={this.props.history} sel={"warning"}  />
             </div>
         );

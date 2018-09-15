@@ -9,14 +9,13 @@ import Footer from "../footer";
 import PopcareSel from "../popcaresel";
 import lodashget from 'lodash.get';
 import {
-	// saveusersettings_request
+	ui_selgateway
 } from '../../actions';
 
 class App extends React.Component {
-    onChangeCaresel = (value)=>{
-      // let usersettings = this.props.usersettings;
-      // usersettings.indexdeviceid = value;
-      // this.props.dispatch(saveusersettings_request(usersettings));
+    onChangeCareselGateway = (value)=>{
+      console.log(`onChangeCareselGateway->${value}`);
+      this.props.dispatch(ui_selgateway({value,type:'historychart'}));
     }
     render() {
         const {ispopcaresel_single_index_gateway,gateways,curgatewayid,viewtype} = this.props;
@@ -38,7 +37,7 @@ class App extends React.Component {
                   </div>)
                }
                 <Footer history={this.props.history} sel={"video"} />
-								{ispopcaresel_single_index_gateway  && <PopcareSel value={curgatewayid} isgateway={true} onChange={this.onChangeCaresel}/>}
+								{ispopcaresel_single_index_gateway  && <PopcareSel value={curgatewayid} isgateway={true} onChange={this.onChangeCareselGateway}/>}
             </div>
         );
     }

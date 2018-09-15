@@ -10,35 +10,18 @@ import Footer from "../footer";
 import lodashget from 'lodash.get';
 import PopcareSel from "../popcaresel";
 import {
-	// saveusersettings_request,
+	ui_seldropdowndevice,
 	// ui_historydevicequeryselect
 } from '../../actions';
 import lodashmap from 'lodash.map';
 
 class App extends React.Component {
-	componentDidMount() {
-				// this.props.dispatch(ui_historydevicequeryselect({
-				// 		periodname:'minutely',
-				// 		starttime:moment().subtract(10, 'minutes').format('YYYY-MM-DD HH:mm:00'),//moment().format('YYYY-MM-DD HH:mm:ss'),
-				// 		endtime:moment().format('YYYY-MM-DD HH:mm:00'),
-				// 		seltype:0,
-				// 		isdateopen:false,
-				// }));
+		componentDidMount() {
 		}
 
-
-		onChangeCareselGateway = (value)=>{
-			// let usersettings = this.props.usersettings;
-			// usersettings.indexdeviceid = value;
-			// this.props.dispatch(saveusersettings_request(usersettings));
-		}
 		onChangeCareselDevice = (value)=>{
-
-			// const {devices} = this.props;
-			// if(!!devices[value]){
-			// 	this.props.dispatch(ui_mycar_selcurdevice(value));
-			// }
-
+				console.log(`onChangeCareselDevice->${value}`);
+				this.props.dispatch(ui_seldropdowndevice({value,type:'historychart'}));
 		}
     render() {
         const {ispopcaresel_single_index_gateway,
@@ -51,7 +34,7 @@ class App extends React.Component {
                 <List history={this.props.history} devicelist={devicelist}
 									 devices={devices} viewtype={viewtype}/>
                 <Footer history={this.props.history} sel={"datameter"} />
-								{ispopcaresel_single_index_gateway  && <PopcareSel value={curgatewayid} isgateway={true} onChange={this.onChangeCaresel}/>}
+								{ispopcaresel_single_index_gateway  && <PopcareSel value={curgatewayid} isgateway={true} onChange={this.onChangeCareselDevice}/>}
             </div>
         );
     }

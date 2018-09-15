@@ -20,6 +20,7 @@ import PopcareSel from "../popcaresel";
 
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
+import {ui_selgateway,ui_seldropdowndevice} from '../../actions';
 
 import "./index.css";
 import {
@@ -114,17 +115,12 @@ class App extends React.Component {
 			this.props.dispatch(set_uiapp({ispopcaresel_single_index_device:true}));
 		}
 		onChangeCareselGateway = (value)=>{
-			// let usersettings = this.props.usersettings;
-			// usersettings.indexdeviceid = value;
-			// this.props.dispatch(saveusersettings_request(usersettings));
+			console.log(`onChangeCareselGateway->${value}`);
+			this.props.dispatch(ui_selgateway({value,type:'historychart'}));
 		}
 		onChangeCareselDevice = (value)=>{
-
-			// const {devices} = this.props;
-			// if(!!devices[value]){
-			// 	this.props.dispatch(ui_mycar_selcurdevice(value));
-			// }
-
+			console.log(`onChangeCareselDevice->${value}`);
+			this.props.dispatch(ui_seldropdowndevice({value,type:'historychart'}));
 		}
   	render() {
 			const {ispopuserinfo,ispoppwd,ispopcare,
@@ -164,8 +160,8 @@ class App extends React.Component {
 	        	{ispopuserinfo  && <Usercenter /> }
 						{ispoppwd && <Changepwd />}
 						{ispopcare && <Collection />}
-						{ispopcaresel_single_index_gateway  && <PopcareSel value={indexgatewayid} isgateway={true} onChange={this.onChangeCaresel}/>}
-						{ispopcaresel_single_index_device  && <PopcareSel value={indexdeviceid} isgateway={false} onChange={this.onChangeCaresel}/>}
+						{ispopcaresel_single_index_gateway  && <PopcareSel value={indexgatewayid} isgateway={true} onChange={this.onChangeCareselGateway}/>}
+						{ispopcaresel_single_index_device  && <PopcareSel value={indexdeviceid} isgateway={false} onChange={this.onChangeCareselDevice}/>}
 
 	        	<Footer history={this.props.history} sel={"index"} />
 	      	</div>

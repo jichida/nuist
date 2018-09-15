@@ -36,7 +36,6 @@ class App extends React.Component {
 		        	<div className="tit">用户中心</div>
 		        	<div className="list">
 							<div onClick={this.onClickPwd}>修改密码</div>
-							<div onClick={this.onClickCare}>关注设置</div>
 							<div onClick={this.onClickLogout}>退出登录</div>
 			       </div>
 		        	<div onClick={this.onClickCloseUser} className="closediv">
