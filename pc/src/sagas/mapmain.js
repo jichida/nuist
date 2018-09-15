@@ -252,45 +252,45 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
     // console.log(myPath);
     data_z.push({
                  name: lineArrayList[i].name,
-                 path: myPath_z[i].slice(0, 1)
+                 path: myPath_z[i]
              });
     endInx_z.push(0);
   }
   gpathSimplifierIns.setData(data_z); //延展路径
   return new Promise((resolve,reject) => {
-    const expandPath = (i,gnav)=> {
-        const doExpand = (i,gnav)=> {
-            endInx_z[i]++;
-            if (endInx_z[i] >= myPath_z[i].length) {
-                return false;
-            }
-            const cursor = gnav.getCursor().clone(), //保存巡航器的位置
-                status = gnav.getNaviStatus();
-            data_z[i].path = myPath_z[i].slice(0, endInx_z[i] + 1);
-            gpathSimplifierIns.setData(data_z); //延展路径
-            // console.log(data);
-            //重新建立一个巡航器
-            gnav = gpathSimplifierIns.createPathNavigator(0, {
-                //loop: true, //循环播放
-                speed: 600000 //巡航速度，单位千米/小时
-            });
-
-            if (status !== 'stop') {
-                gnav.start();
-            }
-            //恢复巡航器的位置
-            if (cursor.idx >= 0) {
-                gnav.moveToPoint(cursor.idx, cursor.tail);
-            }
-            return true;
-        }
-
-        if (doExpand(i,gnav)) {
-            setTimeout(()=>{
-              expandPath(i,gnav)
-            }, 2000);
-        }
-    }
+    // const expandPath = (i,gnav)=> {
+    //     const doExpand = (i,gnav)=> {
+    //         endInx_z[i]++;
+    //         if (endInx_z[i] >= myPath_z[i].length) {
+    //             return false;
+    //         }
+    //         const cursor = gnav.getCursor().clone(), //保存巡航器的位置
+    //             status = gnav.getNaviStatus();
+    //         data_z[i].path = myPath_z[i].slice(0, endInx_z[i] + 1);
+    //         gpathSimplifierIns.setData(data_z); //延展路径
+    //         // console.log(data);
+    //         //重新建立一个巡航器
+    //         gnav = gpathSimplifierIns.createPathNavigator(0, {
+    //             //loop: true, //循环播放
+    //             speed: 600000 //巡航速度，单位千米/小时
+    //         });
+    //
+    //         if (status !== 'stop') {
+    //             gnav.start();
+    //         }
+    //         //恢复巡航器的位置
+    //         if (cursor.idx >= 0) {
+    //             gnav.moveToPoint(cursor.idx, cursor.tail);
+    //         }
+    //         return true;
+    //     }
+    //
+    //     if (doExpand(i,gnav)) {
+    //         setTimeout(()=>{
+    //           expandPath(i,gnav)
+    //         }, 2000);
+    //     }
+    // }
 
     for(let i = 0;i < lineArrayList.length; i++){
         if(!!gnav_z[i]){
@@ -306,7 +306,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
         gnav.start();
 
         gnav_z.push(gnav);
-        expandPath(i,gnav);
+        // expandPath(i,gnav);
       }
 
       resolve();
