@@ -46,7 +46,8 @@ const SystemconfigCreateTitle = ({ record }) => {
            <ReferenceInput label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
              <SelectInput optionText="name" />
            </ReferenceInput>
-           <CfSelectArrayInput label="演示网关组" source="gatewaygroups" loadOptions={getOptions('gatewaygroup','name','_id')}/>
+           <CfSelectArrayInput label="演示网关组[PC]" source="gatewaygroups4pc" loadOptions={getOptions('gatewaygroup','name','_id')}/>
+           <CfSelectArrayInput label="演示网关组[APP]" source="gatewaygroups4app" loadOptions={getOptions('gatewaygroup','name','_id')}/>
          </FormTab>
            <FormTab label="报警规则">
            <CfAlaramRuleInput label="报警规则设置(高)" source="warningrulelevel0" />
@@ -65,7 +66,8 @@ const SystemconfigCreateTitle = ({ record }) => {
           <ReferenceInput label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
             <SelectInput optionText="name" />
           </ReferenceInput>
-          <CfSelectArrayInput label="演示网关组" source="gatewaygroups" loadOptions={getOptions('gatewaygroup','name','_id')}/>
+          <CfSelectArrayInput label="演示网关组[PC]" source="gatewaygroups4pc" loadOptions={getOptions('gatewaygroup','name','_id')}/>
+          <CfSelectArrayInput label="演示网关组[APP]" source="gatewaygroups4app" loadOptions={getOptions('gatewaygroup','name','_id')}/>
         </FormTab>
           <FormTab label="报警规则">
           <CfAlaramRuleInput label="报警规则设置(高)" source="warningrulelevel0" />

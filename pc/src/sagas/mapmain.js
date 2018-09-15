@@ -998,11 +998,13 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
               return state.userlogin.usersettings;
             });
             const indexgatewayid = usersettings.indexgatewayid;
-            yield put(getdevicelist_request({
-              query:{
-                "gatewayid":indexgatewayid
-              }
-           }));
+            if(indexgatewayid !== ''){
+              yield put(getdevicelist_request({
+                query:{
+                  "gatewayid":indexgatewayid
+                }
+             }));
+            }
             // let {gateways,devices} = yield select((state)=>{
             //   return {
             //     gateways:state.device.gateways,

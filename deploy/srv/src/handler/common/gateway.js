@@ -76,44 +76,24 @@ exports.getgatewaylist = (actiondata,ctx,callback)=>{
     dbModel.findOne()
       .populate([
         {
-          path:'gatewaygroups',
+          path:'gatewaygroups4pc',
+          model: 'gatewaygroup',
+        },
+        {
+          path:'gatewaygroups4app',
           model: 'gatewaygroup',
       },{
           path:'viewtype',
           model: 'viewtype',
         }
     ]).lean().exec((err, systemconfig)=> {
-      const gwgroups = _.get(systemconfig,'gatewaygroups',[]);
+      debug(systemconfig);
+      debug(ctx.usertype);
+      let gwgroups = _.get(systemconfig,`gatewaygroups4${ctx.usertype}`,[]);
       const viewtype = _.get(systemconfig,'viewtype');
+      debug(gwgroups);
       getgatewaylist_user(err,viewtype,gwgroups,actiondata,ctx,callback);
     });
   }
 
-  // const query = actiondata.query || {};
-  // const fields = actiondata.fields || {};
-  // getdevicesids(ctx.userid,({deviceIds})=>{
-  //   if(!query.DeviceId){
-  //     query.DeviceId = {'$in':deviceIds};
-  //   }
-  //   const queryexec = deviceModel.find(query).select(fields)
-  //     .populate([
-  //       {
-  //         path:'devicetype',
-  //         model: 'devicetype',
-  //     }]).lean();
-  //   queryexec.exec((err,list)=>{
-  //     if(!err){
-  //       callback({
-  //         cmd:'getdevicelist_result',
-  //         payload:{list}
-  //       });
-  //     }
-  //     else{
-  //       callback({
-  //         cmd:'common_err',
-  //         payload:{errmsg:err.message,type:'getdevicelist'}
-  //       });
-  //     }
-  //   });
-  // });
 }

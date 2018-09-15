@@ -28,7 +28,7 @@ const subscriberuser = (ctx)=>{
   PubSub.unsubscribe( ctx.userDeviceSubscriber );
 
   PubSub.subscribe(`${config.pushdevicetopic}.${ctx.userid}.${ctx.connectid}`,ctx.userDeviceSubscriber);
-  getdevicesids(ctx.userid,(deviceIds)=>{
+  getdevicesids(ctx.userid,ctx.usertype,(deviceIds)=>{
     _.map(deviceIds,(DeviceId)=>{
       PubSub.subscribe(`push.devicealarm.${DeviceId}`,ctx.userDeviceSubscriber);
       // PubSub.subscribe(`push.device.${DeviceId}`,ctx.userDeviceSubscriber);

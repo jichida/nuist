@@ -12,7 +12,7 @@ const getmoment =()=>{
 }
 
 exports.gettipcount = (actiondata,ctx,callback)=>{
-  getdevicesids(ctx.userid,({deviceIds})=>{
+  getdevicesids(ctx.userid,ctx.usertype,({deviceIds})=>{
     //console.log(deviceIds);
     //console.log(devicegroupIds);
     //统计在线／离线个数

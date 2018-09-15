@@ -6,7 +6,8 @@ const moment = require('moment');
 mongoose.Promise = global.Promise;
 //系统设置
 const SystemConfigSchema = new Schema({
-  demogatewaygroupid:{ type: Schema.Types.ObjectId, ref: 'gatewaygroup' },
+  gatewaygroups4app:[{ type: Schema.Types.ObjectId, ref: 'gatewaygroup', default: [] }],
+  gatewaygroups4pc:[{ type: Schema.Types.ObjectId, ref: 'gatewaygroup', default: [] }],
   viewtype:{ type: Schema.Types.ObjectId, ref: 'viewtype' },
 }, { strict: false });
 SystemConfigSchema.plugin(mongoosePaginate);

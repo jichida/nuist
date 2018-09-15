@@ -5,7 +5,7 @@ const handleuserpc = require('./handler/pc/index.js');
 const handleuserapp = require('./handler/app/index.js');
 const PubSub = require('pubsub-js');
 const usersubfn = require('./handler/socketsubscribe');
-const getdevicesids = require('./handler/getdevicesids');
+
 const debug = require('debug')('appsrv:srvws');
 const srvsystem = require('./srvsystem.js');
 const userlogin = require('./handler/common/userlogin');

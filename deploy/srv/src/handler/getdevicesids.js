@@ -28,7 +28,7 @@ const getDeviceIds = (gwgroups,callbackfn)=>{
       callbackfn(DeviceIds);
   });
 }
-const getdevicesids = (userid,callbackfn)=>{
+const getdevicesids = (userid,userstype,callbackfn)=>{
   // debug(`getdevicesids--->${userid}`);
   if(!!userid && `${userid}` !== `null`){//登录用户
     // debug(`find user:${userid}`);
@@ -38,7 +38,8 @@ const getdevicesids = (userid,callbackfn)=>{
         {
           path:'gatewaygroups',
           model: 'gatewaygroup',
-      },{
+      }
+        ,{
           path:'viewtype',
           model: 'viewtype',
         }
@@ -53,15 +54,19 @@ const getdevicesids = (userid,callbackfn)=>{
     dbModel.findOne()
       .populate([
         {
-          path:'gatewaygroups',
+          path:'gatewaygroups4pc',
+          model: 'gatewaygroup',
+        },
+        {
+          path:'gatewaygroups4app',
           model: 'gatewaygroup',
       },{
           path:'viewtype',
           model: 'viewtype',
         }
     ]).lean().exec((err, systemconfig)=> {
-      const gwgroups = _.get(systemconfig,'gatewaygroups',[]);
-      // debug(`find gwgroups->${JSON.stringify(gwgroups)}`);
+      const gwgroups = _.get(systemconfig,`gatewaygroups4${userstype}`,[]);
+      debug(gwgroups);
       getDeviceIds(gwgroups,callbackfn);
     });
   }

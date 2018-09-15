@@ -57,7 +57,7 @@ const do_updatealldevices = (alldevicelist)=>{
   _.map(userset,(v,userid)=>{
     debug(`do_updatealldevices----->${alldevicelist.length}--->${userid}`);
     if(v.length > 0){
-      getdevicesids(userid,(deviceIds)=>{
+      getdevicesids(userid,null,(deviceIds)=>{
         let ispublish = false;
         let publishvale = [];
         //设置订阅设备消息
