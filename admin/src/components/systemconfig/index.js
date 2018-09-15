@@ -43,7 +43,7 @@ const SystemconfigCreateTitle = ({ record }) => {
        <TabbedForm>
          <FormTab label="系统设置">
            <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
-           <NumberInput label="故障及异常判断时间【单位：分钟】" source="SettingOfflineMinutes" validate={required} />
+           <NumberInput label="故障及异常判断时间【单位：分钟】" source="SettingOfflineMinutes"  />
            <ReferenceInput label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
              <SelectInput optionText="name" />
            </ReferenceInput>
@@ -64,7 +64,7 @@ const SystemconfigCreateTitle = ({ record }) => {
       <TabbedForm>
         <FormTab label="系统设置">
           <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" />
-          <NumberInput label="故障及异常判断时间【单位：分钟】" source="SettingOfflineMinutes" validate={required} />
+          <NumberInput label="故障及异常判断时间【单位：分钟】" source="SettingOfflineMinutes" />
           <ReferenceInput label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
             <SelectInput optionText="name" />
           </ReferenceInput>
