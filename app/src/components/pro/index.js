@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Swiperimg from "./swiperimg";
-import Exit from "../../img/22.png";
+// import Exit from "../../img/22.png";
 import List from "./list.js";
 import Info from "./info.js";
 
@@ -35,7 +35,7 @@ class App extends React.Component {
                 <Swiperimg />
                 <List />
                 { !!showproinfo && <Info /> }
-                
+
                 <Footer history={this.props.history} sel={"pro"} />
             </div>
         );

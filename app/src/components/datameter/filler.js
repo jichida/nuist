@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import City from "../../img/24.png";
-import Point from "../../img/25.png";
+// import City from "../../img/24.png";
+// import Point from "../../img/25.png";
 import Collect from "../../img/26.png";
-import lodashget from 'lodash.get';
+// import lodashget from 'lodash.get';
 import {
 	set_uiapp,
 } from '../../actions';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
+// import moment from 'moment';
 import "./style.css";
 // import Meter from "../deviceinfo/meter";
 import Header from "../header/page.js";

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
 import lodashuniq from 'lodash.uniq';
-import lodashfind from 'lodash.find';
+// import lodashfind from 'lodash.find';
 import lodashpull from 'lodash.pull';
 
 import Point1 from "../../img/25.png";

@@ -86,6 +86,6 @@ const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},
     }
     return {curgateway,
       ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,
-      curdevice,loginsuccess,devices,usersettings,viewtype,realtimealarmcount:11};
+      curdevice,loginsuccess,devices,usersettings,viewtype,realtimealarmcount:realtimealarmlist.length};
 }
 export default connect(mapStateToProps)(App);

@@ -9,14 +9,14 @@ import Footer from "../footer";
 import PopcareSel from "../popcaresel";
 import lodashget from 'lodash.get';
 import {
-	saveusersettings_request
+	// saveusersettings_request
 } from '../../actions';
 
 class App extends React.Component {
     onChangeCaresel = (value)=>{
-      let usersettings = this.props.usersettings;
-      usersettings.indexdeviceid = value;
-      this.props.dispatch(saveusersettings_request(usersettings));
+      // let usersettings = this.props.usersettings;
+      // usersettings.indexdeviceid = value;
+      // this.props.dispatch(saveusersettings_request(usersettings));
     }
     render() {
         const {ispopcaresel_single_index_gateway,gateways,curgatewayid,viewtype} = this.props;
