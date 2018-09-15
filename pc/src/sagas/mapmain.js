@@ -844,7 +844,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
             return {g_devicesdb:devices,gateways,viewtype};
           });
           // console.log(`devicelist->${JSON.stringify(devicelist)}`);
-          for( i=0;i<devicelist.length;i++){
+          for( i = 0;i < devicelist.length;i++){
               let curdevice = devicelist[i];
               if(!curdevice.Longitude){
                 const curgw = gateways[curdevice.gatewayid];

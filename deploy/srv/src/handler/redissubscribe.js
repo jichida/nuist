@@ -80,10 +80,10 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
               $set:{
                 realtimedata:devicedata.realtimedata,
                 nextdeviceid:devicedata.nextdeviceid,
-                Longitude:DeviceGeoSz[0],//product环境中需要将这两行代码移动到下面$setOnInsert中
-                Latitude:DeviceGeoSz[1],
               },
               $setOnInsert:{
+                Longitude:DeviceGeoSz[0],//product环境中需要将这两行代码移动到下面$setOnInsert中
+                Latitude:DeviceGeoSz[1],
                 DeviceId:devicedata.deviceid,
                 gatewayid:gwid,
                 name:`节点${devicedata.gwid}${devicedata.deviceid}`,
@@ -97,10 +97,10 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
               },
               $set:{
                 realtimedata:devicedata.realtimedata,
-                Longitude:DeviceGeoSz[0],//product环境中需要将这两行代码移动到下面$setOnInsert中
-                Latitude:DeviceGeoSz[1],
               },
               $setOnInsert:{
+                Longitude:DeviceGeoSz[0],//product环境中需要将这两行代码移动到下面$setOnInsert中
+                Latitude:DeviceGeoSz[1],
                 DeviceId:devicedata.deviceid,
                 gatewayid:gwid,
                 name:`节点${devicedata.gwid}${devicedata.deviceid}`,
