@@ -24,7 +24,7 @@ import lodashget from 'lodash.get';
 import "./index.css";
 import {
 	set_uiapp,
-	ui_mycar_selcurdevice,
+	// ui_mycar_selcurdevice,
 	ui_notifyresizeformap,
 	ui_setmapstyle
 } from '../../actions';

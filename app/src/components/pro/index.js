@@ -35,7 +35,7 @@ class App extends React.Component {
                 <Swiperimg />
                 <List />
                 { !!showproinfo && <Info /> }
-                <div className="investigationlnk" onClick={this.pushurl.bind(this, "investigation")}><span>参与问卷调查</span><img alt="" src={Exit} /></div>
+                
                 <Footer history={this.props.history} sel={"pro"} />
             </div>
         );

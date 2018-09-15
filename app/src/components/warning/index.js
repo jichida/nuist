@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import "./style.css";
 import List from "./list.js";
 import Footer from "../footer";
-import lodashfind from 'lodash.find';
-import lodashmap from 'lodash.map';
+// import lodashfind from 'lodash.find';
+// import lodashmap from 'lodash.map';
+import City from "../../img/20.png";
+import Point from "../../img/21.png";
 import lodashget from 'lodash.get';
 import {
   set_uiapp,
@@ -12,6 +14,7 @@ import {
   ui_stopalarm
   // getrealtimealarmlist_request
 } from '../../actions';
+import PopcareSel from "../popcaresel";
 
 class App extends React.Component {
 
@@ -27,44 +30,62 @@ class App extends React.Component {
       this.props.dispatch(set_uiapp({uialarmshowall}));
     }
     render() {
-        const {realtimealarmcount,selectedall,loginsuccess} = this.props;
-        const classnameselected_all = selectedall?'lnkselected allshow':'lnk allshow';
-        const classnameselected_guanzhu = !selectedall?'lnkselected guanzhu':'lnk guanzhu';
+        const {realtimealarmcount} = this.props;
+        const {
+          ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,
+          curdevice,curgateway,usersettings} = this.props;
+        const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
+        const indexgatewayid = lodashget(usersettings,'indexgatewayid','');
         return (
             <div className="warningPage">
                 <div className="head">
                     <div className="n"><span>{realtimealarmcount>99?'99+':`${realtimealarmcount}`}</span><span>条</span></div>
                     <div className="c"><span>共有预警信息</span></div>
-                    {loginsuccess && <div onClick={()=>{this.onClickShowAll(true)}} className={`${classnameselected_all}`}>显示全部</div>}
-                    {loginsuccess && <div onClick={()=>{this.onClickShowAll(false)}} className={`${classnameselected_guanzhu}`}>我的关注</div>}
+                    {
+        							!!curdevice && (
+        								<div className="mainmap" style={{height: `${window.innerHeight-64}px`}}>
+        			        		<div onClick={this.onClickPopCareSelGateway} className="mapcanver city"><img alt="" src={City} />
+        										<span>{lodashget(curgateway,'name')}</span>
+        								</div>
+        			        		<div onClick={this.onClickPopCareSelDevice} className="mapcanver point"><img alt="" src={Point} />
+        										<span>{lodashget(curdevice,'name')}</span>
+        									</div>
+        			        		{/* <div className="maindata">
+        											<BottomBannerData curdevice={curdevice} viewtype={viewtype} />
+        			        		</div> */}
+        			        	</div>
+        							)
+        						}
                 </div>
                 <List />
+                {ispopcaresel_single_index_gateway  && <PopcareSel value={indexgatewayid} isgateway={true} onChange={this.onChangeCaresel}/>}
+                {ispopcaresel_single_index_device  && <PopcareSel value={indexdeviceid} isgateway={false} onChange={this.onChangeCaresel}/>}
                 <Footer history={this.props.history} sel={"warning"}  />
             </div>
         );
     }
 }
 
-const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},app:{uialarmshowall},userlogin:{usersettings,loginsuccess}}) => {
-    let alllist = [];
-    if(!loginsuccess){
-      uialarmshowall = true;
+const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},
+  device:{devicelist,devices,viewtype,gateways},
+  app:{ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,uialarmshowall},
+  userlogin:{usersettings,loginsuccess}}) => {
+    let curgateway,curdevice;
+    let indexgatewayid = lodashget(usersettings,'indexgatewayid');
+    let curdeviceid = lodashget(usersettings,'indexdeviceid');
+    if(!curgateway){
+      curgateway = gateways[indexgatewayid];
     }
-    if(uialarmshowall){
-      alllist = realtimealarmlist;
+    if(!!curdeviceid){
+      curdevice = devices[curdeviceid];
     }
-    else{
-      const subscriberdeviceids = lodashget(usersettings,'subscriberdeviceids',[])
-      lodashmap(realtimealarmlist,(rid)=>{
-        const curdeviceid = lodashget(realtimealarms[rid],'did');
-        if(!!lodashfind(subscriberdeviceids,(id)=>{
-          return id === curdeviceid;
-        })){
-          alllist.push(rid);
-        }
-      });
+    if(!curdevice){
+      if(devicelist.length > 0){
+        curdevice = devices[devicelist[0]];
+      }
     }
-    const ralist = alllist;
-    return {realtimealarmcount:ralist.length,selectedall:uialarmshowall,loginsuccess};
+    return {curgateway,
+      ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,
+      curdevice,loginsuccess,devices,usersettings,viewtype,realtimealarmcount:11};
 }
 export default connect(mapStateToProps)(App);
