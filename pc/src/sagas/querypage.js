@@ -74,43 +74,7 @@ export function* querypageflow(){//仅执行一次
       // }}));
     }
 
-    yield takeLatest(`${ui_startalarm}`,function*(action) {
-      let isstopped = false;
-      while(!isstopped){
-        //选中一个默认节点
-        const {usersettings,savequery_historychart} = yield select((state)=>{
-          const {usersettings} = state.userlogin;
-          const {savequery_historychart} = state.app;
-          return {usersettings,savequery_historychart};
-        });
-        const {starttime,endtime} = savequery_historychart;
-        const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
-        const query = {
-          did:indexdeviceid,
-          UpdateTime:{
-              $gte:starttime,
-              $lte:endtime
-          }
-        };
-        yield put(getrealtimealarmlist_request({query}));
-        console.log(query)
-        const { stop } = yield race({
-            stop: take(`${ui_stopalarm}`),
-            result: take(`${getrealtimealarmlist_result}`),
-            timeout: call(delay, 10000)
-        });
-        isstopped = !!stop;
-        if(isstopped){
-          break;
-        }
-        const { stop2 } = yield race({
-            stop2: take(`${ui_stopalarm}`),
-            reset:take(`${ui_resetalarm}`),
-            timeout2: call(delay, 5000)
-        });
-        isstopped = !!stop2;
-      }
-    });
+
 
 	// {from: "now-6M", to: "now", display: "Last 6 months", section: 0, active: false}
     // console.log(payload);
@@ -124,5 +88,43 @@ export function* querypageflow(){//仅执行一次
     //   starttime,
     //   endtime
     // }));
+  });
+
+  yield takeLatest(`${ui_startalarm}`,function*(action) {
+    let isstopped = false;
+    while(!isstopped){
+      //选中一个默认节点
+      const {usersettings,savequery_historychart} = yield select((state)=>{
+        const {usersettings} = state.userlogin;
+        const {savequery_historychart} = state.app;
+        return {usersettings,savequery_historychart};
+      });
+      const {starttime,endtime} = savequery_historychart;
+      const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
+      const query = {
+        did:indexdeviceid,
+        UpdateTime:{
+            $gte:starttime,
+            $lte:endtime
+        }
+      };
+      yield put(getrealtimealarmlist_request({query}));
+      console.log(query)
+      const { stop } = yield race({
+          stop: take(`${ui_stopalarm}`),
+          result: take(`${getrealtimealarmlist_result}`),
+          timeout: call(delay, 10000)
+      });
+      isstopped = !!stop;
+      if(isstopped){
+        break;
+      }
+      const { stop2 } = yield race({
+          stop2: take(`${ui_stopalarm}`),
+          reset:take(`${ui_resetalarm}`),
+          timeout2: call(delay, 5000)
+      });
+      isstopped = !!stop2;
+    }
   });
 }

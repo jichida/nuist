@@ -178,7 +178,7 @@ const getCurGatewayPath = (curgw,curdevicesdb)=>{
     let i = 0;
     while(!!nextdevice){
       i = i + 1;
-      console.log(`curdeviceid:${nextdevice.DeviceId},nextdevice->${nextdevice.nextdeviceid},${i}`);
+      // console.log(`curdeviceid:${nextdevice.DeviceId},nextdevice->${nextdevice.nextdeviceid},${i}`);
 
       curArray.push([nextdevice.Longitude,nextdevice.Latitude]);
       nextdevice = device2id_db[nextdevice.nextdeviceid];
@@ -297,7 +297,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           gnav_z[i].destroy();
         }
 
-        console.log(`gpathSimplifierIns->i->${i}`)
+        // console.log(`gpathSimplifierIns->i->${i}`)
         const gnav = gpathSimplifierIns.createPathNavigator(i, {
                  loop: true, //循环播放
                  speed: 1000 //巡航速度，单位千米/小时
