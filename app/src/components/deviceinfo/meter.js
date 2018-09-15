@@ -65,7 +65,10 @@ class App extends React.Component {
       this.props.history.push(`/history/${curdevice._id}`);
      }
 
-
+     viewhistorychart = ()=>{
+       const {curdevice} = this.props;
+       this.props.history.push(`/historycharts/${curdevice._id}`);
+     }
   	render() {
       const {curdevice,viewtype} = this.props;
       if(!!curdevice){
@@ -74,8 +77,11 @@ class App extends React.Component {
         let index = 0;
         return (
   	      	<div className="meter">
-  	        	<div className="title"><h2>实时数据</h2><div onClick={this.viewhistory}>
-                <span>查看历史数据</span><img alt="" src={Imgjtr} /></div>
+  	        	<div className="title"><h2>实时数据</h2>
+              <div onClick={this.viewhistory}>
+                <span>历史数据</span><img alt="" src={Imgjtr} /></div>
+              <div onClick={this.viewhistorychart}>
+                <span>历史图表</span><img alt="" src={Imgjtr} /></div>
               </div>
               {isshowwincontrol && <Windcontrol curdevice={curdevice} />}
   	        	<div className="meterchart">

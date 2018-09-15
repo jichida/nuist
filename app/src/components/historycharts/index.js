@@ -1,27 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import "./style.css";
+// import "./style.css";
 import Header from "../header/page.js";
-import List from "./list.js";
+// import List from "./list.js";
 // import Filler from "./filler.js";
 // import Report from "./report.js";
 // import Footer from "../footer";
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
+import HistoryBar from './historybar';
 
 
 class App extends React.Component {
 
     render() {
-        const {curdevice,viewtype} = this.props;
+        const {curdevice} = this.props;
         if(!!curdevice){
-          // const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
-          // const {fields,fieldslist_brief} = viewtype;
           return (
               <div className="monitorPage">
                   <Header history={this.props.history} title={`${lodashget(curdevice,'name','')}-${lodashget(curdevice,'locationname','')}`}/>
-                  <List curdevice={curdevice} viewtype={viewtype}/>
+                  <HistoryBar showflag="all"/>
               </div>
           );
         }
@@ -30,9 +29,8 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{devices,viewtype},historydevice:{historydevices}},props) => {
+const mapStateToProps = ({device:{devices}},props) => {
 		const curdevice = devices[props.match.params.id];
-    const retlist = lodashget(historydevices,`${props.match.params.id}`,[]);
-    return {curdevice,viewtype,retlist};
+    return {curdevice};
 }
 export default connect(mapStateToProps)(App);

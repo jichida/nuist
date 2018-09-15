@@ -12,6 +12,7 @@ import Datameter from './datameter';
 import DeviceinfoHistory from './history';
 import Video from './video';
 import Warning from './warning';
+import HistoryChart from './historycharts';
 import {requireAuthentication} from './requireauthentication';
 import {
   map_setmapinited,
@@ -76,6 +77,7 @@ class AppRoot extends React.Component {
                   <Route exact path="/pro" component={Proindex} />
                   <Route exact path="/deviceinfo/:id/:index" component={Monitor} />
                   <Route exact path="/history/:id" component={DeviceinfoHistory} />
+                  <Route exact path="/historycharts/:id" component={HistoryChart} />
                   <Route exact path="/datameter" component={Datameter} />
                   <Route exact path="/warning" component={Warning} />
                   <Route exact path="/video" component={Video} />
