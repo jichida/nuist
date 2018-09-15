@@ -3,7 +3,10 @@ import {delay} from 'redux-saga';
 import {getRandomLocation} from './geo.js';
 import get from 'lodash.get';
 import lodashmap from 'lodash.map';
-import {lodashshuffle_gwpath,getdevicestatus,setshuffledevices} from '../util';
+import {
+  // lodashshuffle_gwpath,
+  // getdevicestatus,
+  setshuffledevices} from '../util';
 import {
   getpopinfowindowstyle,
   // getlistpopinfowindowstyle,
@@ -17,6 +20,8 @@ import {
   saveusersettings_request,
   mapmain_showpopinfo,
   mapmain_drawgatewaypath,
+  getdevicelist_request,
+  getdevicelist_result,
   getgatewaylist_result,
   getgatewaylist_result_4reducer,
   ui_selectgateway4draw,
@@ -32,7 +37,7 @@ let infoWindow;
 
 //=====数据部分=====
 let markCluster;
-let endIdx;
+// let endIdx;
 let CachedlineArrayList = [];
 let gpathSimplifierIns,gPathSimplifier;
 const Create_PathSimplifier = (callbackfn)=>{
@@ -47,31 +52,28 @@ const Create_PathSimplifier = (callbackfn)=>{
       }
       tmppathSimplifierIns = new PathSimplifier({
               zIndex: 100,
-                autoSetFitView: false,
+              autoSetFitView: false,
               map: window.amapmain, //所属的地图实例
-
               getPath: function(pathData, pathIndex) {
-
+                  // debugger;
+                  // console.log(pathData);
+                  // console.log(pathIndex);
                   return pathData.path;
               },
               getHoverTitle: function(pathData, pathIndex, pointIndex) {
-
                   if (pointIndex >= 0) {
-                        //point
                         return pathData.name + '，点：' + pointIndex + '/' + pathData.path.length;
                   }
-
                   return pathData.name + '，点数量' + pathData.path.length;
               },
               renderOptions: {
-
-                    renderAllPointsIfNumberBelow: 100 //绘制路线节点，如不需要可设置为-1
-                  }
+                  renderAllPointsIfNumberBelow: 100 //绘制路线节点，如不需要可设置为-1
+              }
           });
           resolve({
             gpathSimplifierIns:tmppathSimplifierIns,
             gPathSimplifier:tmpPathSimplifier
-    });
+          });
 
   });
       });
@@ -158,98 +160,155 @@ const isEqualArray = (array1,array2)=>{
   }
   return isequal;
 }
-const getGatewayPath = (gateways,g_devicesdb)=>{
+
+const getCurGatewayPath = (curgw,curdevicesdb)=>{
+  //当前网关&联系的所有设备
   let lineArrayList = [];
-  lodashmap(gateways,(gw)=>{
-    let lineArr = [];
-    if(!gw.devicepath){
-      gw.devicepath = gw.devicelist;
+
+  let device2id_db = {};
+  // let matcheddevice = {};
+  lodashmap(curdevicesdb,(cur)=>{
+    device2id_db[cur.DeviceId] = cur;
+  });
+
+  lodashmap(curdevicesdb,(cur)=>{
+    let curArray = [];
+    curArray.push([cur.Longitude,cur.Latitude]);
+    let nextdevice = device2id_db[cur.nextdeviceid];
+    let i = 0;
+    while(!!nextdevice){
+      i = i + 1;
+      // console.log(`curdeviceid:${nextdevice.DeviceId},nextdevice->${nextdevice.nextdeviceid},${i}`);
+
+      curArray.push([nextdevice.Longitude,nextdevice.Latitude]);
+      nextdevice = device2id_db[nextdevice.nextdeviceid];
+      if(i > 5){
+        break;
+      }
     }
-    if(!!gw.devicepath){
-      lodashmap(gw.devicepath,(did)=>{
-        const item = g_devicesdb[did];
-        const firstLetter = getdevicestatus(did);
-        if(!!item && firstLetter==='N'){
-          lineArr.push([item.Longitude,item.Latitude]);
-        }
-      });
-    }
-    lineArr.push([gw.Longitude,gw.Latitude]);
+    curArray.push([curgw.Longitude,curgw.Latitude]);
     lineArrayList.push({
-       name:gw.name,
-       path:lineArr
+       name:cur.name,
+       path:curArray
      });
   });
+  console.log(`lineArrayList->${lineArrayList.length}`)
   return lineArrayList;
+}
+const getGatewayPath = (gateways,g_devicesdb)=>{
+  //输入：一个网关／所有设备
+  let curgw;
+  let curdevicesdb = {};
+  lodashmap(gateways,(gw)=>{
+    lodashmap(g_devicesdb,(curdevice)=>{
+      if(curdevice.gatewayid === gw._id){
+        curdevicesdb[curdevice._id] = curdevice;
+      }
+    });
+    curgw = gw;
+  });
+  let lineArrayList = [];
+  if(!!curgw){
+    lineArrayList = getCurGatewayPath(curgw,curdevicesdb);
+  }
+  return lineArrayList;
+  // let lineArrayList = [];
+  // lodashmap(gateways,(gw)=>{
+  //   let lineArr = [];
+  //   if(!gw.devicepath){
+  //     gw.devicepath = gw.devicelist;
+  //   }
+  //   if(!!gw.devicepath){
+  //     lodashmap(gw.devicepath,(did)=>{
+  //       const item = g_devicesdb[did];
+  //       const firstLetter = getdevicestatus(did);
+  //       if(!!item && firstLetter==='N'){
+  //         lineArr.push([item.Longitude,item.Latitude]);
+  //       }
+  //     });
+  //   }
+  //   lineArr.push([gw.Longitude,gw.Latitude]);
+  //   lineArrayList.push({
+  //      name:gw.name,
+  //      path:lineArr
+  //    });
+  // });
+  // return lineArrayList;
 };
 
-let navgz = [];
-let gnav;
-let myPath;
-let data;
+// let navgz = [];
+let gnav_z = [];
+let myPath_z =[];
+let data_z = [];
+let endInx_z = [];
 const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
-   myPath = lineArrayList[0].path;
-   // console.log(myPath);
-   data = [{
-                name: lineArrayList[0].name,
-                path: myPath.slice(0, 1)
-            }];
-
+  gnav_z = [];
+  myPath_z =[];
+  data_z = [];
+  endInx_z = [];
+  for(let i = 0 ;i < lineArrayList.length;i++){
+    myPath_z.push(lineArrayList[i].path);
+    // console.log(myPath);
+    data_z.push({
+                 name: lineArrayList[i].name,
+                 path: myPath_z[i].slice(0, 1)
+             });
+    endInx_z.push(0);
+  }
+  gpathSimplifierIns.setData(data_z); //延展路径
   return new Promise((resolve,reject) => {
-    endIdx = 0;
-    if(!!gnav){
-      gnav.stop();
-      gnav.destroy();
+    const expandPath = (i,gnav)=> {
+        const doExpand = (i,gnav)=> {
+            endInx_z[i]++;
+            if (endInx_z[i] >= myPath_z[i].length) {
+                return false;
+            }
+            const cursor = gnav.getCursor().clone(), //保存巡航器的位置
+                status = gnav.getNaviStatus();
+            data_z[i].path = myPath_z[i].slice(0, endInx_z[i] + 1);
+            gpathSimplifierIns.setData(data_z); //延展路径
+            // console.log(data);
+            //重新建立一个巡航器
+            gnav = gpathSimplifierIns.createPathNavigator(0, {
+                //loop: true, //循环播放
+                speed: 600000 //巡航速度，单位千米/小时
+            });
+
+            if (status !== 'stop') {
+                gnav.start();
+            }
+            //恢复巡航器的位置
+            if (cursor.idx >= 0) {
+                gnav.moveToPoint(cursor.idx, cursor.tail);
+            }
+            return true;
+        }
+
+        if (doExpand(i,gnav)) {
+            setTimeout(()=>{
+              expandPath(i,gnav)
+            }, 2000);
+        }
     }
-    gpathSimplifierIns.setData(data); //延展路径
-    gnav = gpathSimplifierIns.createPathNavigator(0, {
-             loop: true, //循环播放
-             speed: 1000 //巡航速度，单位千米/小时
-         });
 
-         const expandPath = ()=> {
-             const doExpand = ()=> {
-                 endIdx++;
-                 if (endIdx >= myPath.length) {
-                     return false;
+    for(let i = 0;i < lineArrayList.length; i++){
+        if(!!gnav_z[i]){
+          gnav_z[i].stop();
+          gnav_z[i].destroy();
         }
 
-                 var cursor = gnav.getCursor().clone(), //保存巡航器的位置
-                     status = gnav.getNaviStatus();
+        // console.log(`gpathSimplifierIns->i->${i}`)
+        const gnav = gpathSimplifierIns.createPathNavigator(i, {
+                 loop: true, //循环播放
+                 speed: 1000 //巡航速度，单位千米/小时
+        });
+        gnav.start();
 
+        gnav_z.push(gnav);
+        expandPath(i,gnav);
+      }
 
-                 data[0].path = myPath.slice(0, endIdx + 1);
-                 gpathSimplifierIns.setData(data); //延展路径
-
-                 // console.log(data);
-                 //重新建立一个巡航器
-                 gnav = gpathSimplifierIns.createPathNavigator(0, {
-                     //loop: true, //循环播放
-                     speed: 600000 //巡航速度，单位千米/小时
-              });
-
-                 if (status !== 'stop') {
-                     gnav.start();
-        }
-
-                 //恢复巡航器的位置
-                 if (cursor.idx >= 0) {
-                     gnav.moveToPoint(cursor.idx, cursor.tail);
-        }
-
-                 return true;
-             }
-
-             if (doExpand()) {
-                 setTimeout(expandPath, 1000);
-             }
-         }
-
-
-         gnav.start();
-
-         expandPath();
-        resolve();
+      resolve();
     });
         // for(let i = 0; i < navgz.length; i++){
         //   navgz[i].stop();
@@ -331,7 +390,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
             let out = {};
             if(!!gw){
               out[indexgatewayid] = gw
-              store.dispatch(mapmain_drawgatewaypath({gateways:out,g_devicesdb}));          
+              store.dispatch(mapmain_drawgatewaypath({gateways:out,g_devicesdb}));
             }
         }
 
@@ -340,7 +399,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
     }
   }
 
-  const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways)=>{
+  const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype)=>{
     if(!!markCluster){
       const allmarks = markCluster.getMarkers();
       lodashmap(allmarks,(mark)=>{
@@ -793,7 +852,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
             g_devicesdb_updated[devicelist[i]._id] = devicelist[i];
           }
           // console.log(`${JSON.stringify(g_devicesdb_updated)}`);
-          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
+          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype);
 
           const {usersettings} = yield select((state)=>{
             const {usersettings} = state.userlogin;
@@ -866,11 +925,10 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
       yield takeLatest(`${serverpush_gateway}`, function*(action) {
         try{
-        const {gateways} = action.payload;
-        const {g_devicesdb} = yield select((state)=>{
-          return {
-            g_devicesdb:state.device.devices
-          }
+
+        const {g_devicesdb,gateways} = yield select((state)=>{
+          const {g_devicesdb,gateways}  = state.device;
+          return {g_devicesdb,gateways};
         });
           const usersettings = yield select((state)=>{
             return state.userlogin.usersettings;
@@ -890,38 +948,73 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           }
       });
 
+      yield takeLatest(`${getdevicelist_result}`, function*(action) {
+        let {payload} = action;
+        try{
+          const {list} = payload;
+          // //更新所有图标
+          const {g_devicesdb,viewtype} = yield select((state)=>{
+            const {devices,viewtype} = state.device;
+            return {g_devicesdb:devices,viewtype};
+          });
+          const SettingOfflineMinutes =yield select((state)=>{
+            return get(state,'app.SettingOfflineMinutes',20);
+          });
+          let g_devicesdb_updated = {};
+
+          for(let i = 0 ;i < list.length;i++){
+            g_devicesdb_updated[list[i]._id] = list[i];
+          }
+          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype);
+          //---------------------------------------------
+          yield put(serverpush_gateway({}));
+        }
+        catch(e){
+          console.log(e);
+        }
+      });
       //<------模拟
       yield fork(function*(){
         while (true) {
             yield call(delay, 30000);
-            let {gateways,devices} = yield select((state)=>{
-              return {
-                gateways:state.device.gateways,
-                devices:state.device.devices
+            //发送当前 getdevicelist_request
+            const usersettings = yield select((state)=>{
+              return state.userlogin.usersettings;
+            });
+            const indexgatewayid = usersettings.indexgatewayid;
+            yield put(getdevicelist_request({
+              query:{
+                "gatewayid":indexgatewayid
               }
-            });
-            lodashmap(gateways,(gw)=>{
-              if(!gw.devicepath){
-                gw.devicepath = gw.devicelist;
-              }
-              if(!!gw.devicepath){
-                gw.devicepath = lodashshuffle_gwpath(gw.devicepath,devices);
-                setshuffledevices(gw.devicepath);
-              }
-            });
-            //---------------------------------------------
-            //更新所有图标
-            const {g_devicesdb,viewtype} = yield select((state)=>{
-              const {devices,viewtype,gateways} = state.device;
-              return {g_devicesdb:devices,gateways,viewtype};
-            });
-            const SettingOfflineMinutes =yield select((state)=>{
-              return get(state,'app.SettingOfflineMinutes',20);
-            });
-            let g_devicesdb_updated = g_devicesdb;
-            getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
-            //---------------------------------------------
-            yield put(serverpush_gateway({gateways}));
+           }));
+            // let {gateways,devices} = yield select((state)=>{
+            //   return {
+            //     gateways:state.device.gateways,
+            //     devices:state.device.devices
+            //   }
+            // });
+            // lodashmap(gateways,(gw)=>{
+            //   if(!gw.devicepath){
+            //     gw.devicepath = gw.devicelist;
+            //   }
+            //   if(!!gw.devicepath){
+            //     gw.devicepath = lodashshuffle_gwpath(gw.devicepath,devices);
+            //     setshuffledevices(gw.devicepath);
+            //   }
+            // });
+            // //---------------------------------------------
+            // //更新所有图标
+            // const {g_devicesdb,viewtype} = yield select((state)=>{
+            //   const {devices,viewtype,gateways} = state.device;
+            //   return {g_devicesdb:devices,gateways,viewtype};
+            // });
+            // const SettingOfflineMinutes =yield select((state)=>{
+            //   return get(state,'app.SettingOfflineMinutes',20);
+            // });
+            // let g_devicesdb_updated = g_devicesdb;
+            // getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
+            // //---------------------------------------------
+            // yield put(serverpush_gateway({gateways}));
         }
       });
 

@@ -11,6 +11,8 @@ import {
     getsystemconfig_request,
     getsystemconfig_result,
 
+    getdevicelist_request,
+    getdevicelist_result,
 
     getgatewaylist_request,
     getgatewaylist_result,
@@ -24,10 +26,10 @@ import {
     saveusersettings_request,
     saveusersettings_result,
 
-    serverpush_alarm,
-    serverpush_device,
+    // serverpush_alarm,
+    // serverpush_device,
     serverpush_device_list,
-    serverpush_device_alarm,
+    // serverpush_device_alarm,
     getproductlist_request,
     getproductlist_result,
 
@@ -59,6 +61,8 @@ let recvmessagetoresultpair = {
 
   'login_result':md_login_result,
   'logout_result':logout_result,
+
+  'getdevicelist_result':getdevicelist_result,
   'getgatewaylist_result':getgatewaylist_result,
 
   'getrealtimealarmlist_result':getrealtimealarmlist_result,
@@ -79,7 +83,7 @@ let sendmessagefnsz = {
 
   'gethistorydevicelist':`${gethistorydevicelist_request}`,
   'getgatewaylist':`${getgatewaylist_request}`,
-
+  'getdevicelist':`${getdevicelist_request}`,
   'getrealtimealarmlist':`${getrealtimealarmlist_request}`,
   'saveusersettings':`${saveusersettings_request}`,
 };

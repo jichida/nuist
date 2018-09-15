@@ -12,7 +12,7 @@ import {
   getgatewaylist_result_4reducer,
   ui_selectgateway4draw,
   ui_resetalarm,
-
+  ui_mycar_selcurdevice,
   setvote_result,
   changepwd_result,
   set_uiapp,
@@ -47,8 +47,10 @@ export function* wsrecvsagaflow() {
 
 
       usersettings.indexdeviceid = deviceid;
-
-      yield put(saveusersettings_result({usersettings}));
+      //ui_mycar_selcurdevice
+      yield put(ui_mycar_selcurdevice(deviceid));
+      // yield put(saveusersettings_result({usersettings}));
+      debugger;
 
       if(type === 'historychart'){
         //ui auto
@@ -61,7 +63,7 @@ export function* wsrecvsagaflow() {
 
   yield takeLatest(`${ui_selgateway}`,function*(action){
     //若第一次usersettings里面字段为空，则设置
-      const {type,value} = action.payload;
+      const {value} = action.payload;
       const gatewayid = value;
       debugger;
       const devices = yield select((state)=>{

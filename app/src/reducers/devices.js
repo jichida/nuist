@@ -1,7 +1,7 @@
 import { createReducer } from 'redux-act';
 import {
   getgatewaylist_result_4reducer,
-  // serverpush_device,
+  getdevicelist_result,
   serverpush_device_list,
   serverpush_device_alarm,
   logout_result
@@ -25,6 +25,15 @@ const initial = {
 };
 
 const device = createReducer({
+  [getdevicelist_result]:(state,payload)=>{
+    const {list} = payload;
+    const devices = {...state.devices};
+    for(let i=0;i<list.length;i++){
+      const {_id,realtimedata} = list[0];
+      devices[_id] = {...devices[_id],realtimedata:{...realtimedata}};
+    }
+    return {...state,devices};
+  },
   [serverpush_device_list]:(state,payload)=>{
     const {devicelist} = payload;
     const devices = {...state.devices};
