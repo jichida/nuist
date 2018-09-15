@@ -30,7 +30,19 @@ const handlermsg_alarmdata = (alarmdata)=>{
   entity.save((err,result)=>{
     if(!err && !!result){
       PubSub.publish(`push.devicealarm.${result.DeviceId}`,result);
+
+      const realtimealarm = alarmdata;
+      const deviceModel = DBModels.DeviceModel;
+      deviceModel.findOneAndUpdate({
+        _id:alarmdata.did},
+        {$set:{realtimealarm}},{new:true,upsert:false}).
+        lean().exec((err,newdevice)=>{
+          debug(newdevice);
+        });
     }
+
+    //更新device--->
+
   });
 };
 
