@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Dropdown from 'antd/lib/dropdown';
-import Button from 'antd/lib/button';
-import Icon from 'antd/lib/icon';
+// import Dropdown from 'antd/lib/dropdown';
+// import Button from 'antd/lib/button';
+// import Icon from 'antd/lib/icon';
 import {
 	ui_mycar_selcurdevice
 } from '../../actions';
@@ -43,7 +43,7 @@ class App extends React.Component {
 		this.props.dispatch(ui_mycar_selcurdevice(did));
   }
   render() {
-    const {gateways,curdevice,devicelist,devices,viewtype} = this.props;
+    const {curdevice,viewtype} = this.props;
     if(!curdevice){
       return <div />
     }

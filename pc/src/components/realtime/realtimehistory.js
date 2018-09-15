@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 // import { Popover } from 'antd';
 import Header from "../header";
 // import AbstractBar from "../abstract";
-import HistoryBar from '../history/historybar';
+// import HistoryBar from '../history/historybar';
 // import Footer from "../footer";
 import NodeSel from '../nodesel';
 // import Meter from "./meter";
@@ -15,7 +15,7 @@ import QueryPage from '../history/querypage.js';
 // import ChartsHistory from '../history/charts_history_container.js';
 // import ReportContainer from "../history/reportcontainer.js";
 
-import ChartsRealtime from '../history_data/chartsrealtime';
+// import ChartsRealtime from '../history_data/chartsrealtime';
 import lodashget from 'lodash.get';
 // import lodashmap from 'lodash.map';
 

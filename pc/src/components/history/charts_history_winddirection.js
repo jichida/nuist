@@ -62,7 +62,7 @@ class Page extends Component {
   }
 }
 const mapStateToProps = (state,props) => {
-  const {ticktimestring,retlist,curfield,curfieldname} = props;
+  const {ticktimestring,retlist,curfield} = props;
   const option = {
       angleAxis: {
           type: 'category',

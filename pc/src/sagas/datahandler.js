@@ -26,10 +26,10 @@ import {
     saveusersettings_request,
     saveusersettings_result,
 
-    serverpush_alarm,
-    serverpush_device,
+    // serverpush_alarm,
+    // serverpush_device,
     serverpush_device_list,
-    serverpush_device_alarm,
+    // serverpush_device_alarm,
     getproductlist_request,
     getproductlist_result,
 

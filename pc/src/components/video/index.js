@@ -4,20 +4,20 @@ import "./index.css";
 import Header from "../header";
 import ChartsRealtime from '../history_data/chartsrealtime';
 // import AbstractBar from "../abstract";
-import {Dropdown,Button,Icon} from 'antd';
-import getMenu from '../abstract/dropdownselmenu_device';
+// import {Dropdown,Button,Icon} from 'antd';
+// import getMenu from '../abstract/dropdownselmenu_device';
 import HistoryBar from '../history/historybar';
 // import Footer from "../footer";
 // import Upimg from "../../img/jta.png";
 // import Downimg from "../../img/jtb.png";
-import Spimg from "../../img/spimg.jpg";
+// import Spimg from "../../img/spimg.jpg";
 import Spxqimg from "../../img/spimg1.jpg";
 import NodeSel from '../nodesel';
 import lodashget from 'lodash.get';
 
 class App extends React.Component {
     render() {
-      const {devices,gateways,usersettings} = this.props;
+      const {gateways,usersettings} = this.props;
       const indexgatewayid = usersettings.indexgatewayid;
       const curgateway = lodashget(gateways,`${indexgatewayid}`);
       if(!curgateway){

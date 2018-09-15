@@ -3,7 +3,10 @@ import {delay} from 'redux-saga';
 import {getRandomLocation} from './geo.js';
 import get from 'lodash.get';
 import lodashmap from 'lodash.map';
-import {lodashshuffle_gwpath,getdevicestatus,setshuffledevices} from '../util';
+import {
+  // lodashshuffle_gwpath,
+  // getdevicestatus,
+  setshuffledevices} from '../util';
 import {
   getpopinfowindowstyle,
   // getlistpopinfowindowstyle,
@@ -34,7 +37,7 @@ let infoWindow;
 
 //=====数据部分=====
 let markCluster;
-let endIdx;
+// let endIdx;
 let CachedlineArrayList = [];
 let gpathSimplifierIns,gPathSimplifier;
 const Create_PathSimplifier = (callbackfn)=>{
@@ -922,7 +925,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
       yield takeLatest(`${serverpush_gateway}`, function*(action) {
         try{
-        
+
         const {g_devicesdb,gateways} = yield select((state)=>{
           const {g_devicesdb,gateways}  = state.device;
           return {g_devicesdb,gateways};

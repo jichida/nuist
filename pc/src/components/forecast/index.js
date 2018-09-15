@@ -35,7 +35,7 @@ class App extends React.Component {
       // this.props.dispatch(getrealtimealarmlist_request({}));
     }
     render() {
-      const {devices,gateways,usersettings} = this.props;
+      const {gateways,usersettings} = this.props;
       const indexgatewayid = usersettings.indexgatewayid;
       const curgateway = lodashget(gateways,`${indexgatewayid}`);
       if(!curgateway){
