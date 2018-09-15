@@ -84,11 +84,13 @@ const DeviceFilter = (props) => (
 )
 
 const HistoryDeviceList = (props) => (
-  <List title="节点历史数据管理" filters={<DeviceFilter />} sort={{field:'LastRealtimeAlarm.DataTime',order:'DESC'}} {...props}>
+  <List title="节点历史数据管理" filters={<DeviceFilter />} sort={{field:'realtimedata.datatime',order:'DESC'}} {...props}>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
       <TextField label="节点ID" source="DeviceId" />
       <TextField label="节点名字" source="name"/>
-      <TextField label="所在区域" source="locationname"/>
+      <ReferenceField label="网关" source="gatewayid" reference="gateway" allowEmpty>
+        <TextField source="name" />
+      </ReferenceField>
       <TextField label="更新时间" source="realtimedata.datatime"  />
       <ShowButton />
     </Datagrid>

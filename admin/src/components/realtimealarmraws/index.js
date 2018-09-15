@@ -67,9 +67,12 @@ const DeviceFilter = (props) => (
 )
 
 const RealtimeAlarmRawList = (props) => (
-  <List title={<RealtimeAlamTitle />} filters={<DeviceFilter />} {...props} sort={{field:'MessageTime',order:'DESC'}}>
+  <List title={<RealtimeAlamTitle />} filters={<DeviceFilter />} {...props} sort={{field:'UpdateTime',order:'DESC'}}>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
       <TextField label="节点ID" source="DeviceId" />
+      <ReferenceField label="网关" source="gatewayid" reference="gateway" allowEmpty>
+        <TextField source="name" />
+      </ReferenceField>
       <TextField label="报警时间" source="UpdateTime"  />
       <TextField label="报警类型" source="type"  />
       <TextField label="报警等级" source="level" />

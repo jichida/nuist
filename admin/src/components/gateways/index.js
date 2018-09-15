@@ -98,7 +98,7 @@ const GatewayFilter = (props) => (
 )
 
 const GatewayList = (props) => (
-  <List title="网关管理" filters={<GatewayFilter />} sort={{field:'LastRealtimeAlarm.DataTime',order:'DESC'}} {...props}>
+  <List title="网关管理" filters={<GatewayFilter />} sort={{field:'updated_at',order:'DESC'}} {...props}>
   {permissions =>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
       <TextField label="网关ID" source="GatewayId" />

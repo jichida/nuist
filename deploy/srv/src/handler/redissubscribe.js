@@ -120,6 +120,7 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
                 alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
                   _.map(resultalarmmatch,(al)=>{
                     // console.log(al);
+                    al.gatewayid = gwid;
                     al.DeviceId = devicedata.deviceid;
                     al.did = newdevice._id;
                     handlermsg_alarmdata(al);

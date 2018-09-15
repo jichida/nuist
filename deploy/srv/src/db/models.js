@@ -78,7 +78,7 @@ const GatewayGroupSchema = new Schema({
   contact:String,
   gatewayids:[{ type: Schema.Types.ObjectId, ref: 'gateway', default: [] }],
   systemflag:{ type: Schema.Types.Number,default: 0 },
-});
+}, { strict: false });
 GatewayGroupSchema.plugin(mongoosePaginate);
 const GatewayGroupModel =mongoose.model('gatewaygroup',  GatewayGroupSchema);
 
@@ -101,7 +101,7 @@ const UserSchema = new Schema({
     warninglevel:String,//报警等级
     subscriberdeviceids:[],//订阅的设备
   }
-});
+}, { strict: false });
 UserSchema.plugin(mongoosePaginate);
 const UserModel =mongoose.model('user',  UserSchema);
 
@@ -112,7 +112,7 @@ const PermissionSchema = new Schema({
   type:String,//数据权限|操作权限
   datafields:[],//数据权限|操作权限
   systemflag:{ type: Schema.Types.Number,default: 0 },
-});
+}, { strict: false });
 PermissionSchema.plugin(mongoosePaginate);
 const PermissionModel =mongoose.model('permission',  PermissionSchema);
 
@@ -122,13 +122,14 @@ const RoleSchema = new Schema({
   memo:String,
   permissions_opt:[{ type: Schema.Types.ObjectId, ref: 'permission', default: [] }],
   permissions_data:[{ type: Schema.Types.ObjectId, ref: 'permission', default: [] }],
-});
+}, { strict: false });
 RoleSchema.plugin(mongoosePaginate);
 const RoleModel =mongoose.model('role',  RoleSchema);
 
 //原始信息
 const RealtimeAlarmRawSchema= new Schema({
   did:{ type: Schema.Types.ObjectId, ref: 'device' },
+  gatewayid:{ type: Schema.Types.ObjectId, ref: 'gateway' },
 }, { strict: false });
 RealtimeAlarmRawSchema.plugin(mongoosePaginate);
 const RealtimeAlarmRawModel =mongoose.model('realtimealarmraw',  RealtimeAlarmRawSchema);

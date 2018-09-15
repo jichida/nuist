@@ -58,9 +58,7 @@ const DeviceEdit = (props) => {
         <FormTab label="节点基本信息">
           <TextField label="节点ID" source="DeviceId"  />
           <TextInput label="节点名字" source="name"  validate={required} />
-          <TextInput label="所属城市" source="city"  validate={required} />
           <TextInput label="地址" source="addressname" />
-          <TextInput label="所属城市首字母" source="cityindex"  validate={required} />
           <TextInput label="所在区域" source="locationname"  />
           <ReferenceInput label="网关ID" source="gatewayid" reference="gateway" allowEmpty>
             <SelectInput optionText="name" />
@@ -93,19 +91,21 @@ const DeviceShowActions = ({basePath,data,refresh}) => (
 const DeviceFilter = (props) => (
   <Filter {...props}>
     <TextInput label="搜索节点" source="DeviceId_q" />
+    <ReferenceInput label="网关ID" source="gatewayid" reference="gateway" allowEmpty>
+      <SelectInput optionText="name" />
+    </ReferenceInput>
   </Filter>
 )
 
 const DeviceList = (props) => (
-  <List title="节点管理" filters={<DeviceFilter />} sort={{field:'LastRealtimeAlarm.DataTime',order:'DESC'}} {...props}>
+  <List title="节点管理" filters={<DeviceFilter />} sort={{field:'realtimedata.datatime',order:'DESC'}} {...props}>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
       <TextField label="节点ID" source="DeviceId" />
       <TextField label="节点名字" source="name"/>
       <ReferenceField label="网关" source="gatewayid" reference="gateway" allowEmpty>
         <TextField source="name" />
       </ReferenceField>
-      <TextField label="所在区域" source="locationname"/>
-      <TextField label="所在地址" source="addressname"/>
+      <TextField label="最后数据更新时间" source="realtimedata.datatime"/>
       <EditButton />
     </Datagrid>
   </List>
