@@ -14,9 +14,9 @@ services:
       environment:
         - DEBUG=srvtcp:*
         - MONGO_URL=mongodb://dabauser:daba159@127.0.0.1/daba
-        - listenport=50000
+        - listenport=80
         - logdir=/log
       ports:
-         - "50000:50000"
+         - "80:80"
       expose:
-         - "50000"
+         - "80"
