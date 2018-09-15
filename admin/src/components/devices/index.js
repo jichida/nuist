@@ -73,7 +73,7 @@ const DeviceEdit = (props) => {
           <TextField label="风力" source="realtimedata.windspeed" />
           <TextField label="风向" source="realtimedata.winddirection" />
           <TextField label="大气压" source="realtimedata.pressure" />
-          <TextField label="最后更新时间" source="realtimedata.updatetime" />
+          <TextField label="最后更新时间" source="realtimedata.datatime" />
         </FormTab>
       </TabbedForm>
     </Edit>
