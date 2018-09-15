@@ -97,6 +97,7 @@ const UserSchema = new Schema({
   gatewaygroups:[{ type: Schema.Types.ObjectId, ref: 'gatewaygroup', default: [] }],
   usersettings:{
     indexdeviceid:String,
+    indexgatewayid:String,
     warninglevel:String,//报警等级
     subscriberdeviceids:[],//订阅的设备
   }

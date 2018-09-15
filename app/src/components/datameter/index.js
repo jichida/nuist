@@ -10,7 +10,7 @@ import Footer from "../footer";
 import lodashget from 'lodash.get';
 import PopcareSel from "../popcaresel";
 import {
-	ui_seldropdowndevice,
+	ui_selgateway,
 	// ui_historydevicequeryselect
 } from '../../actions';
 import lodashmap from 'lodash.map';
@@ -19,9 +19,9 @@ class App extends React.Component {
 		componentDidMount() {
 		}
 
-		onChangeCareselDevice = (value)=>{
-				console.log(`onChangeCareselDevice->${value}`);
-				this.props.dispatch(ui_seldropdowndevice({value,type:'historychart'}));
+		onChangeCareselGateway = (value)=>{
+				console.log(`onChangeCareselGateway->${value}`);
+				this.props.dispatch(ui_selgateway({value,type:'historychart'}));
 		}
     render() {
         const {ispopcaresel_single_index_gateway,
@@ -34,7 +34,7 @@ class App extends React.Component {
                 <List history={this.props.history} devicelist={devicelist}
 									 devices={devices} viewtype={viewtype}/>
                 <Footer history={this.props.history} sel={"datameter"} />
-								{ispopcaresel_single_index_gateway  && <PopcareSel value={curgatewayid} isgateway={true} onChange={this.onChangeCareselDevice}/>}
+								{ispopcaresel_single_index_gateway  && <PopcareSel value={curgatewayid} isgateway={true} onChange={this.onChangeCareselGateway}/>}
             </div>
         );
     }
