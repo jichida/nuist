@@ -18,6 +18,7 @@ import {
   carmapshow_destorymap,
   ui_mycar_selcurdevice,
   saveusersettings_request,
+  saveusersettings_result,
   mapmain_showpopinfo,
   mapmain_drawgatewaypath,
   getdevicelist_request,
@@ -768,6 +769,27 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
                 const {devices,viewtype,gateways} = state.device;
                 return {g_devicesdb:devices,viewtype,gateways};
               });
+              //选中一个默认节点
+              let {usersettings} = yield select((state)=>{
+                const {usersettings} = state.userlogin;
+                return {usersettings};
+              });
+              let indexdeviceid = get(usersettings,'indexdeviceid','');
+              let indexgatewayid = get(usersettings,'indexgatewayid','');
+              if(!g_devicesdb[indexdeviceid]){
+                lodashmap(g_devicesdb,(cur)=>{
+                  if(!g_devicesdb[indexdeviceid]){
+                    indexdeviceid = cur._id;
+                    usersettings.indexdeviceid = indexdeviceid;
+                  }
+                });
+              }
+              if(indexgatewayid === ''){
+                indexgatewayid = g_devicesdb[indexdeviceid].gatewayid;
+                usersettings.indexgatewayid = indexgatewayid;
+              }
+              // yield put(saveusersettings_request({usersettings}));
+              yield put.resolve(saveusersettings_result({usersettings}));
 
               lodashmap(g_devicesdb,(curdevice)=>{
                 const curgw = gateways[curdevice.gatewayid];
@@ -797,13 +819,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
               // });
 
 
-              //选中一个默认节点
-              const {usersettings} = yield select((state)=>{
-                const {usersettings} = state.userlogin;
-                return {usersettings};
-              });
-              const indexdeviceid = get(usersettings,'indexdeviceid','');
-              const indexgatewayid = get(usersettings,'indexgatewayid','');
+
               yield put(ui_selectgateway4draw(indexgatewayid));
 
               if(!!g_devicesdb[indexdeviceid]){
