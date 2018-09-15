@@ -65,7 +65,7 @@ export function* wsrecvsagaflow() {
     //若第一次usersettings里面字段为空，则设置
       const {value} = action.payload;
       const gatewayid = value;
-      debugger;
+
       const devices = yield select((state)=>{
         const {devices} = state.device;
         return devices;
@@ -75,7 +75,7 @@ export function* wsrecvsagaflow() {
         const usersettings = lodashget(state,'userlogin.usersettings',{
           indexdeviceid:'',
           warninglevel:'',
-          subscriberdeviceids : []
+          indexgatewayid : ''
         });
         return usersettings;
       });
