@@ -10,6 +10,7 @@ exports.getsystemconfig = (actiondata,ctx,callbackfn)=>{
             callbackfn({
               cmd:'getsystemconfig_result',
               payload:{
+                SettingOfflineMinutes:_.get(systemconfig,'SettingOfflineMinutes',20),
                 bannerproducturls:_.get(systemconfig,'bannerproducturls',[])
               }
             });
