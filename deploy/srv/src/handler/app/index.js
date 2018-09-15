@@ -17,11 +17,13 @@ const actiondatahandler = {
   'loginwithtoken':userlogin.loginwithtoken,
   'logout':userlogin.logout,
   'login':userlogin.loginuser,
-  //正式版本中下面的删除
-  'saveusersettings':userlogin.saveusersettings,
+
   'gethistorydevicelist':historydevice.gethistorydevicelist,
   'getgatewaylist':gateway.getgatewaylist,
+  'getdevicelist':device.getdevicelist,
   'getrealtimealarmlist':realtimealarm.getrealtimealarmlist,
+
+  'saveusersettings':userlogin.saveusersettings,
 };
 
 const authhandler = {
