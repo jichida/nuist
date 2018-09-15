@@ -9,7 +9,7 @@ import {
   set_weui,
 
   getgatewaylist_request,
-  getgatewaylist_result_4reducer,
+  // getgatewaylist_result_4reducer,
   ui_selectgateway4draw,
   ui_resetalarm,
   ui_mycar_selcurdevice,
@@ -98,25 +98,27 @@ export function* wsrecvsagaflow() {
   });
 
 
-  yield takeLatest(`${getgatewaylist_result_4reducer}`,function*(action){
-    //若第一次usersettings里面字段为空，则设置
-    const {list} = action.payload;
-    if(list.length > 0){
-      let usersettings = yield select((state)=>{
-        const usersettings = lodashget(state,'userlogin.usersettings',{
-          indexdeviceid:'',
-          warninglevel:'',
-          subscriberdeviceids : []
-        });
-        return usersettings;
-      });
-      if(usersettings.indexdeviceid === ''){
-        usersettings.indexdeviceid = list[0]._id;
-        usersettings.indexgatewayid = lodashget(list[0],'gatewayid._id');
-        yield put(saveusersettings_result({usersettings}));
-      }
-    }
-  });
+  // yield takeLatest(`${getgatewaylist_result_4reducer}`,function*(action){
+  //   //若第一次usersettings里面字段为空，则设置
+  //   const {list} = action.payload;
+  //   if(list.length > 0){
+  //     let usersettings = yield select((state)=>{
+  //       const usersettings = lodashget(state,'userlogin.usersettings',{
+  //         indexdeviceid:'',
+  //         warninglevel:'',
+  //         subscriberdeviceids : []
+  //       });
+  //       return usersettings;
+  //     });
+  //     if(usersettings.indexdeviceid === ''){
+  //       usersettings.indexdeviceid = list[0]._id;
+  //     }
+  //     if(usersettings.indexgatewayid === ''){
+  //       usersettings.indexgatewayid = lodashget(list[0],'gatewayid._id');
+  //       yield put(saveusersettings_result({usersettings}));
+  //     }
+  //   }
+  // });
 
   yield takeLatest(`${changepwd_result}`, function*(action) {
     yield put(set_uiapp({ ispoppwd: false }));
