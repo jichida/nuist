@@ -25,7 +25,7 @@ class App extends React.Component {
 	      	<div className="datamonitorfiller">
 		        <div onClick={this.onClickPopCareSel} className="fillerhead collect">
 							<img alt="" src={Collect} />
-							<span>当前网关</span>
+							<span></span>
 							<span>{gateways[curgatewayid].name}</span>
 						</div>
   	      </div>

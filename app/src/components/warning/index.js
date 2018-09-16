@@ -31,6 +31,12 @@ class App extends React.Component {
     onClickShowAll = (uialarmshowall)=>{
       this.props.dispatch(set_uiapp({uialarmshowall}));
     }
+    onClickPopCareSelGateway = ()=>{
+      this.props.dispatch(set_uiapp({ispopcaresel_single_index_gateway:true}));
+    }
+    onClickPopCareSelDevice = ()=>{
+      this.props.dispatch(set_uiapp({ispopcaresel_single_index_device:true}));
+    }
     onChangeCareselGateway = (value)=>{
       console.log(`onChangeCareselGateway->${value}`);
       this.props.dispatch(ui_selgateway({value,type:'alarm'}));
@@ -66,8 +72,7 @@ class App extends React.Component {
 }
 <div className="n"><span className="small">共有预警信息</span><span>{realtimealarmcount>99?'99+':`${realtimealarmcount}`}</span><span  className="small">条</span></div>
 
-
-                </div>
+</div>
 <div className="c">
     <QueryPage type="alarm"/>
     </div>

@@ -35,9 +35,11 @@ class App extends React.Component {
                 ispopcaresel_single_datameter: false,
                 ispopcaresel_single_video: false
             }));
+
             if (!!this.props.onChange) {
                 if (!this.props.ismulti) {
-                    this.props.onChange(this.state.cursel.length > 0 ? this.state.cursel[0] : '');
+                  let curselid = this.state.cursel.length > 0 ? this.state.cursel[0]._id : '';
+                  this.props.onChange(curselid);
                 } else {
                     this.props.onChange(this.state.cursel);
                 }
@@ -66,8 +68,13 @@ class App extends React.Component {
         render() {
             const { title, valuedbs, ismulti } = this.props;
             const { cursel } = this.state;
-            let selid = cursel.length > 0?cursel[0]._id:'';
-            const titleselected = !ismulti ? '当前' : '关注';
+            let selid = '';
+            if(!!cursel){
+              if(cursel.length > 0){
+                selid = cursel.length > 0?cursel[0]._id:'';
+              }
+            }
+            // const titleselected = !ismulti ? '当前' : '关注';
             return ( <div className = "collectionlist" >
                 <div className = "editcollectionlist" >
                 <div className = "point" > < span className = "title" > { title } < /span> <span className="close" onClick={this.onClickClose}></span > </div>
@@ -80,16 +87,16 @@ class App extends React.Component {
                                 if (issel) {
                                     return ( < div key = { k }
                                         onClick = {
-                                            () => this.onClickSel(k, false) }
+                                            () => this.onClickSel(valuedbs[k], false) }
                                         className = "p2p issel" >
                                         <img alt = ""
                                         src = { Point1 } /> <
-                                        span className = "n" > { lodashget(v, 'name') } < /span> <
-                                        span className = "tip" > { titleselected } < /span></div > )
+                                        span className = "n" > { lodashget(v, 'name') } < /span>
+                                        <span className = "tip" > < /span></div > )
                                 } else {
                                     return ( < div key = { k }
                                         onClick = {
-                                            () => this.onClickSel(k, true) }
+                                            () => this.onClickSel(valuedbs[k], true) }
                                         className = "p2p" >
                                         <img alt = ""
                                         src = { Point1 } /> <span className = "n" > { lodashget(v, 'name') } < /span> </div>);
@@ -102,11 +109,11 @@ class App extends React.Component {
             }
         }
 
-        const mapStateToProps = ({ device: { gateways, devices } }, props) => {
-            let isgateway = props.isgateway;
-            let title = isgateway ? '所有网关' : '所有节点';
-            let curvalue = isgateway ? gateways[props.value] : devices[props.value];
-            let valuedbs = isgateway ? gateways : devices;
-            return { title, curvalue, valuedbs };
-        }
-        export default connect(mapStateToProps)(App);
+const mapStateToProps = ({ device: { gateways, devices } }, props) => {
+    let isgateway = props.isgateway;
+    let title = isgateway ? '所有网关' : '所有节点';
+    let curvalue = isgateway ? gateways[props.value] : devices[props.value];
+    let valuedbs = isgateway ? gateways : devices;
+    return { title, curvalue, valuedbs };
+}
+export default connect(mapStateToProps)(App);

@@ -120,7 +120,7 @@ const Create_PathSimplifier = (callbackfn)=>{
   const CreateMapUI_MarkCluster = (map)=>{
     return new Promise((resolve,reject) => {
         if(!window.AMapUI){
-          alert('未加载到AMapUI！');
+          console.log('CreateMapUI_MarkCluster 未加载到AMapUI！');
           reject();
           return;
         }
@@ -519,7 +519,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
   const showinfowindow = (deviceitem,viewtype)=>{
     return new Promise((resolve,reject) =>{
         if(!window.AMapUI){
-          alert('未加载到AMapUI！');
+          console.log('showinfowindow 未加载到AMapUI！');
           reject();
           return;
         }
