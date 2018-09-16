@@ -3,7 +3,6 @@
     width: 100%;
     height: 100%;
     left: 0;
-    border-radius: 6px;
     z-index: 1000;
     top: 0;
     padding-bottom: 10px;
@@ -112,7 +111,6 @@
     z-index: 20000;
     right: 0;
     box-shadow: 2px 10px 10px #666;
-    overflow-y: scroll;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -134,6 +132,10 @@
     -webkit-justify-content: space-between;
     justify-content: space-between;
     padding: 0 20px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
 }
 
 .editcollectionlist .point .title {
@@ -192,13 +194,14 @@
     line-height: 40px;
     width: 100px;
     border-radius: 40px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+    margin: 10px auto 10px
 }
 
 .editcollectionlist .pointlist {
     overflow-y: scroll;
     flex-grow: 1;
+    padding: 0px 20px;
+    margin-top: 44px
 }
 
 .editcollectionlist .pointlist .li>.t {
@@ -241,10 +244,9 @@
     padding: 0;
 }
 
-.editcollectionlist .pointlist .li2 .p2 .p2p {
-    padding-left: 20px;
-    height: 40px;
-    line-height: 40px;
+.editcollectionlist .pointlist .p2p {
+    height: 38px;
+    line-height: 38px;
     font-size: 16px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -253,19 +255,13 @@
     -webkit-box-align: center;
     align-items: center;
     -webkit-align-items: center;
-    -moz-justify-content: space-between;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-    margin-left: 30px;
     padding: 0;
 }
 
-.editcollectionlist .pointlist .li2 .p2 .p2p img {
+.editcollectionlist .pointlist .p2p img {
     width: 20px;
     margin-right: 5px;
 }
-
-.editcollectionlist .pointlist .li2 .p2 .p2p.issel {}
 
 .editcollectionlist .pointlist .li2 .p2 .p2p.issel span.tip {
     background: #009a44;
@@ -485,4 +481,230 @@
     background: linear-gradient(180deg, #1396d2, #017db6);
     border: none;
     border-radius: 4px;
+}
+
+.gf-timepicker-dropdown {
+    position: fixed;
+    left: 0px;
+    right: 0;
+    padding: 15px;
+    z-index: 999;
+    height: auto;
+    overflow-y: scroll;
+    background-color: #fff;
+    box-shadow: 0 5px 10px 0 #eee;
+    text-align: left
+}
+
+.gf-timepicker-absolute-section {
+    width: 100%;
+}
+
+.section-heading {
+    font-size: 1.1rem;
+    margin-bottom: .6rem !important;
+    font-weight: 400;
+    line-height: 1.1;
+    color: #333;
+}
+
+.gf-timepicker-relative-section {
+    padding: 15px 0px;
+    height: auto;
+    overflow: hidden;
+}
+
+.gf-timepicker-relative-section ul {
+    margin-bottom: 15px !important
+}
+
+.gf-timepicker-relative-section ul li {
+    line-height: 26px;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 15px
+}
+
+.gf-form-inline {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+}
+
+.gf-form {
+    margin-bottom: 3px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: left;
+    position: relative;
+}
+
+.max-width-28 {
+    max-width: 27.8rem!important;
+}
+
+.gf-form-input {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    margin-right: 3px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #d8d9da;
+    border: 1px solid #ddd;
+    background-image: none;
+    background-clip: padding-box;
+    border-radius: 0 3px 3px 0;
+    box-shadow: inset 1px 0 0.3rem 0 hsla(0, 0%, 59%, .1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gf-form-inline .gf-form+.gf-form {
+    margin-right: 3px;
+}
+
+.gf-form-btn {
+    padding: 8px 10px;
+    margin-right: 3px;
+    line-height: 18px;
+    font-size: 12px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+}
+
+.btn-primary {
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+    background-color: #e45602;
+    background-image: linear-gradient(180deg, #f60, #bc3e06);
+    background-repeat: repeat-x;
+    border-color: #f60;
+}
+
+.gf-form .btn {
+    display: inline-block;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: none;
+    padding: .7rem 1rem;
+    font-size: 13px;
+    border-radius: 2px;
+    margin-top: 15px !important;
+}
+
+.gf-timepicker-absolute-section select {
+    width: 183px;
+    margin-bottom: 0;
+}
+
+.gf-form-btn {
+    padding: 8px 10px;
+    margin-right: 3px;
+    line-height: 18px;
+    font-size: 12px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+}
+
+.btn-secondary {
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+    background-color: #273c4f;
+    background-image: linear-gradient(180deg, #273c4f, #273c4f);
+    background-repeat: repeat-x;
+    border-color: #005f81;
+}
+
+.small,
+small {
+    font-size: 12px;
+    font-weight: 400;
+    color: #666;
+}
+
+.c .gf-timepicker-dropdown {
+    top: 130px;
+    bottom: 64px
+}
+
+.c .navbar-buttons {
+    background-color: #0b8cc6;
+    padding: 0px 20px;
+}
+
+.c .navbar-buttons button {
+    text-align: right
+}
+
+.c .navbar-buttons span {
+    color: #fff
+}
+
+.navbar-buttons {
+    padding: 10px;
+    background-color: #f7f7f7;
+}
+
+.navbar-buttons button {
+    background-color: transparent;
+    border: none;
+    font-size: 14px
+}
+
+.navbar-buttons button img {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    width: 14px
+}
+
+.navbar-buttons button span {
+    display: inline-block;
+    vertical-align: middle;
+    color: #1297d1
+}
+
+.curve_lis {
+    background-color: #fff
+}
+
+.curve_lis h2 {
+    padding: 10px 15px;
+    font-size: 16px
+}
+
+.titlett span {
+    margin-left: 10px
+}
+
+.titlett img {
+    width: 16px
 }

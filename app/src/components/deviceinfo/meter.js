@@ -9,7 +9,8 @@ import {getCoureName} from '../../util';
 import lodashget from 'lodash.get';
 import lodashincludes from 'lodash.includes';
 import lodashmap from 'lodash.map';
-import Imgjtr from "../../img/jtr.png";
+import Imgjtra from "../../img/lssj.png";
+import Imgjtrb from "../../img/lis.png";
 
 const Windcontrol = (props)=>{
   const {curdevice} = props;
@@ -78,10 +79,10 @@ class App extends React.Component {
         return (
   	      	<div className="meter">
   	        	<div className="title"><h2>实时数据</h2>
-              <div onClick={this.viewhistory}>
-                <span>历史数据</span><img alt="" src={Imgjtr} /></div>
-              <div onClick={this.viewhistorychart}>
-                <span>历史图表</span><img alt="" src={Imgjtr} /></div>
+              <div className="titlett">
+              <span><img alt="" src={Imgjtra} /><span onClick={this.viewhistory}>历史数据</span></span>
+              <span><img alt="" src={Imgjtrb} /><span onClick={this.viewhistorychart}>历史图表</span></span>
+</div>
               </div>
               {isshowwincontrol && <Windcontrol curdevice={curdevice} />}
   	        	<div className="meterchart">

@@ -8,7 +8,7 @@ import ImageArrow from '../../img/arrow-right.png';
 // import ImageLocation from '../../img/location.png';
 
 const style_weui_dialog = `
-    min-width:220px;text-align:center;
+    min-width:180px;text-align:center;
 `;
 
 const style_weui_dialog__bd = `

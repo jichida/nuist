@@ -49,28 +49,28 @@ class App extends React.Component {
         return (
             <div className="warningPage">
                 <div className="head">
-                    <div className="n"><span>{realtimealarmcount>99?'99+':`${realtimealarmcount}`}</span><span>条</span></div>
-                    <div className="c"><span>共有预警信息</span>
-                    <span className="tt">
-                      <QueryPage type="alarm"/>
-                    </span>
-                    </div>
-                    {
-        							!!curdevice && (
-        								<div className="mainmap" style={{height: `${window.innerHeight-64}px`}}>
-        			        		<div onClick={this.onClickPopCareSelGateway} className="mapcanver city"><img alt="" src={City} />
-        										<span>{lodashget(curgateway,'name')}</span>
-        								</div>
-        			        		<div onClick={this.onClickPopCareSelDevice} className="mapcanver point"><img alt="" src={Point} />
-        										<span>{lodashget(curdevice,'name')}</span>
-        									</div>
-        			        		{/* <div className="maindata">
-        											<BottomBannerData curdevice={curdevice} viewtype={viewtype} />
-        			        		</div> */}
-        			        	</div>
-        							)
-        						}
+        {
+    !!curdevice && (
+    <div className="mainmap">
+        <div onClick={this.onClickPopCareSelGateway} className="mapcanver city"><img alt="" src={City} />
+    <span>{lodashget(curgateway,'name')}</span>
+    </div>
+    <div onClick={this.onClickPopCareSelDevice} className="mapcanver point"><img alt="" src={Point} />
+    <span>{lodashget(curdevice,'name')}</span>
+    </div>
+    {/* <div className="maindata">
+     <BottomBannerData curdevice={curdevice} viewtype={viewtype} />
+     </div> */}
+    </div>
+)
+}
+<div className="n"><span className="small">共有预警信息</span><span>{realtimealarmcount>99?'99+':`${realtimealarmcount}`}</span><span  className="small">条</span></div>
+
+
                 </div>
+<div className="c">
+    <QueryPage type="alarm"/>
+    </div>
                 <List />
                 {ispopcaresel_single_index_gateway  && <PopcareSel value={indexgatewayid} isgateway={true} onChange={this.onChangeCareselGateway}/>}
                 {ispopcaresel_single_index_device  && <PopcareSel value={indexdeviceid} isgateway={false} onChange={this.onChangeCareselDevice}/>}

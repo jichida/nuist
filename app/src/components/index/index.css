@@ -2,13 +2,12 @@
     position: absolute;
     width: 100%;
     background: none;
-    top:0;
+    top: 0;
     left: 0;
     z-index: 1;
 }
 
-
-.indexPage{
+.indexPage {
     z-index: 2;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -17,24 +16,24 @@
     -moz-justify-content: center;
     -webkit-justify-content: center;
     justify-content: center;
-    -moz-box-direction:normal;
-    flex-direction:column;
-    -webkit-flex-direction:column;
+    -moz-box-direction: normal;
+    flex-direction: column;
+    -webkit-flex-direction: column;
 }
-.mainmap{
-    flex-grow: 1;
-    overflow-y: hidden;
+
+.mainmap {
     width: 100%;
     position: relative;
 }
 
-.mainmap .maindata{
+.mainmap .maindata {
     z-index: 1400;
     position: absolute;
     bottom: 0;
     width: 100%;
 }
-.mainmap .maindata ul{
+
+.mainmap .maindata ul {
     margin-left: 20px;
     margin-right: 20px;
     border-radius: 6px 6px 0 0;
@@ -47,7 +46,8 @@
     -webkit-justify-content: center;
     justify-content: center;
 }
-.mainmap .maindata ul li{
+
+.mainmap .maindata ul li {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -59,33 +59,37 @@
     -webkit-box-align: center;
     align-items: center;
     -webkit-align-items: center;
-    -moz-box-direction:normal;
-    flex-direction:column;
-    -webkit-flex-direction:column;
+    -moz-box-direction: normal;
+    flex-direction: column;
+    -webkit-flex-direction: column;
     flex-grow: 1;
     color: #FFF;
     font-size: 12px;
     padding: 10px 0;
 }
-.mainmap .maindata ul li span{
+
+.mainmap .maindata ul li span {
     line-height: 30px;
 }
-.mainmap .maindata ul li span:last-child{
+
+.mainmap .maindata ul li span:last-child {
     font-size: 14px;
     font-weight: 600;
 }
-.mainmap .maindata ul li img{
+
+.mainmap .maindata ul li img {
     width: 30px;
 }
-.mainmap .mapcanver{
+
+.mapcanver {
     position: absolute;
     z-index: 10001;
     top: 10px;
     left: 10px;
     background: linear-gradient(180deg, #1297d2, #027db7);
     color: #FFF;
-    height: 40px;
-    border-radius: 40px;
+    height: 36px;
+    border-radius: 36px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -99,17 +103,20 @@
     padding-right: 15px;
     min-width: 120px;
 }
-.mainmap .mapcanver.point{
+
+.mapcanver.point {
     top: 55px;
     left: 10px;
 }
-.mainmap .mapcanver img{
-    width: 26px;
-    height: 26px;
+
+.mapcanver img {
+    width: 22px;
+    height: 22px;
     margin-left: 10px;
     margin-right: 10px;
 }
-.mainmap .mapcanver span{
+
+.mapcanver span {
     display: block;
     flex-grow: 1;
 }
