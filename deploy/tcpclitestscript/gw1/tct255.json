@@ -13,7 +13,7 @@
           "deviceid_data_max":199,
           "deviceid_data_min":100,
           "sendpinginterval":10000,
-          "senddatainterval":60000,
+          "senddatainterval":6000,
           "pressure_data_min":20,
           "pressure_data_max":40,
           "winddirection_data_min":0,
