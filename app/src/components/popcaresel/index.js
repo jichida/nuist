@@ -66,6 +66,7 @@ class App extends React.Component {
         render() {
             const { title, valuedbs, ismulti } = this.props;
             const { cursel } = this.state;
+            let selid = cursel.length > 0?cursel[0]._id:'';
             const titleselected = !ismulti ? '当前' : '关注';
             return ( <div className = "collectionlist" >
                 <div className = "editcollectionlist" >
@@ -73,8 +74,9 @@ class App extends React.Component {
 
                 <div className = "pointlist" > {
                     lodashmap(valuedbs, (v, k) => {
-                            const issel = k === cursel;
+                            const issel = k === selid;
                             if (!!v) {
+                              // debugger;
                                 if (issel) {
                                     return ( < div key = { k }
                                         onClick = {
