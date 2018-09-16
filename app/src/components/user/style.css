@@ -106,7 +106,7 @@
     position: fixed;
     width: 55%;
     background: #FFF;
-    top: 0;
+    top: 80px;
     bottom: 0;
     z-index: 20000;
     right: 0;
@@ -257,7 +257,7 @@
     padding: 10px 20px;
 }
 
-.editcollectionlist .pointlist .p2p.sel {
+.editcollectionlist .pointlist .p2p.issel {
     background-color: #f7f7f7
 }
 
@@ -664,7 +664,7 @@ small {
 }
 
 .c .navbar-buttons button {
-    text-align: right
+    text-align: left
 }
 
 .c .navbar-buttons span {
