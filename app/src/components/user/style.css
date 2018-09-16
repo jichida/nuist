@@ -200,7 +200,6 @@
 .editcollectionlist .pointlist {
     overflow-y: scroll;
     flex-grow: 1;
-    padding: 0px 20px;
     margin-top: 44px
 }
 
@@ -255,7 +254,11 @@
     -webkit-box-align: center;
     align-items: center;
     -webkit-align-items: center;
-    padding: 0;
+    padding: 10px 20px;
+}
+
+.editcollectionlist .pointlist .p2p.sel {
+    background-color: #f7f7f7
 }
 
 .editcollectionlist .pointlist .p2p img {
@@ -651,7 +654,7 @@ small {
 }
 
 .c .gf-timepicker-dropdown {
-    top: 130px;
+    top: 165px;
     bottom: 64px
 }
 

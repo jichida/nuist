@@ -3,45 +3,10 @@
     padding-bottom: 80px;
 }
 
-.datameterPage .fillerhead {
-    color: #FFF;
-    height: 40px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    display: -webkit-flex;
-    -moz-justify-content: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-align-items: center;
-    flex-grow: 1;
-}
-
 .datamonitorfiller .fillerhead img {
-    width: 20px;
+    width: 18px;
+    height: 18px;
     margin-right: 5px;
-}
-
-.datamonitorfiller {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    display: -webkit-flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-align-items: center;
-    -moz-justify-content: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    margin-bottom: 10px;
-    background: #FFF;
-    border-bottom: 1px solid #EEE;
-}
-
-.datamonitorfiller .fillerhead {
-    color: #333;
 }
 
 .datamonitorfiller .d {
