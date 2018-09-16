@@ -107,15 +107,15 @@ export const getimageicon = (item,SettingOfflineMinutes,viewtype)=>{
   const icon_normal = lodashget(curdevicetype,'iconurl_normal',`${process.env.PUBLIC_URL}/images/device_normal.png`);
   const icon_alarm = lodashget(curdevicetype,'iconurl_alarm',`${process.env.PUBLIC_URL}/images/device_alarm.png`);
   const firstLetter = getdevicestatus(item._id);
-  if(firstLetter === 'N'){
-    return icon_normal;
-  }
-  if(firstLetter === 'E'){
-    return icon_error;
-  }
-  if(firstLetter === 'A'){
-    return icon_alarm;
-  }
+  // if(firstLetter === 'N'){
+  //   return icon_normal;
+  // }
+  // if(firstLetter === 'E'){
+  //   return icon_error;
+  // }
+  // if(firstLetter === 'A'){
+  //   return icon_alarm;
+  // }
 
   let curpng = icon_normal;
   const realtimedata_datatime = lodashget(item,'realtimedata.datatime');
@@ -130,7 +130,7 @@ export const getimageicon = (item,SettingOfflineMinutes,viewtype)=>{
     return curpng;
   }
 
-  const realtimealarm_updatetime = lodashget(item,'realtimealarm.updatetime');
+  const realtimealarm_updatetime = lodashget(item,'realtimealarm.UpdateTime');
   if(!!realtimealarm_updatetime){
     const diffmin = moment().diff(moment(realtimealarm_updatetime),'minutes');
     const isonline = diffmin < SettingOfflineMinutes;
