@@ -616,8 +616,9 @@ body {
     border-top: 1px #ddd solid;
     position: relative;
 }
-.right_con .data_box ul li.windcontrol1list{ width: 50%; margin: auto; height: auto; display: inline-block; border-top: 0px; text-align: center}
-.right_con .data_box ul li.windcontrol1list .ant-progress-inner{ margin-right: 20px}
+.right_con .data_box ul li.windcontrol1list{ width: 50%; margin: auto; height: auto; display: inline-block; border-top: 0px; text-align: center; margin-bottom: 10px}
+.right_con .data_box ul li.windcontrol1list span{ display: block}
+.right_con .data_box ul li.windcontrol1list .ant-progress-inner{ margin-bottom: 10px}
 .center_box .data_box .windcontrol1 .chartli{ text-align: center}
 .center_box .data_box .windcontrol1 .chartli span{ display: block; text-align: center;}
 .center_box .data_box .windcontrol1 .chartli .ant-progress-inner{ margin-bottom: 20px}
