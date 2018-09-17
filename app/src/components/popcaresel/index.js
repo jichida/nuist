@@ -109,11 +109,11 @@ class App extends React.Component {
             }
         }
 
-const mapStateToProps = ({ device: { gateways, devices } }, props) => {
+        const mapStateToProps = ({ device: { gateways, devices } }, props) => {
     let isgateway = props.isgateway;
     let title = isgateway ? '所有网关' : '所有节点';
     let curvalue = isgateway ? gateways[props.value] : devices[props.value];
     let valuedbs = isgateway ? gateways : devices;
     return { title, curvalue, valuedbs };
-}
-export default connect(mapStateToProps)(App);
+        }
+        export default connect(mapStateToProps)(App);

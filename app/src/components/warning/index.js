@@ -72,7 +72,7 @@ class App extends React.Component {
 }
 <div className="n"><span className="small">共有预警信息</span><span>{realtimealarmcount>99?'99+':`${realtimealarmcount}`}</span><span  className="small">条</span></div>
 
-</div>
+                </div>
 <div className="c">
     <QueryPage type="alarm"/>
     </div>

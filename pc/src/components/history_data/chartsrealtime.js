@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import lodashget from 'lodash.get';
@@ -90,7 +90,7 @@ const ChartsRealtime = (props)=>{
           const fieldsprops = fields[fieldname];
           if(!!fieldsprops){
             index = index + 1;
-            CoCharts.push(<div key={fieldname} className='windcontrol1' >
+            CoCharts.push(<div key={fieldname} className='windcontrol1 winlist' style={{height: '120px'}} >
               <ProgressCtrl curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />
             </div>);
           }
@@ -128,7 +128,7 @@ const ChartsRealtime = (props)=>{
           const fieldsprops = fields[fieldname];
           if(!!fieldsprops){
             index = index + 1;
-            CoCharts.push(<li className='windcontrol1' key={fieldname}>
+            CoCharts.push(<li className='windcontrol1list' key={fieldname}>
               <ProgressCtrl  curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />
             </li>);
           }
