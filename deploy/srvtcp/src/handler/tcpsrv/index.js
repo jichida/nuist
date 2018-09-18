@@ -122,7 +122,6 @@ starttcpsrv = (settings)=> {
                        let bodybuf = Buffer.allocUnsafe(datalen);
                        recvbuf.copy(bodybuf, 0, data_headlen, data_headlen+datalen);
                        debug(`获取到数据部分:${bodybuf.toString('hex')}`);
-                       debug(`获取到数据部分:${bodybuf.toString('hex')}`);
                        if(bodybuf.length >= datalen){
                          getbuf({cmd,recvbuf,bodybuf},(err,result)=>{
                            if(!err){
@@ -139,12 +138,16 @@ starttcpsrv = (settings)=> {
                                  debug(`get data--->${JSON.stringify(result.resultdata)}`);
                              }
                              else if(cmd === 2 && result.amtype === '03'){
+                               winston.getlog().warn(`发现一条03的数据:${bodybuf.toString('hex')}`);
+  
                                const publishdata = {
                                  "gwid" :`${gwid}`,
                                  "deviceid":`${result.deviceid}`,
                                  "amtype":`${result.amtype}`,
                                  'nextdeviceid':result.nextdeviceid
                                }
+                               winston.getlog().warn(`解析结果为:${JSON.stringify(publishdata)}`);
+
                                PubSub.publish(`nuistdata`,publishdata);
                              }
 
