@@ -60,18 +60,18 @@ const ChartsRealtime = (props)=>{
     let CoCharts = [];
     if(!!realTimePage){
       if(isshow_winddirectionspeedmix){
-        CoCharts.push(<div key="winddirectionspeedmix" className='windcontrol1' >
+        CoCharts.push(<div key="winddirectionspeedmix1" className='windcontrol1' >
           <ChartWinddirection curdevice={curdevice} />
         </div>);
       }
       if(isshow_temperaturerainfallmix){
-        CoCharts.push(<div key="temperaturerainfallmix" className='windcontrol1' > <ChartTemperatureRainfall rainfall={showvalue_rainfall} temperature={showvalue_temperature}/></div>);
+        CoCharts.push(<div key="temperaturerainfallmix1" className='windcontrol1' > <ChartTemperatureRainfall rainfall={showvalue_rainfall} temperature={showvalue_temperature}/></div>);
       }
       if(isshow_humidity){
-        CoCharts.push(<div key="humidity" className='windcontrol1' > <ChartHumidity humidity={showvalue_humidity}/></div>);
+        CoCharts.push(<div key="humidity1" className='windcontrol1' > <ChartHumidity humidity={showvalue_humidity}/></div>);
       }
       if(isshow_pressure){
-        CoCharts.push(<div key="pressure" className='windcontrol1' > <ChartPressure pressure={showvalue_pressure}/></div>);
+        CoCharts.push(<div key="pressure1" className='windcontrol1' > <ChartPressure pressure={showvalue_pressure}/></div>);
       }
       lodashmap(fieldslist_brief,(fieldname)=>{
         if((fieldname === 'winddirection' || fieldname === 'windspeed') && isshow_winddirectionspeedmix){
@@ -90,7 +90,7 @@ const ChartsRealtime = (props)=>{
           const fieldsprops = fields[fieldname];
           if(!!fieldsprops){
             index = index + 1;
-            CoCharts.push(<div key={fieldname} className='windcontrol1 winlist' style={{height: '120px'}} >
+            CoCharts.push(<div key={`${fieldname}${index}1`} className='windcontrol1 winlist' style={{height: '120px'}} >
               <ProgressCtrl curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />
             </div>);
           }
@@ -100,16 +100,16 @@ const ChartsRealtime = (props)=>{
 
     if(!!!realTimePage){
       if(isshow_winddirectionspeedmix){
-        CoCharts.push(<div key="winddirectionspeedmix" className='windcontrol1' ><ChartWinddirection curdevice={curdevice} /></div>);
+        CoCharts.push(<div key="winddirectionspeedmix2" className='windcontrol1' ><ChartWinddirection curdevice={curdevice} /></div>);
       }
       if(isshow_temperaturerainfallmix){
-        CoCharts.push(<li key="temperaturerainfallmix"   className='windcontrol1' > <ChartTemperatureRainfall rainfall={showvalue_rainfall} temperature={showvalue_temperature}/></li>);
+        CoCharts.push(<li key="temperaturerainfallmix2"   className='windcontrol1' > <ChartTemperatureRainfall rainfall={showvalue_rainfall} temperature={showvalue_temperature}/></li>);
       }
       if(isshow_humidity){
-        CoCharts.push(<li key="humidity"  className='windcontrol1' > <ChartHumidity humidity={showvalue_humidity}/></li>);
+        CoCharts.push(<li key="humidity2"  className='windcontrol1' > <ChartHumidity humidity={showvalue_humidity}/></li>);
       }
       if(isshow_pressure){
-        CoCharts.push(<li key="pressure" className='windcontrol1' > <ChartPressure pressure={showvalue_pressure}/></li>);
+        CoCharts.push(<li key="pressure2" className='windcontrol1' > <ChartPressure pressure={showvalue_pressure}/></li>);
       }
       lodashmap(fieldslist_brief,(fieldname)=>{
         if((fieldname === 'winddirection' || fieldname === 'windspeed') && isshow_winddirectionspeedmix){
@@ -128,7 +128,7 @@ const ChartsRealtime = (props)=>{
           const fieldsprops = fields[fieldname];
           if(!!fieldsprops){
             index = index + 1;
-            CoCharts.push(<li className='windcontrol1list' key={fieldname}>
+            CoCharts.push(<li className='windcontrol1list' key={`${fieldname}${index}2`}>
               <ProgressCtrl  curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />
             </li>);
           }

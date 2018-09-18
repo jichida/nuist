@@ -94,12 +94,12 @@ export function* querypageflow(){//仅执行一次
     let isstopped = false;
     while(!isstopped){
       //选中一个默认节点
-      const {usersettings,savequery_historychart} = yield select((state)=>{
+      const {usersettings,savequery_alaram} = yield select((state)=>{
         const {usersettings} = state.userlogin;
-        const {savequery_historychart} = state.app;
-        return {usersettings,savequery_historychart};
+        const {savequery_alaram} = state.app;
+        return {usersettings,savequery_alaram};
       });
-      const {starttime,endtime} = savequery_historychart;
+      const {starttime,endtime} = savequery_alaram;
       const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
       const query = {
         did:indexdeviceid,
