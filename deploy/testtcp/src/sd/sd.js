@@ -54,6 +54,13 @@ const getdatahex2 = (gwid)=>{
   return `${headerhex}${hexpayload}`;
 }
 
+const getdatahex2_raw = (gwid,hexpayload)=>{
+  debug(`hex->\n${hexpayload}`)
+  const headerhex = handler.getheader({gwid,length:hexpayload.length/2,cmd:2});
+  debug(`headerhex->\n${headerhex}`);
+  return `${headerhex}${hexpayload}`;
+}
 
 exports.getdatahex1 = getdatahex1;
 exports.getdatahex2 = getdatahex2;
+exports.getdatahex2_raw = getdatahex2_raw;

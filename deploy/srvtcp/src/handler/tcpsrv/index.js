@@ -126,19 +126,26 @@ starttcpsrv = (settings)=> {
                        if(bodybuf.length >= datalen){
                          getbuf({cmd,recvbuf,bodybuf},(err,result)=>{
                            if(!err){
-                             if(!!result.resultdata){
+                             if(cmd === 2 && result.amtype === '0B'){
                                //<----publish data==========
-                               if(cmd === 2){
                                  const publishdata = {
                                    "gwid" :`${gwid}`,
                                    "deviceid":`${result.deviceid}`,
+                                   "amtype":`${result.amtype}`,
                                    realtimedata:result.resultdata
                                  }
                                  publishdata.realtimedata.datatime = moment().format('YYYY-MM-DD HH:mm:ss');
                                  PubSub.publish(`nuistdata`,publishdata);
+                                 debug(`get data--->${JSON.stringify(result.resultdata)}`);
+                             }
+                             else if(cmd === 2 && result.amtype === '03'){
+                               const publishdata = {
+                                 "gwid" :`${gwid}`,
+                                 "deviceid":`${result.deviceid}`,
+                                 "amtype":`${result.amtype}`,
+                                 'nextdeviceid':result.nextdeviceid
                                }
-
-                               debug(`get data--->${JSON.stringify(result.resultdata)}`);
+                               PubSub.publish(`nuistdata`,publishdata);
                              }
 
                              if(!!result.replybuf){

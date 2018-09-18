@@ -87,10 +87,9 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
           const deviceModel = DBModels.DeviceModel;
           debug(`gwid===>${gwid},deviceid=>${devicedata.deviceid},nextdeviceid->${devicedata.nextdeviceid}`)
           let updated_data;
-          if(!!devicedata.nextdeviceid){
+          if(devicedata.amtype ==='03'){
             updated_data = {
               $set:{
-                realtimedata:devicedata.realtimedata,
                 nextdeviceid:devicedata.nextdeviceid,
               },
               $setOnInsert:{
@@ -102,11 +101,8 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
               }
             };
           }
-          else{
+          else if(devicedata.amtype ==='0B'){
             updated_data = {
-              $unset:{
-                nextdeviceid:""
-              },
               $set:{
                 realtimedata:devicedata.realtimedata,
               },
@@ -119,16 +115,18 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
               }
             };
           }
+          else{
+            return;
+          }
           deviceModel.findOneAndUpdate({
             DeviceId:devicedata.deviceid,
             gatewayid:gwid},
             updated_data,{new:true,upsert:true}).
             lean().exec((err,newdevice)=>{
               //<----------
-              if(!err && !!newdevice){
+              if(!err && !!newdevice && devicedata.amtype ==='0B'){
                 handlermsg_historydevice(newdevice);
                 // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
-
                 alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
                   _.map(resultalarmmatch,(al)=>{
                     // console.log(al);
@@ -138,7 +136,6 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
                     handlermsg_alarmdata(al);
                   });
                 });
-
               }
           });
         }

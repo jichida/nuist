@@ -21,6 +21,42 @@ const simulatordata = {
       return parseInt(valuestring);
     }
   },
+  "TOS_Msg_Header_MSGLength":{
+    offset:5,
+    length:1,
+    gethex:(value)=>{
+      const valuestring = `${value}`;
+      const buf0 = Buffer.allocUnsafe(1);
+      buf0.writeUInt8(value, 0);
+      const hex0 = buf0.toString('hex').toUpperCase();
+      return `${hex0}`;
+    },
+    parsevalue:(hexstring)=>{
+      const buf = Buffer.from(hexstring,'hex');
+      const deviceid =  buf.readUInt8(0);
+      const valuestring = `${deviceid}`;
+      debug(`TOS_Msg_Header_MSGLength为:${valuestring}`);
+      return parseInt(valuestring);
+    }
+  },
+  "amtype":{
+    offset:3,
+    length:1,
+    gethex:(value)=>{
+      const valuestring = `${value}`;
+      const buf0 = Buffer.allocUnsafe(1);
+      buf0.writeUInt8(value, 0);
+      const hex0 = buf0.toString('hex').toUpperCase();
+      return `${hex0}`;
+    },
+    parsevalue:(hexstring)=>{
+      const buf = Buffer.from(hexstring,'hex');
+      const deviceid =  buf.readUInt8(0);
+      const valuestring = `${deviceid}`;
+      debug(`AM_Type为:${valuestring}`);
+      return parseInt(valuestring);
+    }
+  },
   "pressure":{//压力<----PTB210
     offset:parseInt(config.pressure_data_offset),
     length:parseInt(config.pressure_data_length),
@@ -79,15 +115,17 @@ const simulatordata = {
     max:parseInt(config.windspeed_data_max),
     min:parseInt(config.windspeed_data_min),
     gethex:(value)=>{
+      const v = value*10;
       const buf0 = Buffer.allocUnsafe(2);
-      buf0.writeInt16LE(value, 0);
+      buf0.writeInt16LE(v, 0);
       const hex0 = buf0.toString('hex');
       return hex0;
     },
     parsevalue:(hexstring)=>{
       const buf = Buffer.from(hexstring,'hex');
       const value =  buf.readInt16LE(0);
-      return value;
+      const v = value/10;
+      return parseInt(v);
     }
   },
   "humidity" :{//CS215
