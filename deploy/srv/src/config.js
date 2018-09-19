@@ -3,6 +3,7 @@ const config =  {
   listenport:process.env.listenport ||6011,
   rooturl:process.env.rooturl || 'http://api.nuistiot.com',
   issmsdebug:process.env.issmsdebug || false,
+  isredissubscriber:process.env.isredissubscriber==='true'?true:false,
   publishdirtest:'../../../bms/test/build',
   publishdirapp:'../../../bms/app/build',
   publishdirpc:'../../../dist/pc/build',

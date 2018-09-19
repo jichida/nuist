@@ -39,7 +39,7 @@ class App extends React.Component {
 									lodashmap(subscriberdeviceids,(did,index)=>{
 										const curdevice = devices[did];
 										if(!!curdevice){
-											return (<span key={index}>{lodashget(curdevice,'name','')} - {lodashget(curdevice,'locationname','')}</span>)
+											return (<span key={index}>{lodashget(curdevice,'name','')}  {lodashget(curdevice,'locationname','')}</span>)
 										}
 								})
 							}

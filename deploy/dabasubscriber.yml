@@ -1,6 +1,6 @@
 version: '2'
 services:
-  dabaappserver:
+  dabasubscribber:
     image: node:6.13.0
     restart: always
     command: node ./index.js
@@ -12,12 +12,12 @@ services:
       - ./dist/log:/log
     network_mode: "host"
     environment:
-      - isredissubscriber=false
+      - isredissubscriber=true
       - MONGO_URL=mongodb://dabauser:daba159@127.0.0.1/daba
-      - rooturl=http://api.nuistiot.com:50000
-      - listenport=30050
+      - rooturl=http://api.nuistiot.com:30049
+      - listenport=30049
       - logdir=/log
     ports:
-       - "30050:30050"
+       - "30049:30049"
     expose:
-       - "30050"
+       - "30049"

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ReactEcharts from 'echarts-for-react';
 // import echarts from 'echarts';
 import lodashget from 'lodash.get';
+import {getformatticktimestring} from '../../util/formataxisLabel';
 class Page extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     let needrender = false;
@@ -67,14 +68,22 @@ const mapStateToProps = (state,props) => {
   // console.log(ticktimestring);
   // console.log(fields);
   // console.log(retlist);
+  // const tickformat = gettickformats(ticktimestring);
+  // debugger;
   const option = {
       title: {
           left: 'center',
           text: curfieldname,
       },
+      // axisLabel: {
+      //   interval: 0,
+      //   formatter:function(value,index){
+      //     return formatterAxisLabel(value,index,tickformat);
+      //   }
+      // },
       xAxis: {
           type: 'category',
-          data: ticktimestring
+          data: getformatticktimestring(ticktimestring)
       },
       yAxis: {
           type: 'value'
@@ -83,10 +92,10 @@ const mapStateToProps = (state,props) => {
           data: retlist[curfield],
           type: 'line',
           itemStyle: {
-                           normal: {
-                                 color: 'rgb(134, 184, 243)'
-                           }
-                         },
+         normal: {
+               color: 'rgb(134, 184, 243)'
+         }
+       },
       }]
   };
  //  const option = {

@@ -75,9 +75,9 @@ const GatewayEdit = (props) => {
           <TextField label="创建时间" source="created_at"  />
           <TextField label="更新时间" source="updated_at"  />
         </FormTab>
-        <FormTab label="传输路径">
+        {/* <FormTab label="传输路径">
           <CfSelectArrayInput label="选择节点列表" source="devicepath" loadOptions={getOptions('device','name','_id',query)}/>
-        </FormTab>
+        </FormTab> */}
       </TabbedForm>
     </Edit>
     );

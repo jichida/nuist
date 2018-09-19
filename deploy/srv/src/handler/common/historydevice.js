@@ -35,19 +35,19 @@ const getlimitstarttime = (periodname,endtime,starttime)=>{
 const getticktimestring = (periodname,ticktime)=>{
   debug(`getticktimestring--->${periodname},${ticktime}`);
 
-  let ticktimestring;
-  if(periodname === 'monthly'){
-    ticktimestring = moment(ticktime).format('YYYY.MM');
-  }
-  else if(periodname === 'minutely'){
-    ticktimestring = moment(ticktime).format('HH:mm');
-  }
-  else if(periodname === 'hourly'){
-    ticktimestring = moment(ticktime).format('DD HH');
-  }
-  else{
-    ticktimestring = moment(ticktime).format('MM.DD');
-  }
+  const ticktimestring = moment(ticktime).format('YYYY-MM-DD HH:mm:ss');
+  // if(periodname === 'monthly'){
+  //   ticktimestring = moment(ticktime).format('YYYY.MM');
+  // }
+  // else if(periodname === 'minutely'){
+  //   ticktimestring = moment(ticktime).format('HH:mm');
+  // }
+  // else if(periodname === 'hourly'){
+  //   ticktimestring = moment(ticktime).format('DD HH');
+  // }
+  // else{
+  //   ticktimestring = moment(ticktime).format('MM.DD');
+  // }
   return ticktimestring;
 }
 

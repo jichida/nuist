@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts';
 import lodashget from 'lodash.get';
+import {getformatticktimestring} from '../../util/formataxisLabel';
 class Page extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     let needrender = false;
@@ -81,7 +82,7 @@ const mapStateToProps = (state,props) => {
    xAxis: {
        type: 'category',
        boundaryGap: false,
-       data: ticktimestring
+       data: getformatticktimestring(ticktimestring)
    },
    yAxis: {
        type: 'value',

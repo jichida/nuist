@@ -122,8 +122,10 @@ const job=()=>{
     // createadmin();
     dbinit();
     // startsrv_devpush(config);
-    redis.setSubscribeHandler('nuistiotdata_realtimedata_redis',handlermsg.handlermsg_realtimedata_redis);
-
+    if(config.isredissubscriber){
+      redis.startupredis();
+      redis.setSubscribeHandler('nuistiotdata_realtimedata_redis',handlermsg.handlermsg_realtimedata_redis);
+    }
     // intervalCheckDevice();
 };
 
