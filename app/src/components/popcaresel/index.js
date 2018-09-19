@@ -109,11 +109,20 @@ class App extends React.Component {
             }
         }
 
-        const mapStateToProps = ({ device: { gateways, devices } }, props) => {
-    let isgateway = props.isgateway;
-    let title = isgateway ? '所有网关' : '所有节点';
-    let curvalue = isgateway ? gateways[props.value] : devices[props.value];
-    let valuedbs = isgateway ? gateways : devices;
-    return { title, curvalue, valuedbs };
-        }
+const mapStateToProps = ({ device: { gateways, devices } }, props) => {
+  const isgateway = props.isgateway;
+  const title = isgateway ? '所有网关' : '所有节点';
+  const curvalue = isgateway ? gateways[props.value] : devices[props.value];
+  let devicedb = {};
+  if(!isgateway){
+    lodashmap(devices,(v,k)=>{
+      if(v.gatewayid === curvalue.gatewayid){
+        devicedb[k] = v;
+      }
+    })
+  }
+
+  const valuedbs = isgateway ? gateways : devicedb;
+  return { title, curvalue, valuedbs };
+}
         export default connect(mapStateToProps)(App);
