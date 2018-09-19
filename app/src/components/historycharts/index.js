@@ -19,7 +19,7 @@ class App extends React.Component {
         if(!!curdevice){
           return (
               <div className="monitorPage">
-                  <Header history={this.props.history} title={`${lodashget(curdevice,'name','')}-${lodashget(curdevice,'locationname','')}`}/>
+                  <Header history={this.props.history} title={`${lodashget(curdevice,'name','')} ${lodashget(curdevice,'locationname','')}`}/>
                   <span className="tt">
                     <QueryPage type="historychart"/>
                   </span>
