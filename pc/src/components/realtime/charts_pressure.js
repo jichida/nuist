@@ -42,11 +42,11 @@ const mapStateToProps = (state,props) => {
       },
       series : [
             {
-                name:'大气压',
+                name:'大气压(hpa)',
                 type: 'gauge',
                 z: 3,
                 min: 0,
-                max: 220,
+                max: 2200,
 
                 splitNumber: 11,
                 radius: '45%',
@@ -95,12 +95,12 @@ const mapStateToProps = (state,props) => {
                 },
                 detail : {
                     // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                    formatter: function (value) {
-                        value = (value + '').split('.');
-                        value.length < 2 && (value.push('00'));
-                        return ('00' + value[0]).slice(-2)
-                            + '.' + (value[1] + '00').slice(0, 2);
-                    },
+                    // formatter: function (value) {
+                    //     value = (value + '').split('.');
+                    //     value.length < 2 && (value.push('00'));
+                    //     return ('00' + value[0]).slice(-2)
+                    //         + '.' + (value[1] + '00').slice(0, 2);
+                    // },
                     fontWeight: 'bolder',
                     borderRadius: 3,
                     backgroundColor: '#444',
@@ -122,7 +122,7 @@ const mapStateToProps = (state,props) => {
                     color: '#eee',
                     rich: {}
                 },
-                data:[{value: props.pressure, name: '气压'}]
+                data:[{value: parseInt(props.pressure,10), name: '气压'}]
             },
         ]
       };
