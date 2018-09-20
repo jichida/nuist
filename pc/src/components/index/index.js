@@ -92,7 +92,7 @@ class App extends React.Component {
 
           <div className="center_con">
             <div className="map_con border">
-              <div id='mapidplaceholder' style={{height:'400px'}}/>
+              <div id='mapidplaceholder' style={{height:'500px'}}/>
             </div>
             <div className="bor_con con_height">
                 <h2 className="title">
@@ -120,7 +120,7 @@ class App extends React.Component {
             </div>
           </div>
 
-          <HistoryDataBar shownum={2} onClickPopProductInfo={this.onClickPopProductInfo}/>
+          <HistoryDataBar shownum={4} onClickPopProductInfo={this.onClickPopProductInfo}/>
         </div>
         {ispoppwd && loginsuccess && <Changepwd />}
         { ispopproductinfo && <Info curproduct={this.state.curproduct}/>}

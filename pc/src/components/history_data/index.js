@@ -10,7 +10,7 @@ class App extends React.Component {
     return (
       	<div className="right_con rhuadong">
             <ChartsRealtime shownum={shownum}/>
-            <ProductList onClickPopProductInfo={onClickPopProductInfo}/>
+
         </div>
     )
   }
@@ -21,3 +21,5 @@ const mapStateToProps = ({app:{selectedindex}}) => {
     return {selectedindex};
 }
 export default connect(mapStateToProps)(APP2);
+
+//<ProductList onClickPopProductInfo={onClickPopProductInfo}/>

@@ -45,7 +45,13 @@ select {
     outline: none;
     resize: none;
 }
-button{ cursor: pointer;background: transparent; margin-top: 0px !important;}
+
+button {
+    cursor: pointer;
+    background: transparent;
+    margin-top: 0px !important;
+}
+
 input[disabled],
 select[disabled],
 textarea[disabled],
@@ -214,9 +220,16 @@ body {
     padding-left: 5px
 }
 
+
 /*.left_con .left_height {*/
-    /*height: 540px;*/
-    /*overflow-y: scroll;*/
+
+
+/*height: 540px;*/
+
+
+/*overflow-y: scroll;*/
+
+
 /*}*/
 
 .left_con .weather {
@@ -239,10 +252,29 @@ body {
 .left_con .title span {
     color: #83a1c7;
 }
-.bor_con .title{ position: relative;}
-.bor_con .title span.tt{ margin-left: 15px; display: inline-block; vertical-align: middle; color: #5d7792}
-.bor_con .title span.tt img{ margin-right: 0px}
-.bor_con .title span.tt span{ display: inline-block; vertical-align: middle; margin-left: 5px;    line-height: 24px;}
+
+.bor_con .title {
+    position: relative;
+}
+
+.bor_con .title span.tt {
+    margin-left: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    color: #5d7792
+}
+
+.bor_con .title span.tt img {
+    margin-right: 0px
+}
+
+.bor_con .title span.tt span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    line-height: 24px;
+}
+
 .left_con .t {
     font-size: 16px;
 }
@@ -269,7 +301,7 @@ body {
 }
 
 .con_height {
-    height: 458px;
+    height: 358px;
 }
 
 .con_height .curve_box {
@@ -296,13 +328,26 @@ body {
     float: right;
 }
 
+
 /*.title em span {*/
-    /*font-size: 13px;*/
-    /*color: #f44e22 !important;*/
+
+
+/*font-size: 13px;*/
+
+
+/*color: #f44e22 !important;*/
+
+
 /*}*/
-.sele_em .ant-select-selection{background-color:rgba(247, 247, 247, 0.1);;
+
+.sele_em .ant-select-selection {
+    background-color: rgba(247, 247, 247, 0.1);
+    ;
     border-radius: 4px;
-    border: 1px solid rgba(247, 247, 247, 0.1); color: #fff;}
+    border: 1px solid rgba(247, 247, 247, 0.1);
+    color: #fff;
+}
+
 .title em .ant-btn {
     background-color: transparent;
     border: 0px;
@@ -616,13 +661,42 @@ body {
     border-top: 1px #ddd solid;
     position: relative;
 }
-.right_con .data_box ul li.windcontrol1list{ width: 50%; margin: auto; height: auto; display: inline-block; border-top: 0px; text-align: center; margin-bottom: 10px}
-.right_con .data_box ul li.windcontrol1list span{ display: block}
-.right_con .data_box ul li.windcontrol1list .ant-progress-inner{ margin-bottom: 10px}
-.center_box .data_box .windcontrol1 .chartli{ text-align: center}
-.center_box .data_box .windcontrol1 .chartli span{ display: block; text-align: center;}
-.center_box .data_box .windcontrol1 .chartli .ant-progress-inner{ margin-bottom: 20px}
-.center_box .data_box .windcontrol1.winlist{ width: 12%}
+
+.right_con .data_box ul li.windcontrol1list {
+    width: 50%;
+    margin: auto;
+    height: auto;
+    display: inline-block;
+    border-top: 0px;
+    text-align: center;
+    margin-bottom: 10px
+}
+
+.right_con .data_box ul li.windcontrol1list span {
+    display: block
+}
+
+.right_con .data_box ul li.windcontrol1list .ant-progress-inner {
+    margin-bottom: 10px
+}
+
+.center_box .data_box .windcontrol1 .chartli {
+    text-align: center
+}
+
+.center_box .data_box .windcontrol1 .chartli span {
+    display: block;
+    text-align: center;
+}
+
+.center_box .data_box .windcontrol1 .chartli .ant-progress-inner {
+    margin-bottom: 20px
+}
+
+.center_box .data_box .windcontrol1.winlist {
+    width: 12%
+}
+
 .right_con .data_box .react_for_echarts {
     position: absolute;
     left: 50%;
@@ -858,6 +932,7 @@ ul li .num {
 body {
     height: auto !important;
 }
+
 .bounced_box {
     width: 1000px;
     height: auto;
@@ -931,6 +1006,7 @@ body {
     padding: 10px 0px;
     font-size: 14px
 }
+
 @media screen and (max-device-width: 1440px) {
     .center_box .windcontrol img {
         width: 220px
@@ -943,20 +1019,29 @@ body {
     }
 }
 
-
 .gf-timepicker-dropdown {
     position: absolute;
-    top: 55px; left: 0px;
-    right: 0;padding: 20px 20px; z-index: 999; height: auto;overflow: hidden; background-color: #fff;box-shadow: 0 10px 30px 0 #ababab;
+    top: 55px;
+    left: 0px;
+    right: 0;
+    padding: 20px 20px;
+    z-index: 999;
+    height: auto;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 10px 30px 0 #ababab;
 }
+
 .gf-timepicker-absolute-section {
     width: 290px;
     float: left;
     padding: 0 10px;
 }
+
 .section-heading {
     font-size: 1.1rem;
-    margin-bottom: .6rem !important;    font-weight: 400;
+    margin-bottom: .6rem !important;
+    font-weight: 400;
     line-height: 1.1;
     color: #333;
 }
@@ -972,9 +1057,12 @@ body {
     float: left;
     margin: 0 30px 10px 0 !important;
 }
+
 .gf-timepicker-relative-section ul li {
-    line-height: 22px; font-size: 13px;
+    line-height: 22px;
+    font-size: 13px;
 }
+
 .gf-form-inline {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -988,6 +1076,7 @@ body {
     -ms-flex-line-pack: start;
     align-content: flex-start;
 }
+
 .gf-form {
     margin-bottom: 3px;
     display: -webkit-box;
@@ -1007,6 +1096,7 @@ body {
 .max-width-28 {
     max-width: 27.8rem!important;
 }
+
 .gf-form-input {
     display: block;
     width: 100%;
@@ -1014,18 +1104,21 @@ body {
     margin-right: 3px;
     font-size: 14px;
     line-height: 18px;
-    color: #d8d9da; border: 1px solid #ddd;
+    color: #d8d9da;
+    border: 1px solid #ddd;
     background-image: none;
     background-clip: padding-box;
     border-radius: 0 3px 3px 0;
-    box-shadow: inset 1px 0 0.3rem 0 hsla(0,0%,59%,.1);
+    box-shadow: inset 1px 0 0.3rem 0 hsla(0, 0%, 59%, .1);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .gf-form-inline .gf-form+.gf-form {
     margin-right: 3px;
 }
+
 .gf-form-btn {
     padding: 8px 10px;
     margin-right: 3px;
@@ -1040,12 +1133,13 @@ body {
 
 .btn-primary {
     color: #fff;
-    text-shadow: 0 1px 0 rgba(0,0,0,.1);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
     background-color: #e45602;
-    background-image: linear-gradient(180deg,#f60,#bc3e06);
+    background-image: linear-gradient(180deg, #f60, #bc3e06);
     background-repeat: repeat-x;
     border-color: #f60;
 }
+
 .gf-form .btn {
     display: inline-block;
     font-weight: 500;
@@ -1057,12 +1151,15 @@ body {
     border: none;
     padding: .7rem 1rem;
     font-size: 13px;
-    border-radius: 2px; margin-top: 15px !important;
+    border-radius: 2px;
+    margin-top: 15px !important;
 }
+
 .gf-timepicker-absolute-section select {
     width: 183px;
     margin-bottom: 0;
 }
+
 .gf-form-btn {
     padding: 8px 10px;
     margin-right: 3px;
@@ -1077,16 +1174,28 @@ body {
 
 .btn-secondary {
     color: #fff;
-    text-shadow: 0 1px 0 rgba(0,0,0,.1);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
     background-color: #273c4f;
-    background-image: linear-gradient(180deg,#273c4f,#273c4f);
+    background-image: linear-gradient(180deg, #273c4f, #273c4f);
     background-repeat: repeat-x;
     border-color: #005f81;
 }
-.small, small {
+
+.small,
+small {
     font-size: 12px;
-    font-weight: 400;color: #666;
+    font-weight: 400;
+    color: #666;
 }
 
-.proinfo>div{ background-color:  transparent;text-align: center; border: 0px}
-.infocontenasta{ background-color: #fff;box-shadow: 0 10px 30px 0 #ababab;padding: 20px; }
+.proinfo>div {
+    background-color: transparent;
+    text-align: center;
+    border: 0px
+}
+
+.infocontenasta {
+    background-color: #fff;
+    box-shadow: 0 10px 30px 0 #ababab;
+    padding: 20px;
+}
