@@ -12,7 +12,7 @@ class App extends React.Component {
       	<div className="left_con huadong">
             <div className="weather">
                 <img src="images/tianqi.png" alt=""/>
-                <span>晴天 25℃～28℃ <br />今天({_dayTxtList[moment().day()]}) </span>
+                <span>阴 25℃～28℃ <br />今天({_dayTxtList[moment().day()]}) </span>
             </div>
             <div className="real_time">
                 <h2 className="title left_bg"><img src="images/add.png" alt=""/><span>账号密码登录</span></h2>
