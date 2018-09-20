@@ -80,6 +80,9 @@ const DeviceShowActions = ({basePath,data,refresh}) => (
 const DeviceFilter = (props) => (
   <Filter {...props}>
     <TextInput label="搜索节点" source="DeviceId_q" />
+    <ReferenceInput label="网关ID" source="gatewayid" reference="gateway" allowEmpty>
+      <SelectInput optionText="name" />
+    </ReferenceInput>
   </Filter>
 )
 

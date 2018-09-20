@@ -57,6 +57,7 @@ const DeviceEdit = (props) => {
       <TabbedForm>
         <FormTab label="节点基本信息">
           <TextField label="节点ID" source="DeviceId"  />
+          <TextField label="下一个节点ID" source="nextdeviceid"  />
           <TextInput label="节点名字" source="name"  validate={required} />
           <TextInput label="地址" source="addressname" />
           <TextInput label="所在区域" source="locationname"  />
@@ -101,6 +102,7 @@ const DeviceList = (props) => (
   <List title="节点管理" filters={<DeviceFilter />} sort={{field:'realtimedata.datatime',order:'DESC'}} {...props}>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
       <TextField label="节点ID" source="DeviceId" />
+      <TextField label="下一个节点ID" source="nextdeviceid" />
       <TextField label="节点名字" source="name"/>
       <ReferenceField label="网关" source="gatewayid" reference="gateway" allowEmpty>
         <TextField source="name" />

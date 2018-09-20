@@ -47,9 +47,8 @@ const GatewayCreate = (props) => (
     <SimpleForm defaultValue={GatewayDefaultValue}>
       <TextInput label="网关ID" source="GatewayId" validate={required} />
       <TextInput label="网关名字" source="name" validate={required} />
-      <TextInput label="所属城市" source="city"  validate={required} />
-      <TextInput label="所属城市首字母" source="cityindex"  validate={required} />
-    </SimpleForm>
+      <TextInput label="所在区域" source="locationname"  />
+      </SimpleForm>
   </Create>
 );
 
@@ -66,8 +65,6 @@ const GatewayEdit = (props) => {
         <FormTab label="节点基本信息">
           <TextField label="网关ID" source="GatewayId"  />
           <TextInput label="网关名字" source="name"  validate={required} />
-          <TextInput label="所属城市" source="city"  validate={required} />
-          <TextInput label="所属城市首字母" source="cityindex"  validate={required} />
           <TextInput label="所在区域" source="locationname"  />
           <NumberInput label="经度" source="Longitude"  />
           <NumberInput label="纬度" source="Latitude"  />
@@ -94,6 +91,9 @@ const GatewayShowActions = ({basePath,data,refresh}) => (
 const GatewayFilter = (props) => (
   <Filter {...props}>
     <TextInput label="搜索网关" source="GatewayId_q" />
+    <ReferenceInput label="网关ID" source="gatewayid" reference="gateway" allowEmpty>
+      <SelectInput optionText="name" />
+    </ReferenceInput>
   </Filter>
 )
 
