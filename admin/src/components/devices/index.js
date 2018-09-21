@@ -36,7 +36,7 @@ import { Field,FieldArray } from 'redux-form';
 import TimePicker from 'material-ui/TimePicker';
 import moment from 'moment';
 import {CreateActions,EditActions} from '../controls/createeditactions';
-
+import {MapDragSel} from '../controls/mapdragsel';
 const deviceDefaultValue = {created_at:new Date(),updated_at:new Date()};
 
 const DeviceCreate = (props) => (
@@ -59,13 +59,11 @@ const DeviceEdit = (props) => {
           <TextField label="节点ID" source="DeviceId"  />
           <TextField label="下一个节点ID" source="nextdeviceid"  />
           <TextInput label="节点名字" source="name"  validate={required} />
-          <TextInput label="地址" source="addressname" />
+          <MapDragSel label="经纬度" source={["Longitude","Latitude","addressname"]} aliasaddress="addressname"/>
           <TextInput label="所在区域" source="locationname"  />
           <ReferenceInput label="网关ID" source="gatewayid" reference="gateway" allowEmpty>
             <SelectInput optionText="name" />
           </ReferenceInput>
-          <NumberInput label="经度" source="Longitude"  />
-          <NumberInput label="纬度" source="Latitude"  />
         </FormTab>
         <FormTab label="实时数据">
           <TextField label="温度" source="realtimedata.temperature"  />

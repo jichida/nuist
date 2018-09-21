@@ -31,6 +31,7 @@ import { NumberInput,
   ImageField,
   ReferenceInput,
   ReferenceField } from 'admin-on-rest/lib/mui';
+import {MapDragSel} from '../controls/mapdragsel';
 
 import { Field,FieldArray } from 'redux-form';
 import TimePicker from 'material-ui/TimePicker';
@@ -66,9 +67,7 @@ const GatewayEdit = (props) => {
           <TextField label="网关ID" source="GatewayId"  />
           <TextInput label="网关名字" source="name"  validate={required} />
           <TextInput label="所在区域" source="locationname"  />
-          <NumberInput label="经度" source="Longitude"  />
-          <NumberInput label="纬度" source="Latitude"  />
-          <TextField label="详细地址" source="addressname"  />
+          <MapDragSel label="经纬度" source={["Longitude","Latitude"]} />
           <TextField label="创建时间" source="created_at"  />
           <TextField label="更新时间" source="updated_at"  />
         </FormTab>
