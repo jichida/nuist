@@ -6,7 +6,7 @@ let logger;
 exports.initLog =  ()=>{
    const filename = "srvtcp";//"bms_"+moment().format('YYYY-MM-DD-HHmmss');
 
-  const logfile = filename+".log";
+  const logfile = filename+`_${config.listenport}`+".log";
   const logdir = config.logdir || path.resolve(__dirname,'../../../log');
   const logpath = `${logdir}/${logfile}`;
 
