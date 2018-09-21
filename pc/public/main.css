@@ -904,7 +904,7 @@ ul li .num {
     margin: auto;
 }
 
-.windcontrol img {
+.right_con .windcontrol img {
     position: absolute;
     width: 320px
 }
@@ -1005,18 +1005,6 @@ body {
 .bounced_right dl dd {
     padding: 10px 0px;
     font-size: 14px
-}
-
-@media screen and (max-device-width: 1440px) {
-    .center_box .windcontrol img {
-        width: 220px
-    }
-}
-
-@media screen and (max-device-width: 1680px) {
-    .center_box .windcontrol img {
-        width: 370px
-    }
 }
 
 .gf-timepicker-dropdown {
@@ -1198,4 +1186,13 @@ small {
     background-color: #fff;
     box-shadow: 0 10px 30px 0 #ababab;
     padding: 20px;
+}
+
+@media screen and (min-width: 1440px) and (max-width: 1680px) {
+    .center_box .windcontrol img {
+        width: 220px !important
+    }
+    .right_box .windcontrol img {
+        width: 220px !important;
+    }
 }
