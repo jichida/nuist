@@ -15,13 +15,14 @@ import QueryPage from '../explore/querypage';
 class App extends React.Component {
 
     render() {
-        const {curdevice} = this.props;
+        const {curdevice,savequery_historychart} = this.props;
+        const {from,to} = savequery_historychart;
         if(!!curdevice){
           return (
               <div className="monitorPage">
                   <Header history={this.props.history} title={`${lodashget(curdevice,'name','')} ${lodashget(curdevice,'locationname','')}`}/>
                   <span className="tt">
-                    <QueryPage type="historychart"/>
+                    <QueryPage type="historychart"  from={from} to={to}/>
                   </span>
                   <HistoryBar showflag="all"/>
               </div>
@@ -32,8 +33,8 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{devices}},props) => {
+const mapStateToProps = ({device:{devices},app:{savequery_historychart}},props) => {
 		const curdevice = devices[props.match.params.id];
-    return {curdevice};
+    return {curdevice,savequery_historychart};
 }
 export default connect(mapStateToProps)(App);

@@ -18,7 +18,8 @@ class App extends React.Component {
       this.props.dispatch(querypage_set_condition_sendsrv({}));
     }
     render() {
-        const {curdevice,viewtype} = this.props;
+        const {curdevice,viewtype,savequery_historychart} = this.props;
+        const {from,to} = savequery_historychart;
         if(!!curdevice){
           // const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
           // const {fields,fieldslist_brief} = viewtype;
@@ -26,7 +27,7 @@ class App extends React.Component {
               <div className="monitorPage">
                   <Header history={this.props.history} title={`${lodashget(curdevice,'name','')} ${lodashget(curdevice,'locationname','')}`}/>
                   <span className="tt">
-                    <QueryPage type="historychart"/>
+                    <QueryPage type="historychart"  from={from} to={to}/>
                   </span>
                   <List curdevice={curdevice} viewtype={viewtype}/>
               </div>
@@ -37,9 +38,11 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{devices,viewtype},historydevice:{historydevices}},props) => {
+const mapStateToProps = ({device:{devices,viewtype},
+  app:{savequery_historychart},
+  historydevice:{historydevices}},props) => {
 		const curdevice = devices[props.match.params.id];
     const retlist = lodashget(historydevices,`${props.match.params.id}`,[]);
-    return {curdevice,viewtype,retlist};
+    return {curdevice,viewtype,retlist,savequery_historychart};
 }
 export default connect(mapStateToProps)(App);

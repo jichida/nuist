@@ -19,7 +19,7 @@ import {
 // import moment from 'moment';
 import * as dateMath from '../util/datemath';
 import lodashget from 'lodash.get';
-import lodashmap from 'lodash.map';
+// import lodashmap from 'lodash.map';
 
 export function* querypageflow(){//仅执行一次
   yield takeLatest(`${querypage_set_condition_sendsrv}`, function*(action) {
@@ -30,7 +30,12 @@ export function* querypageflow(){//仅执行一次
     });
     const fieldslist_brief = lodashget(viewtype,'fieldslist_brief',[]);
     if(fieldslist_brief.length > 0){
-      const {starttime,endtime} = savequery_historychart;
+      const {from,to} = savequery_historychart;
+      const starttime_m = dateMath.parse(from,false);
+      const endtime_m = dateMath.parse(to,true);
+      const starttime = starttime_m.format('YYYY-MM-DD HH:mm:ss');
+      const endtime = endtime_m.format('YYYY-MM-DD HH:mm:ss');
+      console.log(`starttime:${starttime},endtime:${endtime}`);
       const periodname = 'minutely';
       yield put(gethistorydevicelist_request({
         fieldslist:fieldslist_brief,
@@ -47,13 +52,9 @@ export function* querypageflow(){//仅执行一次
   yield takeLatest(`${querypage_set_condition}`, function*(action) {
     const {sel,type} = action.payload;
 
-    const starttime_m = dateMath.parse(sel.from,false);
-    const endtime_m = dateMath.parse(sel.to,true);
-    const starttime = starttime_m.format('YYYY-MM-DD HH:mm:ss');
-    const endtime = endtime_m.format('YYYY-MM-DD HH:mm:ss');
-    console.log(`starttime:${starttime},endtime:${endtime}`);
+
     // endtime:${endtime.format('YYYY-MM-DD HH:mm:ss')}`);
-    yield put(ui_savequery({type,starttime,endtime}));
+    yield put(ui_savequery({type,from:sel.from,to:sel.to}));
     if(type === 'historychart'){
       // const periodname = 'minutely';
       // yield put(ui_historydevicequeryselect({periodname,starttime,endtime}));
@@ -104,7 +105,11 @@ export function* querypageflow(){//仅执行一次
       });
 
       const fieldslist_detail = lodashget(viewtype,'fieldslist_detail',[]);
-      const {starttime,endtime} = savequery_alaram;
+      const {from,to} = savequery_alaram;
+      const starttime_m = dateMath.parse(from,false);
+      const endtime_m = dateMath.parse(to,true);
+      const starttime = starttime_m.format('YYYY-MM-DD HH:mm:ss');
+      const endtime = endtime_m.format('YYYY-MM-DD HH:mm:ss');
       const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
       const query = {
         did:indexdeviceid,

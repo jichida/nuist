@@ -28,7 +28,7 @@ const DatePickerWrap = (props)=>{
 }
 
 const QueryPage = (props)=>{
-	const {dispatch,type} = props;
+	const {dispatch,type,from,to} = props;
 	const onChangeTime = (v)=>{
 		// {from: "now-6M", to: "now", display: "Last 6 months", section: 0, active: false}
 		console.log(v)
@@ -36,9 +36,12 @@ const QueryPage = (props)=>{
 			dispatch(querypage_set_condition({sel:v,type}));
 		}
 	}
-
+	const range = {
+		from,
+		to
+	};
 	return (
-<TimePicker onChangeTime={onChangeTime}>
+<TimePicker onChangeTime={onChangeTime} range={range}>
 					<DatePickerWrap showTime
 						locale={locale}
 						format="YYYY-MM-DD HH:mm:ss"

@@ -46,7 +46,8 @@ class App extends React.Component {
       this.props.dispatch(ui_seldropdowndevice({value,type:'alarm'}));
     }
     render() {
-        const {realtimealarmcount} = this.props;
+        const {realtimealarmcount,savequery_alaram} = this.props;
+        const {from,to} = savequery_alaram;
         const {
           ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,
           curdevice,curgateway,usersettings} = this.props;
@@ -74,7 +75,7 @@ class App extends React.Component {
 
                 </div>
 <div className="c">
-    <QueryPage type="alarm"/>
+    <QueryPage type="alarm"  from={from} to={to}/>
     </div>
                 <List />
                 {ispopcaresel_single_index_gateway  && <PopcareSel value={indexgatewayid} isgateway={true} onChange={this.onChangeCareselGateway}/>}
@@ -87,7 +88,7 @@ class App extends React.Component {
 
 const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},
   device:{devicelist,devices,viewtype,gateways},
-  app:{ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,uialarmshowall},
+  app:{ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,uialarmshowall,savequery_alaram},
   userlogin:{usersettings,loginsuccess}}) => {
     let curgateway,curdevice;
     let indexgatewayid = lodashget(usersettings,'indexgatewayid');
@@ -103,7 +104,7 @@ const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},
         curdevice = devices[devicelist[0]];
       }
     }
-    return {curgateway,
+    return {curgateway,savequery_alaram,
       ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,
       curdevice,loginsuccess,devices,usersettings,viewtype,realtimealarmcount:realtimealarmlist.length};
 }
