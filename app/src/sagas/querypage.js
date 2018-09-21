@@ -13,11 +13,13 @@ import {
   getrealtimealarmlist_result,
 
   gethistorydevicelist_request,
+
   ui_savequery
 } from '../actions';
 // import moment from 'moment';
 import * as dateMath from '../util/datemath';
 import lodashget from 'lodash.get';
+import lodashmap from 'lodash.map';
 
 export function* querypageflow(){//仅执行一次
   yield takeLatest(`${querypage_set_condition_sendsrv}`, function*(action) {
@@ -94,20 +96,25 @@ export function* querypageflow(){//仅执行一次
     let isstopped = false;
     while(!isstopped){
       //选中一个默认节点
-      const {usersettings,savequery_alaram} = yield select((state)=>{
+      const {usersettings,savequery_alaram,viewtype} = yield select((state)=>{
         const {usersettings} = state.userlogin;
         const {savequery_alaram} = state.app;
-        return {usersettings,savequery_alaram};
+        const {viewtype} = state.device;
+        return {usersettings,savequery_alaram,viewtype};
       });
+
+      const fieldslist_detail = lodashget(viewtype,'fieldslist_detail',[]);
       const {starttime,endtime} = savequery_alaram;
       const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
       const query = {
         did:indexdeviceid,
+        type:{$in:fieldslist_detail},
         UpdateTime:{
             $gte:starttime,
             $lte:endtime
         }
       };
+      //viewtype
       yield put(getrealtimealarmlist_request({query}));
       console.log(query)
       const { stop } = yield race({
