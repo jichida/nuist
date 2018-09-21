@@ -35,7 +35,8 @@ class App extends React.Component {
       // this.props.dispatch(getrealtimealarmlist_request({}));
     }
     render() {
-      const {gateways,usersettings} = this.props;
+      const {gateways,usersettings,savequery_alaram} = this.props;
+      const {from,to} = savequery_alaram;
       const indexgatewayid = usersettings.indexgatewayid;
       const curgateway = lodashget(gateways,`${indexgatewayid}`);
       if(!curgateway){
@@ -61,7 +62,7 @@ class App extends React.Component {
       <h2 className="title"><img src="images/jb.png"  alt=""/>
       <span>综合警报</span>
       <span className="tt">
-        <QueryPage type="alarm"/>
+        <QueryPage type="alarm" from={from} to={to}/>
       </span>
       <SeldropdownDevice type="alarm"/>
     </h2>
@@ -91,8 +92,8 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device,userlogin,historydevice:{historydevices}}) => {
+const mapStateToProps = ({device,userlogin,historydevice:{historydevices},app:{savequery_alaram}}) => {
     const {gateways,devicelist,devices,viewtype} = device;
-    return {gateways,devicelist,devices,viewtype,historydevices,usersettings:userlogin.usersettings};
+    return {gateways,devicelist,devices,viewtype,historydevices,usersettings:userlogin.usersettings,savequery_alaram};
 }
 export default connect(mapStateToProps)(App);

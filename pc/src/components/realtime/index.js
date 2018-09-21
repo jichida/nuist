@@ -46,7 +46,8 @@ class App extends React.Component {
       this.setState({ visible });
     }
     render() {
-        const {devices,usersettings} = this.props;
+        const {devices,usersettings,savequery_historychart} = this.props;
+        const {from,to} = savequery_historychart;
         const indexdeviceid = usersettings.indexdeviceid;
         const curdevice = devices[indexdeviceid];
         if(!curdevice){
@@ -74,7 +75,7 @@ class App extends React.Component {
           <h2 className="title"><img src="images/chax.png"  alt=""/>
           <span>历史图表</span>
           <span  className="tt">
-            <QueryPage type="historychart"/>
+            <QueryPage type="historychart" from={from} to={to}/>
           </span>
           <div  className="title_tab" onClick={()=>{
             this.props.history.replace('/realtimehistory')
@@ -129,8 +130,8 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device,userlogin,historydevice:{historydevices}}) => {
+const mapStateToProps = ({device,userlogin,historydevice:{historydevices},app:{savequery_historychart}}) => {
     const {devicelist,devices,viewtype} = device;
-    return {devicelist,devices,viewtype,historydevices,usersettings:userlogin.usersettings};
+    return {devicelist,devices,viewtype,historydevices,usersettings:userlogin.usersettings,savequery_historychart};
 }
 export default connect(mapStateToProps)(App);

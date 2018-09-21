@@ -22,34 +22,34 @@ const initial = {
             height : 0,
             top : 0
         },
-        savequery_historydata:{
-          starttime:moment().subtract(360, 'minutes').format('YYYY-MM-DD HH:mm:00'),//moment().format('YYYY-MM-DD HH:mm:ss'),
-          endtime:moment().format('YYYY-MM-DD 23:59:59'),
-        },
+        // savequery_historydata:{
+        //   from:'now-7d',//moment().format('YYYY-MM-DD HH:mm:ss'),
+        //   to:'now',
+        // },
         savequery_historychart:{
-          starttime:moment().subtract(360, 'minutes').format('YYYY-MM-DD HH:mm:00'),//moment().format('YYYY-MM-DD HH:mm:ss'),
-          endtime:moment().format('YYYY-MM-DD 23:59:59'),
+          from:'now-7d',//moment().format('YYYY-MM-DD HH:mm:ss'),
+          to:'now',
         },
         savequery_alaram:{
-          starttime:moment().subtract(360, 'minutes').format('YYYY-MM-DD HH:mm:00'),//moment().format('YYYY-MM-DD HH:mm:ss'),
-          endtime:moment().format('YYYY-MM-DD 23:59:59'),
+          from:'now-6h',//moment().format('YYYY-MM-DD HH:mm:ss'),
+          to:'now',
         }
     },
 };
 
 const app = createReducer({
     [ui_savequery]:(state,payload)=>{
-      const {type,starttime,endtime} = payload;
-      if(type === 'historydata'){
-        const savequery_historydata = {starttime,endtime};
-        return {...state,savequery_historydata};
-      }
+      const {type,from,to} = payload;
+      // if(type === 'historydata'){
+      //   const savequery_historydata = {from,to};
+      //   return {...state,savequery_historydata};
+      // }
       if(type === 'historychart'){
-        const savequery_historychart = {starttime,endtime};
+        const savequery_historychart = {from,to};
         return {...state,savequery_historychart};
       }
       if(type === 'alarm'){
-        const savequery_alaram = {starttime,endtime};
+        const savequery_alaram = {from,to};
         return {...state,savequery_alaram};
       }
       return {state,payload};

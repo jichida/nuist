@@ -74,8 +74,9 @@ class App extends React.Component {
     });
   }
   render() {
-    const {ispoppwd,ispopproductinfo,loginsuccess,viewtype} = this.props;
+    const {ispoppwd,ispopproductinfo,loginsuccess,viewtype,savequery_historychart} = this.props;
     const {fields} = viewtype;
+    const {from,to} = savequery_historychart;
 
     let selfield = this.state.selfield;
     lodashmap(fields,(v,k)=>{
@@ -99,7 +100,7 @@ class App extends React.Component {
                   <img src="images/lssj.png" alt=""/>
                   <span>
                     历史数据</span>
-                      <span className="tt"><QueryPage type="historychart"/></span>
+                      <span className="tt"><QueryPage type="historychart" from={from} to={to}/></span>
                   <div className="title_tab">
                     {
                       lodashmap(fields,(v,k)=>{
@@ -153,8 +154,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({app:{ispoppwd,ispopproductinfo,mapstyle},
+const mapStateToProps = ({app:{ispoppwd,ispopproductinfo,mapstyle,savequery_historychart},
 	userlogin:{loginsuccess},device:{viewtype}}) => {
-    return {ispoppwd,ispopproductinfo,loginsuccess,mapstyle,viewtype};
+    return {ispoppwd,ispopproductinfo,loginsuccess,mapstyle,viewtype,savequery_historychart};
 }
 export default connect(mapStateToProps)(App);
