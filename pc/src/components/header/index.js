@@ -86,10 +86,16 @@ class App extends React.Component {
       }
 
     });
+    const {viewtype} = this.props;
+    const {indexbannerurl} = viewtype;
+    let indexbannerimage = "images/logo.png";
+    if(!!indexbannerurl){
+      indexbannerimage = indexbannerurl;
+    }
     return (
       <div className="head_top w_1220">
         <div className="head_img">
-            <img src="images/logo.png" className="logo" alt=""/>
+            <img src={indexbannerimage} className="logo" alt=""/>
             <ul className="headnav">
                 {lnkscompents}
             </ul>
@@ -118,7 +124,7 @@ class App extends React.Component {
 }
 
 const APP2 =  withRouter(App);
-const mapStateToProps = ({app:{selectedindex}}) => {
-    return {selectedindex};
+const mapStateToProps = ({app:{selectedindex},device:{viewtype}}) => {
+    return {selectedindex,viewtype};
 }
 export default connect(mapStateToProps)(APP2);

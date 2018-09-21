@@ -97,6 +97,9 @@ const ViewTypeEdit = (props) => {
            <FieldSelectArrayInput  label="简要字段列表【不超过4个】" source="fieldslist_brief" />
            <FieldSelectArrayInput label="详细字段列表" source="fieldslist_detail" />
          </FormTab>
+         <FormTab label="首页banner">
+           <ImageInputUpload label="左上角banner图"  source="indexbannerurl" />
+        </FormTab>
         </TabbedForm>
       </Edit>);
 

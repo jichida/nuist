@@ -67,7 +67,8 @@ const ViewTypeSchema = new Schema({
   ],
   fieldslist_brief:[],
   fieldslist_detail:[],
-  fieldslist_history:[]
+  fieldslist_history:[],
+  indexbannerurl:String
 }, { strict: false });
 ViewTypeSchema.plugin(mongoosePaginate);
 const ViewTypeModel =mongoose.model('viewtype',  ViewTypeSchema);
