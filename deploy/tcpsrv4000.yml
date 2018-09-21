@@ -1,6 +1,6 @@
 version: '2'
 services:
-    tcpsrv:
+    tcpsrv4000:
       image: node:6.13.0
       restart: always
       command: node ./index.js
