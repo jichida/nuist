@@ -1,0 +1,22 @@
+version: '2'
+services:
+    tcpsrv:
+      image: node:6.13.0
+      restart: always
+      command: node ./index.js
+      working_dir: /app
+      volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - ./srvtcp:/app
+        - ./dist:/dist
+        - ./dist/log:/log
+      network_mode: "host"
+      environment:
+        - DEBUG=srvtcp:*
+        - MONGO_URL=mongodb://dabauser:daba159@127.0.0.1/daba
+        - listenport=4000
+        - logdir=/log
+      ports:
+         - "4000:4000"
+      expose:
+         - "4000"
