@@ -80,10 +80,10 @@ const ChartsRealtime = (props)=>{
         else if((fieldname === 'temperature' || fieldname === 'rainfall') && isshow_temperaturerainfallmix){
           //empty
         }
-        else if((fieldname === 'humidity') && showvalue_humidity){
+        else if((fieldname === 'humidity') && isshow_humidity){
           //empty
         }
-        else if((fieldname === 'pressure') && showvalue_pressure){
+        else if((fieldname === 'pressure') && isshow_pressure){
           //empty
         }
         else{
@@ -118,10 +118,10 @@ const ChartsRealtime = (props)=>{
         else if((fieldname === 'temperature' || fieldname === 'rainfall') && isshow_temperaturerainfallmix){
           //empty
         }
-        else if((fieldname === 'humidity') && showvalue_humidity){
+        else if((fieldname === 'humidity') && isshow_humidity){
           //empty
         }
-        else if((fieldname === 'pressure') && showvalue_pressure){
+        else if((fieldname === 'pressure') && isshow_pressure){
           //empty
         }
         else{
