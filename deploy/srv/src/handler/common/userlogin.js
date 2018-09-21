@@ -45,9 +45,10 @@ let getdatafromuser =(user)=>{
     username: user.username,
     userid:user._id,
     usersettings:{
+      indexgatewayid:_.get(user,'usersettings.indexgatewayid',''),
       indexdeviceid:_.get(user,'usersettings.indexdeviceid',''),
-      warninglevel:_.get(user,'usersettings.warninglevel',''),
-      subscriberdeviceids:_.get(user,'usersettings.subscriberdeviceids',[]),
+      // warninglevel:_.get(user,'usersettings.warninglevel',''),
+      // subscriberdeviceids:_.get(user,'usersettings.subscriberdeviceids',[]),
     }
   };
 };

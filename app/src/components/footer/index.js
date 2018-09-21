@@ -43,10 +43,10 @@ class App extends React.Component {
                         <img alt="" src={this.props.sel==="video"?F4:F4_1} />
                         <a className={this.props.sel==="video"?"sel":""}>视频</a>
                     </li>
-                    <li onClick={this.pushurl.bind(this, {name: "pro",index:4})}>
+                    {/* <li onClick={this.pushurl.bind(this, {name: "pro",index:4})}>
                         <img alt="" src={this.props.sel==="pro"?F5:F5_1} />
                         <a className={this.props.sel==="pro"?"sel":""}>产品</a>
-                    </li>
+                    </li> */}
             	</ul>
           	</div>
         );
