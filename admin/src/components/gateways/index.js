@@ -49,6 +49,9 @@ const GatewayCreate = (props) => (
       <TextInput label="网关ID" source="GatewayId" validate={required} />
       <TextInput label="网关名字" source="name" validate={required} />
       <TextInput label="所在区域" source="locationname"  />
+      <ReferenceInput label="报警规则" source="alarmruleid" reference="alarmrule" allowEmpty>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
       </SimpleForm>
   </Create>
 );
@@ -63,17 +66,17 @@ const GatewayEdit = (props) => {
   }
   return (<Edit title="网关信息" {...props}  actions={<EditActions />}>
       <TabbedForm>
-        <FormTab label="节点基本信息">
+        <FormTab label="网关基本信息">
           <TextField label="网关ID" source="GatewayId"  />
           <TextInput label="网关名字" source="name"  validate={required} />
           <TextInput label="所在区域" source="locationname"  />
           <MapDragSel label="经纬度" source={["Longitude","Latitude"]} />
           <TextField label="创建时间" source="created_at"  />
           <TextField label="更新时间" source="updated_at"  />
+          <ReferenceInput label="报警规则" source="alarmruleid" reference="alarmrule" allowEmpty>
+            <SelectInput optionText="name" />
+          </ReferenceInput>
         </FormTab>
-        {/* <FormTab label="传输路径">
-          <CfSelectArrayInput label="选择节点列表" source="devicepath" loadOptions={getOptions('device','name','_id',query)}/>
-        </FormTab> */}
       </TabbedForm>
     </Edit>
     );
@@ -104,6 +107,9 @@ const GatewayList = (props) => (
       <TextField label="网关名字" source="name"/>
       <TextField label="所在区域" source="locationname"/>
       <TextField label="最后更新时间" source="updated_at"/>
+      <ReferenceField label="报警规则" source="alarmruleid" reference="alarmrule" allowEmpty>
+        <TextField source="name" />
+      </ReferenceField>
       <EditButton />
     </Datagrid>
   }

@@ -27,8 +27,9 @@ import {ViewTypeCreate,ViewTypeList,ViewTypeEdit} from './components/viewtype/in
 import {RealtimeAlarmRawList,RealtimeAlarmRawShow} from './components/realtimealarmraws/index.js';
 import {UserCreate,UserList,UserEdit} from './components/users/index.js';
 import {PermissionCreate,PermissionList,PermissionEdit} from './components/permissions/index.js';
-import {RoleCreate,RoleList,RoleEdit} from './components/roles/index.js';
+import {AlarmruleCreate,AlarmruleList,AlarmruleEdit} from './components/alarmrule/index.js';
 import {HistoryDeviceList,HistoryDeviceShow} from './components/historydevice/index.js';
+
 // import {ProductlistCreate,ProductlistList,ProductlistEdit} from './components/product/index.js';
 
 
@@ -67,7 +68,7 @@ class App extends Component {
                     <Resource name="gateway" list={GatewayList} edit={GatewayEdit} create={GatewayCreate}  remove={Delete} />,
                     <Resource name="viewtype" list={ViewTypeList} edit={ViewTypeEdit} create={ViewTypeCreate}  remove={Delete} />,
                     <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} remove={Delete} />,
-                    <Resource name="role" list={RoleList} edit={RoleEdit} create={RoleCreate}  remove={Delete} />,
+                    <Resource name="alarmrule" list={AlarmruleList} edit={AlarmruleEdit} create={AlarmruleCreate} />,
                     <Resource name="permission" list={PermissionList} edit={PermissionEdit} create={PermissionCreate}  remove={Delete} />,
                     <Resource name="realtimealarmraw" list={RealtimeAlarmRawList} show={RealtimeAlarmRawShow} />,
                     <Resource name="historydevice" list={HistoryDeviceList} show={HistoryDeviceShow} />,

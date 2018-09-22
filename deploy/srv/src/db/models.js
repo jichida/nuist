@@ -9,6 +9,7 @@ const SystemConfigSchema = new Schema({
   gatewaygroups4app:[{ type: Schema.Types.ObjectId, ref: 'gatewaygroup', default: [] }],
   gatewaygroups4pc:[{ type: Schema.Types.ObjectId, ref: 'gatewaygroup', default: [] }],
   viewtype:{ type: Schema.Types.ObjectId, ref: 'viewtype' },
+  alarmruleid:{ type: Schema.Types.ObjectId, ref: 'alarmrule' },
 }, { strict: false });
 SystemConfigSchema.plugin(mongoosePaginate);
 const SystemConfigModel =mongoose.model('systemconfig',  SystemConfigSchema);
@@ -46,7 +47,7 @@ const DeviceModel =mongoose.model('device',  DeviceSchema);
 
 //网关
 const GatewaySchema = new Schema({
-  devicepath:[{ type: Schema.Types.ObjectId, ref: 'device', default: [] }],//传输路径
+  alarmruleid:{ type: Schema.Types.ObjectId, ref: 'alarmrule' },
 }, { strict: false });
 GatewaySchema.plugin(mongoosePaginate);
 const GatewayModel =mongoose.model('gateway',  GatewaySchema);
@@ -144,6 +145,38 @@ const HistoryDeviceSchema = new Schema({
 HistoryDeviceSchema.plugin(mongoosePaginate);
 const HistoryDeviceModel =mongoose.model('historydevice',  HistoryDeviceSchema);
 
+//报警规则
+//权限
+const AlarmRuleSchema = new Schema({
+  name:String,
+  warningrulelevel0:[
+    {
+       content : String,
+       value : String,
+       op : String,
+       name : String
+    }
+  ],
+  warningrulelevel1:[
+    {
+       content : String,
+       value : String,
+       op : String,
+       name : String
+    }
+ ],
+  warningrulelevel2:[
+    {
+       content : String,
+       value : String,
+       op : String,
+       name : String
+    }
+ ]
+}, { strict: false });
+AlarmRuleSchema.plugin(mongoosePaginate);
+const AlarmRuleModel =mongoose.model('alarmrule',  AlarmRuleSchema);
+
 
 exports.SystemConfigSchema = SystemConfigSchema;
 exports.ProductSchema = ProductSchema;
@@ -157,6 +190,7 @@ exports.PermissionSchema = PermissionSchema;
 exports.RoleSchema = RoleSchema;
 exports.RealtimeAlarmRawSchema = RealtimeAlarmRawSchema;
 exports.HistoryDeviceSchema = HistoryDeviceSchema;
+exports.AlarmRuleSchema = AlarmRuleSchema;
 
 exports.SystemConfigModel = SystemConfigModel;
 exports.ProductModel = ProductModel;
@@ -170,3 +204,4 @@ exports.PermissionModel = PermissionModel;
 exports.RoleModel = RoleModel;
 exports.RealtimeAlarmRawModel = RealtimeAlarmRawModel;
 exports.HistoryDeviceModel = HistoryDeviceModel;
+exports.AlarmRuleModel = AlarmRuleModel;

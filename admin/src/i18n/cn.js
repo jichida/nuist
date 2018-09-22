@@ -31,6 +31,9 @@ export default {
     gateway:{
       name: '网关管理 |||| 网关管理',
     },
+    alarmrule:{
+      name:'报警规则配置 |||| 报警规则配置',
+    },
     gatewaygroup:{
       name: '网关分组管理 |||| 网关分组管理',
       fields:{

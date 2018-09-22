@@ -55,6 +55,11 @@ const dbs ={
     schema:db.HistoryDeviceSchema,
     collectionname:'historydevice',
   },
+  'alarmrule':{
+    urlname:'/alarmrule',
+    schema:db.AlarmRuleSchema,
+    collectionname:'alarmrule',
+  },
 };
 
 module.exports= dbs;

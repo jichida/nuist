@@ -24,7 +24,7 @@ export default [
         { name: 'viewtype', icon: <DeviceIcon />,adminonly:false },
         { name: 'gatewaygroup', icon: <GatewayGroupIcon /> ,adminonly:false},
         { name: 'user', icon: <UserIcon /> ,adminonly:false},
-        // { name: 'role', icon: <RoleIcon /> ,adminonly:false},
+        { name: 'alarmrule', icon: <RoleIcon /> ,adminonly:false},
         // { name: 'permission', icon: <PermissionIcon /> ,adminonly:true},
         { name: 'realtimealarmraw', icon: <RealtimeAlarmRawIcon /> ,adminonly:false},
         { name: 'historydevice', icon: <HistoryDeviceIcon /> ,adminonly:false},

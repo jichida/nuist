@@ -3,7 +3,7 @@ const _ = require('lodash');
 const moment = require('moment');
 const DBModels = require('../db/models.js');
 const mongoose  = require('mongoose');
-const alarmrule = require('../alarmrule');
+const alr = require('../alarmrule');
 const geo = require('../util/geo');
 const debug = require('debug')('appsrv:redismsg')
 
@@ -46,42 +46,62 @@ const handlermsg_alarmdata = (alarmdata)=>{
   });
 };
 
-
+const getdefault_alarmruleid = (callbackfn)=>{
+  const systemconfigModel = DBModels.SystemConfigModel;
+  systemconfigModel.findOne({}).lean().exec((err, systemconfig)=> {
+    let alarmruleid;
+    if(!err && !!systemconfig){
+      alarmruleid = systemconfig.alarmruleid;
+    }
+    callbackfn(alarmruleid);
+  });
+}
 //=======
 const getgatewayid  = (GatewayId,callbackfn)=>{
   debug(`GatewayId===>${GatewayId}`)
-  const gwModel = DBModels.GatewayModel;
-  gwModel.findOneAndUpdate({GatewayId},{
-    $set:{
-      "updated_at" : moment().format('YYYY-MM-DD HH:mm:ss'),
-    },
-    $setOnInsert:{
-      GatewayId,
-      name:`网关${GatewayId}`,
-      "Longitude" : 118.716673851,
-      "Latitude" : 32.2023251564,
-      "locationname" : "南京浦口",
-      "city" : "南京",
-      "cityindex" : "N",
-      "created_at" : moment().format('YYYY-MM-DD HH:mm:ss'),
-    }
-  },{new:true,upsert:true}).
-    lean().exec((err,result)=>{
-      let gwid,Longitude,Latitude;
-      if(!err && !!result){
-        gwid = result._id;
-        Longitude = result.Longitude;
-        Latitude = result.Latitude;
+  getdefault_alarmruleid((alarmruleid)=>{
+    debug(`GatewayId===>${alarmruleid}`)
+
+    const gwModel = DBModels.GatewayModel;
+    gwModel.findOneAndUpdate({GatewayId},{
+      $set:{
+        "updated_at" : moment().format('YYYY-MM-DD HH:mm:ss'),
+      },
+      $setOnInsert:{
+        GatewayId,
+        alarmruleid,
+        name:`网关${GatewayId}`,
+        "Longitude" : 118.716673851,
+        "Latitude" : 32.2023251564,
+        "locationname" : "南京浦口",
+        "city" : "南京",
+        "cityindex" : "N",
+        "created_at" : moment().format('YYYY-MM-DD HH:mm:ss'),
       }
-      callbackfn({gwid,Longitude,Latitude});
-    });
+    },{new:true,upsert:true}).populate([
+        {
+          path:'alarmruleid',
+          model: 'alarmrule',
+      }]).
+      lean().exec((err,result)=>{
+        let gwid,Longitude,Latitude,alarmrule;
+        if(!err && !!result){
+          gwid = result._id;
+          Longitude = result.Longitude;
+          Latitude = result.Latitude;
+          alarmrule = result.alarmruleid;
+        }
+        callbackfn({gwid,Longitude,Latitude,alarmrule});
+      });
+  });
+
 };
 
 const handlermsg_realtimedata_redis = (devicedata)=>{
   // debug(devicedata);
   if(!!devicedata.gwid){
     if(devicedata.gwid.length === 4){
-      getgatewayid(devicedata.gwid,({gwid,Longitude,Latitude})=>{
+      getgatewayid(devicedata.gwid,({gwid,Longitude,Latitude,alarmrule})=>{
         if(!!gwid){
           const DeviceGeoSz = geo.getRandomLocation(Latitude,Longitude,5000);
           const deviceModel = DBModels.DeviceModel;
@@ -127,9 +147,12 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
               if(!err && !!newdevice && devicedata.amtype ==='0B'){
                 handlermsg_historydevice(newdevice);
                 // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
-                alarmrule.matchalarm(newdevice.realtimedata,(resultalarmmatch)=>{
+                debug(alarmrule);
+                debug(newdevice.realtimedata);
+                alr.matchalarm(alarmrule,newdevice.realtimedata,(resultalarmmatch)=>{
                   _.map(resultalarmmatch,(al)=>{
-                    // console.log(al);
+                    debug(`getal==>`);
+                    debug(al);
                     al.gatewayid = gwid;
                     al.DeviceId = devicedata.deviceid;
                     al.did = newdevice._id;

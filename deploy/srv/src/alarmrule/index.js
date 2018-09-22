@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const DBModels = require('../db/models.js');
-
+const debug = require('debug')('appsrv:redismsg')
 // const systemconfig =  {
 //     "warningrulelevel0" : [
 //           {
@@ -160,31 +160,27 @@ const getresultalarmmatch = (alarmdata,alarmrules)=>{
 }
 
 
-const matchalarm = (realtimedata,callbackfn)=>{
-  const systemconfigModel = DBModels.SystemConfigModel;
-  systemconfigModel.findOne({}).lean().exec((err, systemconfig)=> {
-    if(!err && !!systemconfig){
-      const alarmrules = getalarmrules(systemconfig);
-      let resultalarmmatch = getresultalarmmatch(realtimedata,alarmrules);
+const matchalarm = (alarmrule,realtimedata,callbackfn)=>{
+    const alarmrules = getalarmrules(alarmrule);
+    let resultalarmmatch = getresultalarmmatch(realtimedata,alarmrules);
+    debug(resultalarmmatch);
+    resultalarmmatch = _.sortBy(resultalarmmatch,(v)=>{
+      if(v.warninglevel === '高'){
+        return 0;
+      }
+      if(v.warninglevel === '中'){
+        return 1;
+      }
+      if(v.warninglevel === '低'){
+        return 2;
+      }
+      return 3;
+    });
+    resultalarmmatch = _.sortedUniqBy(resultalarmmatch,(v)=>{
+      return v.type;
+    });
+    callbackfn(resultalarmmatch);
 
-      resultalarmmatch = _.sortBy(resultalarmmatch,(v)=>{
-        if(v.warninglevel === '高'){
-          return 0;
-        }
-        if(v.warninglevel === '中'){
-          return 1;
-        }
-        if(v.warninglevel === '低'){
-          return 2;
-        }
-        return 3;
-      });
-      resultalarmmatch = _.sortedUniqBy(resultalarmmatch,(v)=>{
-        return v.type;
-      });
-      callbackfn(resultalarmmatch);
-    }
-  });
 }
 
 exports.matchalarm = matchalarm;
