@@ -27,14 +27,9 @@ class App extends React.Component {
                 {
                   !!curgw && (
                     <div className="videodata">
-                    <ul>
-                      <li className="tt">
-                        <div className="img"><img alt="" src={Demo} /></div>
-                        <div className="li"><span className="name">{lodashget(curgw,'name','')}</span>
-												<span className="runing">正在播放</span></div>
-                      </li>
-                    </ul>
-                  </div>)
+    <iframe src="http://www.newxh.com18.cn/spindex.html" width="100%" height="220px" frameborder="0"></iframe>
+
+    </div>)
                }
                 <Footer history={this.props.history} sel={"video"} />
 								{ispopcaresel_single_index_gateway  && <PopcareSel value={curgatewayid} isgateway={true} onChange={this.onChangeCareselGateway}/>}
@@ -48,3 +43,7 @@ const mapStateToProps = ({device:{gateways,viewtype},userlogin:{usersettings},ap
     return {gateways,curgatewayid,ispopcaresel_single_index_gateway,viewtype};
 }
 export default connect(mapStateToProps)(App);
+
+
+//<div className="li"><span className="name">{lodashget(curgw,'name','')}</span>
+//    <span className="runing">正在播放</span></div>
