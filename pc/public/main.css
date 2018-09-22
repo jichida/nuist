@@ -699,22 +699,22 @@ body {
 
 .right_con .data_box .react_for_echarts {
     position: absolute;
-    left: 50%;
+    left: 46%;
     top: 60%;
     transform: translate(-50%, -50%);
 }
 
 .right_con .data_box .react_for_echarts_nth2 {
     position: absolute;
-    left: 50%;
+    left: 46%;
     top: 60%;
     transform: translate(-50%, -50%);
 }
 
 .right_con .data_box .react_for_echarts_last {
     position: absolute;
-    left: -15%;
-    top: -45%;
+    left: -20%;
+    top: -48%;
     zoom: 1.05;
 }
 
@@ -870,13 +870,10 @@ ul li .num {
 }
 
 .center_box .windcontrol {
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    position: relative;
-    height: 360px;
+    position: relative; */
     zoom: .6;
-    width: 50%;
-    margin: 0;
 }
 
 .center_box .windcontrol1 {
@@ -891,22 +888,24 @@ ul li .num {
 
 .center_box .windcontrol img {
     position: absolute;
-    width: 220px
+    left: 40px;
+    top: 20px;
+    width: 340px;
 }
 
-.windcontrol {
+.right_con .windcontrol1 {
     display: flex;
     justify-content: center;
     position: relative;
-    height: 360px;
-    zoom: .6;
-    /*width: 50%;*/
+    height: 250px;
+    zoom: 1;
     margin: auto;
 }
 
 .right_con .windcontrol img {
     position: absolute;
-    width: 320px
+    width: 220px;
+    left: 40px;
 }
 
 .proinfo {
@@ -1186,13 +1185,4 @@ small {
     background-color: #fff;
     box-shadow: 0 10px 30px 0 #ababab;
     padding: 20px;
-}
-
-@media screen and (min-width: 1440px) and (max-width: 1680px) {
-    .center_box .windcontrol img {
-        width: 220px !important
-    }
-    .right_box .windcontrol img {
-        width: 220px !important;
-    }
 }
