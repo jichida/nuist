@@ -77,15 +77,17 @@ class MapDragSelC extends React.Component {
 				// const latitude0 = get(this.props,'Latitude.input.value',30);
 
         return (
-                  <div style={{width: '100%', height: 400}}>
-										<div>
-											<span>经度:{longitude}</span>
-											<span>纬度:{latitude}</span>
-											<span>地址:{address}</span>
+                  <div style={{width: '100%'}}>
+										<div style={{padding:'10px 0px'}}>
+											<span style={{marginRight: '20px'}}>经度:{longitude}</span>
+											<span style={{marginRight: '20px'}}>纬度:{latitude}</span>
+											<span style={{marginRight: '20px'}}>地址:{address}</span>
 										</div>
+<div style={{width: '100%', height: '400px'}}>
                     <Map useAMapUI center={[longitude, latitude]} zoom={16} >
                       <UIMarker onChangeValue={(v)=>this.onChangeValue(v)}/>
-                    </Map>
+
+                    </Map></div>
                   </div>
 
         );

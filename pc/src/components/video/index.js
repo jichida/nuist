@@ -42,13 +42,10 @@ class App extends React.Component {
         <div className="spjk_box">
             <div className="spjk_left">
             <h2>正在监控  青龙峡大坝</h2>
-            <div className=" box_box" style={{position: 'relative'}}> <img alt="" src={Spxqimg} style={{width:'100%',height:'400px'}} />
-<div className="jk_bg">
-<div className="jz_box">
-<img src="images/jz.gif" alt=""/>
-    <p>“加载视频”</p><p>“正在搜索摄像头”</p>
-</div>
-</div>
+            <div className=" box_box" style={{position: 'relative'}}>
+
+
+ <iframe src="http://www.newxh.com18.cn/spindex.html" width="100%" height="400" frameborder="0"></iframe>
 </div>
             </div>
             <div className="spjk_right">
