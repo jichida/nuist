@@ -17,14 +17,14 @@ import HistoryDeviceIcon from 'material-ui/svg-icons/action/history';//历史节
 
 export default [
         { name: 'systemconfig', icon: <SystemconfigIcon /> ,adminonly:false},
-        { name: 'product', icon: <ProductIcon /> ,adminonly:false},
+        // { name: 'product', icon: <ProductIcon /> ,adminonly:false},
         // { name: 'onlineresearch', icon: <OnlineResearchIcon /> ,adminonly:false},
         { name: 'device', icon: <DeviceIcon />,adminonly:false },
-        { name: 'gateway', icon: <DeviceIcon />,adminonly:false },
-        { name: 'viewtype', icon: <DeviceIcon />,adminonly:false },
+        { name: 'gateway', icon: <OnlineResearchIcon />,adminonly:false },
+        { name: 'viewtype', icon: <PermissionIcon />,adminonly:false },
         { name: 'gatewaygroup', icon: <GatewayGroupIcon /> ,adminonly:false},
         { name: 'user', icon: <UserIcon /> ,adminonly:false},
-        { name: 'alarmrule', icon: <RoleIcon /> ,adminonly:false},
+        { name: 'alarmrule', icon: <ProductIcon /> ,adminonly:false},
         // { name: 'permission', icon: <PermissionIcon /> ,adminonly:true},
         { name: 'realtimealarmraw', icon: <RealtimeAlarmRawIcon /> ,adminonly:false},
         { name: 'historydevice', icon: <HistoryDeviceIcon /> ,adminonly:false},
