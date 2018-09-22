@@ -94,7 +94,8 @@ const mapStateToProps = (state,props) => {
           data: getformatticktimestring(ticktimestring)
       },
       yAxis: {
-          type: 'value'
+          type: 'value',
+          scale:true
       },
       series: [{
           data: retlist[curfield],
