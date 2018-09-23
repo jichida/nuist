@@ -1,13 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Wind1 from "../../img/wind1.png";
 import Wind2 from "../../img/wind2.png";
 import Wind3 from "../../img/wind3.png";
-// import {getCoureName} from '../../util';
+import {getspeedgrade} from '../../util';
 import lodashget from 'lodash.get';
 
 
 const Windcontrol = (props)=>{
-  const {curdevice} = props;
+  const {curdevice,windgradesettings} = props;
   const getstyleimage1 = (degree)=>{
     return {
         'transform':        `rotate(${degree}deg)`,
@@ -20,7 +21,8 @@ const Windcontrol = (props)=>{
   const degree_winddirection = 0;//方向 win3
   const degree_point = lodashget(curdevice,'realtimedata.winddirection',0);//指针 win2
   const windspeed = lodashget(curdevice,'realtimedata.windspeed',0);
-  const degree_windspeed = 300-windspeed/12*300+degree_point;//风力 win1
+  const windgrade = getspeedgrade(windspeed,windgradesettings);
+  const degree_windspeed = 360-windgrade/12*360+degree_point;//风力 win1
   return (
       <div className="windcontrolc">
         <div className="windcontrol">
@@ -32,4 +34,7 @@ const Windcontrol = (props)=>{
     );
 }
 
-export default Windcontrol;
+const mapStateToProps = ({app:{windgradesettings}}) => {
+  return {windgradesettings}
+}
+export default connect(mapStateToProps)(Windcontrol);
