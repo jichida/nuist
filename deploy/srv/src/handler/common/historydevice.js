@@ -148,8 +148,7 @@ exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
             listret.ticktimestring.push(getticktimestring(periodname,v._id.ticktime));
 
             _.map(fieldslist,(fieldname)=>{
-              // listret[`${fieldname}`] = [];
-              listret[`${fieldname}`].push(_.toNumber(v[`${fieldname}`].toFixed(0)));
+              listret[`${fieldname}`].push(v[`${fieldname}`]);
             });
 
             // listret.temperature.push(_.toNumber(v.temperature.toFixed(1)));

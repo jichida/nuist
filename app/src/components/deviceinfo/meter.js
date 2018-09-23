@@ -1,19 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Progress  from 'antd/lib/progress';
 import 'antd/dist/antd.css';
 import Wind1 from "../../img/wind1.png";
 import Wind2 from "../../img/wind2.png";
 import Wind3 from "../../img/wind3.png";
-import {getCoureName} from '../../util';
+import {getCoureName,getspeedgrade} from '../../util';
 import lodashget from 'lodash.get';
 import lodashincludes from 'lodash.includes';
 import lodashmap from 'lodash.map';
 import Imgjtra from "../../img/lssj.png";
 import Imgjtrb from "../../img/lis.png";
 
-const Windcontrol = (props)=>{
-  const {curdevice} = props;
+const WindcontrolC = (props)=>{
+  const {curdevice,windgradesettings} = props;
   const getstyleimage1 = (degree)=>{
     return {
         'transform':        `rotate(${degree}deg)`,
@@ -26,7 +27,8 @@ const Windcontrol = (props)=>{
   const degree_winddirection = 0;//方向 win3
   const degree_point = lodashget(curdevice,'realtimedata.winddirection',0);//指针 win2
   const windspeed = lodashget(curdevice,'realtimedata.windspeed',0);
-  const degree_windspeed = 360-windspeed/12*360+degree_point;//风力 win1
+  const windgrade = getspeedgrade(windspeed,windgradesettings);
+  const degree_windspeed = 360-windgrade/12*360+degree_point;//风力 win1
   return (
     <div className="windcontrol">
         <div className="windcontrolcol">
@@ -46,6 +48,10 @@ const Windcontrol = (props)=>{
 			</div>
 		</div>);
 }
+const mapStateToProps = ({app:{windgradesettings}}) => {
+  return {windgradesettings}
+}
+const Windcontrol = connect(mapStateToProps)(WindcontrolC);
 
 const ProgressCtrl = (props)=>{
   const {curdevice,fieldname,fieldsprops,index} = props;

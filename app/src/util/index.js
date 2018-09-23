@@ -145,3 +145,16 @@ export const setshuffledevices = (devicepath)=>{
 export const getdevicestatus = (deviceid)=>{
   return mapdevicestatus[deviceid];
 }
+
+export const getspeedgrade = (winspeed,windgradesettings)=>{
+  let grade = 0;
+  for(let i = 0;i < windgradesettings.length ;i++){
+    const setflag = windgradesettings[i];
+    if(setflag.min < winspeed && setflag.max > winspeed){
+      grade = setflag.grade;
+      break;
+    }
+  }
+  console.log(`风速:${winspeed},风级:${grade}`);
+  return grade;
+}

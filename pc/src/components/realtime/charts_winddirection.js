@@ -6,7 +6,6 @@ import Wind3 from "../../img/wind3.png";
 import {getspeedgrade} from '../../util';
 import lodashget from 'lodash.get';
 
-
 const Windcontrol = (props)=>{
   const {curdevice,windgradesettings} = props;
   const getstyleimage1 = (degree)=>{

@@ -10,15 +10,16 @@ const debug = require('debug')('appsrv:redismsg')
 // appsrv:redismsg handlermsg_realtimealarm===>{"value":11,"type":"windspeed","level":"高","content":"10级以上大风","DeviceId":"LH001"} +1ms
 //   appsrv:redismsg handlermsg_realtimealarm===>{"value":50,"type":"temperature","level":"高","content":"温度过高","DeviceId":"LH001"} +4ms
 //   appsrv:redismsg handlermsg_realtimedata===>{"DeviceId":"NODE1","realtimedata":{"pressure":63,"winddirection":341,"windspeed":11,"humidity":39,"rainfall":274,"temperature":50}} +5s
-const handlermsg_historydevice = (devicedata)=>{
+const handlermsg_historydevice = (devicedata,hexraw0B)=>{
   const devicedatanew = _.omit(devicedata,['_id']);
   devicedatanew.did = devicedata._id;
   devicedatanew.UpdateTime = moment().format('YYYY-MM-DD HH:mm:ss');
-
+  devicedatanew.hexraw0B = hexraw0B;
   const dbModel = DBModels.HistoryDeviceModel;
   const entity = new dbModel(devicedatanew);
   entity.save((err,result)=>{
-
+    debug(`saved result`);
+    debug(result);
   });
 };
 
@@ -98,7 +99,7 @@ const getgatewayid  = (GatewayId,callbackfn)=>{
 };
 
 const handlermsg_realtimedata_redis = (devicedata)=>{
-  // debug(devicedata);
+  debug(devicedata);
   if(!!devicedata.gwid){
     if(devicedata.gwid.length === 4){
       getgatewayid(devicedata.gwid,({gwid,Longitude,Latitude,alarmrule})=>{
@@ -145,7 +146,7 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
             lean().exec((err,newdevice)=>{
               //<----------
               if(!err && !!newdevice && devicedata.amtype ==='0B'){
-                handlermsg_historydevice(newdevice);
+                handlermsg_historydevice(newdevice,devicedata.hexraw0B);
                 // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
                 debug(alarmrule);
                 debug(newdevice.realtimedata);
