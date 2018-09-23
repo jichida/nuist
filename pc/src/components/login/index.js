@@ -28,8 +28,6 @@ class App extends React.Component {
 
             <div className="login_b"><a>重置</a></div>
         <div className="login_c">您未登录或者登录超时！请重新登录</div>
-
-
         </div>
             </div>
             </div>

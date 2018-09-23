@@ -64,10 +64,6 @@ class App extends React.Component {
       //   url:'/forecast',
       //   name:'预警参数管理'
       // },
-      // {
-      //   url:'/adminlogin',
-      //   name:'后台管理'
-      // },
     ];
     const selectedindex = this.props.selectedindex;
     let lnkscompents = [];
@@ -84,7 +80,6 @@ class App extends React.Component {
           <li key={index}  onClick={()=>{ this.onClickIndex(index,link.url); }}><a>{link.name}</a></li>
         )
       }
-
     });
     const {viewtype} = this.props;
     const {indexbannerurl} = viewtype;
@@ -98,6 +93,7 @@ class App extends React.Component {
             <img src={indexbannerimage} className="logo" alt=""/>
             <ul className="headnav">
                 {lnkscompents}
+                <li key={`${lnkscompents.length}`}><a href="http://admin.nuistiot.com:50000/#/login" target="blank">管理员登录</a></li>
             </ul>
         </div>
       </div>
