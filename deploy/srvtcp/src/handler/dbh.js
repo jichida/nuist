@@ -37,7 +37,8 @@ const getnearestrainfall = (gwid,deviceid,realtimedata)=>{
                 const rainfallprev1hour = _.get(result[0],'doc.rainfallraw');
                 const timestampprev1hour = _.get(result[0],'doc.timestamp');
                 const spantimesec = (timestamp - timestampprev1hour)/60;//分钟
-                const rainfall = (rainfallraw-rainfallprev1hour)*0.5* spantimesec/60;
+                const v = (rainfallraw-rainfallprev1hour)*0.5* spantimesec/60;
+                const rainfallv = v.toFixed(1);
                 resolve({
                   updatetime,
                   timestamp,
@@ -47,7 +48,7 @@ const getnearestrainfall = (gwid,deviceid,realtimedata)=>{
                   deviceid,
                   rainfallraw,
                   rainfallprev1hour,
-                  rainfall
+                  rainfall:parseFloat(rainfallv)
                 });
                 return;
               }
@@ -125,7 +126,7 @@ module.exports= getdata;
 //     {$limit: 1}
 // ]);
 
-// db.rainfalldatahistories.createIndex({gwdevicekey:1}) 
+// db.rainfalldatahistories.createIndex({gwdevicekey:1})
 // db.rainfalldatahistories.createIndex({timestamp:1}, {expireAfterSeconds:36000}) ／／10 hours
 
 // db.getCollection('historydevices').aggregate([
