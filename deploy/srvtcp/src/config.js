@@ -1,13 +1,15 @@
 const config =  {
-  appversion:'1.0.0(build0911)',
+  appversion:'1.0.0(build0923)',
   logdir:process.env.logdir ||'../../dist/log',
+  mongodburl:process.env.MONGO_URL || 'mongodb://dabauser:daba159@api.nuistiot.com/daba',
+  mongos:process.env.mongos==='true'?true:false,
   issendtoredis:process.env.issendtoredis==='false'?false:true,
   srvredis:{
     host:process.env.srvredis_host||'api.nuistiot.com',
     port: process.env.srvredis_port|| 6379,
   },
   listenport:process.env.listenport ||50000,
-  deviceid_data_max:process.env.deviceid_data_max || '200',
+  deviceid_data_max:process.env.deviceid_data_max || '101',
   deviceid_data_min:process.env.deviceid_data_min || '100',
 
   pressure_data_offset:process.env.pressure_data_offset || '41',

@@ -68,6 +68,7 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
         cmd,
         deviceid,
         amtype,
+        hexraw:ZigbeeData,
         resultdata:jsonData,
         replybuf:buf_cmd2
       });
@@ -78,10 +79,13 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
       const TOS_Msg_Header_MSGLength = ddh.rainfall.parsevalue(TOS_Msg_Header_MSGLengthhex);
       console.log(`TOS_Msg_Header_MSGLength:${TOS_Msg_Header_MSGLength}`);
       if(ZigbeeData.length > 20){
-        const deviceid = ZigbeeData.substr(16,2);
+        const deviceidhex = ZigbeeData.substr(16,2);
+        const deviceid = deviceidhex.toUpperCase();
         console.log(`deviceid:${deviceid}`);
 
-        const nextdeviceid = ZigbeeData.substr(ZigbeeData.length-8,2);
+
+        const nextdeviceidhex = ZigbeeData.substr(ZigbeeData.length-8,2);
+        const nextdeviceid = nextdeviceidhex.toUpperCase();
         console.log(`nextdeviceid:${nextdeviceid}`);
 
 
@@ -90,6 +94,7 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
           amtype,
           nextdeviceid,
           deviceid,
+          hexraw:ZigbeeData,
           replybuf:buf_cmd2
         });
         return;

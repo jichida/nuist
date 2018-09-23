@@ -131,6 +131,7 @@ starttcpsrv = (settings)=> {
                                    "gwid" :`${gwid}`,
                                    "deviceid":`${result.deviceid}`,
                                    "amtype":`${result.amtype}`,
+                                   hexraw0B:`${result.hexraw}`,
                                    realtimedata:result.resultdata
                                  }
                                  publishdata.realtimedata.datatime = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -139,11 +140,12 @@ starttcpsrv = (settings)=> {
                              }
                              else if(cmd === 2 && result.amtype === '03'){
                                winston.getlog().warn(`发现一条03的数据:${bodybuf.toString('hex')}`);
-  
+
                                const publishdata = {
                                  "gwid" :`${gwid}`,
                                  "deviceid":`${result.deviceid}`,
                                  "amtype":`${result.amtype}`,
+                                 hexraw03:`${result.hexraw}`,
                                  'nextdeviceid':result.nextdeviceid
                                }
                                winston.getlog().warn(`解析结果为:${JSON.stringify(publishdata)}`);

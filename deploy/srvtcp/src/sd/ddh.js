@@ -91,7 +91,7 @@ const simulatordata = {
     max:parseInt(config.winddirection_data_max),
     min:parseInt(config.winddirection_data_min),
     gethex:(value)=>{
-      let valueangel = value*40960/3600;
+      let valueangel = value*4096/3600;
       const buf0 = Buffer.allocUnsafe(2);
       buf0.writeInt16LE(value, 0);
       const hex0 = buf0.toString('hex');
@@ -105,8 +105,9 @@ const simulatordata = {
       // 单位： 0.1°
       // e.g.
       // AD = 0x63D * 3600 / 4096 = 140.3°
-      const angel = value*3600/40960;
-      return parseInt(angel);
+      const angel = value*3600/4096;
+      const v = parseFloat(angel).toFixed(1);
+      return parseFloat(v);
     }
   },
   "windspeed":{//风速
@@ -115,7 +116,7 @@ const simulatordata = {
     max:parseInt(config.windspeed_data_max),
     min:parseInt(config.windspeed_data_min),
     gethex:(value)=>{
-      const v = value*10;
+      const v = value*100;
       const buf0 = Buffer.allocUnsafe(2);
       buf0.writeInt16LE(v, 0);
       const hex0 = buf0.toString('hex');
@@ -124,8 +125,8 @@ const simulatordata = {
     parsevalue:(hexstring)=>{
       const buf = Buffer.from(hexstring,'hex');
       const value =  buf.readInt16LE(0);
-      const v = value/10;
-      return parseInt(v);
+      const v = parseFloat(value/100).toFixed(1);
+      return parseFloat(v);
     }
   },
   "humidity" :{//CS215
