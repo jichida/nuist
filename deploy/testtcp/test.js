@@ -1,12 +1,31 @@
 // const handler = require('./src/sd/ddh.js');
+const _ = require('lodash');
 const debug = require('debug')('testtcp:test');
+const handler = require('./src/sd/ddh');
 
-const UTCTime = '2000 b4a2 e64c 3042 5780 9db1 c936 15c1 42b8';
-const Latitude = '20000676c8a727bd927456a512';
-const Longitude = '200002ab1176453a486765de31';
-const buf_UTCTime = Buffer.from(UTCTime,'hex');
-const buf_Latitude = Buffer.from(Latitude,'hex');
-const buf_Longitude = Buffer.from(Longitude,'hex');
+const deviceid = _.random(handler.deviceid.min, handler.deviceid.max);//气压
+
+let pressure = _.random(handler.pressure.min, handler.pressure.max);//气压
+const winddirection = _.random(handler.winddirection.min, handler.winddirection.max);//风向
+const humidity = _.random(handler.humidity.min, handler.humidity.max);//温度
+const rainfall = _.random(handler.rainfall.min, handler.rainfall.max);//雨量
+const temperature = _.random(handler.temperature.min, handler.temperature.max);//温度
+const windspeed = _.random(handler.windspeed.min, handler.windspeed.max);//分速
+
+console.log(`pressure->${pressure}`);
+const hexpayload = handler.getbufcmd1({deviceid,pressure,winddirection,humidity,rainfall,temperature,windspeed});
+
+const ZigbeeData = hexpayload;
+const pressurehex = ZigbeeData.substr(handler.pressure.offset*2,handler.pressure.length*2);
+pressure = handler.pressure.parsevalue(pressurehex);
+console.log(`气压为:${pressure}`);
+
+// const UTCTime = '2000 b4a2 e64c 3042 5780 9db1 c936 15c1 42b8';
+// const Latitude = '20000676c8a727bd927456a512';
+// const Longitude = '200002ab1176453a486765de31';
+// const buf_UTCTime = Buffer.from(UTCTime,'hex');
+// const buf_Latitude = Buffer.from(Latitude,'hex');
+// const buf_Longitude = Buffer.from(Longitude,'hex');
 // for(let i=0;i<18;i++){
 //   const time_ascii = buf_UTCTime.toString('ascii',i,i+1);
 //   debug(`${i}->${time_ascii}`)
@@ -30,24 +49,24 @@ const buf_Longitude = Buffer.from(Longitude,'hex');
 // debug(`time_dot->${time_dot}`)
 // debug(`time_sss->${time_sss}`)
 debug(`=======`)
-const time_dd = buf_UTCTime.readInt16LE(0);//2000
-const time_mm = buf_UTCTime.readInt16LE(2);//b4a2
-const time_yy = buf_UTCTime.readInt16LE(4);//e64c
-const time_blank = buf_UTCTime.readInt16LE(6);//3042
-const time_hh = buf_UTCTime.readInt16LE(8);//5780->'W?'
-const time_mm2 = buf_UTCTime.readInt16LE(10);//9db1
-const time_ss = buf_UTCTime.readInt16LE(12);//c936
-const time_dot = buf_UTCTime.readInt16LE(14);//15c1
-const time_sss = buf_UTCTime.readInt16LE(16);//42b8
-debug(`time_dd->${time_dd}`)
-debug(`time_mm->${time_mm}`)
-debug(`time_yy->${time_yy}`)
-debug(`time_blank->${time_blank}`)
-debug(`time_hh->${time_hh}`)
-debug(`time_mm2->${time_mm2}`)
-debug(`time_ss->${time_ss}`)
-debug(`time_dot->${time_dot}`)
-debug(`time_sss->${time_sss}`)
+// const time_dd = buf_UTCTime.readInt16LE(0);//2000
+// const time_mm = buf_UTCTime.readInt16LE(2);//b4a2
+// const time_yy = buf_UTCTime.readInt16LE(4);//e64c
+// const time_blank = buf_UTCTime.readInt16LE(6);//3042
+// const time_hh = buf_UTCTime.readInt16LE(8);//5780->'W?'
+// const time_mm2 = buf_UTCTime.readInt16LE(10);//9db1
+// const time_ss = buf_UTCTime.readInt16LE(12);//c936
+// const time_dot = buf_UTCTime.readInt16LE(14);//15c1
+// const time_sss = buf_UTCTime.readInt16LE(16);//42b8
+// debug(`time_dd->${time_dd}`)
+// debug(`time_mm->${time_mm}`)
+// debug(`time_yy->${time_yy}`)
+// debug(`time_blank->${time_blank}`)
+// debug(`time_hh->${time_hh}`)
+// debug(`time_mm2->${time_mm2}`)
+// debug(`time_ss->${time_ss}`)
+// debug(`time_dot->${time_dot}`)
+// debug(`time_sss->${time_sss}`)
 
 // for(let i=0;i<13;i++){
 //   const Latitude_ascii = buf_Latitude.toString('ascii',i,i+1);
