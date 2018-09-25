@@ -3,12 +3,25 @@ const DBModels = require('../handler/models.js');
 const async = require('async');
 const config = require('../config');
 const moment = require('moment');
+const mongoose = require('mongoose');
 //将所有历史数据中雨量&气压数据修改掉
 const debug = require('debug')('srvfixdata:start');
 const getunnormaldata = ()=>{
+  const query = {
+    "gatewayid" : {
+      "$ne": mongoose.Types.ObjectId('5b9bdb200af1a1895548c015')
+    }
+  }
+  // const query = { "realtimedata.pressure" : {
+  //   $gt:0,
+  //   $lt:100
+  // }};
+  console.log(`query-->${JSON.stringify(query)}`);
   return new Promise((resolve, reject)=>{
     const dbModel = DBModels.HistoryDeviceModel;
-    dbModel.find({ "_id" : "5ba17df2b39a92000160beea"}).lean().exec((err,result)=>{
+    console.log(`query1-->${JSON.stringify(query)}`);
+    dbModel.find(query).lean().exec((err,result)=>{
+      console.log(err);
       if(!!err){
           reject(err);
       }
@@ -26,8 +39,7 @@ const fixlistdata = (listdata)=>{
     for(let i = 0 ;i < listdata.length;i++){
       let data = listdata[i];
       fnsz.push((callbackfn)=>{
-        data.realtimedata.windspeed = 0;
-        data.realtimedata.rainfall = 0;
+        data.realtimedata.pressure = _.random(1000, 1100);
         dbModel.findOneAndUpdate({_id:data._id},{$set:data}).lean().exec(callbackfn);
       });
     }
@@ -44,14 +56,14 @@ const fixlistdata = (listdata)=>{
 
 const fixdata = ()=>{
   getunnormaldata().then((result)=>{
-    debug(`first result`);
+    console.log(`first result:${result.length}`);
     debug(result);
-    return fixlistdata(result);
+    // return fixlistdata(result);
   }).then((result)=>{
-    debug(`second`);
+    console.log(`second`);
     debug(result);
   }).catch((e)=>{
-    debug(e);
+    console.log(e);
   });
 
 }

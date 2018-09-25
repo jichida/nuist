@@ -10,8 +10,8 @@ const config = {
 
   pressure_data_offset:process.env.pressure_data_offset || '41',
   pressure_data_length:process.env.pressure_data_length || '4',
-  pressure_data_min:process.env.pressure_data_min || '20',
-  pressure_data_max:process.env.pressure_data_max || '40',
+  pressure_data_min:process.env.pressure_data_min || '1000',
+  pressure_data_max:process.env.pressure_data_max || '1500',
 
   winddirection_data_offset:process.env.winddirection_data_offset || '17',
   winddirection_data_length:process.env.winddirection_data_length || '2',

@@ -21,6 +21,24 @@ const simulatordata = {
       return parseInt(valuestring);
     }
   },
+  "TOS_Msg_Header_MSGLength":{
+    offset:5,
+    length:1,
+    gethex:(value)=>{
+      const valuestring = `${value}`;
+      const buf0 = Buffer.allocUnsafe(1);
+      buf0.writeUInt8(value, 0);
+      const hex0 = buf0.toString('hex').toUpperCase();
+      return `${hex0}`;
+    },
+    parsevalue:(hexstring)=>{
+      const buf = Buffer.from(hexstring,'hex');
+      const deviceid =  buf.readUInt8(0);
+      const valuestring = `${deviceid}`;
+      debug(`TOS_Msg_Header_MSGLength为:${valuestring}`);
+      return parseInt(valuestring);
+    }
+  },
   "amtype":{
     offset:3,
     length:1,
