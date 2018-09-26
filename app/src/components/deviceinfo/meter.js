@@ -59,9 +59,13 @@ const ProgressCtrl = (props)=>{
   if(lodashget(fieldsprops,'unit','') !==''){
     unitstring = `(${lodashget(fieldsprops,'unit','')})`;
   }
+  let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`,'');
+  if(typeof showvalue === 'number'){
+    showvalue = showvalue.toFixed(2);
+  }
   return (
     <div className={`chartli chart${index}`}>
-      <Progress type="circle" percent={100} width={70} format={percent => `${lodashget(curdevice,`realtimedata.${fieldname}`,'')}`} />
+      <Progress type="circle" percent={100} width={70} format={percent => `${showvalue}`} />
       <span>{`${fieldsprops.showname}`}{unitstring}</span>
     </div>
   )

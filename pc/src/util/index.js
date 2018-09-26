@@ -21,6 +21,7 @@ export const getCoureName = (course)=> {
     var name = "";
     if(typeof course === 'string'){
       course = parseFloat(course);
+      course = course%360;
     }
 
     if ((course >= 0 && course < 22.5) || (course >= 337.5 && course < 360)) // 0
@@ -56,7 +57,7 @@ export const getCoureName = (course)=> {
         name = "西北";
     }
     else {
-        name = "未知.";
+        name = "西北";
     }
     return name;
 }

@@ -14,9 +14,13 @@ import lodashmap from 'lodash.map';
 
 const ProgressCtrl = (props)=>{
   const {curdevice,fieldname,fieldsprops,index} = props;
+  let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`,'');
+  if(typeof showvalue === 'number'){
+    showvalue = showvalue.toFixed(2);
+  }
   return (
     <div className={`chartli chart${index}`}>
-      <ChartHumidity type="circle" percent={100} width={70} format={percent => `${lodashget(curdevice,`realtimedata.${fieldname}`,'')}`} />
+      <ChartHumidity type="circle" percent={100} width={70} format={percent => `${showvalue}`} />
       <span className="m10">{`${fieldsprops.showname}`}({`${lodashget(fieldsprops,'unit','')}`})</span>
     </div>
   )

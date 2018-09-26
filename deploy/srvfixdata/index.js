@@ -30,8 +30,6 @@ process.setMaxListeners(0);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongodburl,{
-    mongos:config.mongos,
-
     useMongoClient: true,
     // This options is 1 second by default, its possible the ha
     // takes longer than 30 seconds to recover.
