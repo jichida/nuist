@@ -154,8 +154,9 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
     });
   }
   else{
-    const err = new Error('不符合协议');
-    callbackfn(err,null);
+    callbackfn(null,{
+        cmd
+    });
   }
 
 }
