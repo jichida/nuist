@@ -45,7 +45,7 @@ class App extends React.Component {
             <div className=" box_box" style={{position: 'relative'}}>
 
 
- <iframe src="http://www.newxh.com18.cn/spindex.html" width="100%" height="400" frameborder="0"></iframe>
+ <iframe src="http://www.newxh.com18.cn/spindex.html" width="100%" height="440" frameborder="0"></iframe>
 </div>
             </div>
             <div className="spjk_right">

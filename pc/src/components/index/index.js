@@ -93,7 +93,7 @@ class App extends React.Component {
 
           <div className="center_con">
             <div className="map_con border">
-              <div id='mapidplaceholder' style={{height:'500px'}}/>
+              <div id='mapidplaceholder' style={{height:'457px'}}/>
             </div>
             <div className="bor_con con_height">
                 <h2 className="title">

@@ -58,7 +58,7 @@ class App extends React.Component {
   </div>
 
   <div className="center_con center_mr0">
-      <div className="bor_con center_box">
+      <div className="bor_con">
       <h2 className="title"><img src="images/jb.png"  alt=""/>
       <span>综合警报</span>
       <span className="tt">

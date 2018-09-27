@@ -32,7 +32,7 @@ class Page extends Component {
     return (
           <ReactEcharts
             option={this.props.option}
-            style={{height: '450px', width: '450px'}}
+            style={{height: '350px', width: '350px'}}
             className='react_for_echarts_last' />
     );
   }
