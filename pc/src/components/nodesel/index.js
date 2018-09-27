@@ -27,7 +27,7 @@ class App extends React.Component {
 				console.log(`innerheight->${innerheight2-156-38}`)
         return (
           <div>
-          <div className="left_box huadong" style={{height:`792px`, overflowY:' scroll'}}>
+          <div className="left_box huadong height">
         <dl className="dl_bg">
         <dd>ID</dd>
         <dd>网关名</dd>

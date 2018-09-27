@@ -88,7 +88,7 @@ class App extends React.Component {
       indexbannerimage = indexbannerurl;
     }
     return (
-      <div className="head_top w_1220">
+      <div className="head_top ">
         <div className="head_img">
             <img src={indexbannerimage} className="logo" alt=""/>
             <ul className="headnav">

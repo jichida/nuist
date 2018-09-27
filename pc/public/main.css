@@ -184,7 +184,7 @@ body {
     top: 0px;
     bottom: 0px;
     z-index: 0;
-    height: 847px;
+    height: 100%;
 }
 
 .left_con .left_bg {
@@ -194,6 +194,11 @@ body {
 
 .left_con .left_box {
     padding: 15px;
+}
+
+.left_con .left_box.height {
+    height: 792px;
+    overflow-y: scroll;
 }
 
 .left_con .left_box dl {
@@ -495,7 +500,7 @@ body {
 .center_con {
     margin-left: 252px;
     margin-right: 350px;
-    height: 847px;
+    height: 100%;
 }
 
 .center_con .border_top {
@@ -504,6 +509,15 @@ body {
 
 .center_con .box_box {
     padding: 20px;
+}
+
+.map_box {
+    height: 457px;
+}
+
+.mapmax_box {
+    width: 100%;
+    height: 770px;
 }
 
 .center_con .box_box .jk_bg {
@@ -617,7 +631,7 @@ body {
     top: 0px;
     bottom: 0px;
     z-index: 999;
-    height: 847px;
+    height: 100%;
     overflow-y: scroll;
 }
 
@@ -891,7 +905,7 @@ ul li .num {
 .right_con .windcontrol img {
     position: absolute;
     width: 160px;
-    left: 80px;
+    left: 78px;
     top: 13px
 }
 
@@ -1172,4 +1186,242 @@ small {
     background-color: #fff;
     box-shadow: 0 10px 30px 0 #ababab;
     padding: 20px;
+}
+
+@media only screen and (device-width:1440px) and (device-height:900px) {
+    .title .title_tab span {
+        margin: 6px 5px 6px 0px;
+    }
+    .map_box {
+        height: 326px;
+    }
+    .left_con .left_box.height {
+        height: 608px;
+    }
+    .mapmax_box {
+        height: 586px;
+    }
+    .center_box {
+        height: 659px;
+    }
+    .sjyj_box {
+        height: 608px;
+    }
+    .right_con .windcontrol1 {
+        height: 153px;
+    }
+    .right_con .data_box ul li {
+        height: 152px;
+    }
+    .right_con .windcontrol img {
+        width: 120px;
+        left: 95px;
+    }
+    .right_con .data_box .react_for_echarts_last canvas {
+        width: 260px !important;
+        height: 260px !important;
+    }
+    .right_con .data_box .react_for_echarts_last {
+        left: 5%;
+        top: -43%
+    }
+    .right_con .data_box .react_for_echarts canvas {
+        width: 220px !important;
+        height: 220px !important;
+    }
+    .right_con .data_box .react_for_echarts {
+        top: 85%;
+        left: 59%;
+    }
+    .right_con .data_box .react_for_echarts_nth2 canvas {
+        width: 220px !important;
+        height: 220px !important;
+    }
+    .right_con .data_box .react_for_echarts_nth2 {
+        top: 85%;
+        left: 59%;
+    }
+    .con_height {
+        height: 308px;
+    }
+    .con_height .echarts-for-react.react_for_echarts {
+        height: 210px!important;
+    }
+}
+
+@media only screen and (device-width:1600px) and (device-height:900px) {
+    .title .title_tab span {
+        margin: 6px 5px 6px 0px;
+    }
+    .map_box {
+        height: 326px;
+    }
+    .left_con .left_box.height {
+        height: 609px;
+    }
+    .mapmax_box {
+        height: 587px;
+    }
+    .center_box {
+        height: 664px;
+    }
+    .sjyj_box {
+        height: 609px;
+    }
+    .right_con .windcontrol1 {
+        height: 153px;
+    }
+    .right_con .data_box ul li {
+        height: 152px;
+    }
+    .right_con .windcontrol img {
+        width: 120px;
+        left: 95px;
+    }
+    .right_con .data_box .react_for_echarts_last canvas {
+        width: 260px !important;
+        height: 260px !important;
+    }
+    .right_con .data_box .react_for_echarts_last {
+        left: 5%;
+        top: -41%
+    }
+    .right_con .data_box .react_for_echarts canvas {
+        width: 220px !important;
+        height: 220px !important;
+    }
+    .right_con .data_box .react_for_echarts {
+        top: 85%;
+        left: 59%;
+    }
+    .right_con .data_box .react_for_echarts_nth2 canvas {
+        width: 220px !important;
+        height: 220px !important;
+    }
+    .right_con .data_box .react_for_echarts_nth2 {
+        top: 85%;
+        left: 59%;
+    }
+    .con_height {
+        height: 308px;
+    }
+    .con_height .echarts-for-react.react_for_echarts {
+        height: 210px!important;
+    }
+}
+
+@media only screen and (device-width:1600px) and (device-height:1024px) {
+    .title .title_tab span {
+        margin: 6px 5px 6px 0px;
+    }
+    .map_box {
+        height: 448px;
+    }
+    .left_con .left_box.height {
+        height: 733px;
+    }
+    .mapmax_box {
+        height: 711px;
+    }
+    .center_box {
+        height: 788px;
+    }
+    .sjyj_box {
+        height: 733px;
+    }
+    .right_con .windcontrol1 {
+        height: 185px;
+    }
+    .right_con .data_box ul li {
+        height: 183px;
+    }
+    .right_con .windcontrol img {
+        width: 160px;
+        left: 95px;
+    }
+    .right_con .data_box .react_for_echarts_last canvas {
+        width: 320px !important;
+        height: 320px !important;
+    }
+    .right_con .data_box .react_for_echarts_last {
+        left: 2%;
+        top: -41%
+    }
+    .right_con .data_box .react_for_echarts canvas {
+        width: 260px !important;
+        height: 260px !important;
+    }
+    .right_con .data_box .react_for_echarts {
+        top: 69%;
+        left: 59%;
+    }
+    .right_con .data_box .react_for_echarts_nth2 canvas {
+        width: 260px !important;
+        height: 260px !important;
+    }
+    .right_con .data_box .react_for_echarts_nth2 {
+        top: 69%;
+        left: 59%;
+    }
+    .con_height {
+        height: 308px;
+    }
+    .con_height .echarts-for-react.react_for_echarts {
+        height: 210px!important;
+    }
+}
+
+@media only screen and (device-width:1680px) and (device-height:1050px) {
+    .title .title_tab span {
+        margin: 6px 5px 6px 0px;
+    }
+    .map_box {
+        height: 426px;
+    }
+    .left_con .left_box.height {
+        height: 758px;
+    }
+    .mapmax_box {
+        height: 736px;
+    }
+    .center_box {
+        height: 813px;
+    }
+    .sjyj_box {
+        height: 758px;
+    }
+    .right_con .windcontrol1 {
+        height: 189px;
+    }
+    .right_con .data_box ul li {
+        height: 190px;
+    }
+    .right_con .windcontrol img {
+        width: 160px;
+        left: 95px;
+    }
+    .right_con .data_box .react_for_echarts_last canvas {
+        width: 320px !important;
+        height: 320px !important;
+    }
+    .right_con .data_box .react_for_echarts_last {
+        left: 2%;
+        top: -41%
+    }
+    .right_con .data_box .react_for_echarts canvas {
+        width: 260px !important;
+        height: 260px !important;
+    }
+    .right_con .data_box .react_for_echarts {
+        top: 69%;
+        left: 59%;
+    }
+    .right_con .data_box .react_for_echarts_nth2 canvas {
+        width: 260px !important;
+        height: 260px !important;
+    }
+    .right_con .data_box .react_for_echarts_nth2 {
+        top: 69%;
+        left: 59%;
+    }
 }

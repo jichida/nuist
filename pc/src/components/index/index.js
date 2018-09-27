@@ -92,8 +92,8 @@ class App extends React.Component {
           <AbstractBar />
 
           <div className="center_con">
-            <div className="map_con border">
-              <div id='mapidplaceholder' style={{height:'457px'}}/>
+            <div className="map_con border ">
+              <div id='mapidplaceholder' className="map_box"/>
             </div>
             <div className="bor_con con_height">
                 <h2 className="title">
