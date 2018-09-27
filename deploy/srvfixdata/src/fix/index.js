@@ -7,20 +7,16 @@ const mongoose = require('mongoose');
 //将所有历史数据中雨量&气压数据修改掉
 const debug = require('debug')('srvfixdata:start');
 const getunnormaldata = ()=>{
+  const gwid = mongoose.Types.ObjectId('5b9bdb200af1a1895548c015');
   const query = {
-    "gatewayid" : {
-      "$ne": mongoose.Types.ObjectId('5b9bdb200af1a1895548c015')
-    }
+    gatewayid: {$ne : gwid}
   }
-  // const query = { "realtimedata.pressure" : {
-  //   $gt:0,
-  //   $lt:100
-  // }};
+
   console.log(`query-->${JSON.stringify(query)}`);
   return new Promise((resolve, reject)=>{
     const dbModel = DBModels.HistoryDeviceModel;
     console.log(`query1-->${JSON.stringify(query)}`);
-    dbModel.find(query).lean().exec((err,result)=>{
+    dbModel.find(query,{'realtimedata.pressure':1}).lean().exec((err,result)=>{
       console.log(err);
       if(!!err){
           reject(err);
@@ -57,11 +53,11 @@ const fixlistdata = (listdata)=>{
 const fixdata = ()=>{
   getunnormaldata().then((result)=>{
     console.log(`first result:${result.length}`);
-    debug(result);
-    // return fixlistdata(result);
+    // debug(result);
+    return fixlistdata(result);
   }).then((result)=>{
     console.log(`second`);
-    debug(result);
+    // debug(result);
   }).catch((e)=>{
     console.log(e);
   });

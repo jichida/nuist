@@ -30,6 +30,11 @@ const TitleD = (props)=>{
 						const fieldsprops = fields[fieldname];
 						if(!!fieldsprops){
 							let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`,'');
+
+							if(typeof showvalue === 'number'){
+								showvalue = showvalue.toFixed(2);
+							}
+
 							if(fieldname === 'winddirection'){
 								showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
 							}

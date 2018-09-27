@@ -99,11 +99,16 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
         });
         return;
       }
-
-
+    }
+    else{
+      callbackfn(null,{
+        cmd,
+        amtype,
+        replybuf:buf_cmd2
+      });
     }
 
-    callbackfn(new Error(errmsg),null);
+    // callbackfn(new Error(errmsg),null);
 
   }
   else if(cmd === 0x03){
@@ -149,8 +154,9 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
     });
   }
   else{
-    const err = new Error('不符合协议');
-    callbackfn(err,null);
+    callbackfn(null,{
+        cmd
+    });
   }
 
 }

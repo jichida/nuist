@@ -89,13 +89,12 @@ starttcpsrv = (settings)=> {
       });
       socket.on('data',(data)=> {
         //下面3行为测试程序！！！
-
           let indatabuf = new Buffer(data,'binary');
           let totalLength = recvbuf.length + indatabuf.length;
           recvbuf = Buffer.concat([recvbuf, indatabuf],totalLength);
           debug(`待处理数据:${recvbuf.toString('hex')}`);
           winston.getlog().info(`待处理数据:${recvbuf.toString('hex')}`);
-           while(recvbuf.length >= data_headlen){
+          while(recvbuf.length >= data_headlen){
                if(recvbuf[0] === 0x59 && recvbuf[1]===0x47 ){
                  let datalen = (recvbuf[lengthoffset] << 8) + recvbuf[lengthoffset+1];
                  let newbufid = Buffer.allocUnsafe(idlen);
@@ -124,49 +123,50 @@ starttcpsrv = (settings)=> {
                        debug(`获取到数据部分:${bodybuf.toString('hex')}`);
                        if(bodybuf.length >= datalen){
                          getbuf({cmd,recvbuf,bodybuf},(err,result)=>{
-                           if(!err){
-                             if(cmd === 2 && result.amtype === '0B'){
-                               //<----publish data==========
+                             if(cmd === 2){
+                               if(result.amtype === '0B'){
+                                 //<----publish data==========
+                                   const publishdata = {
+                                     "gwid" :`${gwid}`,
+                                     "deviceid":`${result.deviceid}`,
+                                     "amtype":`${result.amtype}`,
+                                     hexraw0B:`${result.hexraw}`,
+                                     realtimedata:result.resultdata
+                                   }
+                                   publishdata.realtimedata.datatime = moment().format('YYYY-MM-DD HH:mm:ss');
+                                   PubSub.publish(`nuistdata`,publishdata);
+                                   debug(`get data--->${JSON.stringify(result.resultdata)}`);
+                                   winston.getlog().info(`网关id:${gwid},节点id:${result.deviceid},原始包:${result.hexraw},解析后的数据:`);
+                                   winston.getlog().info(result.resultdata);
+                               }
+                               else if(result.amtype === '03'){
+                                 winston.getlog().warn(`发现一条03的数据:${bodybuf.toString('hex')}`);
+
                                  const publishdata = {
                                    "gwid" :`${gwid}`,
                                    "deviceid":`${result.deviceid}`,
                                    "amtype":`${result.amtype}`,
-                                   hexraw0B:`${result.hexraw}`,
-                                   realtimedata:result.resultdata
+                                   hexraw03:`${result.hexraw}`,
+                                   'nextdeviceid':result.nextdeviceid
                                  }
-                                 publishdata.realtimedata.datatime = moment().format('YYYY-MM-DD HH:mm:ss');
+                                 winston.getlog().warn(`解析结果为:${JSON.stringify(publishdata)}`);
+
                                  PubSub.publish(`nuistdata`,publishdata);
-                                 debug(`get data--->${JSON.stringify(result.resultdata)}`);
-                             }
-                             else if(cmd === 2 && result.amtype === '03'){
-                               winston.getlog().warn(`发现一条03的数据:${bodybuf.toString('hex')}`);
-
-                               const publishdata = {
-                                 "gwid" :`${gwid}`,
-                                 "deviceid":`${result.deviceid}`,
-                                 "amtype":`${result.amtype}`,
-                                 hexraw03:`${result.hexraw}`,
-                                 'nextdeviceid':result.nextdeviceid
                                }
-                               winston.getlog().warn(`解析结果为:${JSON.stringify(publishdata)}`);
-
-                               PubSub.publish(`nuistdata`,publishdata);
+                               else{
+                                 winston.getlog().warn(`解析到一条未说明的数据(cmd=2):[${result.amtype}]--->${bodybuf.toString('hex')}`);
+                               }
+                             }
+                             else if(cmd === 1 || cmd === 3){
+                             }
+                             else{
+                               winston.getlog().warn(`解析到一条未说明的数据cmd:[${cmd}]--->${bodybuf.toString('hex')}`);
                              }
 
                              if(!!result.replybuf){
                                //reply---->
                               socket.write(result.replybuf);
                              }
-                           }
-                           else{
-                             //error--->
-                             debug(`【${curid}】连接关闭`);
-                             socket.end();
-                             socket.destroy();
-                             if(!!curid){
-                               tcpsocksmap.delete(curid);
-                             }
-                           }
 
                          });
                        }
@@ -174,7 +174,6 @@ starttcpsrv = (settings)=> {
                        //<----------------
                        let leftbuf = Buffer.allocUnsafe(recvbuf.length - newbuflen);
                        recvbuf.copy(leftbuf, 0, newbuflen,recvbuf.length);
-
                        recvbuf = leftbuf;
                         //renew buffer
                        continue;

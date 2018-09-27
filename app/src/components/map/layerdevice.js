@@ -51,6 +51,9 @@ const getDeviceLayerHtml = (curdevice,viewtype)=>{
     if(!!fieldsprops){
       const show_showname = `${fieldsprops.showname}`;
       let show_showvalue = lodashget(curdevice,`realtimedata.${fieldname}`,'');
+      if(typeof showvalue === 'number'){
+        show_showvalue = show_showvalue.toFixed(2);
+      }
       if(fieldname === 'winddirection'){
         show_showvalue = getCoureName(show_showvalue);
       }
