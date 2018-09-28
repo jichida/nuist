@@ -7,32 +7,27 @@ import Userimg from "../../img/2.jpg";
 
 class App extends React.Component {
     render() {
-        return (
-            <div className="indexPage">
-            <Header />
-            <div className="content">
-            <div className="indextit">欢迎访问大坝智能监控系统</div>
-            <div className="cont">
-            <div className="login">
-
-            <div className="login_a">管理员登录</div>
-            <div className="login_dl">
-            <form>
-            <div className="lab"><span><img alt="" src={Userimg} /></span><input className="lab_input" placeholder="请输入您的账号"/>
-            </div>
-            <div className="lab"><span><img alt="" src={Wdimg} /></span><input className="lab_input" placeholder="请输入您的 密码"/>
-            </div>
-            </form>
-            <a className="login_btn">登录</a>
-            </div>
-
-            <div className="login_b"><a>重置</a></div>
-        <div className="login_c">您未登录或者登录超时！请重新登录</div>
-        </div>
+        return (<div>
+            <div className="login_bg"><img src="images/dl1.jpg" /></div>
+            <div className="xsqbt"><img src="images/dl1.png" /></div>
+            <div className="login_m">
+               <div className="login_boder">
+                    <div className="login_padding">
+                         <h2>用户名</h2>
+                         <label>
+                         <input type="text" id="username" className="txt_input txt_input2" placeholder="请输入您的账号" />
+                         </label>
+                         <h2>密码</h2>
+                        <label>
+                        <input type="password" name="textfield2" id="userpwd" className="txt_input" placeholder="请输入您的 密码" />
+                        </label>
+                      <p className="forgot"><a href="javascript:void(0);">忘记密码?</a></p>
+                <div className="rem_sub">
+                   <a href="#">登录</a>
+                </div>
             </div>
             </div>
-            <Footer />
-            </div>
+            </div></div>
     );
     }
 }
