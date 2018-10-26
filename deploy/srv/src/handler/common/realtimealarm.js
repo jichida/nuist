@@ -7,6 +7,10 @@ const moment = require('moment');
 const getdevicesids = require('../getdevicesids');
 const debug = require('debug')('appsrv:alarm');
 //app中的报警分页
+/*
+输入参数：UI
+输出参数：app中的报警分页
+*/
 exports.getrealtimealarmlist =  (actiondata,ctx,callback)=>{
   const realtimealarmrawModel = DBModels.RealtimeAlarmRawModel;
   let query = actiondata.query || {};

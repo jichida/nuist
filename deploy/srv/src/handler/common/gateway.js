@@ -7,6 +7,10 @@ const _ = require('lodash');
 const moment = require('moment');
 const debug = require('debug')('appsrv:gateway');
 
+/*
+输入参数：用户
+输出参数：获取网关用户
+*/
 const getgatewaylist_user = (err,viewtype,gwgroups,actiondata,ctx,callback)=>{
   if(!err){
     let gwids = [];
@@ -53,6 +57,11 @@ const getgatewaylist_user = (err,viewtype,gwgroups,actiondata,ctx,callback)=>{
   }
 };
 
+
+/*
+输入参数：UI
+输出参数：获取网关列表
+*/
 exports.getgatewaylist = (actiondata,ctx,callback)=>{
   if(!!ctx.userid){//登录用户
     const dbModel = DBModels.UserModel;

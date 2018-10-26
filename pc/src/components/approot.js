@@ -64,6 +64,7 @@ class AppRoot extends React.Component {
       return (
               <div className="container">
                 <Switch>
+                  <Route exact path="/Login" component={Login} />
                   <Route exact path="/chart1" component={ChartHumidity} />
                   <Route exact path="/chart2" component={ChartPressure} />
                   <Route exact path="/chart3" component={ChartTemperatureRainfall} />

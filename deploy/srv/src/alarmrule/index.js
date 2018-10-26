@@ -52,6 +52,10 @@ const debug = require('debug')('appsrv:redismsg')
 //       ]
 // };
 
+/*
+输入参数：系统配置
+输出参数：规则匹配
+*/
 
 const getalarmrules = (systemconfig)=>{
   let alarmrules = {};
