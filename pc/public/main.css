@@ -143,21 +143,22 @@ body {
 
 .head_top .head_img .logo {
     position: absolute;
-    left: 10px;
-    top: 0px;
+    left: 5px;
+    top: 12px;
+    width: 240px
 }
 
 .head_top .headnav {
     width: 100%;
     line-height: 100px;
-    padding-left: 320px;
+    padding-left: 260px;
 }
 
 .head_top .headnav li {
     color: #666666;
     float: left;
     margin-left: 70px;
-    position: relative;
+    position: relative;min-width: 56px; text-align: center
 }
 
 .head_top .headnav li.active a {
@@ -174,7 +175,7 @@ body {
     left: 8px;
     right: 0px;
 }
-
+.ewming{ width: 120px; margin: auto; height: 120px;}
 .left_con {
     background-color: #273c4f;
     width: 242px;

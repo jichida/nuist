@@ -20,7 +20,13 @@ class App extends React.Component {
 
             </div>
             <Monitoring />
-
+            <div className="real_time">
+            <h2 className="title left_bg">
+		       <img src="images/add.png" alt=""/><span>扫码下载手机APP</span>
+         
+            </h2>
+				<div className="left_box"><img src="images/ewming.png" className="ewming" alt=""/ ></div>
+            </div>
         </div>
     )
   }

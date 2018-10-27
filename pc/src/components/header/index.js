@@ -42,7 +42,7 @@ class App extends React.Component {
     const lnks = [
       {
         url:'/',
-        name:'大坝首页'
+        name:'首 页'
       },
       {
         url:'/deployment',

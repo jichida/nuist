@@ -48,35 +48,7 @@ class App extends React.Component {
  <iframe src="http://www.newxh.com18.cn/spindex.html" width="100%" height="440" frameborder="0"></iframe>
 </div>
             </div>
-            <div className="spjk_right">
-            <ul>
-            <li>
-            <div className="spjk_li"> <img alt="" src="images/1.jpg" style={{width:'100%'}}/>
-            <p>青龙峡大坝</p>
-            </div>
-            </li>
-<li>
-<div className="spjk_li"> <img alt="" src="images/2.jpg" style={{width:'100%'}}/>
-<p>胡佛大坝</p>
-</div>
-</li>
-<li>
-<div className="spjk_li"> <img alt="" src="images/3.jpg" style={{width:'100%'}}/>
-<p>锦屏大坝</p>
-</div>
-</li>
-<li>
-<div className="spjk_li"> <img alt="" src="images/4.jpg" style={{width:'100%'}}/>
-<p>向家坝</p>
-</div>
-</li>
-<li>
-<div className="spjk_li"> <img alt="" src="images/5.jpg" style={{width:'100%'}}/>
-<p>雅砻江</p>
-</div>
-</li>
-            </ul>
-            </div>
+            
             </div>
 
          </div>
