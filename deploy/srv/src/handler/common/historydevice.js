@@ -6,6 +6,10 @@ const debug = require('debug')('appsrv:historydevice');
 const _ = require('lodash');
 const moment = require('moment');
 
+/*
+输入参数：历史
+输出参数：获取历史时间
+*/
 const getlimitstarttime = (periodname,endtime,starttime)=>{
   //加限制条件,如果月份,最多1年
   //如果星期,最多3月

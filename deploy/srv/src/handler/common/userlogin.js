@@ -84,7 +84,10 @@ let setloginsuccess = (ctx,user,callback)=>{
 
 };
 
-
+/*
+输入参数：系统配置
+输出参数：保存用户配置
+*/
 exports.saveusersettings = (actiondata,ctx,callback)=>{
   const usersettings = actiondata;
   if(!!ctx.userid){
@@ -113,7 +116,10 @@ exports.saveusersettings = (actiondata,ctx,callback)=>{
   }
 };
 
-
+/*
+输入参数：用户登录
+输出参数：用户登录返回信息
+*/
 exports.loginuser = (actiondata,ctx,callback)=>{
   let oneUser = actiondata;
   let dbModel = DBModels.UserModel;
@@ -175,6 +181,11 @@ exports.loginuser = (actiondata,ctx,callback)=>{
   });
 }
 
+
+/*
+输入参数：用户自动登录
+输出参数：用户登录返回信息
+*/
 exports.loginwithtoken = (actiondata,ctx,callback)=>{
   try {
       let decodeduser = jwt.verify(actiondata.token, config.secretkey);
@@ -218,6 +229,10 @@ exports.logout = (actiondata,ctx,callback)=>{
   });
 };
 
+/*
+输入参数：用户修改密码
+输出参数：修改密码后的信息
+*/
 exports.changepwd = (actiondata,ctx,callback)=>{
 
   const dbModel = DBModels.UserModel;

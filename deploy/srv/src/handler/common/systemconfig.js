@@ -71,6 +71,10 @@ const defaultwindgradesettings = [
   }
 ]
 
+/*
+输入参数：系统配置
+输出参数：风力的配置
+*/
 exports.getsystemconfig = (actiondata,ctx,callbackfn)=>{
     const dbModel = DBModels.SystemConfigModel;
     dbModel.findOne({}).lean().exec((err, systemconfig)=> {
