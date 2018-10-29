@@ -16,7 +16,7 @@ import Mappub from './index/mappub.js';
 import ChartHumidity  from './realtime/charts_humidity';
 import ChartPressure  from './realtime/charts_pressure';
 import ChartTemperatureRainfall  from './realtime/charts_temperaturerainfall';
-
+import {requireAuthentication} from './requireauthentication';
 import "../layout/global.css";
 
 class AppMap extends React.Component {
@@ -70,11 +70,11 @@ class AppRoot extends React.Component {
                   <Route exact path="/chart3" component={ChartTemperatureRainfall} />
                   <Route exact path="/" component={Index} />
                   <Route exact path="/adminlogin" component={Login} />
-                  <Route exact path="/deployment" component={Deployment} />
-                  <Route exact path="/video" component={Video} />
-                  <Route exact path="/realtime" component={Realtime} />
+                  <Route exact path="/deployment" component={requireAuthentication(Deployment)} />
+                  <Route exact path="/video" component={requireAuthentication(Video)} />
+                  <Route exact path="/realtime" component={requireAuthentication(Realtime)} />
                   <Route exact path="/realtimehistory" component={RealtimeHistory} />
-                  <Route exact path="/forecast" component={Forecast} />
+                  <Route exact path="/forecast" component={requireAuthentication(Forecast)} />
                   <Route exact path="/map" component={Mappub} />
                   <Route exact path="/deviceinfo/:id/:index" component={Realtime} />
                 </Switch>
