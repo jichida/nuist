@@ -145,7 +145,7 @@ body {
     position: absolute;
     left: 5px;
     top: 12px;
-    width: 240px
+    width: 240px; height: 75px;
 }
 
 .head_top .headnav {
@@ -929,7 +929,23 @@ ul li .num {
     width: 64px;
     margin: 1em auto;
 }
-
+@media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){
+   
+    .center_con .data_box .react_for_echarts {
+        left: -20px;
+    }
+    
+    .center_con .data_box .react_for_echarts_nth2 {
+        left: -20px;
+    }
+    
+    .center_con .data_box .react_for_echarts_last {
+        left: -20px;
+    }
+    .center_box .windcontrol img{width: 160px; height: 160px;
+         top: 38px;}
+         .right_con .windcontrol img{width: 160px; height: 160px;}
+}
 body {
     height: auto !important;
 }
