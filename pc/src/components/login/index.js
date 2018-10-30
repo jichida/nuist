@@ -12,7 +12,7 @@ import {
 
 class PageForm extends React.Component {
     render(){
-        const { handleSubmit,onClickLogin} = this.props;
+        const { handleSubmit,onClickLogin,onClickReturn} = this.props;
         return (
           <Form
   						className="login_boder"
@@ -27,7 +27,7 @@ class PageForm extends React.Component {
                               component="input"
                               placeholder="输入账号"
                               type="text"
-                              className="login_input"
+                              className="txt_input txt_input2"
                           />
                           </label>
                           <h2>密码</h2>
@@ -38,11 +38,14 @@ class PageForm extends React.Component {
                               component="input"
                               placeholder="输入密码"
                               type="password"
-                              className="login_input"
+                              className="txt_input txt_input2"
                           />
                         </label>
                         <div className="rem_sub">
                            <span onClick={handleSubmit(onClickLogin)}>登录</span>
+                        </div>
+                        <div className="rem_suba">
+                           <span onClick={onClickReturn}>返回</span>
                         </div>
                     </div>
             </Form>
@@ -72,7 +75,10 @@ class Page extends React.Component {
       }
   }
   onClickReturn =()=>{
-      this.props.history.goBack();
+      this.props.dispatch(set_uiapp({
+          selectedindex:0
+      }));
+      this.props.history.replace('/');
   }
 
   componentWillUnmount(){
@@ -117,7 +123,9 @@ class Page extends React.Component {
             <div className="login_bg"><img src="images/dl1.jpg" alt=''/></div>
             <div className="xsqbt"><img src="images/dl1.png" alt=''/></div>
             <div className="login_m">
-              <PageForm onClickLogin={this.onClickLogin}/>
+              <PageForm onClickLogin={this.onClickLogin} onClickReturn={()=>{
+                this.onClickReturn();
+              }}/>
             </div>
             </div>
     );

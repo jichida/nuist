@@ -1,4 +1,4 @@
-* {
+﻿* {
     margin: 0px;
     padding: 0px;
     font-family: 'microsoft yahei';
@@ -561,13 +561,13 @@ body {
 }
 
 .xjl_loginh .xjl_loginbtn span {
-    width: 90px;
+    width: 88px;
     float: left;
     margin-right: 10px;
     background-color: rgba(247, 247, 247, 0.1);
     border-radius: 4px;
     padding: 0px;
-    text-align: center;
+    text-align: center; cursor: pointer;
 }
 
 .center_box {

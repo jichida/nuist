@@ -320,7 +320,7 @@
 }
 
 .changepwd .infocontent .closediv img {
-    width: 46px;
+    width: 46px; cursor: pointer;
 }
 
 .changepwd .infocontent .tit {
