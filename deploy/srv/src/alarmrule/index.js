@@ -56,7 +56,6 @@ const debug = require('debug')('appsrv:redismsg')
 输入参数：系统配置
 输出参数：规则匹配
 */
-
 const getalarmrules = (systemconfig)=>{
   let alarmrules = {};
   _.map(systemconfig.warningrulelevel0,(v)=>{
@@ -104,19 +103,16 @@ const getalarmrules = (systemconfig)=>{
   return alarmrules;
 }
 
+/*
+输入参数：报警的数据 & 报警规则
+输出参数：报警数据数组
+*/
 const getresultalarmmatch = (alarmdata,alarmrules)=>{
   let resultalarmmatch = [];
   _.map(alarmdata,(v,key)=>{
-    //"AL_Trouble_Code" : 181
     if(!!alarmrules[key]){
       _.map(alarmrules[key],(valarmrules)=>{
         const rule = valarmrules.rule;
-        // {
-        //     "content" : "故障228代码报警",
-        //     "value" : "228",
-        //     "op" : "=",
-        //     "name" : "AL_Trouble_Code"
-        // }
         let valueint = rule.value;
         try{
           if(typeof valueint === 'string'){
@@ -163,7 +159,10 @@ const getresultalarmmatch = (alarmdata,alarmrules)=>{
   return resultalarmmatch;
 }
 
-
+/*
+输入参数：报警的数据 & 报警规则
+输出参数(通过callback调用)：匹配的报警规则
+*/
 const matchalarm = (alarmrule,realtimedata,callbackfn)=>{
     const alarmrules = getalarmrules(alarmrule);
     let resultalarmmatch = getresultalarmmatch(realtimedata,alarmrules);
@@ -184,7 +183,6 @@ const matchalarm = (alarmrule,realtimedata,callbackfn)=>{
       return v.type;
     });
     callbackfn(resultalarmmatch);
-
 }
 
 exports.matchalarm = matchalarm;

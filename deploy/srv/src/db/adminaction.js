@@ -3,6 +3,9 @@ const jpush = require('../smspush/push.js');
 const pwd = require('../util/pwd');
 const moment = require('moment');
 
+/*
+在操作数据库以前调用，相当于操作数据的前置钩子
+*/
 const preaction =(actionname,collectionname,doc,fnresult)=>{
   //console.log(`preaction doc:${JSON.stringify(doc)}`);
   if(actionname === 'save' && collectionname === 'user'){
@@ -25,6 +28,9 @@ const preaction =(actionname,collectionname,doc,fnresult)=>{
   fnresult(null,true);
 };
 
+/*
+在操作数据库后调用，相当于操作数据的后置钩子
+*/
 const postaction =(actionname,collectionname,doc)=>{
 
 };

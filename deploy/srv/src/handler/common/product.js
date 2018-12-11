@@ -5,6 +5,9 @@ const winston = require('../../log/log.js');
 const _ = require('lodash');
 const moment = require('moment');
 
+/*
+获取产品列表
+*/
 exports.getproductlist = (actiondata,ctx,callback)=>{
   const productModel = DBModels.ProductModel;
   const queryexec = productModel.find({isenabled:true}).select().lean();
@@ -25,7 +28,9 @@ exports.getproductlist = (actiondata,ctx,callback)=>{
 };
 
 
-
+/*
+获取产品详情
+*/
 exports.getproductdetail = (actiondata,ctx,callback)=>{
   const productModel = DBModels.ProductModel;
 };

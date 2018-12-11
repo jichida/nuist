@@ -8,6 +8,10 @@ const moment = require('moment');
 const getdevicesids = require('../getdevicesids');
 const debug = require('debug')('appsrv:device');
 
+/*
+获取设备列表 actiondata为客户端传过来的参数，ctx 为上下文,callback为返回数据回调
+返回数据形式，一般是请求
+*/
 exports.getdevicelist = (actiondata,ctx,callback)=>{
   const deviceModel = DBModels.DeviceModel;
   const query = actiondata.query || {};

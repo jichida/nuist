@@ -53,6 +53,9 @@ let getdatafromuser =(user)=>{
   };
 };
 
+/*
+设置登录成功
+*/
 let setloginsuccess = (ctx,user,callback)=>{
    ctx.username = user.username;
    ctx.userid = user._id;//for test only

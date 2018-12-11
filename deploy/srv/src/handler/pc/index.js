@@ -9,7 +9,7 @@ const tip = require('../common/tip');
 const product = require('../common/product.js');
 const vote = require('../common/vote.js');
 const debugpc = require('debug')('appsrv:pc:index');
-//司机端
+//PC端所有消息中心
 const actiondatahandler = {
   'getvotelist':vote.getvotelist,
   'getproductlist':product.getproductlist,

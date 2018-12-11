@@ -5,6 +5,9 @@ const winston = require('../../log/log.js');
 const _ = require('lodash');
 const moment = require('moment');
 
+/*
+获取投票列表
+*/
 exports.getvotelist = (actiondata,ctx,callback)=>{
   const voteModel = DBModels.OnlineResearchModel;
   const queryexec = voteModel.find({}).select().lean();

@@ -8,7 +8,7 @@ const product = require('../common/product.js');
 const vote = require('../common/vote.js');
 const gateway = require('../common/gateway');
 const debugapp = require('debug')('appsrv:app:index');
-
+//app端所有消息中心
 const actiondatahandler = {
   'getvotelist':vote.getvotelist,
   'getproductlist':product.getproductlist,

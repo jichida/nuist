@@ -67,6 +67,9 @@ const initjson = [
   },
 ];
 
+/*
+插入数据库固定的数据，即初始化数据，不能被删除
+*/
 
 const initDB = ()=>{
   const dbModel = DBModels.PermissionModel;
@@ -91,17 +94,6 @@ const initDB = ()=>{
     }
   });
 
-  //新建一个全部数据的分组
-  // const deviceModel = DBModels.DeviceModel;
-  // const queryexec = deviceModel.find({}).select({
-  //   '_id':1});
-  // queryexec.exec((err,list)=>{
-  //   if(!err && !!list){
-  //     _.map(list,(deviceinfo)=>{
-  //       groupobj.deviceids.push(mongoose.Types.ObjectId(deviceinfo._id));
-  //     });
-  //   }
-  // });
 }
 
 module.exports= initDB;

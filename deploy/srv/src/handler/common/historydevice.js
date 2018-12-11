@@ -55,6 +55,9 @@ const getticktimestring = (periodname,ticktime)=>{
   return ticktimestring;
 }
 
+/*
+获取历史数据
+*/
 exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
     const fieldslist = _.get(actiondata,'fieldslist',
     ['temperature','rainfall','humidity','windspeed','winddirection','pressure']);
