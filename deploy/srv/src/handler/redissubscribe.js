@@ -118,7 +118,7 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
                 Latitude:DeviceGeoSz[1],
                 DeviceId:devicedata.deviceid,
                 gatewayid:gwid,
-                name:`节点${devicedata.gwid}${devicedata.deviceid}`,
+                name:`节点${devicedata.deviceid}`,
               }
             };
           }
@@ -132,7 +132,7 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
                 Latitude:DeviceGeoSz[1],
                 DeviceId:devicedata.deviceid,
                 gatewayid:gwid,
-                name:`节点${devicedata.gwid}${devicedata.deviceid}`,
+                name:`节点${devicedata.deviceid}`,
               }
             };
           }

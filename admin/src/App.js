@@ -40,7 +40,7 @@ class App extends Component {
     render() {
         return (
             <Admin
-                title="大坝监控平台"
+                title="监控平台后台管理"
                 restClient={restClient}
                 customReducers={{
                   theme:themeReducer,
