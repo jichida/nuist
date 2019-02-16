@@ -1,5 +1,6 @@
 const debug = require('debug')('srvtcp:protocol');
 const ddh = require('../../sd/ddh');
+const winston = require('../../log/log.js');
 
 const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
   if(cmd === 0x01){
@@ -29,49 +30,56 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
       const deviceidhex = ZigbeeData.substr(ddh.deviceid.offset*2,ddh.deviceid.length*2);
       debug(`节点ID为:${deviceidhex}`);
       const deviceid = deviceidhex.toUpperCase();
+      if(deviceid === '6B' || deviceid === '6C'){
+        //新增的数据
+        winston.getlog().info(`接收到节点ID为:${deviceid}的数据,数据是:${ZigbeeData}`);
+      }
+      else{
+        //原来的逻辑
+        const pressurehex = ZigbeeData.substr(ddh.pressure.offset*2,ddh.pressure.length*2);
+        const pressure = ddh.pressure.parsevalue(pressurehex);
+        debug(`气压为:${pressure}`);
 
-      const pressurehex = ZigbeeData.substr(ddh.pressure.offset*2,ddh.pressure.length*2);
-      const pressure = ddh.pressure.parsevalue(pressurehex);
-      debug(`气压为:${pressure}`);
+        const winddirectionhex = ZigbeeData.substr(ddh.winddirection.offset*2,ddh.winddirection.length*2);
+        const winddirection = ddh.winddirection.parsevalue(winddirectionhex);
 
-      const winddirectionhex = ZigbeeData.substr(ddh.winddirection.offset*2,ddh.winddirection.length*2);
-      const winddirection = ddh.winddirection.parsevalue(winddirectionhex);
+        debug(`风向为:${winddirection}`);
 
-      debug(`风向为:${winddirection}`);
+        const windspeedhex = ZigbeeData.substr(ddh.windspeed.offset*2,ddh.windspeed.length*2);
+        const windspeed = ddh.windspeed.parsevalue(windspeedhex);
+        debug(`风速为:${windspeed}`);
 
-      const windspeedhex = ZigbeeData.substr(ddh.windspeed.offset*2,ddh.windspeed.length*2);
-      const windspeed = ddh.windspeed.parsevalue(windspeedhex);
-      debug(`风速为:${windspeed}`);
+        const temperaturehex = ZigbeeData.substr(ddh.temperature.offset*2,ddh.temperature.length*2);
+        const temperature = ddh.temperature.parsevalue(temperaturehex);
+        debug(`温度为:${temperature}`);
 
-      const temperaturehex = ZigbeeData.substr(ddh.temperature.offset*2,ddh.temperature.length*2);
-      const temperature = ddh.temperature.parsevalue(temperaturehex);
-      debug(`温度为:${temperature}`);
+        const humidityhex = ZigbeeData.substr(ddh.humidity.offset*2,ddh.humidity.length*2);
+        const humidity = ddh.humidity.parsevalue(humidityhex);
+        debug(`温度为:${humidity}`);
 
-      const humidityhex = ZigbeeData.substr(ddh.humidity.offset*2,ddh.humidity.length*2);
-      const humidity = ddh.humidity.parsevalue(humidityhex);
-      debug(`温度为:${humidity}`);
+        const rainfallhex = ZigbeeData.substr(ddh.rainfall.offset*2,ddh.rainfall.length*2);
+        const rainfall = ddh.rainfall.parsevalue(rainfallhex);
+        debug(`雨量为:${rainfall}`);
 
-      const rainfallhex = ZigbeeData.substr(ddh.rainfall.offset*2,ddh.rainfall.length*2);
-      const rainfall = ddh.rainfall.parsevalue(rainfallhex);
-      debug(`雨量为:${rainfall}`);
+        jsonData = {
+          pressure,
+          winddirection,
+          windspeed,
+          temperature,
+          humidity,
+          rainfall
+        };
 
-      jsonData = {
-        pressure,
-        winddirection,
-        windspeed,
-        temperature,
-        humidity,
-        rainfall
-      };
+        callbackfn(null,{
+          cmd,
+          deviceid,
+          amtype,
+          hexraw:ZigbeeData,
+          resultdata:jsonData,
+          replybuf:buf_cmd2
+        });
+      }
 
-      callbackfn(null,{
-        cmd,
-        deviceid,
-        amtype,
-        hexraw:ZigbeeData,
-        resultdata:jsonData,
-        replybuf:buf_cmd2
-      });
       return;
     }
     else if(amtype === '03'){
