@@ -1,4 +1,5 @@
 const config =  {
+  appversion:'1.0.1(build217)',
   secretkey:'dabakey',
   listenport:process.env.listenport ||6011,
   rooturl:process.env.rooturl || 'http://api.nuistiot.com',

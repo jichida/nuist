@@ -1,5 +1,5 @@
 const config =  {
-  appversion:'1.0.1(build216)',
+  appversion:'1.0.1(build217)',
   logdir:process.env.logdir ||'../../dist/log',
   mongodburl:process.env.MONGO_URL || 'mongodb://dabauser:daba159@api.nuistiot.com/daba',
   mongos:process.env.mongos==='true'?true:false,

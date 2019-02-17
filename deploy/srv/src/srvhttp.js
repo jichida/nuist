@@ -96,7 +96,7 @@ let startsrv = ()=>{
   http.listen(config.listenport, ()=>{
     //console.log('listening on *:' + config.listenport);
     winston.initLog();
-
+    winston.getlog().info(`appversion:${config.appversion}`);
   });
 
   return http;

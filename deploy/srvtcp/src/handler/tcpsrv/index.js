@@ -124,7 +124,22 @@ starttcpsrv = (settings)=> {
                        if(bodybuf.length >= datalen){
                          getbuf({cmd,recvbuf,bodybuf},(err,result)=>{
                              if(cmd === 2){
-                               if(result.amtype === '0B'){
+                               if(result.amtype === 'BC'){
+                                 //<----publish data==========
+                                   const publishdata = {
+                                     "gwid" :`${gwid}`,
+                                     "deviceid":`${result.deviceid}`,
+                                     "amtype":`${result.amtype}`,
+                                     hexrawBC:`${result.hexraw}`,
+                                     realtimedata:result.resultdata
+                                   }
+                                   publishdata.realtimedata.datatime = moment().format('YYYY-MM-DD HH:mm:ss');
+                                   PubSub.publish(`nuistdata`,publishdata);
+                                   winston.getlog().info(`get data--->${JSON.stringify(result.resultdata)}`);
+                                   winston.getlog().info(`===>网关id:${gwid},节点id:${result.deviceid},原始包:${result.hexraw},解析后的数据:`);
+                                   winston.getlog().info(result.resultdata);
+                               }
+                               else if(result.amtype === '0B'){
                                  //<----publish data==========
                                    const publishdata = {
                                      "gwid" :`${gwid}`,

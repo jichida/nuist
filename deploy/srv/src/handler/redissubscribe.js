@@ -10,11 +10,24 @@ const debug = require('debug')('appsrv:redismsg')
 // appsrv:redismsg handlermsg_realtimealarm===>{"value":11,"type":"windspeed","level":"高","content":"10级以上大风","DeviceId":"LH001"} +1ms
 //   appsrv:redismsg handlermsg_realtimealarm===>{"value":50,"type":"temperature","level":"高","content":"温度过高","DeviceId":"LH001"} +4ms
 //   appsrv:redismsg handlermsg_realtimedata===>{"DeviceId":"NODE1","realtimedata":{"pressure":63,"winddirection":341,"windspeed":11,"humidity":39,"rainfall":274,"temperature":50}} +5s
-const handlermsg_historydevice = (devicedata,hexraw0B)=>{
+const handlermsg_historydevice_0B= (devicedata,hexraw0B)=>{
   const devicedatanew = _.omit(devicedata,['_id']);
   devicedatanew.did = devicedata._id;
   devicedatanew.UpdateTime = moment().format('YYYY-MM-DD HH:mm:ss');
   devicedatanew.hexraw0B = hexraw0B;
+  const dbModel = DBModels.HistoryDeviceModel;
+  const entity = new dbModel(devicedatanew);
+  entity.save((err,result)=>{
+    debug(`saved result`);
+    debug(result);
+  });
+};
+
+const handlermsg_historydevice_BC = (devicedata,hexrawBC)=>{
+  const devicedatanew = _.omit(devicedata,['_id']);
+  devicedatanew.did = devicedata._id;
+  devicedatanew.UpdateTime = moment().format('YYYY-MM-DD HH:mm:ss');
+  devicedatanew.hexrawBC = hexrawBC;
   const dbModel = DBModels.HistoryDeviceModel;
   const entity = new dbModel(devicedatanew);
   entity.save((err,result)=>{
@@ -122,7 +135,7 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
               }
             };
           }
-          else if(devicedata.amtype ==='0B'){
+          else if(devicedata.amtype ==='0B' || devicedata.amtype ==='BC'){
             updated_data = {
               $set:{
                 realtimedata:devicedata.realtimedata,
@@ -145,21 +158,30 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
             updated_data,{new:true,upsert:true}).
             lean().exec((err,newdevice)=>{
               //<----------
-              if(!err && !!newdevice && devicedata.amtype ==='0B'){
-                handlermsg_historydevice(newdevice,devicedata.hexraw0B);
-                // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
-                debug(alarmrule);
-                debug(newdevice.realtimedata);
-                alr.matchalarm(alarmrule,newdevice.realtimedata,(resultalarmmatch)=>{
-                  _.map(resultalarmmatch,(al)=>{
-                    debug(`getal==>`);
-                    debug(al);
-                    al.gatewayid = gwid;
-                    al.DeviceId = devicedata.deviceid;
-                    al.did = newdevice._id;
-                    handlermsg_alarmdata(al);
+              if(!err && !!newdevice){
+                if(devicedata.amtype ==='0B' || devicedata.amtype ==='BC'){
+                  if(devicedata.amtype ==='0B'){
+                    handlermsg_historydevice_0B(newdevice,devicedata.hexraw0B);
+                  }
+                  else{
+                    handlermsg_historydevice_BC(newdevice,devicedata.hexrawBC);
+                  }
+
+                  // PubSub.publish(`push.device.${newdevice.DeviceId}`,newdevice);
+                  debug(alarmrule);
+                  debug(newdevice.realtimedata);
+                  alr.matchalarm(alarmrule,newdevice.realtimedata,(resultalarmmatch)=>{
+                    _.map(resultalarmmatch,(al)=>{
+                      debug(`getal==>`);
+                      debug(al);
+                      al.gatewayid = gwid;
+                      al.DeviceId = devicedata.deviceid;
+                      al.did = newdevice._id;
+                      handlermsg_alarmdata(al);
+                    });
                   });
-                });
+                }
+
               }
           });
         }

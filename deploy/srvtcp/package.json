@@ -10,14 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "pubsub-js": "^1.5.8",
-    "request": "^2.79.0",
     "async": "^2.6.0",
     "debug": "^3.1.0",
+    "lodash": "^4.17.11",
     "moment": "^2.21.0",
     "mongoose": "^4.11.1",
     "mongoose-paginate": "^5.0.3",
+    "pubsub-js": "^1.5.8",
     "redis": "^2.8.0",
+    "request": "^2.79.0",
     "winston": "^2.4.1"
   }
 }
