@@ -1,0 +1,16 @@
+{
+  "apps" : [
+      {
+        "name": "srvtcp",
+        "script": "/root/nuist/deploy/srvtcp/index.js",
+        "env": {
+          "DEBUG":"srvtcp:*",
+          "NODE_ENV": "production",
+          "DEBUG_COLORS":"1",
+          "listenport":4000,
+          "logdir":"/root/nuist/deploy/dist/log",
+        },
+        "node-args": "--nouse-idle-notification --gc_global --max-old-space-size=80960 --max-new-space-size=80960"
+      }
+  ]
+}

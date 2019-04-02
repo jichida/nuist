@@ -1,0 +1,20 @@
+{
+  "apps" : [
+      {
+        "name": "srv",
+        "script": "/root/nuist/deploy/srv/index.js",
+        "env": {
+          "DEBUG":"srv:*",
+          "NODE_ENV": "production",
+          "DEBUG_COLORS":"1",
+          "isredissubscriber":"false",
+		      "MONGO_URL":"mongodb://dabauser:daba159@127.0.0.1/daba",
+          "rooturl":"http://api.nuistiot.com:30050",
+          "listenport":30050,
+          "logdir":"/root/nuist/deploy/dist/log",
+          "uploaddir":"/root/nuist/deploy/upload",
+        },
+        "node-args": "--nouse-idle-notification --gc_global --max-old-space-size=80960 --max-new-space-size=80960"
+      }
+  ]
+}
