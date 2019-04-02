@@ -1,6 +1,8 @@
 const winston = require('winston');
 const moment = require('moment');
 const path = require('path');
+const config = require('../config');
+
 let logger;
 exports.initLog =  ()=>{
   const filename =  `${config.name}_${moment().format('YYYY-MM-DD-HHmmss')}`;
