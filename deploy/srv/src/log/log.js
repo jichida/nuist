@@ -3,7 +3,7 @@ const moment = require('moment');
 const path = require('path');
 let logger;
 exports.initLog =  ()=>{
-  const filename =  `${config.name}_`+moment().format('YYYY-MM-DD-HHmmss');
+  const filename =  `${config.name}_${moment().format('YYYY-MM-DD-HHmmss')}`;
   const logfile = filename+".log";
   const logdir = config.logdir || path.resolve(__dirname,'../../../log');
   const logpath = `${logdir}/${logfile}`;
