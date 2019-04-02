@@ -11,6 +11,7 @@
 		      "MONGO_URL":"mongodb://dabauser:daba159@127.0.0.1/daba",
           "rooturl":"http://api.nuistiot.com:30049",
           "listenport":30049,
+          "name": "srvslave",
           "logdir":"/root/nuist/deploy/dist/log",
           "uploaddir":"/root/nuist/deploy/upload",
         },

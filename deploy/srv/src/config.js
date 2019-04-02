@@ -1,6 +1,7 @@
 const config =  {
   appversion:'1.0.1(build217)',
   secretkey:'dabakey',
+  name:process.env.name || 'name',
   listenport:process.env.listenport ||6011,
   rooturl:process.env.rooturl || 'http://api.nuistiot.com',
   issmsdebug:process.env.issmsdebug || false,
@@ -14,6 +15,7 @@ const config =  {
   uploadurl:'/uploader',
   jpush_appkey:'630950d8101fe73d19d64aaf',
   jpush_mastersecret:'dd52bf9de919a2a53441fce3',
+  logdir:process.env.logdir ||'/Users/wangxiaoqing/Downloads/work201904/nuist/deploy/dist/log',
   srvredis:{
     host:process.env.srvredis_host||'api.nuistiot.com',
     port: process.env.srvredis_port|| 6379,

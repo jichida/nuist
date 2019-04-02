@@ -10,6 +10,7 @@
           "isredissubscriber":"false",
 		      "MONGO_URL":"mongodb://dabauser:daba159@127.0.0.1/daba",
           "rooturl":"http://api.nuistiot.com:30050",
+          "name": "srvmaster",
           "listenport":30050,
           "logdir":"/root/nuist/deploy/dist/log",
           "uploaddir":"/root/nuist/deploy/upload",
