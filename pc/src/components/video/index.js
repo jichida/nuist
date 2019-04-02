@@ -17,12 +17,15 @@ import lodashget from 'lodash.get';
 
 class App extends React.Component {
     render() {
-      const {gateways,usersettings} = this.props;
+      const {gateways,usersettings,gw2videos} = this.props;
       const indexgatewayid = usersettings.indexgatewayid;
       const curgateway = lodashget(gateways,`${indexgatewayid}`);
       if(!curgateway){
         return <div>未选择网关</div>
       }
+
+      const videoname = lodashget(gw2videos[indexgatewayid],'name','青龙峡大坝');
+      const videourl = lodashget(gw2videos[indexgatewayid],'url','http://www.newxh.com18.cn/spindex.html');
         return (
           <div className="deployment-page root-page">
               <Header />
@@ -41,14 +44,14 @@ class App extends React.Component {
     </h2>
         <div className="spjk_box">
             <div className="spjk_left">
-            <h2>正在监控  青龙峡大坝</h2>
+            <h2>正在监控  {`${videoname}`}</h2>
             <div className=" box_box" style={{position: 'relative'}}>
 
 
- <iframe src="http://www.newxh.com18.cn/spindex.html" width="100%" height="440" frameborder="0"></iframe>
+ <iframe src={`${videourl}`} width="100%" height="440" frameborder="0"></iframe>
 </div>
             </div>
-            
+
             </div>
 
          </div>
@@ -115,8 +118,18 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device,userlogin}) => {
+const mapStateToProps = ({device,userlogin,video}) => {
     const {gateways,devicelist,devices,viewtype} = device;
-    return {gateways,devicelist,devices,viewtype,usersettings:userlogin.usersettings};
+    const {videolist,videos}  = video;
+    let gw2videos = {};
+    for(let i =0 ;i < videolist.length; i++){
+      const curvideo = videos[videolist[i]];
+      if(!!curvideo){
+        if(!!gateways[curvideo.gatewayid]){
+          gw2videos[curvideo.gatewayid] = curvideo;
+        }
+      }
+    }
+    return {gateways,devicelist,devices,viewtype,usersettings:userlogin.usersettings,gw2videos};
 }
 export default connect(mapStateToProps)(App);

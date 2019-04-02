@@ -33,6 +33,9 @@ import {
     getproductlist_request,
     getproductlist_result,
 
+    getvideolist_request,
+    getvideolist_result,
+
     getvotelist_request,
     getvotelist_result,
 
@@ -51,6 +54,7 @@ let recvmessagetoresultpair = {
   // 'serverpush_device_alarm':serverpush_device_alarm,
   'setvote_result':setvote_result,
   'getproductlist_result':getproductlist_result,
+  'getvideolist_result':getvideolist_result,
   'getvotelist_result':getvotelist_result,
 
   'saveusersettings_result':saveusersettings_result,
@@ -75,6 +79,7 @@ let sendmessagefnsz = {
 
   'getvotelist':`${getvotelist_request}`,
   'getproductlist':`${getproductlist_request}`,
+  'getvideolist':`${getvideolist_request}`,
   'logout':`${logout_request}`,
   'loginwithtoken':`${loginwithtoken_request}`,
   'login':`${login_request}`,

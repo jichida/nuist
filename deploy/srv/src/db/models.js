@@ -14,6 +14,15 @@ const SystemConfigSchema = new Schema({
 SystemConfigSchema.plugin(mongoosePaginate);
 const SystemConfigModel =mongoose.model('systemconfig',  SystemConfigSchema);
 
+//视频
+const VideoSchema = new Schema({
+  name:String,
+  url:String,
+  gatewayid:{ type: Schema.Types.ObjectId, ref: 'gateway' },
+}, { strict: false });
+VideoSchema.plugin(mongoosePaginate);
+const VideoModel =mongoose.model('video',  VideoSchema);
+
 //产品
 const ProductSchema = new Schema({
   name:String,
@@ -177,7 +186,7 @@ const AlarmRuleSchema = new Schema({
 AlarmRuleSchema.plugin(mongoosePaginate);
 const AlarmRuleModel =mongoose.model('alarmrule',  AlarmRuleSchema);
 
-
+exports.VideoSchema = VideoSchema;
 exports.SystemConfigSchema = SystemConfigSchema;
 exports.ProductSchema = ProductSchema;
 exports.OnlineResearchSchema = OnlineResearchSchema;
@@ -192,6 +201,7 @@ exports.RealtimeAlarmRawSchema = RealtimeAlarmRawSchema;
 exports.HistoryDeviceSchema = HistoryDeviceSchema;
 exports.AlarmRuleSchema = AlarmRuleSchema;
 
+exports.VideoModel = VideoModel;
 exports.SystemConfigModel = SystemConfigModel;
 exports.ProductModel = ProductModel;
 exports.OnlineResearchModel = OnlineResearchModel;

@@ -5,6 +5,11 @@ const dbs ={
     schema:db.ProductSchema,
     collectionname:'product',
   },
+  'video':{
+    urlname:'/video',
+    schema:db.VideoSchema,
+    collectionname:'video',
+  },
   'onlineresearch':{
     urlname:'/onlineresearch',
     schema:db.OnlineResearchSchema,

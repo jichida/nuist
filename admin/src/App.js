@@ -29,7 +29,7 @@ import {UserCreate,UserList,UserEdit} from './components/users/index.js';
 import {PermissionCreate,PermissionList,PermissionEdit} from './components/permissions/index.js';
 import {AlarmruleCreate,AlarmruleList,AlarmruleEdit} from './components/alarmrule/index.js';
 import {HistoryDeviceList,HistoryDeviceShow} from './components/historydevice/index.js';
-
+import {VideolistCreate,VideolistList,VideolistEdit} from './components/video/index.js';
 // import {ProductlistCreate,ProductlistList,ProductlistEdit} from './components/product/index.js';
 
 
@@ -62,6 +62,7 @@ class App extends Component {
                 return [
                     <Resource name="systemconfig" list={SystemconfigList} />,
                     <Resource name="product" list={ProductlistList} edit={ProductlistEdit} create={ProductlistCreate}  remove={Delete} />,
+                    <Resource name="video" list={VideolistList} edit={VideolistEdit} create={VideolistCreate}  remove={Delete} />,
                     <Resource name="onlineresearch" list={OnlineResearchList} edit={OnlineResearchEdit} create={OnlineResearchCreate}  remove={Delete} />,
                     <Resource name="gatewaygroup" list={GatewayGroupList} edit={GatewayGroupEdit} create={GatewayGroupCreate}  remove={Delete} />,
                     <Resource name="device" list={DeviceList} edit={DeviceEdit} create={DeviceCreate}  remove={Delete} />,
