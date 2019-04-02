@@ -8,9 +8,6 @@ exports.initLog =  ()=>{
   const logdir = config.logdir || path.resolve(__dirname,'../../../log');
   const logpath = `${logdir}/${logfile}`;
 
-  const logfile = filename+".log";
-  const logpath = path.resolve(__dirname,'../../../log', logfile);
-
   const logfileerr = filename+"_err.log";
   const logpatherr = path.resolve(__dirname,'../../../log', logfileerr);
 
