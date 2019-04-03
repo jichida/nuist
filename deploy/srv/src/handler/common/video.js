@@ -10,7 +10,7 @@ const moment = require('moment');
 */
 exports.getvideolist = (actiondata,ctx,callback)=>{
   const videoModel = DBModels.VideoModel;
-  const queryexec = videoModel.find({isenabled:true}).select().lean();
+  const queryexec = videoModel.find({}).select().lean();
   queryexec.exec((err,list)=>{
     if(!err && !!list){
         callback({

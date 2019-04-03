@@ -19,6 +19,9 @@ export default {
     product:{
       name: '产品管理 |||| 产品管理',
     },
+    video:{
+      name: '视频管理 |||| 视频管理',
+    },
     onlineresearch:{
       name: '在线调查管理 |||| 在线调查管理',
     },

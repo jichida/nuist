@@ -23,7 +23,7 @@ class App extends React.Component {
       if(!curgateway){
         return <div>未选择网关</div>
       }
-
+      
       const videoname = lodashget(gw2videos[indexgatewayid],'name','青龙峡大坝');
       const videourl = lodashget(gw2videos[indexgatewayid],'url','http://www.newxh.com18.cn/spindex.html');
         return (
@@ -48,7 +48,7 @@ class App extends React.Component {
             <div className=" box_box" style={{position: 'relative'}}>
 
 
- <iframe src={`${videourl}`} width="100%" height="440" frameborder="0"></iframe>
+ <iframe src={`${videourl}`} width="100%" height="440" frameBorder="0"></iframe>
 </div>
             </div>
 

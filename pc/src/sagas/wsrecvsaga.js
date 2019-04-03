@@ -9,6 +9,7 @@ import {
   set_weui,
 
   getgatewaylist_request,
+  getvideolist_request,
   // getgatewaylist_result_4reducer,
   ui_selectgateway4draw,
   ui_resetalarm,
@@ -157,7 +158,8 @@ export function* wsrecvsagaflow() {
               //   yield put(start_serverpush_alarm_sz({}));
               // }
               //
-              // yield put(getworkusers_request({}));
+              debugger;
+              yield put(getvideolist_request({}));
               // //登录成功,获取今天所有报警信息列表
               // yield put(getcurallalarm_request({}));
               // //获取所有工单

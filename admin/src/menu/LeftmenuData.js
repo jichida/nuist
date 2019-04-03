@@ -25,6 +25,7 @@ export default [
         { name: 'gatewaygroup', icon: <GatewayGroupIcon /> ,adminonly:false},
         { name: 'user', icon: <UserIcon /> ,adminonly:false},
         { name: 'alarmrule', icon: <ProductIcon /> ,adminonly:false},
+        { name: 'video', icon: <DeviceIcon />,adminonly:false },
         // { name: 'permission', icon: <PermissionIcon /> ,adminonly:true},
         { name: 'realtimealarmraw', icon: <RealtimeAlarmRawIcon /> ,adminonly:false},
         { name: 'historydevice', icon: <HistoryDeviceIcon /> ,adminonly:false},
