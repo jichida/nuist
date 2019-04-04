@@ -42,10 +42,6 @@ class App extends React.Component {
       if(!curgateway){
         return <div>未选择网关</div>
       }
-      // const retlist = lodashget(historydevices,`${curdevice._id}`,[]);
-
-      // const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
-      // const {fields,fieldslist_brief} = viewtype;
         return (
           <div className="deployment-page root-page">
               <Header />
@@ -93,7 +89,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({device,userlogin,historydevice:{historydevices},app:{savequery_alaram}}) => {
-    const {gateways,devicelist,devices,viewtype} = device;
-    return {gateways,devicelist,devices,viewtype,historydevices,usersettings:userlogin.usersettings,savequery_alaram};
+    const {gateways,devicelist,devices} = device;
+    return {gateways,devicelist,devices,historydevices,usersettings:userlogin.usersettings,savequery_alaram};
 }
 export default connect(mapStateToProps)(App);

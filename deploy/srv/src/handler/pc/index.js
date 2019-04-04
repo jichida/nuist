@@ -12,6 +12,7 @@ const vote = require('../common/vote.js');
 const debugpc = require('debug')('appsrv:pc:index');
 //PC端所有消息中心
 const actiondatahandler = {
+  'getviewtypeslist':systemconfig.getviewtypeslist,
   'getvotelist':vote.getvotelist,
   'getproductlist':product.getproductlist,
   'getvideolist':video.getvideolist,

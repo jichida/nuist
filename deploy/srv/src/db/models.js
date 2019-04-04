@@ -9,6 +9,7 @@ const SystemConfigSchema = new Schema({
   gatewaygroups4app:[{ type: Schema.Types.ObjectId, ref: 'gatewaygroup', default: [] }],
   gatewaygroups4pc:[{ type: Schema.Types.ObjectId, ref: 'gatewaygroup', default: [] }],
   viewtype:{ type: Schema.Types.ObjectId, ref: 'viewtype' },
+  allowviewtypes:[{ type: Schema.Types.ObjectId, ref: 'viewtype' }],
   alarmruleid:{ type: Schema.Types.ObjectId, ref: 'alarmrule' },
 }, { strict: false });
 SystemConfigSchema.plugin(mongoosePaginate);
@@ -50,6 +51,7 @@ const OnlineResearchModel =mongoose.model('onlineresearch',  OnlineResearchSchem
 //设备/节点
 const DeviceSchema = new Schema({
   gatewayid:{ type: Schema.Types.ObjectId, ref: 'gateway' },
+  viewtype:{ type: Schema.Types.ObjectId, ref: 'viewtype' },
 }, { strict: false });
 DeviceSchema.plugin(mongoosePaginate);
 const DeviceModel =mongoose.model('device',  DeviceSchema);
@@ -106,6 +108,7 @@ const UserSchema = new Schema({
   roleid:{ type: Schema.Types.ObjectId, ref: 'role' },
   adminflag:{ type: Schema.Types.Number,default: 0 },
   viewtype:{ type: Schema.Types.ObjectId, ref: 'viewtype' },
+  allowviewtypes:[{ type: Schema.Types.ObjectId, ref: 'viewtype' }],
   gatewaygroups:[{ type: Schema.Types.ObjectId, ref: 'gatewaygroup', default: [] }],
   usersettings:{
     indexdeviceid:String,
@@ -150,6 +153,7 @@ const RealtimeAlarmRawModel =mongoose.model('realtimealarmraw',  RealtimeAlarmRa
 const HistoryDeviceSchema = new Schema({
   gatewayid:{ type: Schema.Types.ObjectId, ref: 'gateway' },
   did:{ type: Schema.Types.ObjectId, ref: 'device' },
+  viewtype:{ type: Schema.Types.ObjectId, ref: 'viewtype' },
 }, { strict: false });
 HistoryDeviceSchema.plugin(mongoosePaginate);
 const HistoryDeviceModel =mongoose.model('historydevice',  HistoryDeviceSchema);

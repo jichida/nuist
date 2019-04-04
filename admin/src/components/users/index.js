@@ -30,9 +30,7 @@ const UserCreate = (props) => (
       <TextInput label="密码" source="password" validate={required} />
       <TextInput label="真实姓名" source="truename"/>
       <TextInput label="备注" source="demo" />
-      <ReferenceInput label="查看数据类型" source="viewtype" reference="viewtype" allowEmpty>
-        <SelectInput optionText="name" />
-      </ReferenceInput>
+      <CfSelectArrayInput label="允许查看数据类型" source="allowviewtypes" loadOptions={getOptions('viewtype','name','_id')}/>
       <CfSelectArrayInput label="网关组" source="gatewaygroups" loadOptions={getOptions('gatewaygroup','name','_id')}/>
     </SimpleForm>
   </Create>
@@ -47,9 +45,7 @@ const UserEdit = (props) => {
         <TextField label="用户名" source="username" validate={required} />
         <TextInput label="真实姓名" source="truename"/>
         <TextInput label="备注" source="demo" />
-        <ReferenceInput label="查看数据类型" source="viewtype" reference="viewtype" allowEmpty>
-          <SelectInput optionText="name" />
-        </ReferenceInput>
+        <CfSelectArrayInput label="允许查看数据类型" source="allowviewtypes" loadOptions={getOptions('viewtype','name','_id')}/>
         <CfSelectArrayInput label="网关组" source="gatewaygroups" loadOptions={getOptions('gatewaygroup','name','_id')}/>
       </SimpleForm>
     </Edit>
@@ -80,9 +76,11 @@ const UserList = (props) => (
         <TextField label="用户名" source="username" />
         <DateField label="注册时间" source="created_at" showTime />
         <DateField label="上次登录时间" source="updated_at" showTime />
-        <ReferenceField label="查看数据类型" source="viewtype" reference="viewtype" allowEmpty>
-          <TextField source="name" />
-        </ReferenceField>
+        <ReferenceArrayField label="允许查看数据类型" reference="viewtype" source="allowviewtypes" >
+                <SingleFieldList>
+                    <ChipField source="name" />
+                </SingleFieldList>
+        </ReferenceArrayField>
         <ReferenceArrayField label="网关组" reference="gatewaygroup" source="gatewaygroups" >
                 <SingleFieldList>
                     <ChipField source="name" />

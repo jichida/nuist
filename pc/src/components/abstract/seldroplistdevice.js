@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import lodashget from 'lodash.get';
 import { Select } from 'antd';
 import lodashmap from 'lodash.map';
-
+import lodashincludes from 'lodash.includes';
 import {ui_seldropdowndevice} from '../../actions';
 
 const Option = Select.Option;
@@ -20,10 +20,11 @@ class App extends React.Component {
   }
 
   render() {
-    const {curdevice,devices,indexgatewayid} = this.props;
+    const {curdevice,devices,indexgatewayid,allowviewtypeids} = this.props;
     let options = [];
     lodashmap(devices,(v)=>{
-      if(indexgatewayid === v.gatewayid){
+      if(indexgatewayid === v.gatewayid && lodashincludes(allowviewtypeids,v.viewtype)){
+        //还需要判断当前类型是否和节点类型匹配
         options.push(<Option key={v._id} value={`${v._id}`}>{v.name}</Option>);
       }
     });
@@ -45,7 +46,7 @@ style={{ width: 140 }}
   }
 }
 
-const mapStateToProps = ({device:{gateways,viewtype,devicelist,devices},userlogin:{usersettings}}) => {
+const mapStateToProps = ({device:{gateways,viewtypes,devicelist,devices,allowviewtypeids},userlogin:{usersettings}}) => {
   let curdevice;
   let curdeviceid = lodashget(usersettings,'indexdeviceid');
   let indexgatewayid = lodashget(usersettings,'indexgatewayid');
@@ -53,11 +54,14 @@ const mapStateToProps = ({device:{gateways,viewtype,devicelist,devices},userlogi
     curdevice = devices[curdeviceid];
   }
   if(!curdevice){
-    if(devicelist.length > 0){
-      curdevice = devices[devicelist[0]];
+    for(let i = 0 ;i < devicelist.length ;i++){
+      if(lodashincludes(allowviewtypeids,devicelist[i].viewtype)){
+        curdevice = devices[devicelist[i]];
+        break;
+      }
     }
   }
-  return {curdevice,devices,indexgatewayid};
+  return {curdevice,devices,indexgatewayid,allowviewtypeids};
 }
 
 export default connect(mapStateToProps)(App);

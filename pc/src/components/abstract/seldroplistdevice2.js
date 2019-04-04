@@ -11,7 +11,7 @@ class App extends React.Component {
     this.props.dispatch(ui_seldropdowndevice({value:deviceid}));
   }
   render() {
-    const {gateways,devices,curdevice} = this.props;
+    const {gateways,devices,curdevice,viewtypes,allowviewtypeids,} = this.props;
     if(!curdevice){
       return (<div>无选择设备</div>);
     }
@@ -20,6 +20,8 @@ class App extends React.Component {
         <Dropdown  overlay={getMenu({indexgatewayid:curdevice.gatewayid,
           gateways,
           devices,
+          viewtypes,
+          allowviewtypeids,
           onMenuClick:
             (e)=>{
               this.onMenuClick(e.key)
@@ -32,7 +34,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({device:{gateways,viewtype,devicelist,devices},userlogin:{usersettings}}) => {
+const mapStateToProps = ({device:{gateways,viewtypes,devicelist,devices,allowviewtypeids},userlogin:{usersettings}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
@@ -43,7 +45,7 @@ const mapStateToProps = ({device:{gateways,viewtype,devicelist,devices},userlogi
 				curdevice = devices[devicelist[0]];
 			}
 		}
-    return {gateways,devices,viewtype,curdevice,usersettings};
+    return {gateways,devices,viewtypes,allowviewtypeids,curdevice,usersettings,};
 }
 
 export default connect(mapStateToProps)(App);

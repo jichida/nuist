@@ -24,8 +24,12 @@ import lodashget from 'lodash.get';
 export function* querypageflow(){//仅执行一次
   yield takeLatest(`${querypage_set_condition_sendsrv}`, function*(action) {
     const {savequery_historychart,viewtype,deviceid} = yield select((state)=>{
-      const {app:{savequery_historychart},device:{viewtype},userlogin:{usersettings}} = state;
+      const {app:{savequery_historychart},device:{viewtypes,devices},userlogin:{usersettings}} = state;
       const deviceid = usersettings.indexdeviceid;
+      let viewtype;
+      if(!!devices[deviceid]){
+        viewtype = viewtypes[devices[deviceid].viewtype];
+      }
       return {savequery_historychart,viewtype,deviceid};
     });
     const fieldslist_brief = lodashget(viewtype,'fieldslist_brief',[]);
@@ -97,20 +101,27 @@ export function* querypageflow(){//仅执行一次
     let isstopped = false;
     while(!isstopped){
       //选中一个默认节点
-      const {usersettings,savequery_alaram,viewtype} = yield select((state)=>{
+      const {usersettings,savequery_alaram,allowviewtypeids,viewtypes,devices} = yield select((state)=>{
         const {usersettings} = state.userlogin;
         const {savequery_alaram} = state.app;
-        const {viewtype} = state.device;
-        return {usersettings,savequery_alaram,viewtype};
+        const {viewtypes,allowviewtypeids,devices} = state.device;
+        return {usersettings,savequery_alaram,viewtypes,allowviewtypeids,devices};
       });
 
-      const fieldslist_detail = lodashget(viewtype,'fieldslist_detail',[]);
+      let fieldslist_detail = [];
       const {from,to} = savequery_alaram;
       const starttime_m = dateMath.parse(from,false);
       const endtime_m = dateMath.parse(to,true);
       const starttime = starttime_m.format('YYYY-MM-DD HH:mm:ss');
       const endtime = endtime_m.format('YYYY-MM-DD HH:mm:ss');
       const indexdeviceid = lodashget(usersettings,'indexdeviceid','');
+      if(!!devices[indexdeviceid]){
+        const viewtype = viewtypes[devices[indexdeviceid].viewtype];
+        if(!!viewtype){
+          fieldslist_detail = lodashget(viewtype,'fieldslist_detail',[]);
+        }
+      }
+
       const query = {
         did:indexdeviceid,
         type:{$in:fieldslist_detail},

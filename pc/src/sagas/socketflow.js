@@ -4,8 +4,9 @@ import {
   getsystemconfig_request,
   loginwithtoken_request,
   getgatewaylist_request,
-  getproductlist_request,
-  getvotelist_request
+  getviewtypeslist_request,
+  // getproductlist_request,
+  // getvotelist_request
 } from '../actions';
 import config from '../env/config';
 
@@ -16,8 +17,8 @@ export function* socketflow(){//仅执行一次
       if(issocketconnected){
         yield put(getsystemconfig_request({}));
         yield put(getgatewaylist_request({}));
-        yield put(getproductlist_request({}));
-        yield put(getvotelist_request({}));
+        yield put(getviewtypeslist_request({}));
+        // yield put(getvotelist_request({}));
         if(config.softmode === 'app'){
           const token = localStorage.getItem(`nuist_${config.softmode}_token`);
           if (!!token) {

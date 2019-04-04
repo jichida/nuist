@@ -43,7 +43,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({device:{gateways,viewtype,devicelist,devices},userlogin:{usersettings}}) => {
+const mapStateToProps = ({device:{gateways,viewtypes,devicelist,devices},userlogin:{usersettings}}) => {
 		let curgateway;
 		let indexgatewayid = lodashget(usersettings,'indexgatewayid');
 		if(!curgateway){

@@ -43,11 +43,15 @@ import {
     setvote_result,
 
     gethistorydevicelist_request,
-    gethistorydevicelist_result
+    gethistorydevicelist_result,
+
+    getviewtypeslist_request,
+    getviewtypeslist_result
   } from '../actions';
 
 //接收的对应关系
 let recvmessagetoresultpair = {
+  'getviewtypeslist_result':getviewtypeslist_result,
   'gethistorydevicelist_result':gethistorydevicelist_result,
   // 'serverpush_device':serverpush_device,
   'serverpush_device_list':serverpush_device_list,
@@ -76,7 +80,7 @@ let recvmessagetoresultpair = {
 
 //非验证发送接口
 let sendmessagefnsz = {
-
+  'getviewtypeslist':`${getviewtypeslist_request}`,
   'getvotelist':`${getvotelist_request}`,
   'getproductlist':`${getproductlist_request}`,
   'getvideolist':`${getvideolist_request}`,

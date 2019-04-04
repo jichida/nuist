@@ -23,58 +23,64 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
     let errmsg = `协议不符`;
     const ZigbeeData = bodybuf.toString('hex');//
     debug(`getcmd2====>${ZigbeeData},节点数据长度为:${ZigbeeData.length/2}`);
-    //取第一个字节
-    const newheader4hex = ZigbeeData.substr(0,2);
-    const newheader4 = newheader4hex.toUpperCase();
-    if(newheader4 === '6B' || newheader4 === '6C'){
-      winston.getlog().info(`====>接收到新协议:${ZigbeeData},节点数据长度为:${ZigbeeData.length/2}`);
-      let jsonData = {};
-      //扣掉4字节
-      const channelnum = (ZigbeeData.length - 8)/34;
-      for(let i = 0; i < channelnum; i++){
-        //4字节+N
-        const channelhex = ZigbeeData.substr(8+i*2,17*2);
-        //偏移4字节后,取8字节
-        const frequencyhex = channelhex.substr(0,16);
-        const frequencyvalue = Buffer.from(frequencyhex,'hex').toString('ascii');
-        //再取8字节
-        const temperaturehex = channelhex.substr(16,32);
-        const temperaturevalue = Buffer.from(temperaturehex,'hex').toString('ascii');
-        //再取最后一个字节
-        const numberindexhex = channelhex.substr(32,2);
-        const numberindex = Buffer.from(numberindexhex,'hex');
-        if(frequencyvalue[0] !== 'E'){
-          _.set(jsonData,`c${numberindex[0]}_frequency`,parseFloat(frequencyvalue));
-          _.set(jsonData,`frequency`,parseFloat(frequencyvalue));
-        }
-        if(temperaturevalue[0] !== 'E'){
-          _.set(jsonData,`c${numberindex[0]}_temperature`,parseFloat(temperaturevalue));
-          _.set(jsonData,`temperature`,parseFloat(temperaturevalue));
-        }
-        _.set(jsonData,`channel${numberindex[0]}_frequency`,frequencyvalue);
-        _.set(jsonData,`channel${numberindex[0]}_temperature`,temperaturevalue);
-        _.set(jsonData,`channel`,numberindex[0]);
-      }
-      callbackfn(null,{
-        cmd,
-        deviceid:newheader4,
-        amtype:`BC`,
-        hexraw:ZigbeeData,
-        resultdata:jsonData,
-        replybuf:buf_cmd2
-      });
-      return;
-    }
+
 
     const amtypehex = ZigbeeData.substr(ddh.amtype.offset*2,ddh.amtype.length*2);
     debug(`AMTypeID为:${amtypehex}`);
     const amtype = amtypehex.toUpperCase();
     console.log(`amtype-->${amtype}`);
     let jsonData;
-    if(amtype === '0B'){
+    if(amtype === '0B'){//427e000b7d3100006c00000033818600002b313834302e36342b363639312e323103010203040506070001020300010203461380080001
       const deviceidhex = ZigbeeData.substr(ddh.deviceid.offset*2,ddh.deviceid.length*2);
       debug(`节点ID为:${deviceidhex},偏移量:${ddh.deviceid.offset},长度:${ddh.deviceid.length}`);
       const deviceid = deviceidhex.toUpperCase();
+      //取第一个字节
+      const ZigbeeDataNew = ZigbeeData.substr(ddh.deviceid.offset*2);
+      const newheader4hex = ZigbeeDataNew.substr(0,2);
+      const newheader4 = newheader4hex.toUpperCase();
+      if(newheader4 === '6B' || newheader4 === '6C'){
+
+        debug(`====>接收到新协议:${ZigbeeDataNew},节点数据长度为:${ZigbeeDataNew.length/2}`);
+        // winston.getlog().info(`====>接收到新协议:${ZigbeeDataNew},节点数据长度为:${ZigbeeDataNew.length/2}`);
+        let jsonData = {};
+        //扣掉4字节
+        const channelnum = (ZigbeeDataNew.length - 8)/34;
+        for(let i = 0; i < channelnum; i++){
+          //4字节+N
+          const channelhex = ZigbeeDataNew.substr(8+i*2,17*2);
+          //偏移4字节后,取8字节
+          const frequencyhex = channelhex.substr(0,16);
+          const frequencyvalue = Buffer.from(frequencyhex,'hex').toString('ascii');
+          //再取8字节
+          const temperaturehex = channelhex.substr(16,32);
+          const temperaturevalue = Buffer.from(temperaturehex,'hex').toString('ascii');
+          //再取最后一个字节
+          const numberindexhex = channelhex.substr(32,2);
+          const numberindex = Buffer.from(numberindexhex,'hex');
+          if(frequencyvalue[0] !== 'E'){
+            _.set(jsonData,`c${numberindex[0]}_frequency`,parseFloat(frequencyvalue));
+            _.set(jsonData,`frequency`,parseFloat(frequencyvalue));
+          }
+          if(temperaturevalue[0] !== 'E'){
+            _.set(jsonData,`c${numberindex[0]}_temperature`,parseFloat(temperaturevalue));
+            _.set(jsonData,`temperature`,parseFloat(temperaturevalue));
+          }
+          _.set(jsonData,`channel${numberindex[0]}_frequency`,frequencyvalue);
+          _.set(jsonData,`channel${numberindex[0]}_temperature`,temperaturevalue);
+          _.set(jsonData,`channel`,numberindex[0]);
+        }
+
+        debug(`====>${JSON.stringify(jsonData)}`);
+        callbackfn(null,{
+          cmd,
+          deviceid:newheader4,
+          amtype:`BC`,
+          hexraw:ZigbeeData,
+          resultdata:jsonData,
+          replybuf:buf_cmd2
+        });
+        return;
+      }
       // if(deviceid === '6B' || deviceid === '6C'){
       //   //新增的数据
       //   debug(`接收到节点ID为:${deviceid}的数据,数据是:${ZigbeeData}`);
@@ -231,9 +237,9 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
 // 05 06 07 00 01 02 03 00 01 02 03 aa 10 ba 08 00 01 //8+8+1
 // 427e000b7d310000010000003381860000b40230067607fb087d0369061508ae080326543604050607fa03000b00000000bd10440c0001
 // 427e000b7d3100006c00000033818600002b313734322e31382b383639362e323302010203040506070001020300010203eb108f080001
+//427e000b7d3100006c00000033818600002b313834302e36342b363639312e323103010203040506070001020300010203461380080001
+const bodybuf = Buffer.from('427e000b7d3100006c00000033818600002b313834302e36342b363639312e323103010203040506070001020300010203461380080001','hex');
+getbuf({cmd:0x02,bodybuf},()=>{
 
-// const bodybuf = Buffer.from('427e000b7d3100006c00000033818600002b313734322e31382b383639362e323302010203040506070001020300010203eb108f080001','hex');
-// getbuf({cmd:0x02,bodybuf},()=>{
-//
-// })
+})
 module.exports = getbuf;

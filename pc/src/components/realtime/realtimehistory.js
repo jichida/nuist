@@ -126,7 +126,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({device,userlogin,historydevice:{historydevices},app:{savequery_historychart}}) => {
-    const {devicelist,devices,viewtype} = device;
-    return {devicelist,devices,viewtype,historydevices,usersettings:userlogin.usersettings,savequery_historychart};
+    const {devicelist,devices} = device;
+    return {devicelist,devices,historydevices,usersettings:userlogin.usersettings,savequery_historychart};
 }
 export default connect(mapStateToProps)(App);

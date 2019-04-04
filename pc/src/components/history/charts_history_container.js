@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import ChartHistory from "./charts_history_container_charttype";
 import lodashget from 'lodash.get';
+import lodashincludes from 'lodash.includes';
 // import lodashmap from 'lodash.map';
 // import moment from 'moment';
 import {
@@ -66,9 +67,14 @@ class App extends React.Component {
 
   	render() {
       const {curdevice,viewtype,retlist,selfield} = this.props;
+      if(!viewtype){
+        //debugger;
+        return <div />
+      }
       const {fields} = viewtype;
       const curfield = selfield;
       if(!curdevice || !fields[curfield]){
+        //debugger;
         return <div />
       }
       const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
@@ -86,19 +92,26 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({historydevice:{periodquery},device:{devices,devicelist,viewtype},historydevice:{historydevices},userlogin:{usersettings}}) => {
+const mapStateToProps = ({historydevice:{periodquery},device:{devices,devicelist,viewtypes,allowviewtypeids},historydevice:{historydevices},userlogin:{usersettings}}) => {
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
     let curdevice;
     if(!!curdeviceid){
       curdevice = devices[curdeviceid];
     }
     if(!curdevice){
-      if(devicelist.length > 0){
-        curdevice = devices[devicelist[0]];
-      }
-    }
+			for(let i = 0 ;i < devicelist.length ;i++){
+				if(lodashincludes(allowviewtypeids,devicelist[i].viewtype)){
+					curdevice = devices[devicelist[i]];
+					break;
+				}
+			}
+		}
     curdeviceid = lodashget(curdevice,'_id');
     const retlist = lodashget(historydevices,`${curdeviceid}`,[]);
+    let viewtype = {};
+    if(!!curdevice){
+      viewtype = viewtypes[curdevice.viewtype];
+    }
     return {curdevice,retlist,periodquery,viewtype};
 }
 export default connect(mapStateToProps)(App);

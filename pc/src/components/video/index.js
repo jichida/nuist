@@ -23,7 +23,7 @@ class App extends React.Component {
       if(!curgateway){
         return <div>未选择网关</div>
       }
-      
+
       const videoname = lodashget(gw2videos[indexgatewayid],'name','青龙峡大坝');
       const videourl = lodashget(gw2videos[indexgatewayid],'url','http://www.newxh.com18.cn/spindex.html');
         return (
@@ -119,7 +119,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({device,userlogin,video}) => {
-    const {gateways,devicelist,devices,viewtype} = device;
+    const {gateways,devicelist,devices} = device;
     const {videolist,videos}  = video;
     let gw2videos = {};
     for(let i =0 ;i < videolist.length; i++){
@@ -130,6 +130,6 @@ const mapStateToProps = ({device,userlogin,video}) => {
         }
       }
     }
-    return {gateways,devicelist,devices,viewtype,usersettings:userlogin.usersettings,gw2videos};
+    return {gateways,devicelist,devices,usersettings:userlogin.usersettings,gw2videos};
 }
 export default connect(mapStateToProps)(App);

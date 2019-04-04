@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import lodashincludes from 'lodash.includes';
 // import Dropdown from 'antd/lib/dropdown';
 // import Button from 'antd/lib/button';
 // import Icon from 'antd/lib/icon';
@@ -47,7 +48,8 @@ class App extends React.Component {
   }
   render() {
     const {curdevice,viewtype} = this.props;
-    if(!curdevice){
+    if(!curdevice || !viewtype){
+			//debugger;
       return <div />
     }
     // const name = lodashget(curdevice,'name','');
@@ -63,16 +65,23 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({device:{devicelist,devices,viewtype,gateways},userlogin:{usersettings}}) => {
+const mapStateToProps = ({device:{devicelist,devices,viewtypes,allowviewtypeids,gateways},userlogin:{usersettings}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
 			curdevice = devices[curdeviceid];
 		}
 		if(!curdevice){
-			if(devicelist.length > 0){
-				curdevice = devices[devicelist[0]];
+			for(let i = 0 ;i < devicelist.length ;i++){
+				if(lodashincludes(allowviewtypeids,devicelist[i].viewtype)){
+					curdevice = devices[devicelist[i]];
+					break;
+				}
 			}
+		}
+		let viewtype = {};
+		if(!!curdevice){
+			viewtype = viewtypes[curdevice.viewtype];
 		}
     return {curdevice,devicelist,devices,usersettings,viewtype,gateways};
 }

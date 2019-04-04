@@ -97,3 +97,22 @@ exports.getsystemconfig = (actiondata,ctx,callbackfn)=>{
         }
     });
 }
+
+exports.getviewtypeslist =  (actiondata,ctx,callbackfn)=>{
+  const viewtypeModel = DBModels.ViewTypeModel;
+  const queryexec = viewtypeModel.find({}).select().lean();
+  queryexec.exec((err,list)=>{
+    if(!err && !!list){
+        callbackfn({
+          cmd:'getviewtypeslist_result',
+          payload:{list}
+        });
+      }
+      else{
+        callbackfn({
+          cmd:'common_err',
+          payload:{errmsg:err.message,type:'getviewtypeslist'}
+        });
+      }
+  });
+}

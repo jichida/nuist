@@ -22,7 +22,7 @@ class App extends React.Component {
     }
     render() {
         const {indexgatewayid,gateways }= this.props;
-				// debugger;
+				// //debugger;
 				const innerheight2 = window.innerHeight;
 				console.log(`innerheight->${innerheight2-156-38}`)
         return (

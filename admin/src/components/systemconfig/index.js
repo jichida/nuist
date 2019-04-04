@@ -42,9 +42,7 @@ const SystemconfigCreateTitle = ({ record }) => {
        <Create {...props} title={<SystemconfigCreateTitle />} >
        <SimpleForm>
            <NumberInput label="故障及异常判断时间【单位：分钟】" source="SettingOfflineMinutes"  />
-           <ReferenceInput label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
-             <SelectInput optionText="name" />
-           </ReferenceInput>
+           <CfSelectArrayInput label="允许查看数据类型" source="allowviewtypes" loadOptions={getOptions('viewtype','name','_id')}/>
            <ReferenceInput label="默认报警规则" source="alarmruleid" reference="alarmrule" allowEmpty>
              <SelectInput optionText="name" />
            </ReferenceInput>
@@ -59,9 +57,7 @@ const SystemconfigCreateTitle = ({ record }) => {
           <SimpleForm>
           {/* <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" /> */}
           <NumberInput label="故障及异常判断时间【单位：分钟】" source="SettingOfflineMinutes" />
-          <ReferenceInput label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
-            <SelectInput optionText="name" />
-          </ReferenceInput>
+          <CfSelectArrayInput label="允许查看数据类型" source="allowviewtypes" loadOptions={getOptions('viewtype','name','_id')}/>
           <ReferenceInput label="默认报警规则" source="alarmruleid" reference="alarmrule" allowEmpty>
             <SelectInput optionText="name" />
           </ReferenceInput>

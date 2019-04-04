@@ -17,7 +17,7 @@ const grafanaTimeFormat = (ticks, minticktime, maxticktime)=> {
     const secPerTick = range / ticks / 150;
     const oneDay = 86400000;
     const oneYear = 31536000000;
-    // debugger;
+    // //debugger;
     if (secPerTick <= 45 && range <= oneDay) {
       return 'HH:mm:ss';
     }
@@ -45,7 +45,7 @@ const gettickformats = (ticktimestring)=>{
 
 // const formatterAxisLabel = (ticktime,index,tickformat)=>{
 //   const ticktimestring = moment(ticktime).format(tickformat);
-//   debugger;
+//   //debugger;
 //   return ticktimestring;
 // }
 

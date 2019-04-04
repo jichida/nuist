@@ -69,7 +69,7 @@ const mapStateToProps = (state,props) => {
   // console.log(fields);
   // console.log(retlist);
   // const tickformat = gettickformats(ticktimestring);
-  // debugger;
+  // //debugger;
   const option = {
       title: {
           left: 'center',

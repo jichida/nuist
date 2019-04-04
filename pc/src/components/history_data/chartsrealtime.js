@@ -27,6 +27,10 @@ const ProgressCtrl = (props)=>{
 
 const ChartsRealtime = (props)=>{
     const {curdevice,shownum,viewtype} = props;
+    if(!viewtype){
+      //debugger;
+      return <div />
+    }
     let index = 0;
     let showvalue_winddirection = lodashget(curdevice,`realtimedata.winddirection`,undefined);
     let showvalue_windspeed = lodashget(curdevice,`realtimedata.windspeed`,undefined);
@@ -170,17 +174,24 @@ const ChartsRealtime = (props)=>{
 }
 
 const APP =  withRouter(ChartsRealtime);
-const mapStateToProps = ({device:{gateways,viewtype,devicelist,devices},userlogin:{usersettings}}) => {
+const mapStateToProps = ({device:{gateways,viewtypes,devicelist,devices,allowviewtypeids},userlogin:{usersettings}}) => {
 		let curdevice;
 		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
 			curdevice = devices[curdeviceid];
 		}
 		if(!curdevice){
-			if(devicelist.length > 0){
-				curdevice = devices[devicelist[0]];
+      for(let i = 0 ;i < devicelist.length ;i++){
+				if(lodashincludes(allowviewtypeids,devicelist[i].viewtype)){
+					curdevice = devices[devicelist[i]];
+					break;
+				}
 			}
 		}
+    let viewtype = {};
+    if(!!curdevice){
+      viewtype = viewtypes[curdevice.viewtype];
+    }
     return {gateways,devices,viewtype,curdevice,usersettings};
 }
 export default connect(mapStateToProps)(APP);

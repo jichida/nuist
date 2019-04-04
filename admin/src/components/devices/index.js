@@ -57,6 +57,9 @@ const DeviceEdit = (props) => {
       <TabbedForm>
         <FormTab label="节点基本信息">
           <TextField label="节点ID" source="DeviceId"  />
+          <ReferenceInput label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
+            <SelectInput optionText="name" />
+          </ReferenceInput>
           <TextField label="下一个节点ID" source="nextdeviceid"  />
           <TextInput label="节点名字" source="name"  validate={required} />
           <MapDragSel label="经纬度" source={["Longitude","Latitude","addressname"]} aliasaddress="addressname"/>
@@ -103,6 +106,9 @@ const DeviceList = (props) => (
       <TextField label="下一个节点ID" source="nextdeviceid" />
       <TextField label="节点名字" source="name"/>
       <ReferenceField label="网关" source="gatewayid" reference="gateway" allowEmpty>
+        <TextField source="name" />
+      </ReferenceField>
+      <ReferenceField label="演示数据视图" source="viewtype" reference="viewtype" allowEmpty>
         <TextField source="name" />
       </ReferenceField>
       <TextField label="最后数据更新时间" source="realtimedata.datatime"/>

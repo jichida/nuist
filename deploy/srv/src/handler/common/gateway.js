@@ -11,7 +11,7 @@ const debug = require('debug')('appsrv:gateway');
 输入参数：用户
 输出参数：获取网关用户
 */
-const getgatewaylist_user = (err,viewtype,gwgroups,actiondata,ctx,callback)=>{
+const getgatewaylist_user = (err,viewtype,allowviewtypes,gwgroups,actiondata,ctx,callback)=>{
   if(!err){
     let gwids = [];
     _.map(gwgroups,(gwgroup)=>{
@@ -31,6 +31,7 @@ const getgatewaylist_user = (err,viewtype,gwgroups,actiondata,ctx,callback)=>{
       }]).lean().exec((err,devicelist)=>{
     if(!err && !!devicelist){
         const payload = {
+          allowviewtypes,
           viewtype:viewtype,
           list:devicelist
         };
@@ -70,14 +71,19 @@ exports.getgatewaylist = (actiondata,ctx,callback)=>{
         {
           path:'gatewaygroups',
           model: 'gatewaygroup',
-      },{
+      },
+      {
           path:'viewtype',
           model: 'viewtype',
-        }
+        },{
+            path:'allowviewtypes',
+            model: 'viewtype',
+          }
     ]).lean().exec((err, user)=> {
       const gwgroups = _.get(user,'gatewaygroups',[]);
       const viewtype = _.get(user,'viewtype');
-      getgatewaylist_user(err,viewtype,gwgroups,actiondata,ctx,callback);
+      const allowviewtypes = _.get(user,'allowviewtypes',[]);
+      getgatewaylist_user(err,viewtype,allowviewtypes,gwgroups,actiondata,ctx,callback);
     });
   }
   else{
@@ -91,17 +97,23 @@ exports.getgatewaylist = (actiondata,ctx,callback)=>{
         {
           path:'gatewaygroups4app',
           model: 'gatewaygroup',
-      },{
+      }
+      ,{
           path:'viewtype',
           model: 'viewtype',
         }
+        ,{
+            path:'allowviewtypes',
+            model: 'viewtype',
+          }
     ]).lean().exec((err, systemconfig)=> {
       debug(systemconfig);
       debug(ctx.usertype);
       let gwgroups = _.get(systemconfig,`gatewaygroups4${ctx.usertype}`,[]);
       const viewtype = _.get(systemconfig,'viewtype');
+      const allowviewtypes = _.get(systemconfig,'allowviewtypes',[]);
       debug(gwgroups);
-      getgatewaylist_user(err,viewtype,gwgroups,actiondata,ctx,callback);
+      getgatewaylist_user(err,viewtype,allowviewtypes,gwgroups,actiondata,ctx,callback);
     });
   }
 

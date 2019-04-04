@@ -81,12 +81,13 @@ class App extends React.Component {
         )
       }
     });
-    const {viewtype} = this.props;
-    const {indexbannerurl} = viewtype;
+    // const {viewtype} = this.props;
+
+    // const {indexbannerurl} = viewtype;
     let indexbannerimage = "images/logo.png";
-    if(!!indexbannerurl){
-      indexbannerimage = indexbannerurl;
-    }
+    // if(!!indexbannerurl){
+    //   indexbannerimage = indexbannerurl;
+    // }
     return (
       <div className="head_top ">
         <div className="head_img">
@@ -97,30 +98,12 @@ class App extends React.Component {
             </ul>
         </div>
       </div>
-      // <header className="site-header">
-        // <img className="logo" src={ Logo } />
-        // <nav>
-          // {lnkscompents}
-        // </nav>
-        // <img className="bg-pic" src="https://goss.vcg.com/creative/vcg/800/version23/VCG41200353215-001.jpg" />
-      // </header>
-      // <div className="header">
-      // 	 <div className="head" style={{width:"100%", overflow : "hidden"}}>
-			//      <img alt="" src={Headimg} />
-      // 	 </div>
-      // 	 <div className="headnav">
-      // 	 	<div className="nav">
-			// 	        {lnkscompents}
-      //           <span><a href='http://admin.nuistiot.com/index.html#/login' target="blank">后台管理</a></span>
-			//      </div>
-      // 	 </div>
-      // </div>
     );
   }
 }
 
 const APP2 =  withRouter(App);
-const mapStateToProps = ({app:{selectedindex},device:{viewtype}}) => {
-    return {selectedindex,viewtype};
+const mapStateToProps = ({app:{selectedindex},userlogin:{usersettings}}) => {
+    return {selectedindex};
 }
 export default connect(mapStateToProps)(APP2);

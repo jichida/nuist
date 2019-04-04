@@ -53,6 +53,7 @@ class App extends React.Component {
     const {votelist,votes} = this.props;
     const curvote = votes[votelist[this.state.voteindex]];
     if(!curvote){
+      //debugger;
       return <div />
     }
     const isfilled = lodashget(curvote,'isfilled',false);

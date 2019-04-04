@@ -45,13 +45,11 @@ export function* wsrecvsagaflow() {
         });
         return usersettings;
       });
-
-
       usersettings.indexdeviceid = deviceid;
       //ui_mycar_selcurdevice
       yield put(ui_mycar_selcurdevice(deviceid));
-      // yield put(saveusersettings_result({usersettings}));
-      // debugger;
+      yield put(saveusersettings_result({usersettings}));
+      // //debugger;
 
       if(type === 'historychart'){
         //ui auto
@@ -92,7 +90,7 @@ export function* wsrecvsagaflow() {
 
       usersettings.indexdeviceid = seldeviceid;
       usersettings.indexgatewayid = gatewayid;
-      // debugger;
+      // //debugger;
       yield put(saveusersettings_result({usersettings}));
 
       yield put(ui_selectgateway4draw(gatewayid));
@@ -158,7 +156,7 @@ export function* wsrecvsagaflow() {
               //   yield put(start_serverpush_alarm_sz({}));
               // }
               //
-              debugger;
+              //debugger;
               yield put(getvideolist_request({}));
               // //登录成功,获取今天所有报警信息列表
               // yield put(getcurallalarm_request({}));

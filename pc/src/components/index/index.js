@@ -17,7 +17,9 @@ import Info from '../history_data/info';
 // import ProductList from './prolist';
 // import Footer from "../footer";
 import Changepwd from "./pwd.js";
+import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
+import lodashincludes from 'lodash.includes';
 import {
   ui_notifyresizeformap,
   ui_setmapstyle
@@ -155,7 +157,24 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({app:{ispoppwd,ispopproductinfo,mapstyle,savequery_historychart},
-	userlogin:{loginsuccess},device:{viewtype}}) => {
+	userlogin:{loginsuccess,usersettings},device:{devices,viewtypes,allowviewtypeids,devicelist}}) => {
+    let curdevice;
+    let curdeviceid = lodashget(usersettings,'indexdeviceid');
+    if(!!curdeviceid){
+      curdevice = devices[curdeviceid];
+    }
+    if(!curdevice){
+      for(let i = 0 ;i < devicelist.length ;i++){
+        if(lodashincludes(allowviewtypeids,devicelist[i].viewtype)){
+          curdevice = devices[devicelist[i]];
+          break;
+        }
+      }
+    }
+    let viewtype = {};
+    if(!!curdevice){
+      viewtype = viewtypes[curdevice.viewtype];
+    }
     return {ispoppwd,ispopproductinfo,loginsuccess,mapstyle,viewtype,savequery_historychart};
 }
 export default connect(mapStateToProps)(App);
