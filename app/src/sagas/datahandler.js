@@ -33,6 +33,9 @@ import {
     getproductlist_request,
     getproductlist_result,
 
+    getvideolist_request,
+    getvideolist_result,
+
     getvotelist_request,
     getvotelist_result,
 
@@ -40,17 +43,22 @@ import {
     setvote_result,
 
     gethistorydevicelist_request,
-    gethistorydevicelist_result
+    gethistorydevicelist_result,
+
+    getviewtypeslist_request,
+    getviewtypeslist_result
   } from '../actions';
 
 //接收的对应关系
 let recvmessagetoresultpair = {
+  'getviewtypeslist_result':getviewtypeslist_result,
   'gethistorydevicelist_result':gethistorydevicelist_result,
   // 'serverpush_device':serverpush_device,
   'serverpush_device_list':serverpush_device_list,
   // 'serverpush_device_alarm':serverpush_device_alarm,
   'setvote_result':setvote_result,
   'getproductlist_result':getproductlist_result,
+  'getvideolist_result':getvideolist_result,
   'getvotelist_result':getvotelist_result,
 
   'saveusersettings_result':saveusersettings_result,
@@ -72,9 +80,10 @@ let recvmessagetoresultpair = {
 
 //非验证发送接口
 let sendmessagefnsz = {
-
+  'getviewtypeslist':`${getviewtypeslist_request}`,
   'getvotelist':`${getvotelist_request}`,
   'getproductlist':`${getproductlist_request}`,
+  'getvideolist':`${getvideolist_request}`,
   'logout':`${logout_request}`,
   'loginwithtoken':`${loginwithtoken_request}`,
   'login':`${login_request}`,

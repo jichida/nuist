@@ -7,3 +7,4 @@ export * from './jpush';
 export * from './userlogin';
 export * from './vote';
 export * from './querypage';
+export * from './video';

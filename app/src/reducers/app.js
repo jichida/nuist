@@ -6,7 +6,7 @@ import {
     ui_setmapstyle,
     ui_savequery
 } from '../actions';
-import moment from 'moment';
+// import moment from 'moment';
 
 const initial = {
     app: {
@@ -101,7 +101,7 @@ const initial = {
             max:100,
           }
         ]
-    }
+    },
 };
 
 const app = createReducer({

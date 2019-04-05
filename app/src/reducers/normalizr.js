@@ -16,25 +16,34 @@ const device = new schema.Entity('device', {
 const devicesSchma = {list:[device]};
 
 const normalizrdevices=(payload)=>{
-  const {viewtype,list} = payload;
+  const {allowviewtypes,list} = payload;
   const {result,entities} = normalize({list}, devicesSchma);
-  let devicetypenew = {};
+  let viewtypes = {};
+  let allowviewtypeids = [];
   const device = lodashget(entities,'device',{});
   const gateway = lodashget(entities,'gateway',{});
-  const {fieldsall,...rest} = viewtype;
-  let fields = {};
-  lodashmap(fieldsall,(v)=>{
-    fields[v.name] = {
-      showname:v.showname,
-      iconurl:v.iconurl,
-      unit:lodashget(v,'unit','')
-    };
-  })
-  devicetypenew = {fields,...rest};
+  for(let i = 0 ;i < allowviewtypes.length; i++){
+    const viewtype = allowviewtypes[i];
+    let devicetypenew = {};
+    const {fieldsall,...rest} = viewtype;
+    let fields = {};
+    lodashmap(fieldsall,(v)=>{
+      fields[v.name] = {
+        showname:v.showname,
+        iconurl:v.iconurl,
+        unit:lodashget(v,'unit','')
+      };
+    })
+    devicetypenew = {fields,...rest};
+    viewtypes[viewtype._id] = devicetypenew;
+    allowviewtypeids.push(viewtype._id);
+  }
+
 
 
   return {
-    viewtype:devicetypenew,
+    viewtypes,
+    allowviewtypeids,
     devicelist:result.list,
     devices:device,
     gateways:gateway

@@ -1,5 +1,8 @@
 import { createAction } from 'redux-act';
 //获取结点信息
+export const getviewtypeslist_request = createAction('getviewtypeslist_request');
+export const getviewtypeslist_result = createAction('getviewtypeslist_result');
+
 export const getgatewaylist_request = createAction('getgatewaylist_request');
 export const getgatewaylist_result = createAction('getgatewaylist_result');
 export const getgatewaylist_result_4reducer = createAction('getgatewaylist_result_4reducer');

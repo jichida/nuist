@@ -2,6 +2,7 @@ import { select,put,call,take,takeLatest,cancel,fork,} from 'redux-saga/effects'
 import {delay} from 'redux-saga';
 import {getRandomLocation} from './geo.js';
 import get from 'lodash.get';
+import lodashincludes from 'lodash.includes';
 import lodashmap from 'lodash.map';
 import {
   // lodashshuffle_gwpath,
@@ -56,7 +57,7 @@ const Create_PathSimplifier = (callbackfn)=>{
               autoSetFitView: false,
               map: window.amapmain, //所属的地图实例
               getPath: function(pathData, pathIndex) {
-                  // debugger;
+                  // //debugger;
                   // console.log(pathData);
                   // console.log(pathIndex);
                   return pathData.path;
@@ -139,11 +140,11 @@ const Create_PathSimplifier = (callbackfn)=>{
     });
   }
 
-  const getMarkCluster_recreateMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways,indexgatewayid)=>{
+  const getMarkCluster_recreateMarks = (SettingOfflineMinutes,g_devicesdb,viewtypes,allowviewtypeids,gateways,indexgatewayid)=>{
     if(markCluster.getMarkers().length > 0){
       markCluster.clearMarkers();
     }
-    getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways,indexgatewayid);
+    getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtypes,allowviewtypeids,gateways,indexgatewayid);
   }
 
 const isEqualArray = (array1,array2)=>{
@@ -338,38 +339,42 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
 }
 
-  const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,viewtype,gateways,indexgatewayid)=>{
+  const getMarkCluster_createMarks = (SettingOfflineMinutes,g_devicesdb,viewtypes,allowviewtypeids,gateways,indexgatewayid)=>{
     let markers = [];
     const gw = gateways[indexgatewayid];
     if(!!gw){
           lodashmap(gw.devicelist,(deviceid)=>{
             const item = g_devicesdb[deviceid];
-      if(!!item){//AMap.LngLat(lng:Number,lat:Number)
-          const pos = new window.AMap.LngLat(item.Longitude,item.Latitude);
-          const marker = new window.AMap.Marker({
-             position:pos,
-             icon: new window.AMap.Icon({
-                size: new window.AMap.Size(24, 24),
-                imageSize: new window.AMap.Size(16, 24),  //图标大小
-                image: getimageicon(item,SettingOfflineMinutes,viewtype),
-                imageOffset: new window.AMap.Pixel(0, 0)
-            }),
-             angle:get(item,'angle',0),
-            //  content: '<div style="background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
-             offset: new window.AMap.Pixel(-12,-24),//-113, -140
-                   extData:{type:'device',deviceid}
-          });
-          marker.on('click',()=>{
-            //console.log(`click marker ${key}`);
-            window.AMapUI.loadUI(['overlay/SimpleInfoWindow'], function(SimpleInfoWindow) {
-                store.dispatch(ui_mycar_selcurdevice(item._id));
-            });
-          });
-          markers.push(marker);
+            if(!!item){//AMap.LngLat(lng:Number,lat:Number)
+              let viewtype = viewtypes[item.viewtype];
+              const pos = new window.AMap.LngLat(item.Longitude,item.Latitude);
+              const marker = new window.AMap.Marker({
+                 position:pos,
+                 icon: new window.AMap.Icon({
+                    size: new window.AMap.Size(24, 24),
+                    imageSize: new window.AMap.Size(16, 24),  //图标大小
+                    image: getimageicon(item,SettingOfflineMinutes,viewtype),
+                    imageOffset: new window.AMap.Pixel(0, 0)
+                }),
+                 angle:get(item,'angle',0),
+                //  content: '<div style="background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
+                 offset: new window.AMap.Pixel(-12,-24),//-113, -140
+                       extData:{type:'device',deviceid}
+              });
+              marker.on('click',()=>{
+                //console.log(`click marker ${key}`);
+                window.AMapUI.loadUI(['overlay/SimpleInfoWindow'], function(SimpleInfoWindow) {
+                    debugger;
+                    if(lodashincludes(allowviewtypeids,item.viewtype)){
+                      store.dispatch(ui_mycar_selcurdevice(item._id));
+                    }
+                });
+              });
+              markers.push(marker);
         }
     });
 
-        const item = gw;
+      const item = gw;
       if(!!item){//AMap.LngLat(lng:Number,lat:Number)
           const pos = new window.AMap.LngLat(item.Longitude,item.Latitude);
           const marker = new window.AMap.Marker({
@@ -400,7 +405,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
     }
   }
 
-  const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype)=>{
+  const getMarkCluster_updateMarks = (g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtypes,allowviewtypeids)=>{
     if(!!markCluster){
       const allmarks = markCluster.getMarkers();
       lodashmap(allmarks,(mark)=>{
@@ -410,6 +415,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           const deviceitemnew = g_devicesdb_updated[deviceitem._id];
           if(!!deviceitemnew){
             if(!!deviceitemnew.Longitude){
+              let viewtype = viewtypes[deviceitemnew.viewtype];
               const pos = new window.AMap.LngLat(deviceitemnew.Longitude,deviceitemnew.Latitude);
               mark.setPosition(pos);
               const newIcon = new window.AMap.Icon({
@@ -429,12 +435,12 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
     }
   }
 
-  const getMarkCluster_showMarks = ({isshow,SettingOfflineMinutes,g_devicesdb,viewtype,gateways})=>{
+  const getMarkCluster_showMarks = ({isshow,SettingOfflineMinutes,g_devicesdb,viewtypes,allowviewtypeids,gateways})=>{
     return new Promise((resolve,reject) => {
       if(isshow){
         markCluster.setMap(window.amapmain);
         if(markCluster.getMarkers().length === 0){
-          getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways);
+          getMarkCluster_createMarks(SettingOfflineMinutes,g_devicesdb,viewtypes,allowviewtypeids,gateways);
         }
       }
       else{
@@ -517,6 +523,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
   //显示弹框
   const showinfowindow = (deviceitem,viewtype)=>{
+    debugger;
     return new Promise((resolve,reject) =>{
         if(!window.AMapUI){
           console.log('showinfowindow 未加载到AMapUI！');
@@ -668,13 +675,15 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
         //显示弹框
         try{
           const {payload:_id} = actiondevice;
-          const {g_devicesdb,viewtype} = yield select((state)=>{
-            const {devices,viewtype} = state.device;
-            return {g_devicesdb:devices,viewtype:viewtype};
+          const {g_devicesdb,viewtypes} = yield select((state)=>{
+            const {devices,viewtypes} = state.device;
+            return {g_devicesdb:devices,viewtypes};
           });
 
             //1
             //弹框
+            const viewtype = viewtypes[g_devicesdb[_id].viewtype];
+            debugger;
             yield call(showinfowindow,g_devicesdb[_id],viewtype);
 
             yield fork(function*(eventname){
@@ -739,9 +748,9 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           try{
             let {payload} = action;
             const indexgatewayid = payload;
-            const {g_devicesdb,viewtype,gateways} = yield select((state)=>{
-              const {devices,viewtype,gateways} = state.device;
-              return {g_devicesdb:devices,viewtype,gateways};
+            const {g_devicesdb,viewtypes,allowviewtypeids,gateways} = yield select((state)=>{
+              const {devices,viewtypes,allowviewtypeids,gateways} = state.device;
+              return {g_devicesdb:devices,viewtypes,allowviewtypeids,gateways};
             });
             //等待地图创建
             while(!markCluster){
@@ -751,8 +760,8 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
             const SettingOfflineMinutes =yield select((state)=>{
               return get(state,'app.SettingOfflineMinutes',20);
             });
-            getMarkCluster_recreateMarks(SettingOfflineMinutes,g_devicesdb,viewtype,gateways,indexgatewayid);
-            yield call(getMarkCluster_showMarks,{isshow:true,SettingOfflineMinutes,g_devicesdb,viewtype,gateways});
+            getMarkCluster_recreateMarks(SettingOfflineMinutes,g_devicesdb,viewtypes,allowviewtypeids,gateways,indexgatewayid);
+            yield call(getMarkCluster_showMarks,{isshow:true,SettingOfflineMinutes,g_devicesdb,viewtypes,allowviewtypeids,gateways});
           }
           catch(e){
             console.log(e);
@@ -765,9 +774,9 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
               yield put.resolve(getgatewaylist_result_4reducer(payload));
 
-              const {g_devicesdb,gateways} = yield select((state)=>{
-                const {devices,viewtype,gateways} = state.device;
-                return {g_devicesdb:devices,viewtype,gateways};
+              const {g_devicesdb,allowviewtypeids,gateways} = yield select((state)=>{
+                const {devices,viewtypes,allowviewtypeids,gateways} = state.device;
+                return {g_devicesdb:devices,viewtypes,allowviewtypeids,gateways};
               });
               //选中一个默认节点
               let {usersettings} = yield select((state)=>{
@@ -776,11 +785,18 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
               });
               let indexdeviceid = get(usersettings,'indexdeviceid','');
               let indexgatewayid = get(usersettings,'indexgatewayid','');
+              if(!!g_devicesdb[indexdeviceid]){
+                if(!lodashincludes(allowviewtypeids,g_devicesdb[indexdeviceid].viewtype)){
+                  indexdeviceid = '';
+                }
+              }
               if(!g_devicesdb[indexdeviceid]){
                 lodashmap(g_devicesdb,(cur)=>{
                   if(!g_devicesdb[indexdeviceid]){
-                    indexdeviceid = cur._id;
-                    usersettings.indexdeviceid = indexdeviceid;
+                    if(lodashincludes(allowviewtypeids,cur.viewtype)){
+                      indexdeviceid = cur._id;
+                      usersettings.indexdeviceid = indexdeviceid;
+                    }
                   }
                 });
               }
@@ -839,12 +855,12 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           try{
           const {payload:{devicelist}} = action;
           let i = 0;
-          const {g_devicesdb,gateways,viewtype} = yield select((state)=>{
-            const {devices,viewtype,gateways} = state.device;
-            return {g_devicesdb:devices,gateways,viewtype};
+          const {g_devicesdb,gateways,viewtypes,allowviewtypeids} = yield select((state)=>{
+            const {devices,viewtypes,allowviewtypeids,gateways} = state.device;
+            return {g_devicesdb:devices,gateways,viewtypes,allowviewtypeids};
           });
           // console.log(`devicelist->${JSON.stringify(devicelist)}`);
-          for( i=0;i<devicelist.length;i++){
+          for( i = 0;i < devicelist.length;i++){
               let curdevice = devicelist[i];
               if(!curdevice.Longitude){
                 const curgw = gateways[curdevice.gatewayid];
@@ -868,7 +884,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
             g_devicesdb_updated[devicelist[i]._id] = devicelist[i];
           }
           // console.log(`${JSON.stringify(g_devicesdb_updated)}`);
-          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype);
+          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtypes,allowviewtypeids);
 
           const {usersettings} = yield select((state)=>{
             const {usersettings} = state.userlogin;
@@ -878,12 +894,12 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
           for( i=0;i<devicelist.length;i++){
             // console.log(`${devicelist[i]._id}==>${devicelist[i]._id === indexdeviceid}`);
-
-            if(!!infoWindow && devicelist[i]._id === indexdeviceid){//如果正在弹窗并且是选中的item，则更新弹窗内容{
-              const {content} = getpopinfowindowstyle(devicelist[i],viewtype);
-              infoWindow.setContent(content);
+              if(!!infoWindow && devicelist[i]._id === indexdeviceid){//如果正在弹窗并且是选中的item，则更新弹窗内容{
+                const viewtype = viewtypes[devicelist[i].viewtype];
+                const {content} = getpopinfowindowstyle(devicelist[i],viewtype);
+                infoWindow.setContent(content);
+              }
             }
-          }
           }
           catch(e){
             console.log(e);
@@ -895,16 +911,22 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
             //地图模式选择车辆
             try{
               const {payload:_id} = action;
-              const {g_devicesdb} = yield select((state)=>{
-                const {devices,viewtype} = state.device;
-                return {g_devicesdb:devices,viewtype:viewtype};
+              const {g_devicesdb,allowviewtypeids,viewtypes} = yield select((state)=>{
+                const {devices,allowviewtypeids,viewtypes} = state.device;
+                return {g_devicesdb:devices,allowviewtypeids,viewtypes};
               });
+              const deviceitem = g_devicesdb[_id];
+              if(!!deviceitem){
+                if(!lodashincludes(allowviewtypeids,deviceitem.viewtype)){
+                  //不允许查看
+                  return;
+                }
+              }
               if(!!infoWindow){
                   infoWindow.close();
                   infoWindow = null;
               }
               //先定位到地图模式,然后选择车辆
-              const deviceitem = g_devicesdb[_id];
               if(!!deviceitem){
                 let usersettings = yield select((state)=>{
                   return state.userlogin.usersettings;
@@ -912,6 +934,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
                 usersettings.indexdeviceid = deviceitem._id;
                 yield put(saveusersettings_request(usersettings));
                 yield put(mapmain_showpopinfo(_id));
+                yield put(saveusersettings_result({usersettings}));
               }
 
             }
@@ -969,9 +992,9 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
         try{
           const {list} = payload;
           // //更新所有图标
-          const {g_devicesdb,viewtype} = yield select((state)=>{
-            const {devices,viewtype} = state.device;
-            return {g_devicesdb:devices,viewtype};
+          const {g_devicesdb,viewtypes,allowviewtypeids} = yield select((state)=>{
+            const {devices,viewtypes,allowviewtypeids} = state.device;
+            return {g_devicesdb:devices,viewtypes,allowviewtypeids};
           });
           const SettingOfflineMinutes =yield select((state)=>{
             return get(state,'app.SettingOfflineMinutes',20);
@@ -981,7 +1004,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
           for(let i = 0 ;i < list.length;i++){
             g_devicesdb_updated[list[i]._id] = list[i];
           }
-          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtype);
+          getMarkCluster_updateMarks(g_devicesdb_updated,SettingOfflineMinutes,g_devicesdb,viewtypes,allowviewtypeids);
           //---------------------------------------------
           yield put(serverpush_gateway({}));
         }

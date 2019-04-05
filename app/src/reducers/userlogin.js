@@ -17,6 +17,7 @@ const initial = {
     usersettings : {
       indexgatewayid:'',
       indexdeviceid:'',
+      indexviewtypeid:'',
       warninglevel:'',
       subscriberdeviceids : []
     },
@@ -26,7 +27,8 @@ const initial = {
 
 const userlogin = createReducer({
   [saveusersettings_result]:(state,payload)=>{
-    return { ...state, ...payload};
+    const {usersettings} = payload;
+    return { ...state, usersettings:{...usersettings}};
   },
   [logout_result]: (state, payload) => {
     localStorage.removeItem(`nuist_${config.softmode}_token`);

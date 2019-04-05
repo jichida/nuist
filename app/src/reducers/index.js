@@ -10,6 +10,7 @@ import device from './devices';
 import vote from './vote';
 import realtimealarm from './realtimealarm';
 import historydevice from './historydevice';
+import video from './video';
 
 export default combineReducers({
   	app,
@@ -18,6 +19,7 @@ export default combineReducers({
     realtimealarm,
   	userlogin,
     vote,
+    video,
     product,
   	form: formReducer,
   	router: routerReducer,
