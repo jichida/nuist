@@ -31,7 +31,7 @@ const TitleD = (props)=>{
 						if(!!fieldsprops){
 							let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`,'');
 							if(typeof showvalue === 'number'){
-								showvalue = parseInt(showvalue);
+								showvalue = parseInt(showvalue,10);
 							}
 							if(fieldname === 'winddirection'){
 								showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
@@ -82,9 +82,13 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({historydevice:{historydevices},device:{viewtype}},props) => {
+const mapStateToProps = ({historydevice:{historydevices},device:{viewtypes}},props) => {
     const did = lodashget(props,'curdevice._id');
     const retlist = lodashget(historydevices,`${did}`,[]);
+		let viewtype = {};
+		if(!!props.curdevice){
+			viewtype = viewtypes[props.curdevice.viewtype];
+		}
     return {retlist,viewtype};
 }
 export default connect(mapStateToProps)(App);

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import ChartHistory from "./charts_history_container_charttype";
 import lodashget from 'lodash.get';
-// import lodashmap from 'lodash.map';
+import lodashincludes from 'lodash.includes';
 // import moment from 'moment';
 import {
   querypage_set_condition_sendsrv
@@ -86,17 +86,24 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({historydevice:{periodquery},device:{devices,devicelist,viewtype},historydevice:{historydevices},userlogin:{usersettings}}) => {
-		let curdeviceid = lodashget(usersettings,'indexdeviceid');
-    let curdevice;
-    if(!!curdeviceid){
-      curdevice = devices[curdeviceid];
-    }
-    if(!curdevice){
-      if(devicelist.length > 0){
-        curdevice = devices[devicelist[0]];
+const mapStateToProps = ({historydevice:{periodquery},device:{devices,devicelist,allowviewtypeids,viewtypes},historydevice:{historydevices},userlogin:{usersettings}}) => {
+      let curdevice;
+  		let curdeviceid = lodashget(usersettings,'indexdeviceid');
+  		if(!!curdeviceid){
+  			curdevice = devices[curdeviceid];
+  		}
+  		if(!curdevice){
+        for(let i = 0 ;i < devicelist.length ;i++){
+  				if(lodashincludes(allowviewtypeids,devicelist[i].viewtype)){
+  					curdevice = devices[devicelist[i]];
+  					break;
+  				}
+  			}
+  		}
+      let viewtype = {};
+      if(!!curdevice){
+        viewtype = viewtypes[curdevice.viewtype];
       }
-    }
     curdeviceid = lodashget(curdevice,'_id');
     const retlist = lodashget(historydevices,`${curdeviceid}`,[]);
     return {curdevice,retlist,periodquery,viewtype};

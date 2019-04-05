@@ -75,12 +75,12 @@ class AppRoot extends React.Component {
                   <Route exact path="/investigation/add/:id" component={requireAuthentication(AddInvestigation)} />
                   {/* <Route exact path="/investigation/result" component={requireAuthentication(ResultInvestigation)} /> */}
                   <Route exact path="/pro" component={Proindex} />
-                  <Route exact path="/deviceinfo/:id/:index" component={Monitor} />
-                  <Route exact path="/history/:id" component={DeviceinfoHistory} />
-                  <Route exact path="/historycharts/:id" component={HistoryChart} />
-                  <Route exact path="/datameter" component={Datameter} />
-                  <Route exact path="/warning" component={Warning} />
-                  <Route exact path="/video" component={Video} />
+                  <Route exact path="/deviceinfo/:id/:index" component={requireAuthentication(Monitor)} />
+                  <Route exact path="/history/:id" component={requireAuthentication(DeviceinfoHistory)} />
+                  <Route exact path="/historycharts/:id" component={requireAuthentication(HistoryChart)} />
+                  <Route exact path="/datameter" component={requireAuthentication(Datameter)} />
+                  <Route exact path="/warning" component={requireAuthentication(Warning)} />
+                  <Route exact path="/video" component={requireAuthentication(Video)} />
                 </Switch>
                 <AppMap />
               </div>

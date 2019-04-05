@@ -38,11 +38,15 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{devices,viewtype},
+const mapStateToProps = ({device:{devices,viewtypes},
   app:{savequery_historychart},
   historydevice:{historydevices}},props) => {
 		const curdevice = devices[props.match.params.id];
     const retlist = lodashget(historydevices,`${props.match.params.id}`,[]);
+    let viewtype = {};
+    if(!!curdevice){
+      viewtype = viewtypes[curdevice.viewtype];
+    }
     return {curdevice,viewtype,retlist,savequery_historychart};
 }
 export default connect(mapStateToProps)(App);

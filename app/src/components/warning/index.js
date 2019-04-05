@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import "./style.css";
 import List from "./list.js";
 import Footer from "../footer";
-// import lodashfind from 'lodash.find';
-// import lodashmap from 'lodash.map';
+import lodashincludes from 'lodash.includes';
 import City from "../../img/20.png";
 import Point from "../../img/21.png";
 import lodashget from 'lodash.get';
@@ -87,7 +86,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},
-  device:{devicelist,devices,viewtype,gateways},
+  device:{devicelist,devices,viewtypes,allowviewtypeids,gateways},
   app:{ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,uialarmshowall,savequery_alaram},
   userlogin:{usersettings,loginsuccess}}) => {
     let curgateway,curdevice;
@@ -97,12 +96,19 @@ const mapStateToProps = ({realtimealarm:{realtimealarmlist,realtimealarms},
       curgateway = gateways[indexgatewayid];
     }
     if(!!curdeviceid){
-      curdevice = devices[curdeviceid];
-    }
-    if(!curdevice){
-      if(devicelist.length > 0){
-        curdevice = devices[devicelist[0]];
-      }
+    			curdevice = devices[curdeviceid];
+		}
+		if(!curdevice){
+      for(let i = 0 ;i < devicelist.length ;i++){
+				if(lodashincludes(allowviewtypeids,devicelist[i].viewtype)){
+					curdevice = devices[devicelist[i]];
+					break;
+				}
+			}
+		}
+    let viewtype = {};
+    if(!!curdevice){
+      viewtype = viewtypes[curdevice.viewtype];
     }
     return {curgateway,savequery_alaram,
       ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,

@@ -523,7 +523,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
 
   //显示弹框
   const showinfowindow = (deviceitem,viewtype)=>{
-    debugger;
+  //  debugger;
     return new Promise((resolve,reject) =>{
         if(!window.AMapUI){
           console.log('showinfowindow 未加载到AMapUI！');
@@ -683,7 +683,7 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
             //1
             //弹框
             const viewtype = viewtypes[g_devicesdb[_id].viewtype];
-            debugger;
+          //  debugger;
             yield call(showinfowindow,g_devicesdb[_id],viewtype);
 
             yield fork(function*(eventname){

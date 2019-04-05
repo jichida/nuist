@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import lodashmap from 'lodash.map';
 import lodashget from 'lodash.get';
 import lodashuniq from 'lodash.uniq';
-// import lodashfind from 'lodash.find';
+import lodashincludes from 'lodash.includes';
 import lodashpull from 'lodash.pull';
 
 import Point1 from "../../img/25.png";
@@ -109,14 +109,15 @@ class App extends React.Component {
             }
         }
 
-const mapStateToProps = ({ device: { gateways, devices } }, props) => {
+const mapStateToProps = ({ device: { gateways, devices ,allowviewtypeids} }, props) => {
   const isgateway = props.isgateway;
   const title = isgateway ? '所有网关' : '所有节点';
   const curvalue = isgateway ? gateways[props.value] : devices[props.value];
   let devicedb = {};
   if(!isgateway){
     lodashmap(devices,(v,k)=>{
-      if(v.gatewayid === curvalue.gatewayid){
+      if(v.gatewayid === curvalue.gatewayid
+        && lodashincludes(allowviewtypeids,v.viewtype)){
         devicedb[k] = v;
       }
     })
@@ -125,4 +126,5 @@ const mapStateToProps = ({ device: { gateways, devices } }, props) => {
   const valuedbs = isgateway ? gateways : devicedb;
   return { title, curvalue, valuedbs };
 }
-        export default connect(mapStateToProps)(App);
+
+export default connect(mapStateToProps)(App);

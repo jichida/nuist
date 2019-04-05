@@ -2,12 +2,13 @@ import React from 'react';
 import "./style.css";
 import Header from "../header/page.js";
 import { connect } from 'react-redux';
-import Demo from "../../img/videodemo.png";
+// import Demo from "../../img/videodemo.png";
 // import List from "./list.js";
 import Filler from "../datameter/filler.js";
 import Footer from "../footer";
 import PopcareSel from "../popcaresel";
 import lodashget from 'lodash.get';
+import lodashincludes from 'lodash.includes';
 import {
 	ui_selgateway
 } from '../../actions';
@@ -18,16 +19,18 @@ class App extends React.Component {
       this.props.dispatch(ui_selgateway({value,type:'historychart'}));
     }
     render() {
-        const {ispopcaresel_single_index_gateway,gateways,curgatewayid,viewtype} = this.props;
-				let curgw = gateways[curgatewayid];
+        const {ispopcaresel_single_index_gateway,gateways,curgatewayid,viewtype,gw2videos} = this.props;
+				const curgw = gateways[curgatewayid];
+				const videoname = lodashget(gw2videos[curgatewayid],'name','青龙峡大坝');
+				const videourl = lodashget(gw2videos[curgatewayid],'url','http://www.newxh.com18.cn/spindex.html');
         return (
             <div className="datameterPage">
-                <Header title="视频监控" history={this.props.history} ishidereturn/>
+                <Header title= {`${videoname}`} history={this.props.history} ishidereturn/>
                 <Filler gateways={gateways} curgatewayid={curgatewayid} viewtype={viewtype}/>
                 {
                   !!curgw && (
                     <div className="videodata">
-    <iframe src="http://www.newxh.com18.cn/spindex.html" width="100%" height="220px" frameborder="0"></iframe>
+    <iframe src={`${videourl}`} width="100%" height="220px" frameBorder="0"></iframe>
 
     </div>)
                }
@@ -38,9 +41,37 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{gateways,viewtype},userlogin:{usersettings},app:{ispopcaresel_single_index_gateway}}) => {
+const mapStateToProps = ({device:{gateways,viewtypes,devicelist,devices,allowviewtypeids},
+	userlogin:{usersettings},video,app:{ispopcaresel_single_index_gateway}}) => {
 		const curgatewayid = lodashget(usersettings,'indexgatewayid');
-    return {gateways,curgatewayid,ispopcaresel_single_index_gateway,viewtype};
+		let curdevice;
+		let curdeviceid = lodashget(usersettings,'indexdeviceid');
+		if(!!curdeviceid){
+			curdevice = devices[curdeviceid];
+		}
+		if(!curdevice){
+			for(let i = 0 ;i < devicelist.length ;i++){
+				if(lodashincludes(allowviewtypeids,devicelist[i].viewtype)){
+					curdevice = devices[devicelist[i]];
+					break;
+				}
+			}
+		}
+		let viewtype = {};
+		if(!!curdevice){
+			viewtype = viewtypes[curdevice.viewtype];
+		}
+		const {videolist,videos}  = video;
+    let gw2videos = {};
+    for(let i =0 ;i < videolist.length; i++){
+      const curvideo = videos[videolist[i]];
+      if(!!curvideo){
+        if(!!gateways[curvideo.gatewayid]){
+          gw2videos[curvideo.gatewayid] = curvideo;
+        }
+      }
+    }
+    return {gateways,curgatewayid,ispopcaresel_single_index_gateway,viewtype,gw2videos};
 }
 export default connect(mapStateToProps)(App);
 

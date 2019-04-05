@@ -19,7 +19,7 @@ import Usercenter from "../user/center.js";
 import PopcareSel from "../popcaresel";
 
 import lodashget from 'lodash.get';
-// import lodashmap from 'lodash.map';
+import lodashincludes from 'lodash.includes';
 import {ui_selgateway,ui_seldropdowndevice} from '../../actions';
 
 import "./index.css";
@@ -172,23 +172,31 @@ class App extends React.Component {
 const mapStateToProps = ({app:{ispopuserinfo,ispoppwd,ispopcare,
 	ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,
 	mapstyle},
-	device:{devicelist,devices,viewtype,gateways},
+	device:{devicelist,devices,allowviewtypeids,viewtypes,gateways},
 	userlogin:{usersettings,loginsuccess}}) => {
 
 		let curgateway,curdevice;
 		let indexgatewayid = lodashget(usersettings,'indexgatewayid');
-		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!curgateway){
 			curgateway = gateways[indexgatewayid];
 		}
+
+		let curdeviceid = lodashget(usersettings,'indexdeviceid');
 		if(!!curdeviceid){
 			curdevice = devices[curdeviceid];
 		}
 		if(!curdevice){
-			if(devicelist.length > 0){
-				curdevice = devices[devicelist[0]];
+      for(let i = 0 ;i < devicelist.length ;i++){
+				if(lodashincludes(allowviewtypeids,devicelist[i].viewtype)){
+					curdevice = devices[devicelist[i]];
+					break;
+				}
 			}
 		}
+    let viewtype = {};
+    if(!!curdevice){
+      viewtype = viewtypes[curdevice.viewtype];
+    }
     return {ispopuserinfo,curgateway,ispoppwd,ispopcare,
 			ispopcaresel_single_index_gateway,ispopcaresel_single_index_device,
 			curdevice,loginsuccess,devices,usersettings,mapstyle,viewtype};

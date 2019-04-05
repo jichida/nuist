@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Meter from "./meter";
 import "./style.css";
 import Header from "../header/page.js";
-// import Footer from "../footer";
+import lodashincludes from 'lodash.includes';
 import lodashget from 'lodash.get';
 import {getindexstring} from '../../util';
 import DeviceInfoDetailList from './detaillist';
@@ -39,9 +39,21 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{devices,viewtype},historydevice:{historydevices}},props) => {
-		const curdevice = devices[props.match.params.id];
+const mapStateToProps = ({device:{devices,devicelist,allowviewtypeids,viewtypes},historydevice:{historydevices}},props) => {
+		let curdevice = devices[props.match.params.id];
     const index = props.match.params.index;
+    if(!curdevice){
+      for(let i = 0 ;i < devicelist.length ;i++){
+				if(lodashincludes(allowviewtypeids,devicelist[i].viewtype)){
+					curdevice = devices[devicelist[i]];
+					break;
+				}
+			}
+		}
+    let viewtype = {};
+    if(!!curdevice){
+      viewtype = viewtypes[curdevice.viewtype];
+    }
     return {curdevice,viewtype,index};
 }
 export default connect(mapStateToProps)(App);

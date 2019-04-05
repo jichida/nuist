@@ -137,7 +137,12 @@ class App extends React.Component {
   	}
 }
 
-const mapStateToProps = ({historydevice:{periodquery},device:{viewtype}},props) => {
+const mapStateToProps = ({historydevice:{periodquery},device:{viewtypes}},props) => {
+    const curdevice = props.curdevice;
+    let viewtype = {};
+    if(!!curdevice){
+      viewtype = viewtypes[curdevice.viewtype];
+    }
     return {periodquery,viewtype};
 }
 export default connect(mapStateToProps)(App);
