@@ -2,7 +2,7 @@ const debug = require('debug')('srvtcp:protocol');
 const ddh = require('../../sd/ddh');
 const winston = require('../../log/log.js');
 const _ = require('lodash');
-//427e000b7d3100006c00000033818600002b302e3030303030453530303030303006010203040506070001020300010203e61093080001
+//427e000b7d310000 6c00000033818600002b302e3030303030453530303030303006010203040506070001020300010203e61093080001
 const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
 
   if(cmd === 0x01){
@@ -41,13 +41,16 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
       if(newheader4 === '6B' || newheader4 === '6C'){
 
         debug(`====>接收到新协议:${ZigbeeDataNew},节点数据长度为:${ZigbeeDataNew.length/2}`);
+        debug(`====>ZigbeeDataNew ASCII:${Buffer.from(ZigbeeDataNew,'hex').toString('ascii')}`);
         // winston.getlog().info(`====>接收到新协议:${ZigbeeDataNew},节点数据长度为:${ZigbeeDataNew.length/2}`);
         let jsonData = {};
         //扣掉4字节
         const channelnum = (ZigbeeDataNew.length - 8)/34;
         for(let i = 0; i < channelnum; i++){
           //4字节+N
-          const channelhex = ZigbeeDataNew.substr(8+i*2,17*2);
+          const channelhex = ZigbeeDataNew.substr(8+i*17*2,17*2);
+          debug(`====>取第${i+1}个通道数据(17字节):${channelhex}`);
+          debug(`====>ASCII:${Buffer.from(channelhex,'hex').toString('ascii')}`);
           //偏移4字节后,取8字节
           const frequencyhex = channelhex.substr(0,16);
           const frequencyvalue = Buffer.from(frequencyhex,'hex').toString('ascii');
@@ -238,7 +241,9 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
 // 427e000b7d310000010000003381860000b40230067607fb087d0369061508ae080326543604050607fa03000b00000000bd10440c0001
 // 427e000b7d3100006c00000033818600002b313734322e31382b383639362e323302010203040506070001020300010203eb108f080001
 //427e000b7d3100006c00000033818600002b313834302e36342b363639312e323103010203040506070001020300010203461380080001
-const bodybuf = Buffer.from('427e000b7d3100006c00000033818600002b313834302e36342b363639312e323103010203040506070001020300010203461380080001','hex');
+
+// 427e000b7d310000 6c000000 33818600002b313834302e36342b363639312e323103010203040506070001020300010203461380080001
+const bodybuf = Buffer.from('427e000b7d3100006c00000033818600002b313833322e30372b353031342e393103010203040506070001020300010203ee14c5070001','hex');
 getbuf({cmd:0x02,bodybuf},()=>{
 
 })

@@ -8,20 +8,6 @@ const job = require('./src/srvsys');
 const moment = require('moment');
 const debug = require('debug')('srvfixdata:start');
 
-// const index = _.findIndex(['A1','A2','A3','B1','B2','C1','C2','C3','C4','C5','D','E','F','M','N','P'],(o)=>{return o==='C1'});
-// console.log(`-->${index}`);
-// if( index === -1){
-//   console.log('-->字段DriverType非法,但目前是:【C1】');
-// }
-// return;
-// const timestamp = moment().valueOf();
-// const timestamp1hoursago = moment().subtract(60, 'minutes').valueOf();
-// const timestamp1 = moment().unix();
-// const timestamp1hoursago1 = moment().subtract(60, 'minutes').unix();
-// console.log(`${timestamp}<-timestamp`);
-// console.log(`${timestamp1hoursago}<-timestamp1hoursago`);
-// console.log(`${timestamp1}<-timestamp1->`);
-// console.log(`${timestamp1hoursago1}<-timestamp1hoursago1`);
 
 debug(`start=====>version:${config.version},mongodburl:${config.mongodburl}`);
 

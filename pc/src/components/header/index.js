@@ -81,13 +81,10 @@ class App extends React.Component {
         )
       }
     });
-    // const {viewtype} = this.props;
+    const {indexbannerurl} = this.props;
 
-    // const {indexbannerurl} = viewtype;
-    let indexbannerimage = "images/logo.png";
-    // if(!!indexbannerurl){
-    //   indexbannerimage = indexbannerurl;
-    // }
+    const indexbannerimage = indexbannerurl;
+
     return (
       <div className="head_top ">
         <div className="head_img">
@@ -103,7 +100,7 @@ class App extends React.Component {
 }
 
 const APP2 =  withRouter(App);
-const mapStateToProps = ({app:{selectedindex},userlogin:{usersettings}}) => {
-    return {selectedindex};
+const mapStateToProps = ({app:{selectedindex,indexbannerurl},userlogin:{usersettings}}) => {
+    return {selectedindex,indexbannerurl};
 }
 export default connect(mapStateToProps)(APP2);

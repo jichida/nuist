@@ -24,6 +24,7 @@ import {
 } from 'admin-on-rest/lib/mui';
 import Chip from 'material-ui/Chip';
 import ShowPageOne from '../singledocumentpage/index.js';
+import {ImageInputUpload} from '../controls/imageupload.js';
 import {CfAlaramRuleInput} from './cf.js';
 import {PmsSelectArrayInputDetail} from './pms.js';
 import {ImageInputUploadArray} from '../controls/imageuploadarray.js';
@@ -55,7 +56,7 @@ const SystemconfigCreateTitle = ({ record }) => {
  const SystemconfigEdit = (props) => (
     <EditPage {...props} title={<SystemconfigTitle />}>
           <SimpleForm>
-          {/* <ImageInputUploadArray label="产品首页banner图"  source="bannerproducturls" /> */}
+          <ImageInputUpload label="左上角banner图"  source="indexbannerurl" />
           <NumberInput label="故障及异常判断时间【单位：分钟】" source="SettingOfflineMinutes" />
           <CfSelectArrayInput label="允许查看数据类型" source="allowviewtypes" loadOptions={getOptions('viewtype','name','_id')}/>
           <ReferenceInput label="默认报警规则" source="alarmruleid" reference="alarmrule" allowEmpty>

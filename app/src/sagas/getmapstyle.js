@@ -60,53 +60,53 @@ export const getpopinfowindowstyle = (deviceitem,viewtype)=>{
 //     //     content: createInfoWindow('aaa',`${info}`)
 //     // };
 // }
-
-const getdevicestatus_isonline = (deviceitem,SettingOfflineMinutes=20)=>{
-  let isonline = false;
-  let datatime = lodashget(deviceitem,'realtimedata.datatime');
-  if(!!datatime){
-    // a.diff(b, 'days')
-    const diffmin = moment().diff(moment(datatime),'minutes');
-    isonline = diffmin < SettingOfflineMinutes;
-  }
-  return isonline;
-}
-
-const getdevicestatus_alaramlevel = (deviceitem)=>{
-  let warninglevel = lodashget(deviceitem,'warninglevel','');
-  return warninglevel;
-}
-
-export const getimageicon_isonline = (item,SettingOfflineMinutes,viewtype)=>{
-  //这里根据不同item显示不同图标
-  const isonline = getdevicestatus_isonline(item,SettingOfflineMinutes);
-  const icon_car0 = `${process.env.PUBLIC_URL}/images/icon_car0.png`;
-  const icon_car1 = `${process.env.PUBLIC_URL}/images/icon_car1.png`;
-  const icon_car2 = `${process.env.PUBLIC_URL}/images/icon_car2.png`;
-  const icon_car3 = `${process.env.PUBLIC_URL}/images/icon_car3.png`;
-  const warninglevel = getdevicestatus_alaramlevel(item);
-  let curpng = icon_car0;
-  if(warninglevel === '高'){
-    curpng = icon_car1;
-  }
-  else if(warninglevel === '中'){
-    curpng = icon_car2;
-  }
-  else if(warninglevel === '低'){
-    curpng = icon_car3;
-  }
-  return {iconname:curpng,isonline};
-}
+//
+// const getdevicestatus_isonline = (deviceitem,SettingOfflineMinutes=20)=>{
+//   let isonline = false;
+//   let datatime = lodashget(deviceitem,'realtimedata.datatime');
+//   if(!!datatime){
+//     // a.diff(b, 'days')
+//     const diffmin = moment().diff(moment(datatime),'minutes');
+//     isonline = diffmin < SettingOfflineMinutes;
+//   }
+//   return isonline;
+// }
+//
+// const getdevicestatus_alaramlevel = (deviceitem)=>{
+//   let warninglevel = lodashget(deviceitem,'warninglevel','');
+//   return warninglevel;
+// }
+//
+// export const getimageicon_isonline = (item,SettingOfflineMinutes,viewtype)=>{
+//   //这里根据不同item显示不同图标
+//   const isonline = getdevicestatus_isonline(item,SettingOfflineMinutes);
+//   const icon_car0 = `${process.env.PUBLIC_URL}/images/icon_car0.png`;
+//   const icon_car1 = `${process.env.PUBLIC_URL}/images/icon_car1.png`;
+//   const icon_car2 = `${process.env.PUBLIC_URL}/images/icon_car2.png`;
+//   const icon_car3 = `${process.env.PUBLIC_URL}/images/icon_car3.png`;
+//   const warninglevel = getdevicestatus_alaramlevel(item);
+//   let curpng = icon_car0;
+//   if(warninglevel === '高'){
+//     curpng = icon_car1;
+//   }
+//   else if(warninglevel === '中'){
+//     curpng = icon_car2;
+//   }
+//   else if(warninglevel === '低'){
+//     curpng = icon_car3;
+//   }
+//   return {iconname:curpng,isonline};
+// }
 
 
 export const getimageicon = (item,SettingOfflineMinutes,viewtype)=>{
 
   //这里根据不同item显示不同图标
   const curdevicetype =viewtype;
-  const icon_error = lodashget(curdevicetype,'iconurl_error',`${process.env.PUBLIC_URL}/images/device_error.png`);
-  const icon_normal = lodashget(curdevicetype,'iconurl_normal',`${process.env.PUBLIC_URL}/images/device_normal.png`);
-  const icon_alarm = lodashget(curdevicetype,'iconurl_alarm',`${process.env.PUBLIC_URL}/images/device_alarm.png`);
-  const firstLetter = getdevicestatus(item._id);
+  const icon_error = lodashget(curdevicetype,'iconurl_error',`${process.env.PUBLIC_URL}/images/e7.png`);
+  const icon_normal = lodashget(curdevicetype,'iconurl_normal',`${process.env.PUBLIC_URL}/images/e7.png`);
+  const icon_alarm = lodashget(curdevicetype,'iconurl_alarm',`${process.env.PUBLIC_URL}/images/e7.png`);
+  // const firstLetter = getdevicestatus(item._id);
   // if(firstLetter === 'N'){
   //   return icon_normal;
   // }

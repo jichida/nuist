@@ -17,6 +17,7 @@ import ResestPassword from './resetpassword';
 import {CreateActions,EditActions} from '../controls/createeditactions';
 import {getOptions} from '../controls/getselect.js';
 import {CfSelectArrayInput} from '../controls/selectarrayinput.js';
+import {ImageInputUpload} from '../controls/imageupload.js';
 
 const UserListTitle = ({ record }) => {
   return <span>显示 用户</span>;
@@ -42,6 +43,7 @@ const UserEdit = (props) => {
     <Edit title="编辑用户信息" {...props}  actions={<EditActions />}>
       <SimpleForm>
         <TextField source="id" />
+        <ImageInputUpload label="左上角banner图"  source="indexbannerurl" />
         <TextField label="用户名" source="username" validate={required} />
         <TextInput label="真实姓名" source="truename"/>
         <TextInput label="备注" source="demo" />

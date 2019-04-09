@@ -11,7 +11,7 @@ const debug = require('debug')('appsrv:gateway');
 输入参数：用户
 输出参数：获取网关用户
 */
-const getgatewaylist_user = (err,viewtype,allowviewtypes,gwgroups,actiondata,ctx,callback)=>{
+const getgatewaylist_user = (err,indexbannerurl,viewtype,allowviewtypes,gwgroups,actiondata,ctx,callback)=>{
   if(!err){
     let gwids = [];
     _.map(gwgroups,(gwgroup)=>{
@@ -31,6 +31,7 @@ const getgatewaylist_user = (err,viewtype,allowviewtypes,gwgroups,actiondata,ctx
       }]).lean().exec((err,devicelist)=>{
     if(!err && !!devicelist){
         const payload = {
+          indexbannerurl,
           allowviewtypes,
           viewtype:viewtype,
           list:devicelist
@@ -82,8 +83,9 @@ exports.getgatewaylist = (actiondata,ctx,callback)=>{
     ]).lean().exec((err, user)=> {
       const gwgroups = _.get(user,'gatewaygroups',[]);
       const viewtype = _.get(user,'viewtype');
+      const indexbannerurl = _.get(user,'indexbannerurl');
       const allowviewtypes = _.get(user,'allowviewtypes',[]);
-      getgatewaylist_user(err,viewtype,allowviewtypes,gwgroups,actiondata,ctx,callback);
+      getgatewaylist_user(err,indexbannerurl,viewtype,allowviewtypes,gwgroups,actiondata,ctx,callback);
     });
   }
   else{
@@ -112,8 +114,9 @@ exports.getgatewaylist = (actiondata,ctx,callback)=>{
       let gwgroups = _.get(systemconfig,`gatewaygroups4${ctx.usertype}`,[]);
       const viewtype = _.get(systemconfig,'viewtype');
       const allowviewtypes = _.get(systemconfig,'allowviewtypes',[]);
+      const indexbannerurl = _.get(systemconfig,'indexbannerurl');
       debug(gwgroups);
-      getgatewaylist_user(err,viewtype,allowviewtypes,gwgroups,actiondata,ctx,callback);
+      getgatewaylist_user(err,indexbannerurl,viewtype,allowviewtypes,gwgroups,actiondata,ctx,callback);
     });
   }
 

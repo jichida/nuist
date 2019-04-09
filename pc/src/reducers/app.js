@@ -10,6 +10,7 @@ import {
 
 const initial = {
     app: {
+        indexbannerurl:'images/logo.png',
         tabindex:0,
         socketconnected:false,
         ispopuserinfo:false,

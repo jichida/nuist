@@ -11,6 +11,7 @@ const SystemConfigSchema = new Schema({
   viewtype:{ type: Schema.Types.ObjectId, ref: 'viewtype' },
   allowviewtypes:[{ type: Schema.Types.ObjectId, ref: 'viewtype' }],
   alarmruleid:{ type: Schema.Types.ObjectId, ref: 'alarmrule' },
+  indexbannerurl:String
 }, { strict: false });
 SystemConfigSchema.plugin(mongoosePaginate);
 const SystemConfigModel =mongoose.model('systemconfig',  SystemConfigSchema);
@@ -72,6 +73,8 @@ const ViewTypeSchema = new Schema({
   fieldsall:[
     {
       name:String,
+      offset:Number,
+      length:Number,
       showname:String,
       iconurl:String,
       unit:String,
@@ -80,7 +83,7 @@ const ViewTypeSchema = new Schema({
   fieldslist_brief:[],
   fieldslist_detail:[],
   fieldslist_history:[],
-  indexbannerurl:String
+
 }, { strict: false });
 ViewTypeSchema.plugin(mongoosePaginate);
 const ViewTypeModel =mongoose.model('viewtype',  ViewTypeSchema);
@@ -115,7 +118,8 @@ const UserSchema = new Schema({
     indexgatewayid:String,
     warninglevel:String,//报警等级
     subscriberdeviceids:[],//订阅的设备
-  }
+  },
+  indexbannerurl:String
 }, { strict: false });
 UserSchema.plugin(mongoosePaginate);
 const UserModel =mongoose.model('user',  UserSchema);

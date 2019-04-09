@@ -14,6 +14,7 @@ import {
   getimageicon
 } from './getmapstyle';
 import {
+  set_uiapp,
   map_setmapinited,
   carmapshow_createmap,
   carmapshow_destorymap,
@@ -771,7 +772,12 @@ const drawgGatewayPath = (lineArrayList,{gpathSimplifierIns,gPathSimplifier})=>{
         yield takeLatest(`${getgatewaylist_result}`, function*(deviceresult) {
           let {payload} = deviceresult;
           try{
-
+              const {indexbannerurl} = payload;
+              if(!!indexbannerurl){
+                if(indexbannerurl.length > 0){
+                  yield put(set_uiapp({indexbannerurl}));
+                }
+              }
               yield put.resolve(getgatewaylist_result_4reducer(payload));
 
               const {g_devicesdb,allowviewtypeids,gateways} = yield select((state)=>{

@@ -20,12 +20,12 @@ class App extends React.Component {
   }
 
   render() {
-    const {curdevice,devices,indexgatewayid,allowviewtypeids} = this.props;
+    const {curdevice,devices,indexgatewayid,allowviewtypeids,viewtypes,} = this.props;
     let options = [];
     lodashmap(devices,(v)=>{
       if(indexgatewayid === v.gatewayid && lodashincludes(allowviewtypeids,v.viewtype)){
         //还需要判断当前类型是否和节点类型匹配
-        options.push(<Option key={v._id} value={`${v._id}`}>{v.name}</Option>);
+        options.push(<Option key={v._id} value={`${v._id}`}>{v.name}({`${viewtypes[v.viewtype].name}`})</Option>);
       }
     });
     return (
@@ -61,7 +61,7 @@ const mapStateToProps = ({device:{gateways,viewtypes,devicelist,devices,allowvie
       }
     }
   }
-  return {curdevice,devices,indexgatewayid,allowviewtypeids};
+  return {curdevice,devices,indexgatewayid,viewtypes,allowviewtypeids};
 }
 
 export default connect(mapStateToProps)(App);
