@@ -45,8 +45,8 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
       const unit = values["columns"][2].value;
       const offset = values["columns"][3].value;
       const length = values["columns"][4].value;
-      // const iconurl = values["columns"][3].value;
-      newv[index] = {name,showname,unit,offset,length};
+      const ftype = values["columns"][5].value;
+      newv[index] = {name,showname,unit,offset,length,ftype};
     }
     else if(index >= vsz.length){
       const name = values["columns"][0].value;
@@ -54,8 +54,9 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
       const unit = values["columns"][2].value;
       const offset = values["columns"][3].value;
       const length = values["columns"][4].value;
+      const ftype = values["columns"][5].value;
       // const iconurl = values["columns"][3].value;
-      newv.push( {name,showname,unit,offset,length});
+      newv.push( {name,showname,unit,offset,length,ftype});
     }
     else{
       return;
@@ -71,7 +72,7 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
      {value: '单位', type: 'TextField', width: 200},
      {value: '偏移', type: 'TextField', width: 200},
      {value: '长度', type: 'TextField', width: 200},
-    //  {value: '图标', type: 'ImageUpload', width: 'auto'},
+     {value: '类型', type: 'TextField', width: 200},
   ];
 
   _.map(vsz,(v)=>{
@@ -82,6 +83,7 @@ const renderAlaramRuleEdit = ({ meta: { touched, error } = {}, input: { ...input
         {value: v.unit},
         {value: v.offset},
         {value: v.length},
+        {value: v.ftype},
       ]}
     );
   });

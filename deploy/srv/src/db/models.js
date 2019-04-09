@@ -78,6 +78,7 @@ const ViewTypeSchema = new Schema({
       showname:String,
       iconurl:String,
       unit:String,
+      ftype:String
     }
   ],
   fieldslist_brief:[],

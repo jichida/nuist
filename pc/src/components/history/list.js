@@ -54,24 +54,27 @@ class App extends React.Component {
       const {retlist,viewtype} = this.props;
 			const {fields,fieldslist_brief} = viewtype;
       const ticktimestringlist = lodashget(retlist,'ticktimestring',[]);
-
+			let lilist = [];
+			for(let i = ticktimestringlist.length; i >0 ; i--){
+				const index = i - 1;
+				const vs = ticktimestringlist[index];
+				const v = {};
+				lodashmap(fieldslist_brief,(fieldname)=>{
+					if(!!retlist[fieldname]){
+						v[fieldname] = retlist[fieldname][index];
+					}
+				});
+				const curdevice = {
+					realtimedata:v
+				}
+				lilist.push(<TitleD key={index} fields={fields} fieldslist_brief={fieldslist_brief} vs={vs} curdevice={curdevice}/>);
+			}
 	    return (
 	      	<div className="monitordata">
 	      		<TitleC fields={fields} fieldslist_brief={fieldslist_brief} />
 
               {
-                lodashmap(ticktimestringlist,(vs,index)=>{
-									const v = {};
-									lodashmap(fieldslist_brief,(fieldname)=>{
-										if(!!retlist[fieldname]){
-											v[fieldname] = retlist[fieldname][index];
-										}
-									});
-									const curdevice = {
-										realtimedata:v
-									}
-									return (<TitleD key={index} fields={fields} fieldslist_brief={fieldslist_brief} vs={vs} curdevice={curdevice}/>);
-  							})
+                lilist
               }
 
 

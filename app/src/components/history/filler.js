@@ -18,6 +18,7 @@ class App extends React.Component {
       const {periodquery,curdevice,viewtype} = this.props;
       const {periodname,starttime,endtime} = periodquery;
       this.props.dispatch(gethistorydevicelist_request({
+        viewtype,
         fieldslist:viewtype.fieldslist_brief,
         _id:curdevice._id,
         periodname,

@@ -16,6 +16,7 @@ class App extends React.Component {
     const {periodname,starttime,endtime} = periodquery;
     if(!!curdevice){
       this.props.dispatch(gethistorydevicelist_request({
+        viewtype,
         _id:curdevice._id,
         periodname,
         starttime,

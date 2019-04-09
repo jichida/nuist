@@ -40,7 +40,7 @@ const device = createReducer({
       lodashmap(fieldsall,(v)=>{
         fields[v.name] = {
           showname:v.showname,
-          iconurl:v.iconurl,
+          ftype:v.ftype,
           unit:lodashget(v,'unit','')
         };
       })

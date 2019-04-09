@@ -42,6 +42,7 @@ export function* querypageflow(){//仅执行一次
       console.log(`starttime:${starttime},endtime:${endtime}`);
       const periodname = 'minutely';
       yield put(gethistorydevicelist_request({
+        viewtype,
         fieldslist:fieldslist_brief,
         _id:deviceid,
         periodname,

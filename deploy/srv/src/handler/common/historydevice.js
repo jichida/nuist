@@ -112,9 +112,16 @@ exports.gethistorydevicelist = (actiondata,ctx,callback)=>{
         }
     };
     _.map(fieldslist,(fieldname)=>{
-      _.set(aggregate_groupobj,`$group.${fieldname}`,{
+      const ftype = _.get(actiondata,`viewtype.fields.${fieldname}.ftype`,'number');
+      let vgroup = {
           $avg: `$realtimedata.${fieldname}`
-      })
+      };
+      if(ftype === 'string'){
+        vgroup = {
+            $first: `$realtimedata.${fieldname}`
+        };
+      }
+      _.set(aggregate_groupobj,`$group.${fieldname}`,vgroup);
     });
     debug(aggregate_groupobj);
 
