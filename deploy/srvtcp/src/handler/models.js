@@ -19,7 +19,42 @@ const RainfalldatahistorySchema = new Schema({
 RainfalldatahistorySchema.plugin(mongoosePaginate);
 const RainfalldatahistoryModel =mongoose.model('rainfalldatahistory',  RainfalldatahistorySchema);
 
+//视图类型
+const ViewTypeSchema = new Schema({
+  name:String,
+  iconurl_normal:String,
+  iconurl_alarm:String,
+  iconurl_error:String,
+  fieldsall:[
+    {
+      name:String,
+      offset:Number,
+      length:Number,
+      showname:String,
+      iconurl:String,
+      unit:String,
+      ftype:String
+    }
+  ],
+  fieldslist_brief:[],
+  fieldslist_detail:[],
+  fieldslist_history:[],
+
+}, { strict: false });
+ViewTypeSchema.plugin(mongoosePaginate);
+const ViewTypeModel =mongoose.model('viewtype',  ViewTypeSchema);
+
+//设备/节点
+const DeviceSchema = new Schema({
+  viewtype:{ type: Schema.Types.ObjectId, ref: 'viewtype' },
+}, { strict: false });
+DeviceSchema.plugin(mongoosePaginate);
+const DeviceModel =mongoose.model('device',  DeviceSchema);
 
 exports.RainfalldatahistorySchema = RainfalldatahistorySchema;
+exports.DeviceSchema = DeviceSchema;
+exports.ViewTypeSchema = ViewTypeSchema;
 
 exports.RainfalldatahistoryModel = RainfalldatahistoryModel;
+exports.DeviceModel = DeviceModel;
+exports.ViewTypeModel = ViewTypeModel;

@@ -2,8 +2,10 @@ const debug = require('debug')('srvtcp:protocol');
 const ddh = require('../../sd/ddh');
 const winston = require('../../log/log.js');
 const _ = require('lodash');
+const dbsync = require('../../dbsync/index');
+const parsevalue = require('./parsevalue');
 //427e000b7d310000 6c00000033818600002b302e3030303030453530303030303006010203040506070001020300010203e61093080001
-const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
+const getbuf =({cmd,gwid,recvbuf,bodybuf},callbackfn)=>{
 
   if(cmd === 0x01){
     // bodybuf 长度为0
@@ -34,107 +36,34 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
       const deviceidhex = ZigbeeData.substr(ddh.deviceid.offset*2,ddh.deviceid.length*2);
       debug(`节点ID为:${deviceidhex},偏移量:${ddh.deviceid.offset},长度:${ddh.deviceid.length}`);
       const deviceid = deviceidhex.toUpperCase();
-      //取第一个字节
-      const ZigbeeDataNew = ZigbeeData.substr(ddh.deviceid.offset*2);
-      const newheader4hex = ZigbeeDataNew.substr(0,2);
-      const newheader4 = newheader4hex.toUpperCase();
-      if(newheader4 === '6B' || newheader4 === '6C'){
 
-        debug(`====>接收到新协议:${ZigbeeDataNew},节点数据长度为:${ZigbeeDataNew.length/2}`);
-        debug(`====>ZigbeeDataNew ASCII:${Buffer.from(ZigbeeDataNew,'hex').toString('ascii')}`);
-        // winston.getlog().info(`====>接收到新协议:${ZigbeeDataNew},节点数据长度为:${ZigbeeDataNew.length/2}`);
+      dbsync({"gwid" :gwid,"deviceid" : deviceid},(err,result)=>{
+        debug(result);
         let jsonData = {};
-        //扣掉4字节
-        const channelnum = (ZigbeeDataNew.length - 8)/34;
-        for(let i = 0; i < channelnum; i++){
-          //4字节+N
-          const channelhex = ZigbeeDataNew.substr(8+i*17*2,17*2);
-          debug(`====>取第${i+1}个通道数据(17字节):${channelhex}`);
-          debug(`====>ASCII:${Buffer.from(channelhex,'hex').toString('ascii')}`);
-          //偏移4字节后,取8字节
-          const frequencyhex = channelhex.substr(0,16);
-          const frequencyvalue = Buffer.from(frequencyhex,'hex').toString('ascii');
-          //再取8字节
-          const temperaturehex = channelhex.substr(16,32);
-          const temperaturevalue = Buffer.from(temperaturehex,'hex').toString('ascii');
-          //再取最后一个字节
-          const numberindexhex = channelhex.substr(32,2);
-          const numberindex = Buffer.from(numberindexhex,'hex');
-          if(frequencyvalue[0] !== 'E'){
-            _.set(jsonData,`c${numberindex[0]}_frequency`,parseFloat(frequencyvalue));
-            _.set(jsonData,`frequency`,parseFloat(frequencyvalue));
+        const ZigbeeDataNew = ZigbeeData.substr(ddh.deviceid.offset*2);
+        debug(`====>接收数据:${ZigbeeDataNew},节点数据长度为:${ZigbeeDataNew.length/2}`);
+        for(let i = 0 ;i < result.length;i++){
+          const viewtype = result[i];
+          const ftype = _.get(viewtype,'ftype','number');
+          const length = viewtype.length;
+          const offset = viewtype.offset;
+          if(!!length && !!offset){
+            if(length > 0 && (length+offset) < ZigbeeData.length/2 ){
+              const hexstring = ZigbeeData.substr(offset*2,length*2);
+              debug(`name:${viewtype.name}-->hexstring:${hexstring}-->ftype:${ftype}-->offset:${offset}-->length:${length}`);
+              const value = parsevalue({hexstring,length,name:viewtype.name,ftype});
+              jsonData[`${viewtype.name}`] = value;
+            }
           }
-          if(temperaturevalue[0] !== 'E'){
-            _.set(jsonData,`c${numberindex[0]}_temperature`,parseFloat(temperaturevalue));
-            _.set(jsonData,`temperature`,parseFloat(temperaturevalue));
-          }
-          _.set(jsonData,`channel${numberindex[0]}_frequency`,frequencyvalue);
-          _.set(jsonData,`channel${numberindex[0]}_temperature`,temperaturevalue);
-          _.set(jsonData,`channel`,numberindex[0]);
+            //{ ftype: 'string',
+              // srvtcp:protocol     length: 8,
+              // srvtcp:protocol     offset: 8,
+              // srvtcp:protocol     unit: 'Ω',
+              // srvtcp:protocol     showname: '温度',
+              // srvtcp:protocol     name: 'temperature',
+              // srvtcp:protocol     _id: 5caccbf5111e72e5b33e21be },
         }
-
-        debug(`====>${JSON.stringify(jsonData)}`);
-        callbackfn(null,{
-          cmd,
-          deviceid:newheader4,
-          amtype:`BC`,
-          hexraw:ZigbeeData,
-          resultdata:jsonData,
-          replybuf:buf_cmd2
-        });
-        return;
-      }
-      // if(deviceid === '6B' || deviceid === '6C'){
-      //   //新增的数据
-      //   debug(`接收到节点ID为:${deviceid}的数据,数据是:${ZigbeeData}`);
-      //   const leftdata = ZigbeeData.substr(ddh.deviceid.offset*2+ddh.deviceid.length*2);
-      //   debug(`leftdata:${leftdata.length},数据是:${leftdata}`);
-      //   // winston.getlog().info(`接收到节点ID为:${deviceid}的数据,数据是:${ZigbeeData}`);
-      // }
-      // else{
-        //原来的逻辑
-        const pressurehex = ZigbeeData.substr(ddh.pressure.offset*2,ddh.pressure.length*2);
-        const pressure = ddh.pressure.parsevalue(pressurehex);
-        debug(`气压为:${pressure},offset:${ddh.pressure.offset},length:${ddh.pressure.length}`);
-
-        const winddirectionhex = ZigbeeData.substr(ddh.winddirection.offset*2,ddh.winddirection.length*2);
-        const winddirection = ddh.winddirection.parsevalue(winddirectionhex);
-        debug(`风向为:${winddirection},offset:${ddh.winddirection.offset},length:${ddh.winddirection.length}`);
-
-        const windspeedhex = ZigbeeData.substr(ddh.windspeed.offset*2,ddh.windspeed.length*2);
-        const windspeed = ddh.windspeed.parsevalue(windspeedhex);
-        debug(`风速为:${windspeed},offset:${ddh.windspeed.offset},length:${ddh.windspeed.length}`);
-
-        const temperaturehex = ZigbeeData.substr(ddh.temperature.offset*2,ddh.temperature.length*2);
-        const temperature = ddh.temperature.parsevalue(temperaturehex);
-        debug(`温度为:${temperature},offset:${ddh.temperature.offset},length:${ddh.temperature.length}`);
-
-        const humidityhex = ZigbeeData.substr(ddh.humidity.offset*2,ddh.humidity.length*2);
-        const humidity = ddh.humidity.parsevalue(humidityhex);
-        debug(`湿度为:${humidity},offset:${ddh.humidity.offset},length:${ddh.humidity.length}`);
-
-        const rainfallhex = ZigbeeData.substr(ddh.rainfall.offset*2,ddh.rainfall.length*2);
-        const rainfall = ddh.rainfall.parsevalue(rainfallhex);
-        debug(`雨量为:${rainfall},offset:${ddh.rainfall.offset},length:${ddh.rainfall.length}`);
-
-        debug(`节点ID为:${deviceidhex},偏移量:${ddh.deviceid.offset},长度:${ddh.deviceid.length},
-          气压为:${pressure},偏移量:${ddh.pressure.offset},长度:${ddh.pressure.length},
-          风向为:${winddirection},偏移量:${ddh.winddirection.offset},长度:${ddh.winddirection.length},
-          风速为:${windspeed},偏移量:${ddh.windspeed.offset},长度:${ddh.windspeed.length},
-          温度为:${temperature},偏移量:${ddh.temperature.offset},长度:${ddh.temperature.length},
-          湿度为:${humidity},偏移量:${ddh.humidity.offset},长度:${ddh.humidity.length},
-          雨量为:${rainfall},偏移量:${ddh.rainfall.offset},长度:${ddh.rainfall.length}
-          `);
-
-        jsonData = {
-          pressure,
-          winddirection,
-          windspeed,
-          temperature,
-          humidity,
-          rainfall
-        };
-
+        debug(`节点ID为:${deviceidhex},解析出来数据:${JSON.stringify(jsonData)}`);
         callbackfn(null,{
           cmd,
           deviceid,
@@ -143,6 +72,117 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
           resultdata:jsonData,
           replybuf:buf_cmd2
         });
+      });
+      //
+      // //取第一个字节
+      // const ZigbeeDataNew = ZigbeeData.substr(ddh.deviceid.offset*2);
+      // const newheader4hex = ZigbeeDataNew.substr(0,2);
+      // const newheader4 = newheader4hex.toUpperCase();
+      // if(newheader4 === '6B' || newheader4 === '6C'){
+      //
+      //   debug(`====>接收到新协议:${ZigbeeDataNew},节点数据长度为:${ZigbeeDataNew.length/2}`);
+      //   debug(`====>ZigbeeDataNew ASCII:${Buffer.from(ZigbeeDataNew,'hex').toString('ascii')}`);
+      //   // winston.getlog().info(`====>接收到新协议:${ZigbeeDataNew},节点数据长度为:${ZigbeeDataNew.length/2}`);
+      //   let jsonData = {};
+      //   //扣掉4字节
+      //   const channelnum = (ZigbeeDataNew.length - 8)/34;
+      //   for(let i = 0; i < channelnum; i++){
+      //     //4字节+N
+      //     const channelhex = ZigbeeDataNew.substr(8+i*17*2,17*2);
+      //     debug(`====>取第${i+1}个通道数据(17字节):${channelhex}`);
+      //     debug(`====>ASCII:${Buffer.from(channelhex,'hex').toString('ascii')}`);
+      //     //偏移4字节后,取8字节
+      //     const frequencyhex = channelhex.substr(0,16);
+      //     const frequencyvalue = Buffer.from(frequencyhex,'hex').toString('ascii');
+      //     //再取8字节
+      //     const temperaturehex = channelhex.substr(16,32);
+      //     const temperaturevalue = Buffer.from(temperaturehex,'hex').toString('ascii');
+      //     //再取最后一个字节
+      //     const numberindexhex = channelhex.substr(32,2);
+      //     const numberindex = Buffer.from(numberindexhex,'hex');
+      //     if(frequencyvalue[0] !== 'E'){
+      //       _.set(jsonData,`c${numberindex[0]}_frequency`,parseFloat(frequencyvalue));
+      //       _.set(jsonData,`frequency`,parseFloat(frequencyvalue));
+      //     }
+      //     if(temperaturevalue[0] !== 'E'){
+      //       _.set(jsonData,`c${numberindex[0]}_temperature`,parseFloat(temperaturevalue));
+      //       _.set(jsonData,`temperature`,parseFloat(temperaturevalue));
+      //     }
+      //     _.set(jsonData,`channel${numberindex[0]}_frequency`,frequencyvalue);
+      //     _.set(jsonData,`channel${numberindex[0]}_temperature`,temperaturevalue);
+      //     _.set(jsonData,`channel`,numberindex[0]);
+      //   }
+      //
+      //   debug(`====>${JSON.stringify(jsonData)}`);
+      //   callbackfn(null,{
+      //     cmd,
+      //     deviceid:newheader4,
+      //     amtype:`BC`,
+      //     hexraw:ZigbeeData,
+      //     resultdata:jsonData,
+      //     replybuf:buf_cmd2
+      //   });
+      //   return;
+      // }
+      // // if(deviceid === '6B' || deviceid === '6C'){
+      // //   //新增的数据
+      // //   debug(`接收到节点ID为:${deviceid}的数据,数据是:${ZigbeeData}`);
+      // //   const leftdata = ZigbeeData.substr(ddh.deviceid.offset*2+ddh.deviceid.length*2);
+      // //   debug(`leftdata:${leftdata.length},数据是:${leftdata}`);
+      // //   // winston.getlog().info(`接收到节点ID为:${deviceid}的数据,数据是:${ZigbeeData}`);
+      // // }
+      // // else{
+      //   //原来的逻辑
+      //   const pressurehex = ZigbeeData.substr(ddh.pressure.offset*2,ddh.pressure.length*2);
+      //   const pressure = ddh.pressure.parsevalue(pressurehex);
+      //   debug(`气压为:${pressure},offset:${ddh.pressure.offset},length:${ddh.pressure.length}`);
+      //
+      //   const winddirectionhex = ZigbeeData.substr(ddh.winddirection.offset*2,ddh.winddirection.length*2);
+      //   const winddirection = ddh.winddirection.parsevalue(winddirectionhex);
+      //   debug(`风向为:${winddirection},offset:${ddh.winddirection.offset},length:${ddh.winddirection.length}`);
+      //
+      //   const windspeedhex = ZigbeeData.substr(ddh.windspeed.offset*2,ddh.windspeed.length*2);
+      //   const windspeed = ddh.windspeed.parsevalue(windspeedhex);
+      //   debug(`风速为:${windspeed},offset:${ddh.windspeed.offset},length:${ddh.windspeed.length}`);
+      //
+      //   const temperaturehex = ZigbeeData.substr(ddh.temperature.offset*2,ddh.temperature.length*2);
+      //   const temperature = ddh.temperature.parsevalue(temperaturehex);
+      //   debug(`温度为:${temperature},offset:${ddh.temperature.offset},length:${ddh.temperature.length}`);
+      //
+      //   const humidityhex = ZigbeeData.substr(ddh.humidity.offset*2,ddh.humidity.length*2);
+      //   const humidity = ddh.humidity.parsevalue(humidityhex);
+      //   debug(`湿度为:${humidity},offset:${ddh.humidity.offset},length:${ddh.humidity.length}`);
+      //
+      //   const rainfallhex = ZigbeeData.substr(ddh.rainfall.offset*2,ddh.rainfall.length*2);
+      //   const rainfall = ddh.rainfall.parsevalue(rainfallhex);
+      //   debug(`雨量为:${rainfall},offset:${ddh.rainfall.offset},length:${ddh.rainfall.length}`);
+      //
+      //   debug(`节点ID为:${deviceidhex},偏移量:${ddh.deviceid.offset},长度:${ddh.deviceid.length},
+      //     气压为:${pressure},偏移量:${ddh.pressure.offset},长度:${ddh.pressure.length},
+      //     风向为:${winddirection},偏移量:${ddh.winddirection.offset},长度:${ddh.winddirection.length},
+      //     风速为:${windspeed},偏移量:${ddh.windspeed.offset},长度:${ddh.windspeed.length},
+      //     温度为:${temperature},偏移量:${ddh.temperature.offset},长度:${ddh.temperature.length},
+      //     湿度为:${humidity},偏移量:${ddh.humidity.offset},长度:${ddh.humidity.length},
+      //     雨量为:${rainfall},偏移量:${ddh.rainfall.offset},长度:${ddh.rainfall.length}
+      //     `);
+      //
+      //   jsonData = {
+      //     pressure,
+      //     winddirection,
+      //     windspeed,
+      //     temperature,
+      //     humidity,
+      //     rainfall
+      //   };
+      //
+      //   callbackfn(null,{
+      //     cmd,
+      //     deviceid,
+      //     amtype,
+      //     hexraw:ZigbeeData,
+      //     resultdata:jsonData,
+      //     replybuf:buf_cmd2
+      //   });
       // }
 
       return;
@@ -243,8 +283,8 @@ const getbuf =({cmd,recvbuf,bodybuf},callbackfn)=>{
 //427e000b7d3100006c00000033818600002b313834302e36342b363639312e323103010203040506070001020300010203461380080001
 
 // 427e000b7d310000 6c000000 33818600002b313834302e36342b363639312e323103010203040506070001020300010203461380080001
-const bodybuf = Buffer.from('427e000b7d3100006c00000033818600002b313833322e30372b353031342e393103010203040506070001020300010203ee14c5070001','hex');
-getbuf({cmd:0x02,bodybuf},()=>{
-
-})
+// const bodybuf = Buffer.from('427e000b7d3100006c00000033818600002b313833322e30372b353031342e393103010203040506070001020300010203ee14c5070001','hex');
+// getbuf({cmd:0x02,bodybuf},()=>{
+//
+// })
 module.exports = getbuf;

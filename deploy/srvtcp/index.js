@@ -44,20 +44,20 @@ PubSub.subscribe(`nuistdata`, ( msg, data )=>{
               // "humidity" : _.random(parseInt(config.humidity_data_min), parseInt(config.humidity_data_max)),
               // "rainfall" : _.random(parseInt(config.rainfall_data_min), parseInt(config.rainfall_data_max)),
               // "temperature" : _.random(parseInt(config.temperature_data_min), parseInt(config.temperature_data_max)),
-              "deformation":_.random(parseInt(config.deformation_data_min), parseInt(config.deformation_data_max)),
-              "voltage":_.random(parseInt(config.voltage_data_min), parseInt(config.voltage_data_max)),
-              "stress0":_.random(parseInt(config.stress0_data_min), parseInt(config.stress0_data_max)),
-              "stress1":_.random(parseInt(config.stress1_data_min), parseInt(config.stress1_data_max)),
-              "osmoticpressure":_.random(parseInt(config.osmoticpressure_data_min), parseInt(config.osmoticpressure_data_max)),//渗压
-              "no":_.random(parseInt(config.no_data_min), parseInt(config.no_data_max)),
-              "co":_.random(parseInt(config.co_data_min), parseInt(config.co_data_max)),
-              "pm2d5":_.random(parseInt(config.pm2d5_data_min), parseInt(config.pm2d5_data_max)),
-              "h2s":_.random(parseInt(config.h2s_data_min), parseInt(config.h2s_data_max)),
-              "no2":_.random(parseInt(config.no2_data_min), parseInt(config.no2_data_max)),
-              "o3":_.random(parseInt(config.o3_data_min), parseInt(config.o3_data_max)),
-              "level":_.random(parseInt(config.level_data_min), parseInt(config.level_data_max)),//液位
-              "displacement":_.random(parseInt(config.displacement_data_min), parseInt(config.displacement_data_max)),//位移
-              "steelbarmeter":_.random(parseInt(config.steelbarmeter_data_min), parseInt(config.steelbarmeter_data_max))//钢筋计
+              // "deformation":_.random(parseInt(config.deformation_data_min), parseInt(config.deformation_data_max)),
+              // "voltage":_.random(parseInt(config.voltage_data_min), parseInt(config.voltage_data_max)),
+              // "stress0":_.random(parseInt(config.stress0_data_min), parseInt(config.stress0_data_max)),
+              // "stress1":_.random(parseInt(config.stress1_data_min), parseInt(config.stress1_data_max)),
+              // "osmoticpressure":_.random(parseInt(config.osmoticpressure_data_min), parseInt(config.osmoticpressure_data_max)),//渗压
+              // "no":_.random(parseInt(config.no_data_min), parseInt(config.no_data_max)),
+              // "co":_.random(parseInt(config.co_data_min), parseInt(config.co_data_max)),
+              // "pm2d5":_.random(parseInt(config.pm2d5_data_min), parseInt(config.pm2d5_data_max)),
+              // "h2s":_.random(parseInt(config.h2s_data_min), parseInt(config.h2s_data_max)),
+              // "no2":_.random(parseInt(config.no2_data_min), parseInt(config.no2_data_max)),
+              // "o3":_.random(parseInt(config.o3_data_min), parseInt(config.o3_data_max)),
+              // "level":_.random(parseInt(config.level_data_min), parseInt(config.level_data_max)),//液位
+              // "displacement":_.random(parseInt(config.displacement_data_min), parseInt(config.displacement_data_max)),//位移
+              // "steelbarmeter":_.random(parseInt(config.steelbarmeter_data_min), parseInt(config.steelbarmeter_data_max))//钢筋计
             };
 
         _.map(simuloator_realtimedata,(v,k)=>{

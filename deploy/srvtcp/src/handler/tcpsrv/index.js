@@ -122,7 +122,7 @@ starttcpsrv = (settings)=> {
                        recvbuf.copy(bodybuf, 0, data_headlen, data_headlen+datalen);
                        debug(`获取到数据部分:${bodybuf.toString('hex')}`);
                        if(bodybuf.length >= datalen){
-                         getbuf({cmd,recvbuf,bodybuf},(err,result)=>{
+                         getbuf({cmd,recvbuf,gwid,bodybuf},(err,result)=>{
                              if(cmd === 2){
                                if(result.amtype === 'BC'){
                                  //<----publish data==========
