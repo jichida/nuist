@@ -12,6 +12,7 @@ import lodashincludes from 'lodash.includes';
 import {
 	ui_selgateway
 } from '../../actions';
+import config from '../../env/config';
 
 class App extends React.Component {
     onChangeCareselGateway = (value)=>{
@@ -22,7 +23,7 @@ class App extends React.Component {
         const {ispopcaresel_single_index_gateway,gateways,curgatewayid,viewtype,gw2videos} = this.props;
 				const curgw = gateways[curgatewayid];
 				const videoname = lodashget(gw2videos[curgatewayid],'name','青龙峡大坝');
-				const videourl = lodashget(gw2videos[curgatewayid],'url','http://www.newxh.com18.cn/spindex.html');
+				const videourl = `${config.serverurl}/video/${curgatewayid}`;
         return (
             <div className="datameterPage">
                 <Header title= {`${videoname}`} history={this.props.history} ishidereturn/>

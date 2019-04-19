@@ -14,6 +14,7 @@ import HistoryBar from '../history/historybar';
 import Spxqimg from "../../img/spimg1.jpg";
 import NodeSel from '../nodesel';
 import lodashget from 'lodash.get';
+import config from '../../env/config';
 
 class App extends React.Component {
     render() {
@@ -25,7 +26,7 @@ class App extends React.Component {
       }
 
       const videoname = lodashget(gw2videos[indexgatewayid],'name','青龙峡大坝');
-      const videourl = lodashget(gw2videos[indexgatewayid],'url','http://www.newxh.com18.cn/spindex.html');
+      const videourl = `${config.serverurl}/video/${indexgatewayid}`;//lodashget(gw2videos[indexgatewayid],'url','http://www.newxh.com18.cn/spindex.html');
         return (
           <div className="deployment-page root-page">
               <Header />
