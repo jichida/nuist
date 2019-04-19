@@ -5,7 +5,7 @@ const winston = require('./log/log.js');
 const async = require('async');
 const config = require('./config');
 const moment = require('moment');
-const startfix = require('./fix');
+const startfix69 = require('./fix/index69');
 
 
 const start = (callbackfn)=>{
@@ -14,7 +14,7 @@ const start = (callbackfn)=>{
   let fnsz = [];
 
   fnsz.push((callbackfn)=>{
-    startfix(callbackfn);
+    startfix69(callbackfn);
   });
 
 

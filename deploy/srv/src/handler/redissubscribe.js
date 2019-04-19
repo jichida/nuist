@@ -6,7 +6,7 @@ const mongoose  = require('mongoose');
 const alr = require('../alarmrule');
 const geo = require('../util/geo');
 const debug = require('debug')('appsrv:redismsg')
-
+const winston = require('../log/log.js');
 // appsrv:redismsg handlermsg_realtimealarm===>{"value":11,"type":"windspeed","level":"高","content":"10级以上大风","DeviceId":"LH001"} +1ms
 //   appsrv:redismsg handlermsg_realtimealarm===>{"value":50,"type":"temperature","level":"高","content":"温度过高","DeviceId":"LH001"} +4ms
 //   appsrv:redismsg handlermsg_realtimedata===>{"DeviceId":"NODE1","realtimedata":{"pressure":63,"winddirection":341,"windspeed":11,"humidity":39,"rainfall":274,"temperature":50}} +5s
@@ -111,8 +111,39 @@ const getgatewayid  = (GatewayId,callbackfn)=>{
 
 };
 
+//判断是否为非法数据，如果是非法数据则扔掉
+const istobedeleted = (data)=>{
+  let istodelete = false;
+  if(data.amtype ==='0B' || data.amtype ==='BC'){
+    if(!istodelete){
+      const pressure = _.get(data,'realtimedata.pressure',-1);
+      if(pressure !== -1){//如果大气压存在，则大于2000的扔掉
+        istodelete = pressure > 2000 ||  pressure < 500;
+      }
+    }
+
+    if(!istodelete){
+      const humidity = _.get(data,'realtimedata.humidity',-1);
+      if(humidity !== -1){//如果大气压存在，则大于2000的扔掉
+        istodelete = humidity === 0 ||  humidity > 100;
+      }
+    }
+
+  }
+  return istodelete;
+}
+
 const handlermsg_realtimedata_redis = (devicedata)=>{
   debug(devicedata);
+  const isdel = istobedeleted(devicedata);
+  debug(`isdel:${isdel}`);
+  if(isdel){
+    winston.getlog().info(`#接收到非法数据,删除!!`);
+    winston.getlog().info(`${JSON.stringify(devicedata)}`);
+    return;
+  }
+  // return;
+
   if(!!devicedata.gwid){
     if(devicedata.gwid.length === 4){
       getgatewayid(devicedata.gwid,({gwid,Longitude,Latitude,alarmrule})=>{

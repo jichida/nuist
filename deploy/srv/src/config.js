@@ -1,5 +1,5 @@
 const config =  {
-  appversion:'1.0.1(build0410)',
+  appversion:'1.0.2(build0419)',
   secretkey:'dabakey',
   name:process.env.name || 'name',
   listenport:process.env.listenport ||6011,
