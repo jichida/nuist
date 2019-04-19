@@ -52,6 +52,7 @@ const parsevalue = ({name,hexstring,length,ftype})=>{
       debug(`温度为:${CS215_Temperature0}.${CS215_Temperature1}`);
       return parseFloat(valuestring);
     }
+
     if(length === 1){
       const v =  buf.readInt8(0);
       return v;

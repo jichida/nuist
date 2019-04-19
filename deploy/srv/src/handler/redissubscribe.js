@@ -143,7 +143,7 @@ const istobedeleted = (data)=>{
             try{
               const freqv = parseFloat(freq);
               debug(`${freqv}`)
-              istodelete = (freqv === 'NaN');
+              istodelete = isNaN(freqv);
             }
             catch(e){
               istodelete = true;
@@ -154,8 +154,9 @@ const istobedeleted = (data)=>{
     }
 
     if(!istodelete){
-      if(jsonData.hasOwnProperty('temperature')){
-        const temperature = _.get(jsonData,'temperature');
+      if(jsonData.hasOwnProperty('temperaturev')){
+        const temperature = _.get(jsonData,'temperaturev');
+        debug(`temperature:${temperature}`)
         if(typeof temperature === 'string'){
           if(_.startsWith(temperature,'E')){
             istodelete = true;
@@ -163,7 +164,8 @@ const istobedeleted = (data)=>{
           else{
             try{
               const temperaturev = parseFloat(temperature);
-              istodelete = (temperaturev === 'NaN');
+              debug(`temperature:${temperaturev}`)
+              istodelete = isNaN(temperaturev);
             }
             catch(e){
               istodelete = true;

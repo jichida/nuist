@@ -6,6 +6,7 @@ const async = require('async');
 const config = require('./config');
 const moment = require('moment');
 const startfix69 = require('./fix/index69');
+const startfix6c = require('./fix/index6c');
 
 
 const start = (callbackfn)=>{
@@ -14,7 +15,7 @@ const start = (callbackfn)=>{
   let fnsz = [];
 
   fnsz.push((callbackfn)=>{
-    startfix69(callbackfn);
+    startfix6c(callbackfn);
   });
 
 
