@@ -1,0 +1,22 @@
+<body>
+    <script src="https://open.ys7.com/sdk/js/1.4/ezuikit.js"></script>
+
+    <video id="myPlayer" poster="" controls playsInline webkit-playsinline autoplay>
+    <source src=<%= srchttp %> type="" />
+    <source src=<%= srcrtmp %>  type="application/x-mpegURL" />
+
+</video>
+
+    <script>
+        var player = new EZUIPlayer('myPlayer');
+        player.on('error', function() {
+            console.log('error');
+        });
+        player.on('play', function() {
+            console.log('play');
+        });
+        player.on('pause', function() {
+            console.log('pause');
+        });
+    </script>
+</body>
