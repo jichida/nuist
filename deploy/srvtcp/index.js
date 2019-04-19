@@ -37,7 +37,7 @@ PubSub.subscribe(`nuistdata`, ( msg, data )=>{
     if(amtype === '0B'){
       dbhgetdata(data).then((data)=>{
         const simuloator_realtimedata = {
-              "datatime":moment().format('YYYY-MM-DD HH:mm:ss');
+          "datatime":moment().format('YYYY-MM-DD HH:mm:ss')
         };
 
         _.map(simuloator_realtimedata,(v,k)=>{
