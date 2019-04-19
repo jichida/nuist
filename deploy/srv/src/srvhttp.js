@@ -9,20 +9,12 @@ const routerindex = require("./router/index.js");
 const upload = require('jquery-file-upload-middleware');
 const uuid = require('uuid');
 const _  = require('lodash');
-
+const expressLayouts = require('express-ejs-layouts');
 
 let startsrv = ()=>{
-  // let appdir = path.join(__dirname,config.publishdirapp);
-  // //console.log("static app:" + appdir);
-  // app.use('/app', express.static(appdir));
-  //
-  // let pcdir = path.join(__dirname,config.publishdirpc);
-  // //console.log("static pcdir:" + pcdir);
-  // app.use('/pc', express.static(pcdir));
-  //
-  // let testdir = path.join(__dirname,config.publishdirtest);
-  // //console.log("static test:" + testdir);
-  // app.use('/test', express.static(testdir));
+  app.engine('.html', require('ejs').__express);
+  app.set('view engine', 'html');
+  app.use(expressLayouts);
 
   let logdir = path.join(__dirname,config.publishlog);
   // console.log("static test:" + logdir);

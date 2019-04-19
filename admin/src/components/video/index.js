@@ -52,7 +52,8 @@ const VideolistCreate = (props) => (
        <Create {...props} title={<VideocreateTitle />} >
            <SimpleForm>
               <TextInput label="名字" source="name" />
-              <TextInput label="URL" source="url" />
+              <TextInput label="rtmp地址" source="srcrtmp" />
+              <TextInput label="http地址" source="srchttp" />
               <ReferenceInput label="网关ID" source="gatewayid" reference="gateway" allowEmpty>
                 <SelectInput optionText="name" />
               </ReferenceInput>
@@ -69,7 +70,8 @@ const VideolistEdit = (props) => {
       return (<Edit title={<VideolistTitle />} {...props}>
           <SimpleForm>
             <TextInput label="名字" source="name" />
-            <TextInput label="URL" source="url" />
+            <TextInput label="rtmp地址" source="srcrtmp" />
+            <TextInput label="http地址" source="srchttp" />
             <ReferenceInput label="网关ID" source="gatewayid" reference="gateway" allowEmpty>
               <SelectInput optionText="name" />
             </ReferenceInput>
@@ -84,7 +86,8 @@ const VideolistList = (props) => (//
      <List title="视频管理"  filters={<VideoFilter />}  {...props} >
         <Datagrid>
         <TextField label="名字" source="name" />
-        <TextField label="摘要" source="url" />
+        <TextField label="rtmp地址" source="srcrtmp" />
+        <TextField label="http地址" source="srchttp" />
         <ReferenceField label="网关" source="gatewayid" reference="gateway" allowEmpty>
           <TextField source="name" />
         </ReferenceField>
