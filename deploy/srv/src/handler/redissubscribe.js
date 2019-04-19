@@ -130,6 +130,7 @@ const istobedeleted = (data)=>{
       }
     }
     //判断水利数据是否非法
+    const jsonData = _.get(data,'realtimedata',{});
     if(!istodelete){
       if(jsonData.hasOwnProperty('freq')){
         const freq = _.get(jsonData,'freq');
