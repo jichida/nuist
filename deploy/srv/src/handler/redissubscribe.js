@@ -115,6 +115,7 @@ const getgatewayid  = (GatewayId,callbackfn)=>{
 const istobedeleted = (data)=>{
   let istodelete = false;
   if(data.amtype ==='0B' || data.amtype ==='BC'){
+    //判断气象六要素数据是否非法
     if(!istodelete){
       const pressure = _.get(data,'realtimedata.pressure',-1);
       if(pressure !== -1){//如果大气压存在，则大于2000的扔掉
@@ -128,7 +129,51 @@ const istobedeleted = (data)=>{
         istodelete = humidity === 0 ||  humidity > 100;
       }
     }
+    //判断水利数据是否非法
+    if(!istodelete){
+      if(jsonData.hasOwnProperty('freq')){
+        const freq = _.get(jsonData,'freq');
+        if(typeof freq === 'string'){
+          debug(`${freq}--->`)
+          if(_.startsWith(freq,'E')){
+            istodelete = true;
+            debug(`true`)
+          }
+          else{
+            try{
+              const freqv = parseFloat(freq);
+              debug(`${freqv}`)
+              istodelete = (freqv === 'NaN');
+            }
+            catch(e){
+              istodelete = true;
+            }
+          }
+        }//if(typeof freq === 'string'){
+      }//if(jsonData.hasOwnProperty('freq')){
+    }
 
+    if(!istodelete){
+      if(jsonData.hasOwnProperty('temperature')){
+        const temperature = _.get(jsonData,'temperature');
+        if(typeof temperature === 'string'){
+          if(_.startsWith(temperature,'E')){
+            istodelete = true;
+          }
+          else{
+            try{
+              const temperaturev = parseFloat(temperature);
+              istodelete = (temperaturev === 'NaN');
+            }
+            catch(e){
+              istodelete = true;
+            }
+          }
+        }
+      }
+    }
+
+    //===========
   }
   return istodelete;
 }
