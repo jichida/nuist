@@ -129,6 +129,14 @@ const istobedeleted = (data)=>{
         istodelete = humidity === 0 ||  humidity > 100;
       }
     }
+
+    if(!istodelete){
+      const temperature = _.get(data,'realtimedata.temperature',-100);
+      if(temperature !== -100){//#删除0.1的温度数据
+        istodelete = temperature === 0.1;
+      }
+    }
+
     //判断水利数据是否非法
     const jsonData = _.get(data,'realtimedata',{});
     if(!istodelete){
