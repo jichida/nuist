@@ -46,10 +46,10 @@ class App extends React.Component {
         <div className="spjk_box">
             <div className="spjk_left">
             <h2>正在监控  {`${videoname}`}</h2>
-            <div className=" box_box" style={{position: 'relative'}}>
+            <div className=" box_box" style={{position: 'relative',padding:'0'}}>
 
 
- <iframe src={`${videourl}`} width="100%" height="440" frameBorder="0" title=""></iframe>
+ <iframe src={`${videourl}`} width="100%" height="680" frameBorder="0" title=""></iframe>
 </div>
             </div>
 
