@@ -233,8 +233,6 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
                    'realtimedata.channel':devicedata.realtimedata.channel,
                    'realtimedata.freq':devicedata.realtimedata.freq,
                    'realtimedata.temperaturev':devicedata.realtimedata.temperaturev,
-                   `realtimedata.freq${channel}`:devicedata.realtimedata.freq,
-                   `realtimedata.temperaturev${channel}`:devicedata.realtimedata.temperaturev,
                    gwid:devicedata.gwid,
                  },
                  $setOnInsert:{
@@ -246,6 +244,9 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
                    name:`节点${devicedata.deviceid}`,
                  }
                };
+               updated_data['$set'][`realtimedata.freq${channel}`] = devicedata.realtimedata.freq;
+               updated_data['$set'][`realtimedata.temperaturev${channel}`] = devicedata.realtimedata.temperaturev;
+
              }
              else{
                updated_data = {
