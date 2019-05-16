@@ -233,8 +233,8 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
                    'realtimedata.channel':devicedata.realtimedata.channel,
                    'realtimedata.freq':devicedata.realtimedata.freq,
                    'realtimedata.temperaturev':devicedata.realtimedata.temperaturev,
-                   `realtimedata.freq${channel}`,devicedata.realtimedata.freq,
-                   `realtimedata.temperaturev${channel}`,devicedata.realtimedata.temperaturev,
+                   `realtimedata.freq${channel}`:devicedata.realtimedata.freq,
+                   `realtimedata.temperaturev${channel}`:devicedata.realtimedata.temperaturev,
                    gwid:devicedata.gwid,
                  },
                  $setOnInsert:{
