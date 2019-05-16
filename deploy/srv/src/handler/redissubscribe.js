@@ -239,6 +239,12 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
                 name:`节点${devicedata.deviceid}`,
               }
             };
+
+             const channel = _.get(devicedata,'devicedata.channel',-1);
+             if(channel !=== -1){
+               _.set(updated_data,`$set.realtimedata.freq${channel}`,devicedata.realtimedata.freq);
+               _.set(updated_data,`$set.realtimedata.temperaturev${channel}`,devicedata.realtimedata.temperaturev);
+             }
           }
           else{
             return;
