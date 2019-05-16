@@ -225,25 +225,43 @@ const handlermsg_realtimedata_redis = (devicedata)=>{
             };
           }
           else if(devicedata.amtype ==='0B' || devicedata.amtype ==='BC'){
-            updated_data = {
-              $set:{
-                realtimedata:devicedata.realtimedata,
-                gwid:devicedata.gwid,
-              },
-              $setOnInsert:{
-                Longitude:DeviceGeoSz[0],//product环境中需要将这两行代码移动到下面$setOnInsert中
-                Latitude:DeviceGeoSz[1],
-                DeviceId:devicedata.deviceid,
-                gwid:devicedata.gwid,
-                gatewayid:gwid,
-                name:`节点${devicedata.deviceid}`,
-              }
-            };
-
              const channel = _.get(devicedata,'realtimedata.channel',-1);
              if(channel !== -1){
-               _.set(updated_data,`$set.realtimedata.freq${channel}`,devicedata.realtimedata.freq);
-               _.set(updated_data,`$set.realtimedata.temperaturev${channel}`,devicedata.realtimedata.temperaturev);
+               updated_data = {
+                 $set:{
+                   'realtimedata.datatime':devicedata.realtimedata.datatime,
+                   'realtimedata.channel':devicedata.realtimedata.channel,
+                   'realtimedata.freq':devicedata.realtimedata.freq,
+                   'realtimedata.temperaturev':devicedata.realtimedata.temperaturev,
+                   `realtimedata.freq${channel}`,devicedata.realtimedata.freq,
+                   `realtimedata.temperaturev${channel}`,devicedata.realtimedata.temperaturev,
+                   gwid:devicedata.gwid,
+                 },
+                 $setOnInsert:{
+                   Longitude:DeviceGeoSz[0],//product环境中需要将这两行代码移动到下面$setOnInsert中
+                   Latitude:DeviceGeoSz[1],
+                   DeviceId:devicedata.deviceid,
+                   gwid:devicedata.gwid,
+                   gatewayid:gwid,
+                   name:`节点${devicedata.deviceid}`,
+                 }
+               };
+             }
+             else{
+               updated_data = {
+                 $set:{
+                   realtimedata:devicedata.realtimedata,
+                   gwid:devicedata.gwid,
+                 },
+                 $setOnInsert:{
+                   Longitude:DeviceGeoSz[0],//product环境中需要将这两行代码移动到下面$setOnInsert中
+                   Latitude:DeviceGeoSz[1],
+                   DeviceId:devicedata.deviceid,
+                   gwid:devicedata.gwid,
+                   gatewayid:gwid,
+                   name:`节点${devicedata.deviceid}`,
+                 }
+               };
              }
           }
           else{
