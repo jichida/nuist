@@ -185,7 +185,7 @@ body {
     top: 0px;
     bottom: 0px;
     z-index: 0;
-    height: 100%; 
+    height: 100%;
     overflow-y: scroll
 }
 
@@ -781,11 +781,11 @@ body {
 
 .data_list_box dl {
     height: auto;
-    overflow: hidden;
+    overflow: hidden; display: flex;
 }
 
 .data_list_box dl dd {
-    width: 14%;
+    flex: 1;
     float: left;
     text-align: center;
     padding: 10px;
@@ -931,15 +931,15 @@ ul li .num {
     margin: 1em auto;
 }
 @media screen and(-ms-high-contrast:active),(-ms-high-contrast:none){
-   
+
     .center_con .data_box .react_for_echarts {
         left: -20px;
     }
-    
+
     .center_con .data_box .react_for_echarts_nth2 {
         left: -20px;
     }
-    
+
     .center_con .data_box .react_for_echarts_last {
         left: -20px;
     }

@@ -123,7 +123,7 @@ class App extends React.Component {
             </div>
           </div>
 
-          <HistoryDataBar shownum={4} onClickPopProductInfo={this.onClickPopProductInfo}/>
+          <HistoryDataBar shownum={100} onClickPopProductInfo={this.onClickPopProductInfo}/>
         </div>
         {ispoppwd && loginsuccess && <Changepwd />}
         { ispopproductinfo && <Info curproduct={this.state.curproduct}/>}
