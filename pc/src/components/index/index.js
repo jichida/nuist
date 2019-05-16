@@ -77,7 +77,7 @@ class App extends React.Component {
   }
   render() {
     const {ispoppwd,ispopproductinfo,loginsuccess,viewtype,savequery_historychart} = this.props;
-    const {fields} = viewtype;
+    const {fields,fieldslist_detail} = viewtype;
     const {from,to} = savequery_historychart;
 
     let selfield = this.state.selfield;
@@ -105,14 +105,14 @@ class App extends React.Component {
                       <span className="tt"><QueryPage type="historychart" from={from} to={to}/></span>
                   <div className="title_tab">
                     {
-                      lodashmap(fields,(v,k)=>{
+                      lodashmap(fieldslist_detail,(k)=>{
                         if(k === selfield){
-                          return (<span key={k} className="active">{v.showname}</span>);
+                          return (<span key={k} className="active">{fields[k].showname}</span>);
                         }
                         return (<span key={k} onClick={()=>{
                           this.setState({selfield:k})
                         }
-                        }>{v.showname}</span>);
+                        }>{fields[k].showname}</span>);
                       })
                     }
                   </div>

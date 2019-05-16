@@ -9,22 +9,23 @@ class App extends React.Component {
 
     render() {
       const {viewtype,showflag} = this.props;
-      const {fields} = viewtype;
+      const {fields,fieldslist_detail} = viewtype;
       let HistoryCo = [];
+      debugger;
       if(showflag === '1'){
-        lodashmap(fields,(v,k)=>{
+        lodashmap(fieldslist_detail,(k)=>{
           if(HistoryCo.length < 1){
             HistoryCo.push(<li key={k}>
-                <h2>历史{`${v.showname}`}曲线</h2>
+                <h2>历史{`${fields[k].showname}`}曲线</h2>
                 <ChartsHistory selfield={k}/>
               </li>);
           }
         })
       }
       else{
-        lodashmap(fields,(v,k)=>{
+        lodashmap(fieldslist_detail,(k)=>{
             HistoryCo.push(<li key={k}>
-                <h2>历史{`${v.showname}`}曲线</h2>
+                <h2>历史{`${fields[k].showname}`}曲线</h2>
                 <ChartsHistory selfield={k}/>
               </li>);
 
