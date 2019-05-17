@@ -10,6 +10,9 @@ import ChartTemperatureRainfall  from '../realtime/charts_temperaturerainfall';
 import ChartWinddirection from '../realtime/charts_winddirection';
 import lodashincludes from 'lodash.includes';
 import lodashmap from 'lodash.map';
+import lodashstartswith from 'lodash.startswith';
+import ReqvChartCtrl from '../realtime/charts_freq';
+import TempvChartCtrl from '../realtime/charts_temperaturev';
 
 const ProgressCtrl = (props)=>{
   const {curdevice,fieldname,fieldsprops,index} = props;
@@ -97,10 +100,18 @@ const ChartsRealtime = (props)=>{
         else{
           const fieldsprops = fields[fieldname];
           if(!!fieldsprops){
-            index = index + 1;
-            CoCharts.push(<div key={`${fieldname}${index}1`} className='windcontrol1 winlist' style={{height: '120px'}} >
-              <ProgressCtrl curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />
-            </div>);
+           index = index + 1;
+           if(lodashstartswith(fieldname,'temperaturev')){
+              CoCharts.push(<TempvChartCtrl  curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />)
+            }
+            else if(lodashstartswith(fieldname,'freq')){
+              CoCharts.push(<ReqvChartCtrl  curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />);
+            }
+            else{
+              CoCharts.push(<li className='windcontrol1list' key={`${fieldname}${index}2`}>
+                <ProgressCtrl  curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />
+              </li>);
+            }
           }
         }
       })
@@ -135,10 +146,18 @@ const ChartsRealtime = (props)=>{
         else{
           const fieldsprops = fields[fieldname];
           if(!!fieldsprops){
-            index = index + 1;
-            CoCharts.push(<li className='windcontrol1list' key={`${fieldname}${index}2`}>
-              <ProgressCtrl  curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />
-            </li>);
+           index = index + 1;
+           if(lodashstartswith(fieldname,'temperaturev')){
+              CoCharts.push(<TempvChartCtrl  curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />)
+            }
+            else if(lodashstartswith(fieldname,'freq')){
+              CoCharts.push(<ReqvChartCtrl  curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />);
+            }
+            else{
+              CoCharts.push(<li className='windcontrol1list' key={`${fieldname}${index}2`}>
+                <ProgressCtrl  curdevice={curdevice} fieldname={fieldname} fieldsprops={fieldsprops} index={index} />
+              </li>);
+            }
           }
         }
       })
