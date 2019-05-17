@@ -18,9 +18,12 @@ const SystemConfigModel =mongoose.model('systemconfig',  SystemConfigSchema);
 
 //视频
 const VideoSchema = new Schema({
-  name:String,
-  srcrtmp:String,
-  srchttp:String,
+  name1:String,
+  srcrtmp1:String,
+  srchttp1:String,
+  name2:String,
+  srcrtmp2:String,
+  srchttp2:String,
   gatewayid:{ type: Schema.Types.ObjectId, ref: 'gateway' },
 }, { strict: false });
 VideoSchema.plugin(mongoosePaginate);
