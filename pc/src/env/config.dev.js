@@ -1,4 +1,4 @@
-const islocalhost = true;
+const islocalhost = false;
 const serverurl = islocalhost?'http://localhost:6011':'http://api.nuistiot.com:50000';
 const serverurlrestful = islocalhost?`${serverurl}/api`:`${serverurl}/api`;
 const wspath = islocalhost?'/socket.io':'/socket.io';
