@@ -77,6 +77,9 @@ class App extends React.Component {
   }
   render() {
     const {ispoppwd,ispopproductinfo,loginsuccess,viewtype,savequery_historychart} = this.props;
+    if(!viewtype){
+      return <div></div>
+    }
     const {fields,fieldslist_detail} = viewtype;
     const {from,to} = savequery_historychart;
 

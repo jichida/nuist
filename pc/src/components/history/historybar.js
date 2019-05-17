@@ -9,6 +9,9 @@ class App extends React.Component {
 
     render() {
       const {viewtype,showflag} = this.props;
+      if(!viewtype){
+        return <div></div>
+      }
       const {fields,fieldslist_detail} = viewtype;
       let HistoryCo = [];
       debugger;
