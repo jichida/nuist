@@ -810,6 +810,8 @@ body {
     margin-bottom: 20px;
 }
 
+.spjk_box .spjk_left h2 span{ margin: 20px; cursor: pointer;}
+.spjk_box .spjk_left h2 span.active{ color: #2f435b; font-weight: bold; border-bottom: 2px solid #2f435b}
 .spjk_box .spjk_right {
     width: 100%;
 }

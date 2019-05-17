@@ -17,6 +17,13 @@ import lodashget from 'lodash.get';
 import config from '../../env/config';
 
 class App extends React.Component {
+    constructor(props) {  
+         super(props); 
+         this.state = {
+           videoindex:0
+         };
+    } 
+
     render() {
       const {gateways,usersettings,gw2videos} = this.props;
       const indexgatewayid = usersettings.indexgatewayid;
@@ -25,8 +32,9 @@ class App extends React.Component {
         return <div>未选择网关</div>
       }
 
-      const videoname = lodashget(gw2videos[indexgatewayid],'name','青龙峡大坝');
-      const videourl = `${config.serverurl}/video/${indexgatewayid}`;//lodashget(gw2videos[indexgatewayid],'url','http://www.newxh.com18.cn/spindex.html');
+      const videoname1 = lodashget(gw2videos[indexgatewayid],'name1','青龙峡大坝');
+      const videoname2 = lodashget(gw2videos[indexgatewayid],'name2','青龙峡大坝');
+      const videourl = `${config.serverurl}/video/${indexgatewayid}/${this.state.videoindex}`;//lodashget(gw2videos[indexgatewayid],'url','http://www.newxh.com18.cn/spindex.html');
         return (
           <div className="deployment-page root-page">
               <Header />
@@ -45,7 +53,7 @@ class App extends React.Component {
     </h2>
         <div className="spjk_box">
             <div className="spjk_left">
-            <h2>正在监控  {`${videoname}`}</h2>
+            <h2><span className="active"> {`${videoname1}`}</span><span>{`${videoname2}`}</span></h2>
             <div className=" box_box" style={{position: 'relative',padding:'0'}}>
 
 
