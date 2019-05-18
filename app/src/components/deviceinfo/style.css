@@ -69,12 +69,12 @@
     border-left: 1px solid #e5e5e5;
     position: relative;
 }
-.data_list li span{ padding-left: 10px}
-.data_list li span:after {
+.data_list li span{ padding-left: 10px; display: block}
+.data_list li span:nth-child(1):after {
     content: "";
     width: 2px;
     background-color: #1792d0;
-    top: 30px;
+    top: 22px;
     left: 10px;
     height: 10px;
     position: absolute;
