@@ -22,19 +22,26 @@ class App extends React.Component {
     render() {
         const {ispopcaresel_single_index_gateway,gateways,curgatewayid,viewtype,gw2videos} = this.props;
 				const curgw = gateways[curgatewayid];
-				const videoname = lodashget(gw2videos[curgatewayid],'name','青龙峡大坝');
-				const videourl = `${config.serverurl}/video/${curgatewayid}`;
+				const videoname1 = lodashget(gw2videos[curgatewayid],'name1','青龙峡大坝');
+				const videoname2 = lodashget(gw2videos[curgatewayid],'name2','青龙峡大坝');
+				const videourl1 = `${config.serverurl}/video/${curgatewayid}/1`;
+				const videourl2 = `${config.serverurl}/video/${curgatewayid}/1`;
         return (
             <div className="datameterPage">
-                <Header title= {`${videoname}`} history={this.props.history} ishidereturn/>
+                <Header title= "视频监控" history={this.props.history} ishidereturn/>
                 <Filler gateways={gateways} curgatewayid={curgatewayid} viewtype={viewtype}/>
                 {
                   !!curgw && (
                     <div className="videodata">
-    <iframe src={`${videourl}`} width="100%" height="220px" frameBorder="0"></iframe>
-
-    </div>)
+									    <iframe src={`${videourl1}`} width="100%" height="220px" frameBorder="0"></iframe>
+									    </div>)
                }
+							 {
+								 !!curgw && (
+									 <div className="videodata">
+										<iframe src={`${videourl2}`} width="100%" height="220px" frameBorder="0"></iframe>
+										</div>)
+							}
                 <Footer history={this.props.history} sel={"video"} />
 								{ispopcaresel_single_index_gateway  && <PopcareSel value={curgatewayid} isgateway={true} onChange={this.onChangeCareselGateway}/>}
             </div>
