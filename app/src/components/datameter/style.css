@@ -124,11 +124,10 @@
 }
 
 .datamonitordata ul li.dd>div span {
-    display: block;
     text-align: center;
     flex-grow: 1;
     text-align: center;
-    width: 16.66%;
+    width: 16.66%; 
 }
 
 .datamonitordata ul li.dd>div.t1 span {

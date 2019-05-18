@@ -4,6 +4,8 @@ import React from 'react';
 import lodashget from 'lodash.get';
 import lodashmap from 'lodash.map';
 import {getCoureName,getindexstring} from '../../util';
+import Imgjtl from "../../img/jtl.png";
+import Imgjtr from "../../img/jtr.png";
 
 const TitleC = (props)=>{
 	const {fieldslist_brief,fields} = props;
@@ -70,7 +72,11 @@ class App extends React.Component {
 						        			</div>
 						        		</li>
 						        		<li className="dd">
+										<div className="monitordata_tit">
+										<img alt="" src={Imgjtl} />
 						        			<TitleC  key={`${did}_c`} fieldslist_brief={fieldslist_brief} fields={fields}/>
+											<img alt="" src={Imgjtr} />
+											</div>
 													{
 														!!curdevice.realtimedata ?
 														 (<TitleD key={`${did}_d`} fieldslist_brief={fieldslist_brief} fields={fields} curdevice={curdevice}/>):
