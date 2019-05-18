@@ -701,7 +701,19 @@ body {
 .center_box .data_box .windcontrol1.winlist {
     width: 12%
 }
-
+.bor_con .data_box .chartli{width: 12%; display: inline-block}
+.right_con .data_box .chartli{ width: 50%; display: inline-block}
+.wdbgbox{ width: 100%; 
+    text-align: center; 
+    height: 116px; 
+    background-image: url(../images/wdbg.png); background-size: 140px; background-repeat: no-repeat; background-position: center
+}
+.wdbgbox span,.plbgbox span{ display: block; padding-top: 40px;}
+.plbgbox{ width: 100%; 
+    text-align: center; 
+    height: 116px; 
+    background-image: url(../images/plbg.png); background-size: 140px; background-repeat: no-repeat; background-position: center
+}
 .right_con .data_box .react_for_echarts {
     position: absolute;
     left: 48%;
@@ -949,6 +961,7 @@ ul li .num {
          top: 38px;}
          .right_con .windcontrol img{width: 160px; height: 160px;}
 }
+
 body {
     height: auto !important;
 }
@@ -1444,4 +1457,5 @@ small {
         top: 69%;
         left: 59%;
     }
+   
 }

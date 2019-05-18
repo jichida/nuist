@@ -10,8 +10,10 @@ const TempvChartCtrl = (props)=>{
   }
   return (
     <div className={`chartli chart${index}`}>
-    <span>这是一个温度控件,加图片显示文字{`${showvalue}`}</span>
+    <div className="wdbgbox">
+    <span>{`${showvalue}`}</span>
     <span>{`${fieldsprops.showname}`}</span>
+    </div>
     </div>
   )
 }

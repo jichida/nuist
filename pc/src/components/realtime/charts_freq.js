@@ -10,8 +10,10 @@ const ReqvChartCtrl = (props)=>{
   }
   return (
     <div className={`chartli chart${index}`}>
-      <span>这是一个频率控件,加图片显示文字{`${showvalue}`}</span>
+    <div className="plbgbox">
+      <span>{`${showvalue}`}</span>
       <span>{`${fieldsprops.showname}`}</span>
+    </div>
     </div>
   )
 }
