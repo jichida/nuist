@@ -8,13 +8,15 @@ import Imgjtl from "../../img/jtl.png";
 import Imgjtr from "../../img/jtr.png";
 
 const TitleC = (props)=>{
-	const {fieldslist_brief,fields} = props;
+	const {fieldslist_brief,fields,fieldstart,fieldend} = props;
 	return (<div className="tit">
 				{
-					lodashmap(fieldslist_brief,(fieldname)=>{
-						const fieldsprops = fields[fieldname];
-						if(!!fieldsprops){
-							return (<span key={fieldname}>{`${fieldsprops.showname}`}</span>);
+					lodashmap(fieldslist_brief,(fieldname,fieldnameindex)=>{
+						if(fieldnameindex >=fieldstart && fieldnameindex <  fieldend){
+							const fieldsprops = fields[fieldname];
+							if(!!fieldsprops){
+								return (<span key={fieldname}>{`${fieldsprops.showname}`}</span>);
+							}
 						}
 					})
 				}
@@ -23,22 +25,24 @@ const TitleC = (props)=>{
 }
 
 const TitleD = (props)=>{
-	const {curdevice,fieldslist_brief,fields,vs} = props;
+	const {curdevice,fieldslist_brief,fields,vs,fieldstart,fieldend} = props;
 	return (<li>
 				{
-					lodashmap(fieldslist_brief,(fieldname)=>{
-						const fieldsprops = fields[fieldname];
-						if(!!fieldsprops){
-							let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`,'');
-							if(typeof showvalue === 'number'){
-								showvalue = parseInt(showvalue,10);
+					lodashmap(fieldslist_brief,(fieldname,fieldnameindex)=>{
+						if(fieldnameindex >=fieldstart && fieldnameindex <  fieldend){
+							const fieldsprops = fields[fieldname];
+							if(!!fieldsprops){
+								let showvalue = lodashget(curdevice,`realtimedata.${fieldname}`,'');
+								if(typeof showvalue === 'number'){
+									showvalue = parseInt(showvalue,10);
+								}
+								if(fieldname === 'winddirection'){
+									showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
+								}
+								return (<span  key={fieldname}>{showvalue}
+									{`${lodashget(fieldsprops,'unit','')}`}
+								</span>);
 							}
-							if(fieldname === 'winddirection'){
-								showvalue = getCoureName(lodashget(curdevice,`realtimedata.${fieldname}`));
-							}
-							return (<span  key={fieldname}>{showvalue}
-								{`${lodashget(fieldsprops,'unit','')}`}
-							</span>);
 						}
 					})
 				}
@@ -48,6 +52,13 @@ const TitleD = (props)=>{
 
 
 class App extends React.Component {
+	constructor(props) {
+	     super(props);
+			 this.state = {//[fieldstart,fieldend]
+				 fieldstart:0,
+				 fieldend:3
+			 }
+	  }
 
   	render() {
       const {retlist,viewtype} = this.props;
@@ -68,15 +79,28 @@ class App extends React.Component {
 					realtimedata:v
 				}
 				lilist.push (
-					<TitleD key={index} curdevice={curdevice} fieldslist_brief={fieldslist_brief} fields={fields} vs={vs}/>);
+					<TitleD key={index} curdevice={curdevice} fieldslist_brief={fieldslist_brief} fields={fields} vs={vs}
+					fieldstart={this.state.fieldstart} fieldend={this.state.fieldend}/>);
 				;
+			}
+			const onClickPrev =()=>{
+
+			}
+			const onClickNext =()=>{
+
 			}
 	    return (
 	      	<div className="monitordata">
-				<div className="monitordata_tit"><img alt="" src={Imgjtl} />
-	      		<TitleC fieldslist_brief={fieldslist_brief} fields={fields} />
-			<img alt="" src={Imgjtr} />
-			</div>
+					<div className="monitordata_tit">
+						<img alt="" src={Imgjtl} onClick={()=>{
+							onClickPrev();
+						}}/>
+	      		<TitleC fieldslist_brief={fieldslist_brief} fields={fields}
+						fieldstart={this.state.fieldstart} fieldend={this.state.fieldend}/>
+						<img alt="" src={Imgjtr} onClick={()=>{
+							onClickNext();
+						}}/>
+						</div>
 	        	<ul>
               {lilist}
 	        	</ul>

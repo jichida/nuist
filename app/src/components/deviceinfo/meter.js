@@ -92,7 +92,7 @@ class App extends React.Component {
               <div className="titlett">
               <span><img alt="" src={Imgjtra} /><span onClick={this.viewhistory}>历史数据</span></span>
               <span><img alt="" src={Imgjtrb} /><span onClick={this.viewhistorychart}>历史图表</span></span>
-</div>
+              </div>
               </div>
               {isshowwincontrol && <Windcontrol curdevice={curdevice} />}
   	        	<div className="meterchart">
