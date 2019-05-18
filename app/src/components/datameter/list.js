@@ -47,7 +47,7 @@ const TitleD = (props)=>{
 				}
 			</div>);
 }
-
+const maxshowskip = 3;
 class App extends React.Component {
 	constructor(props) {
 			 super(props);
@@ -62,7 +62,24 @@ class App extends React.Component {
 
   	render() {
 			const {devicelist,devices,viewtypes} = this.props;
-			// debugger;
+			const onClickPrev =()=>{
+				const fieldstart = this.state.fieldstart;
+				if( fieldstart > 0){
+					this.setState({
+						fieldstart:fieldstart -1,
+						fieldend:fieldstart -1 + maxshowskip,
+					})
+				}
+			}
+			const onClickNext =(fieldslist_brief)=>{
+				const fieldstart = this.state.fieldstart;
+				if( fieldstart + 1 + maxshowskip < fieldslist_brief.length){
+					this.setState({
+						fieldstart:fieldstart + 1,
+						fieldend:fieldstart + 1 + maxshowskip,
+					})
+				}
+			}
 	    return (
 	      	<div className="datamonitordata">
 							{
@@ -83,10 +100,14 @@ class App extends React.Component {
 						        		</li>
 						        		<li className="dd">
 										<div className="monitordata_tit">
-										<img alt="" src={Imgjtl} />
+										<img alt="" src={Imgjtl}  onClick={()=>{
+												onClickPrev();
+											}}/>
 						        			<TitleC  key={`${did}_c`} fieldslist_brief={fieldslist_brief} fields={fields}
 													fieldstart={this.state.fieldstart} fieldend={this.state.fieldend}/>
-											<img alt="" src={Imgjtr} />
+											<img alt="" src={Imgjtr}  onClick={()=>{
+												onClickNext(fieldslist_brief);
+											}}/>
 											</div>
 													{
 														!!curdevice.realtimedata ?

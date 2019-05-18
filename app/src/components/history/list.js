@@ -50,13 +50,13 @@ const TitleD = (props)=>{
 			</li>);
 }
 
-
+const maxshowskip = 3;
 class App extends React.Component {
 	constructor(props) {
 	     super(props);
 			 this.state = {//[fieldstart,fieldend]
 				 fieldstart:0,
-				 fieldend:3
+				 fieldend:maxshowskip
 			 }
 	  }
 
@@ -84,14 +84,22 @@ class App extends React.Component {
 				;
 			}
 			const onClickPrev =()=>{
-				if(this.state.fieldstart > 0){
+				const fieldstart = this.state.fieldstart;
+				if( fieldstart > 0){
 					this.setState({
-						
+						fieldstart:fieldstart -1,
+						fieldend:fieldstart -1 + maxshowskip,
 					})
 				}
 			}
 			const onClickNext =()=>{
-
+				const fieldstart = this.state.fieldstart;
+				if( fieldstart + 1 + maxshowskip < fieldslist_brief.length){
+					this.setState({
+						fieldstart:fieldstart + 1,
+						fieldend:fieldstart + 1 + maxshowskip,
+					})
+				}
 			}
 	    return (
 	      	<div className="monitordata">
