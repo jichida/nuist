@@ -84,7 +84,11 @@ class App extends React.Component {
 				;
 			}
 			const onClickPrev =()=>{
-
+				if(this.state.fieldstart > 0){
+					this.setState({
+						
+					})
+				}
 			}
 			const onClickNext =()=>{
 
