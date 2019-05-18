@@ -129,7 +129,16 @@
     text-align: center;
     width: 16.66%; 
 }
-
+.monitordata_tit .t1{display: flex;
+    display: -webkit-flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex: 1 1;
+    flex: 1 1;}
 .datamonitordata ul li.dd>div.t1 span {
     color: #999;
 }

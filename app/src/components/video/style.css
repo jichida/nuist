@@ -95,7 +95,7 @@
 .datamonitordata ul li .meter {
     margin: 0;
 }
-
+.videodata h2{ padding: 0px 15px; font-size: 16px}
 .videodata img {
     width: 100%;
 }

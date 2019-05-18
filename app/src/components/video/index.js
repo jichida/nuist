@@ -33,12 +33,14 @@ class App extends React.Component {
                 {
                   !!curgw && (
                     <div className="videodata">
+										<h2>xxx视频1</h2>
 									    <iframe src={`${videourl1}`} width="100%" height="220px" frameBorder="0"></iframe>
 									    </div>)
                }
 							 {
 								 !!curgw && (
 									 <div className="videodata">
+									 <h2>xxx视频1</h2>
 										<iframe src={`${videourl2}`} width="100%" height="220px" frameBorder="0"></iframe>
 										</div>)
 							}
