@@ -76,9 +76,6 @@ class App extends React.Component {
 
                   <div className="right_con rhuadong">
                       <ChartsRealtime shownum={10}/>
-    <div className="bor_con border_top">
-
- </div>
                   </div>
 
       </div>
