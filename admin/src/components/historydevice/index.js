@@ -87,7 +87,7 @@ const DeviceFilter = (props) => (
 )
 
 const HistoryDeviceList = (props) => (
-  <List title="节点历史数据管理" filters={<DeviceFilter />} sort={{field:'realtimedata.datatime',order:'DESC'}} {...props}>
+  <List title="节点历史数据管理" filters={<DeviceFilter />} sort={{field:'_id',order:'DESC'}} {...props}>
     <Datagrid  bodyOptions={{ showRowHover: true }}>
       <TextField label="节点ID" source="DeviceId" />
       <TextField label="节点名字" source="name"/>
