@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route,Switch } from 'react-router-dom';
 import Index from './index/';
 import Login from './login';
+import Register from './register';
 import Investigation from './investigation';
 import AddInvestigation from './investigation/add';
 // import ResultInvestigation from './investigation/result';
@@ -71,6 +72,7 @@ class AppRoot extends React.Component {
                 <Switch>
                   <Route exact path="/" component={Index} />
                   <Route exact path="/login" component={Login} />
+                  <Route exact path="/register" component={Register} />
                   <Route exact path="/investigation" component={Investigation} />
                   <Route exact path="/investigation/add/:id" component={requireAuthentication(AddInvestigation)} />
                   {/* <Route exact path="/investigation/result" component={requireAuthentication(ResultInvestigation)} /> */}

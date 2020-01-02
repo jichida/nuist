@@ -15,3 +15,6 @@ export const changepwd_result = createAction('changepwd_result');
 
 export const saveusersettings_request = createAction('saveusersettings_request');
 export const saveusersettings_result = createAction('saveusersettings_result');
+
+export const register_request = createAction('register_request');
+export const register_result = createAction('register_result');

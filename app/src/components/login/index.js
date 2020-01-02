@@ -87,6 +87,10 @@ class PageForm extends React.Component {
 						<button disabled={pristine || submitting}
             onClick={handleSubmit(onClickLogin)}>登录</button>
 					</div>
+          <div className="butn">
+						<button disabled={pristine || submitting}
+            onClick={()=>{this.props.history.replace('/register');}}>注册</button>
+					</div>
         		</div>
       		</div>
 					</Form>
@@ -173,7 +177,7 @@ export class Page extends React.Component {
             </span>
           </div>
 
-          <PageForm onClickLogin={this.onClickLogin}/>
+          <PageForm onClickLogin={this.onClickLogin} dispatch={this.props.dispatch} history={this.props.history}/>
         </div>
 
         );

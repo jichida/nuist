@@ -1,11 +1,11 @@
-import {takeLatest,call} from 'redux-saga/effects';
+import {takeLatest,call,put} from 'redux-saga/effects';
 // import {delay} from 'redux-saga';
 //
 //
-// import { push,replace } from 'react-router-redux';
+import { push,replace } from 'react-router-redux';
 // import moment from 'moment';
 // import config from '../env/config.js';
-import {set_weui} from '../actions';
+import {set_weui,register_request} from '../actions';
 import Toast from 'antd-mobile/lib/toast';  // 加载 JS
 import 'antd-mobile/lib/toast/style/css';        // 加载 CSS
 
@@ -27,4 +27,20 @@ export function* uiflow(){//仅执行一次
       yield call(popdialog,toast);
     }
   });
+
+  yield takeLatest(`${register_request}`, function*(action) {
+    try{
+      yield put(set_weui({
+                      toast:{
+                      text:`该账号已注册,请等待激活`,
+                      show: true,
+                      type:'success'
+                    }}));
+      yield put(replace('/login'));
+    }
+    catch(e){
+      console.log(e);
+    }
+  });
+  
 }
