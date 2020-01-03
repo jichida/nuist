@@ -13,7 +13,7 @@
           "listenport":30049,
           "name": "srvslave",
           "logdir":"/root/nuist/deploy/dist/log",
-          "uploaddir":"/root/nuist/deploy/upload",
+          "uploaddir":"/root/nuist/deploy/upload"
         },
         "node-args": "--nouse-idle-notification --gc_global --max-old-space-size=80960 --max-new-space-size=80960"
       }

@@ -101,24 +101,9 @@ PageForm = reduxForm({
 
 
 export class Page extends React.Component {
-    componentWillReceiveProps (nextProps) {
-        console.log(nextProps);
-        if(nextProps.loginsuccess && !this.props.loginsuccess){
-            console.log("------->" + JSON.stringify(this.props.location));
-            //search:?next=/devicelist
-            var fdStart = this.props.location.search.indexOf("?next=");
-            if(fdStart === 0){
-                const redirectRoute = this.props.location.search.substring(6);
-                this.props.history.replace(redirectRoute);
-            }
-            else{
-                this.props.history.replace('/');
-            }
-            return;
-        }
-    }
+
     onClickReturn =()=>{
-        this.props.history.goBack();
+      this.props.history.replace('/login');
     }
 
     componentWillUnmount(){
@@ -166,7 +151,7 @@ export class Page extends React.Component {
         */
         return (<div>
 		      <div className="pageheader login_head" onClick={()=>{
-            this.props.history.goBack();
+            this.props.history.replace('/login');
             }} >
             <span className="leftlnk">
               <img alt="" src={Img3} />
