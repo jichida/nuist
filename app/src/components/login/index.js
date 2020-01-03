@@ -88,7 +88,7 @@ class PageForm extends React.Component {
             onClick={handleSubmit(onClickLogin)}>登录</button>
 					</div>
           <div className="butn">
-						<button disabled={pristine || submitting}
+						<button
             onClick={()=>{this.props.history.replace('/register');}}>注册</button>
 					</div>
         		</div>
