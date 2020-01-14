@@ -17,7 +17,7 @@ const config =  {
   jpush_mastersecret:'dd52bf9de919a2a53441fce3',
   logdir:process.env.logdir ||'/Users/wangxiaoqing/Downloads/work201904/nuist/deploy/dist/log',
   srvredis:{
-    host:process.env.srvredis_host||'api.nuistiot.com',
+    host:process.env.srvredis_host||'127.0.0.1',
     port: process.env.srvredis_port|| 6379,
   },
   expRequestMinutes:200,//2分钟之内
@@ -26,7 +26,7 @@ const config =  {
   authexptime:120,//验证码有效期，2分钟
   pushdevicetopic:'pushdevicet',
   loginuserexptime:60*60*24*30,//用户登录有效期,30天
-  mongodburl:process.env.MONGO_URL || 'mongodb://dabauser:daba159@api.nuistiot.com/daba'//'mongodb://dabauser:daba159@api.nuistiot.com/daba',
+  mongodburl:process.env.MONGO_URL || 'mongodb://dabauser:daba159@127.0.0.1/daba'//'mongodb://dabauser:daba159@api.nuistiot.com/daba',
 };
 
 

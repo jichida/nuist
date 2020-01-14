@@ -1,11 +1,11 @@
 const config =  {
   appversion:'1.0.1(build0410)',
   logdir:process.env.logdir ||'../../dist/log',
-  mongodburl:process.env.MONGO_URL || 'mongodb://dabauser:daba159@api.nuistiot.com/daba',
+  mongodburl:process.env.MONGO_URL || 'mongodb://dabauser:daba159@127.0.0.1/daba',
   mongos:process.env.mongos==='true'?true:false,
   issendtoredis:process.env.issendtoredis==='false'?false:true,
   srvredis:{
-    host:process.env.srvredis_host||'api.nuistiot.com',
+    host:process.env.srvredis_host||'127.0.0.1',
     port: process.env.srvredis_port|| 6379,
   },
   listenport:process.env.listenport ||50000,
