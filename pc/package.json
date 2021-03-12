@@ -50,7 +50,7 @@
         "raf": "3.4.0",
         "react": "^16.2.0",
         "react-amap": "^1.2.3",
-        "react-dev-utils": "^5.0.0",
+        "react-dev-utils": "^11.0.4",
         "react-dom": "^16.2.0",
         "react-dynamic-swiper": "^1.1.2",
         "react-mobile-datepicker": "^3.0.8",
